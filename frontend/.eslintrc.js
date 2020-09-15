@@ -8,7 +8,6 @@ module.exports = {
     'plugin:react/recommended',
     'prettier/@typescript-eslint',
     'prettier/react',
-    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -20,18 +19,13 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'react-native'],
   rules: {
-    'require-jsdoc': 'off',
-    'react/prop-types': 'off',
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-    'no-unused-vars': 'warn',
-    '@typescript-eslint/no-unused-vars': ['warn'],
-    'valid-jsdoc': 'off',
     'no-shadow': 'warn',
-    'no-unreachable': 'error',
     'no-fallthrough': 'error',
     'max-len': ['error', { code: 120 }],
-    'react/no-unescaped-entities': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/consistent-type-definitions': [1, 'type'],
     'react-native/no-raw-text': [
       2,
       {
@@ -40,6 +34,7 @@ module.exports = {
     ],
     'react-native/no-single-element-style-arrays': 1,
     'react-native/no-unused-styles': 1,
+    'react-native/no-color-literals': 1,
   },
   settings: {
     react: {
