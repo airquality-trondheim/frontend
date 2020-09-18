@@ -8,13 +8,12 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Air Quality App</Text>
-      <Image source={death} style={{ width: 40, height: 40 }} />
       <View
         style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
+        lightColor='#eee'
+        darkColor='rgba(255,255,255,0.1)'
       />
-      <EditScreenInfo />
+      <EditScreenInfo path='/screens/TabOneScreen.tsx' />
     </View>
   );
 }
