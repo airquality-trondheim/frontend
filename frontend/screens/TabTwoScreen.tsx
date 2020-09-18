@@ -28,6 +28,7 @@ async function signOut() {
 function TabTwoScreen() {
   return (
     <View style={styles.container}>
+
       <Text style={styles.title}>
         Hello {Auth.Credentials.Auth.user.username}
       </Text>
