@@ -1,7 +1,7 @@
 import { Grid, Row } from "native-base";
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import { width } from "../constants/Layout";
+import { singleSideMargin, width } from "../constants/Layout";
 
 type CarouselItemType = {
   leftMostItem?: boolean;
@@ -19,9 +19,9 @@ const CarouselItem: React.FC<CarouselItemType> = ({
     <View
       style={
         leftMostItem
-          ? { ...styles.containerStyle, marginLeft: 20 }
+          ? { ...styles.containerStyle, marginLeft: singleSideMargin }
           : rightMostItem
-          ? { ...styles.containerStyle, marginRight: 20 }
+          ? { ...styles.containerStyle, marginRight: singleSideMargin }
           : styles.containerStyle
       }
     >
