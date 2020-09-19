@@ -1,14 +1,17 @@
-import { Text, View, StyleSheet } from "react-native";
-import { Grid, Row, Col, Container } from "native-base";
-import React from "react";
+import { Text, View, StyleSheet } from 'react-native';
+import { Grid, Row, Col, Container } from 'native-base';
+import React from 'react';
 import {
   DANGER5,
   DANGER4,
   DANGER3,
   DANGER2,
   DANGER1,
-} from "../constants/Colors";
-import { width, singleSideMargin } from "../constants/Layout";
+  WHITE,
+  BLACK,
+  INFOCARD,
+} from '../constants/Colors';
+import { width, singleSideMargin } from '../constants/Layout';
 
 function InfoCard() {
   return (
@@ -37,7 +40,7 @@ function InfoCard() {
             </View>
           </Row>
           <Row size={1}>
-            <Container style={{ position: "relative" }}>
+            <Container style={{ position: 'relative' }}>
               <Grid>
                 <Col size={1} style={{ backgroundColor: DANGER5 }}></Col>
                 <Col size={1} style={{ backgroundColor: DANGER4 }}></Col>
@@ -45,7 +48,7 @@ function InfoCard() {
                 <Col size={1} style={{ backgroundColor: DANGER2 }}></Col>
                 <Col size={1} style={{ backgroundColor: DANGER1 }}></Col>
               </Grid>
-              <View style={styles.sliderIndictor}></View>
+              <View style={[styles.sliderIndictor, styles.shadowStyle]}></View>
             </Container>
           </Row>
         </Grid>
@@ -59,7 +62,7 @@ export default InfoCard;
 const styles = StyleSheet.create({
   shadowStyle: {
     elevation: 10,
-    shadowColor: "#000",
+    shadowColor: BLACK,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -68,11 +71,11 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
   },
   containerStyle: {
-    backgroundColor: "#e0ece4",
+    backgroundColor: INFOCARD,
     width: width - singleSideMargin * 2,
     height: 200,
     borderRadius: 20,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   bottomBorder: {
     borderBottomWidth: 2,
@@ -83,13 +86,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   centerContent: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   headlineText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   leftCardText: {
     fontSize: 40,
@@ -98,20 +101,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   sliderIndictor: {
-    position: "absolute",
-    backgroundColor: "white",
+    position: 'absolute',
+    backgroundColor: WHITE,
     marginTop: 0.5,
     marginLeft: 250, //Will change depending on the air quality to move the indicator on the slider
     width: 20,
     height: 20,
     borderRadius: 40,
-    elevation: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
   },
 });

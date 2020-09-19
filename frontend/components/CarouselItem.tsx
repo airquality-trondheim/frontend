@@ -1,20 +1,22 @@
-import { Grid, Row } from "native-base";
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { singleSideMargin, width } from "../constants/Layout";
+import { Grid, Row } from 'native-base';
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { CAROUSELITEM } from '../constants/Colors';
+import { singleSideMargin, width } from '../constants/Layout';
 
 type CarouselItemType = {
   leftMostItem?: boolean;
   rightMostItem?: boolean;
   headerText: string;
+  children?: React.ReactNode;
 };
 
-const CarouselItem: React.FC<CarouselItemType> = ({
+const CarouselItem = ({
   leftMostItem = false,
   rightMostItem = false,
   headerText,
   children,
-}) => {
+}: CarouselItemType) => {
   return (
     <View
       style={
@@ -43,21 +45,21 @@ export { CarouselItem };
 
 const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: "#e0ece4",
+    backgroundColor: CAROUSELITEM,
     width: 0.5 * width,
     height: 200,
     borderRadius: 20,
-    overflow: "hidden",
+    overflow: 'hidden',
     marginLeft: 5,
     marginRight: 5,
   },
   centerContent: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
   },
   headlineText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 });

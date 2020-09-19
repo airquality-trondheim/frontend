@@ -1,7 +1,7 @@
-import React from "react";
-import { ScrollView, View, StyleSheet, Text } from "react-native";
-import { width } from "../constants/Layout";
-import { CarouselItem } from "./CarouselItem";
+import React from 'react';
+import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import { width } from '../constants/Layout';
+import { CarouselItem } from './CarouselItem';
 
 function LandingPageCarousel() {
   return (

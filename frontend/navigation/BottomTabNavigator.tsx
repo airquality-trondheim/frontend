@@ -1,15 +1,19 @@
-import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
-import * as React from "react";
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import * as React from 'react';
 
-import Colors from "../constants/Colors";
-import useColorScheme from "../hooks/useColorScheme";
-import LandingPage from "../screens/LandingPage";
-import TabTwoScreen from "../screens/TabTwoScreen";
-import { BottomTabParamList, HomeParamList, TabTwoParamList } from "../types";
+import Colors from '../constants/Colors';
+import useColorScheme from '../hooks/useColorScheme';
+import LandingPage from '../screens/LandingPage';
+import TabTwoScreen from '../screens/TabTwoScreen';
+import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+
+function createTabBarIcon(name: string, color: string) {
+  return <TabBarIcon name={name} color={color} />;
+}
 
 export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -23,18 +27,14 @@ export default function BottomTabNavigator() {
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="md-home" color={color} />
-          ),
+          tabBarIcon: ({ color }) => createTabBarIcon('md-home', color),
         }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-code" color={color} />
-          ),
+          tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
         }}
       />
     </BottomTab.Navigator>

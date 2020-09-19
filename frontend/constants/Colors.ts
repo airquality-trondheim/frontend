@@ -18,8 +18,12 @@ export default {
   },
 };
 
-export const DANGER5 = "#540d6e";
-export const DANGER4 = "#d62828";
-export const DANGER3 = "#ffd23f";
-export const DANGER2 = "#3bceac";
-export const DANGER1 = "#0ead69";
+export const DANGER5 = '#540d6e';
+export const DANGER4 = '#d62828';
+export const DANGER3 = '#ffd23f';
+export const DANGER2 = '#3bceac';
+export const DANGER1 = '#0ead69';
+export const CAROUSELITEM = '#e0ece4';
+export const INFOCARD = '#e0ece4';
+export const BLACK = '#000';
+export const WHITE = '#fff';
