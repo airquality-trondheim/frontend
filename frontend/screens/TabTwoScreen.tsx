@@ -28,16 +28,15 @@ async function signOut() {
 function TabTwoScreen() {
   return (
     <View style={styles.container}>
-
       <Text style={styles.title}>
         Hello {Auth.Credentials.Auth.user.username}
       </Text>
       <View
         style={styles.separator}
-        lightColor='#eee'
-        darkColor='rgba(255,255,255,0.1)'
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path='/screens/TabTwoScreen.tsx' />
+      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
       <View>
         <TouchableOpacity onPress={signOut}>
           <Text lightColor={Colors.light.tint}>Click here to log out</Text>

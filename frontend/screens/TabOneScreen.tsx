@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { death } from '../assets/images';
+import { StyleSheet } from 'react-native';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
@@ -10,10 +9,10 @@ export default function TabOneScreen() {
       <Text style={styles.title}>Air Quality App</Text>
       <View
         style={styles.separator}
-        lightColor='#eee'
-        darkColor='rgba(255,255,255,0.1)'
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
       />
-      <EditScreenInfo path='/screens/TabOneScreen.tsx' />
+      <EditScreenInfo />
     </View>
   );
 }

@@ -4,8 +4,10 @@ import {
   DarkTheme,
 } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from 'native-base';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, Image, ImageSourcePropType } from 'react-native';
+import { wind, snake } from '../assets/images';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
@@ -33,9 +35,24 @@ export default function Navigation({
 // Read more here: https://reactnavigation.org/docs/modal
 const Stack = createStackNavigator<RootStackParamList>();
 
+function createHeaderButton(source: ImageSourcePropType) {
+  return (
+    <Button transparent>
+      <Image source={source} style={{ width: 50, height: 50 }} />
+    </Button>
+  );
+}
+
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerLeft: () => createHeaderButton(wind),
+        headerRight: () => createHeaderButton(snake),
+        headerTitleAlign: 'center',
+        title: 'Air Quality',
+      }}
+    >
       <Stack.Screen name="Root" component={BottomTabNavigator} />
       <Stack.Screen
         name="NotFound"
