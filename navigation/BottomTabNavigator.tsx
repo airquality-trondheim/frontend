@@ -5,11 +5,23 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  CompetitionParamList,
+  HomeParamList,
+  TabTwoParamList,
+} from '../types/_types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+
+// You can explore the built-in icon families and icons on the web at:
+// https://icons.expo.fyi/
+function TabBarIcon(props: { name: string; color: string }) {
+  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
 
 function createTabBarIcon(name: string, color: string) {
   return <TabBarIcon name={name} color={color} />;
@@ -21,7 +33,10 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        showLabel: false,
+      }}
     >
       <BottomTab.Screen
         name="Home"
@@ -37,14 +52,15 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
         }}
       />
+      <BottomTab.Screen
+        name="Competition"
+        component={CompetitionNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('md-trophy', color),
+        }}
+      />
     </BottomTab.Navigator>
   );
-}
-
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -66,5 +82,18 @@ function TabTwoNavigator() {
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
     </TabTwoStack.Navigator>
+  );
+}
+
+const CompetitionStack = createStackNavigator<CompetitionParamList>();
+
+function CompetitionNavigator() {
+  return (
+    <CompetitionStack.Navigator>
+      <CompetitionStack.Screen
+        name="CompetitionPage"
+        component={CompetitionPage}
+      />
+    </CompetitionStack.Navigator>
   );
 }
