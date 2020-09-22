@@ -1,3 +1,4 @@
+// Navigation
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -19,4 +20,14 @@ export type TabTwoParamList = {
 
 export type CompetitionParamList = {
   CompetitionPage: undefined;
+};
+
+// Leaderboard
+export type LeaderboardElement = {
+  username: string;
+  points: number;
+};
+
+export type LeaderboardData = {
+  data: LeaderboardElement[];
 };

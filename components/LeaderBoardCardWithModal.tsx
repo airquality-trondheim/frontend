@@ -6,14 +6,16 @@ import { Grid, Row, Button } from 'native-base';
 import { MODALBACKGROUND, CLOSEBUTTON, WHITE } from '../constants/Colors';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
+import { connect } from 'react-redux';
+import { getLeaderboardData } from '../actions/leaderboardActions';
+import { RootState } from '../reducers';
+import { Dispatch } from 'redux';
+import { RootAction } from '../actions/types';
 
-function LeaderboardCardWithModal() {
-  const data = [
-    { userName: 'Joe', points: 52 },
-    { userName: 'Snake', points: 150 },
-    { userName: 'Jenny', points: 120 },
-  ];
+type LeaderboardProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
+function LeaderboardCardWithModal(props: LeaderboardProps) {
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -23,6 +25,11 @@ function LeaderboardCardWithModal() {
     };
   }, []);
 
+  const fetchDataAndUpdateModalVisible = () => {
+    props.getLeaderboardData();
+    updateModalVisible();
+  };
+
   const updateModalVisible = () => {
     if (!unmounted.current) {
       setModalVisible(!modalVisible);
@@ -30,7 +37,7 @@ function LeaderboardCardWithModal() {
   };
 
   return (
-    <TouchableOpacity onPress={updateModalVisible}>
+    <TouchableOpacity onPress={fetchDataAndUpdateModalVisible}>
       <CarouselItem leftMostItem headerText="Toppliste">
         <Text>Din plassering er...</Text>
       </CarouselItem>
@@ -49,7 +56,11 @@ function LeaderboardCardWithModal() {
                 </View>
               </Row>
               <Row size={5}>
-                <Leaderboard data={data} sortBy="points" labelBy="userName" />
+                <Leaderboard
+                  data={props.leaderboardData}
+                  sortBy="points"
+                  labelBy="username"
+                />
               </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
@@ -66,7 +77,24 @@ function LeaderboardCardWithModal() {
   );
 }
 
-export default LeaderboardCardWithModal;
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
+  return {
+    getLeaderboardData: () => {
+      getLeaderboardData(dispatch);
+    },
+  };
+};
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    leaderboardData: state.leaderboard.data,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LeaderboardCardWithModal);
 
 const styles = StyleSheet.create({
   centeredView: {
