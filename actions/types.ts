@@ -10,3 +10,5 @@ type GetLeaderboardAction = {
 };
 
 export type LeaderboardActionTypes = GetLeaderboardAction;
+
+export type MapActionTypes = null;

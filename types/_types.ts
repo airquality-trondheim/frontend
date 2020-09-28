@@ -36,3 +36,13 @@ export type LeaderboardElement = {
 export type LeaderboardData = {
   data: LeaderboardElement[];
 };
+
+// Map
+export type MapData = {
+  region: {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+};
