@@ -48,7 +48,7 @@ export default function BottomTabNavigator() {
         name="Map"
         component={MapNavigator}
         options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('md-home', color),
+          tabBarIcon: ({ color }) => createTabBarIcon('md-map', color),
         }}
       />
     </BottomTab.Navigator>

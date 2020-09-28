@@ -2,22 +2,28 @@ import React, { useState } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 
-function Map() {
-  const [location, setLocation] = useState({
+// TODO: create typescript interface for props
+// TODO: Map component take in props
+
+export default function Map() {
+  const [mapRegion, setMapRegion] = useState({
     latitude: 63.446827,
     longitude: 10.421906,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
+    latitudeDelta: 0.0043,
+    longitudeDelta: 0.0034,
   });
 
-  return <MapView style={{ flex: 1 }} region={location} />;
+  return (
+    <MapView
+      style={styles.map}
+      region={mapRegion}
+      onRegionChangeComplete={(region) => setMapRegion(region)}
+    />
+  );
 }
 
-export default Map;
-
-const Styles = StyleSheet.create({
-  mapStyle: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+const styles = StyleSheet.create({
+  map: {
+    flex: 1,
   },
 });
