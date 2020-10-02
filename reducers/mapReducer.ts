@@ -1,6 +1,7 @@
-import { MapActionTypes } from '../actions/types';
+import { GET_AIR_QUALITY_DATA, MapActionTypes } from '../actions/types';
 import { MapData } from '../types/_types';
 
+// User choose initial state?
 const initialState: MapData = {
   region: {
     latitude: 63.429477,
@@ -8,13 +9,19 @@ const initialState: MapData = {
     latitudeDelta: 0.03,
     longitudeDelta: 0.03,
   },
+  aqData: [],
 };
 
 export default function (
   state = initialState,
   action: MapActionTypes,
 ): MapData {
-  switch (true) {
+  switch (action.type) {
+    case GET_AIR_QUALITY_DATA:
+      return {
+        ...state,
+        aqData: action.data,
+      };
     default:
       return state;
   }
