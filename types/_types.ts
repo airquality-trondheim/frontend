@@ -24,10 +24,21 @@ export type CompetitionParamList = {
 
 // Leaderboard
 export type LeaderboardElement = {
+  id: string;
   username: string;
   points: number;
 };
 
 export type LeaderboardData = {
   data: LeaderboardElement[];
+};
+
+export type UserRanking = {
+  ranking: number;
+  user: LeaderboardElement;
+};
+
+export type LeaderboardState = {
+  data: LeaderboardElement[];
+  userRanking: UserRanking;
 };

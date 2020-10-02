@@ -1,29 +1,40 @@
 import { Dispatch } from 'redux';
+import { fetchLeaderboardData, fetchUserRanking } from '../queries/leaderboard';
 import store from '../store';
-import { GET_LEADERBOARD, RootAction } from './types';
+import { GET_LEADERBOARD, GET_USERRANKING, RootAction } from './types';
 
-// TODO: Uncomment and fix code below
-export function getLeaderboardData(dispatch: Dispatch<RootAction>) {
-  var data = [...store.getState().leaderboard.data];
+export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
+  const data = [...store.getState().leaderboard.data];
   if (data.length > 0) {
     // data has already been fetched
     return;
   }
-  return dispatch({
+  const userRanking = store.getState().leaderboard.userRanking;
+  const newData = await fetchLeaderboardData();
+  var i = 1;
+  for (const user of newData) {
+    if (user.id === userRanking.user.id && i !== userRanking.ranking) {
+      dispatch({
+        type: GET_USERRANKING,
+        userRanking: { ranking: i, user: user },
+      });
+      break;
+    }
+    i += 1;
+  }
+  dispatch({
     type: GET_LEADERBOARD,
-    data: [
-      { username: 'Joe', points: 52 },
-      { username: 'Snake', points: 150 },
-      { username: 'Jenny', points: 120 },
-    ],
+    data: newData,
   });
-  /*
-  fetchLeaderboardData().then((response, reject) => {
-    data = response.data.data; //??
-    dispatch({
-      type: GET_LEADERBOARD,
-      data: data,
-    });
+}
+
+export async function getUserRanking(
+  userID: string,
+  dispatch: Dispatch<RootAction>,
+) {
+  const newUserRanking = await fetchUserRanking(userID);
+  dispatch({
+    type: GET_USERRANKING,
+    userRanking: newUserRanking,
   });
-  */
 }
