@@ -1,21 +1,30 @@
-import { View, Text, Modal, StyleSheet } from 'react-native';
+import { View, Text, Modal, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Leaderboard from 'react-native-leaderboard';
 import { Grid, Row, Button } from 'native-base';
 import { MODALBACKGROUND, CLOSEBUTTON, WHITE } from '../constants/Colors';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
 import { connect } from 'react-redux';
-import { getLeaderboardData } from '../actions/leaderboardActions';
+import {
+  getLeaderboardData,
+  getUserRanking,
+} from '../actions/leaderboardActions';
 import { RootState } from '../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
+import LeaderboardItem from './LeaderboardItem';
 
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function LeaderboardCardWithModal(props: LeaderboardProps) {
+  const {
+    leaderboardData,
+    userRanking,
+    fetchLeaderboardData,
+    fetchUserRanking,
+  } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -25,8 +34,13 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     };
   }, []);
 
+  useEffect(() => {
+    // TODO: Change to user's ID after log in is done
+    fetchUserRanking('5f6dde0d71a2bf3507462942');
+  }, [fetchUserRanking]);
+
   const fetchDataAndUpdateModalVisible = () => {
-    props.getLeaderboardData();
+    fetchLeaderboardData();
     updateModalVisible();
   };
 
@@ -39,7 +53,11 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   return (
     <TouchableOpacity onPress={fetchDataAndUpdateModalVisible}>
       <CarouselItem leftMostItem headerText="Toppliste">
-        <Text>Din plassering er...</Text>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.text}>Du er på</Text>
+          <Text style={styles.placement}>{userRanking.ranking}.</Text>
+          <Text style={styles.text}>plass</Text>
+        </View>
       </CarouselItem>
       <Modal
         animationType="slide"
@@ -50,22 +68,27 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Grid>
-              <Row size={2}>
-                <View style={styles.centeredView}>
-                  <Text>Din plassering</Text>
-                </View>
-              </Row>
-              <Row size={5}>
-                <Leaderboard
-                  data={props.leaderboardData}
-                  sortBy="points"
-                  labelBy="username"
-                />
-              </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
+                  <Text style={styles.headerText}>Toppliste</Text>
+                </View>
+              </Row>
+              <Row size={1}>
+                <Text style={{ ...styles.text, flex: 1 }}>
+                  Din plassering: {userRanking.ranking}
+                </Text>
+              </Row>
+              <Row size={7}>
+                <FlatList
+                  data={leaderboardData}
+                  renderItem={(user) => LeaderboardItem(user)}
+                  keyExtractor={(user) => user.id}
+                />
+              </Row>
+              <Row size={1.25}>
+                <View style={styles.centeredView}>
                   <Button style={styles.button} onPress={updateModalVisible}>
-                    <Text style={styles.textStyle}>Lukk</Text>
+                    <Text style={styles.buttonText}>Lukk</Text>
                   </Button>
                 </View>
               </Row>
@@ -79,8 +102,11 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    getLeaderboardData: () => {
+    fetchLeaderboardData: () => {
       getLeaderboardData(dispatch);
+    },
+    fetchUserRanking: (userID: string) => {
+      getUserRanking(userID, dispatch);
     },
   };
 };
@@ -88,6 +114,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 const mapStateToProps = (state: RootState) => {
   return {
     leaderboardData: state.leaderboard.data,
+    userRanking: state.leaderboard.userRanking,
   };
 };
 
@@ -120,9 +147,21 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignSelf: 'center',
   },
-  textStyle: {
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 17,
+    textAlign: 'center',
+  },
+  buttonText: {
     color: WHITE,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  placement: {
+    fontSize: 50,
     textAlign: 'center',
   },
 });
