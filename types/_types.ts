@@ -41,4 +41,5 @@ export type WeatherElement = {
 
 export type WeatherData = {
   data: WeatherElement[];
+  lastFetched: Date;
 };

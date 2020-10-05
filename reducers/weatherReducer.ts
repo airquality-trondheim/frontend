@@ -3,6 +3,7 @@ import { WeatherData } from '../types/_types';
 
 const initialState: WeatherData = {
   data: [],
+  lastFetched: new Date(0),
 };
 
 export default function (
@@ -14,6 +15,7 @@ export default function (
       return {
         ...state,
         data: action.data,
+        lastFetched: action.lastFetched,
       };
     default:
       return state;
