@@ -3,6 +3,7 @@ Example: Moholt
 https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.4359
 */
 import axios, { AxiosRequestConfig } from 'axios';
+import { getWeatherData } from '../actions/weatherActions';
 
 const baseUrl = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?';
 const testUrl =
@@ -18,19 +19,33 @@ const exampleHeader = {
   'last-modified': 'Thu, 24 Sep 2020 14:41:07 GMT',
 };
 
-// TODO: Add to redux
-let expires = 'Thu, 24 Sep 2020 16:00:36 GMT';
+function createWeatherObject(
+  time: string,
+  temp: number,
+  windspeed: number,
+  rain: number,
+  symbol: string,
+) {
+  return { time, temp, windspeed, rain, symbol };
+}
 
+let expires = new Date('Thu, 24 Sep 2020 16:00:36 GMT'); // Endret her
 async function isModified(url: string) {
-  const currentDate = new Date().toUTCString();
+  const currentDate = new Date(); // Endret her
   if (currentDate < expires) {
     console.log(expires);
     return false;
   }
-  let res = await axios.head(url);
-  console.log(res.status, res.statusText);
-  console.log('Header', res.headers);
-  expires = res.headers['expires'];
+  let res = await axios(url);
+  const object = res.data.properties.timeseries[0].data;
+  const time = res.data.properties.timeseries[0].time;
+  const temp = object.instant.details.air_temperature;
+  const windSpeed = object.instant.details.wind_speed;
+  const rain = object.next_1_hours.details.precipitation_amount;
+  const symbol = object.next_1_hours.summary.symbol_code;
+  const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
+  console.log(weather);
+  expires = new Date(res.headers['expires']); // Endret her
   return true;
 }
 
@@ -47,13 +62,14 @@ export async function getWeatherDataForLocation(
     method: 'get',
     url: testUrl,
     headers: {
-      'User-Agent': 'School project',
+      'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
       'If-Modified-Since': 'Thu, 24 Sep 2020 14:58:26 GMT',
     },
   };
+  console.log(testUrl);
   let res = await axios(config);
   console.log(res.status, res.statusText);
-  console.log('Header', res.headers);
+  console.log('Header', res.data.type);
   console.log('Body');
 }
 
