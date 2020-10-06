@@ -1,16 +1,14 @@
 import React from 'react';
 
 import { View, StyleSheet } from 'react-native';
-import Map from '../components/Map';
-import Search from '../components/Search';
-
-// TODO: Redux stuff with Map
+import Map from '../components/map/Map';
+//import Search from '../components/map/Search';
 
 function MapPage() {
   return (
     <View style={styles.screenStyle}>
+      {/*<Search />*/}
       <Map />
-      <Search />
     </View>
   );
 }
@@ -20,6 +18,6 @@ export default MapPage;
 const styles = StyleSheet.create({
   screenStyle: {
     flex: 1,
-    position: 'relative',
+    //position: 'relative',
   },
 });

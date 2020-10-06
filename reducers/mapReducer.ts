@@ -1,7 +1,7 @@
 import { GET_AIR_QUALITY_DATA, MapActionTypes } from '../actions/types';
 import { MapData } from '../types/_types';
 
-// User choose initial state?
+// User choose initial state? Or from the location of the device?
 const initialState: MapData = {
   region: {
     latitude: 63.429477,

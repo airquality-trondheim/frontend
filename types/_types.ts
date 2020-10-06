@@ -68,5 +68,5 @@ export type MapData = {
     latitudeDelta: number;
     longitudeDelta: number;
   };
-  aqData: aqStationData[]; // TODO: Finne riktig type
+  aqData: aqStationData[];
 };
