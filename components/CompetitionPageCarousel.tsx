@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { width } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
-import LeaderboardCardWithModal from './LeaderboardCardWithModal';
+import LeaderboardCardWithModal from './LeaderBoardCardWithModal';
 
 function CompetitionPageCarousel() {
   return (
