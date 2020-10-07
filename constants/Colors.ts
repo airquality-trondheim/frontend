@@ -28,3 +28,7 @@ export const INFOCARD = '#e4ecf7';
 //'#e0ece4';
 export const BLACK = '#000';
 export const WHITE = '#fff';
+export const GRAY = '#d6d7da';
+export const LINK = '#2e78b7';
+export const ODDROWCOLOR = WHITE;
+export const EVENROWCOLOR = '#f2f5f7';
