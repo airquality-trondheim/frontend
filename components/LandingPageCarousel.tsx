@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ScrollView,
-  View,
-  StyleSheet,
-  Text,
-  Image,
-  Picker,
-} from 'react-native';
+import { ScrollView, View, StyleSheet, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -22,7 +15,6 @@ type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function LandingPageCarousel(props: WeatherProps) {
-  const [selectedValue, setSelectedValue] = useState('');
   return (
     <View style={styles.carouselContainerStyle}>
       {props.fetchWeatherData(63.4099, 10.4359)}
@@ -32,11 +24,13 @@ function LandingPageCarousel(props: WeatherProps) {
         >
           <CarouselItem leftMostItem headerText="Vær">
             <Text style={styles.headerStyle}>Tiller</Text>
-            <Text>{props.lastFetched.toUTCString().split(':')[0]}</Text>
-            <Image source={cloudy} style={styles.iconStyle} />
-
             {props.weatherData.length > 0 ? (
               <>
+                <Text>
+                  {'kl.' +
+                    props.weatherData[0].time.split('T')[1].split(':')[0]}
+                </Text>
+                <Image source={cloudy} style={styles.iconStyle} />
                 <Text>{props.weatherData[0].temp}℃</Text>
                 <Text>{props.weatherData[0].rain} mm</Text>
               </>
@@ -76,9 +70,9 @@ const styles = StyleSheet.create({
   carouselContainerStyle: {
     height: height * 0.5,
     width: width,
+    alignSelf: 'flex-start',
   },
   headerStyle: {
-    marginTop: 5,
     fontSize: 20,
   },
   iconStyle: {

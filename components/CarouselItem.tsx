@@ -33,7 +33,7 @@ const CarouselItem = ({
             <Text style={styles.headlineText}>{headerText}</Text>
           </View>
         </Row>
-        <Row size={3}>
+        <Row size={9}>
           <View style={styles.centerContent}>{children}</View>
         </Row>
       </Grid>
@@ -54,14 +54,12 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   centerContent: {
-    justifyContent: 'center',
+    marginTop: 20,
     alignItems: 'center',
     flex: 1,
   },
   headlineText: {
     fontSize: 20,
     fontWeight: 'bold',
-    alignSelf: 'flex-start',
-    marginLeft: 15,
   },
 });
