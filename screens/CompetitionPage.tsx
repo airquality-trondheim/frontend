@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CompetitionPageCarousel from '../components/CompetitionPageCarousel';
-import { CarouselItem } from '../components/CarouselItem';
 
 function CompetitionPage() {
   return (

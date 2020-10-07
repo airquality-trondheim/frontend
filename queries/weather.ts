@@ -5,7 +5,6 @@ https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.43
 import axios from 'axios';
 import store from '../store';
 import { WeatherData, WeatherElement } from '../types/_types';
-import { useDispatch, useSelector } from 'react-redux';
 const baseUrl = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?';
 
 function getUrl(latitude: number, longitude: number): string {
@@ -52,10 +51,7 @@ export async function getWeatherDataForLocation(
     'If-Modified-Since': lastFetched.toUTCString(),
   };
   try {
-    let res = await axios.get(
-      'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.4359',
-      { headers },
-    );
+    let res = await axios.get(getUrl(latitude, longitude), { headers });
     console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
     const object = res.data.properties.timeseries[0].data;
