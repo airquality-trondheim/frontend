@@ -31,14 +31,6 @@ function LandingPageCarousel(props: WeatherProps) {
           onPress={() => props.fetchWeatherData(63.4099, 10.4359)}
         >
           <CarouselItem leftMostItem headerText="Vær">
-            {/*<Picker
-                selectedValue={selectedValue}
-                style={{ height: 50, width: 150 }}
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-              >
-                <Picker.Item label="Tillerrr" value="Tillller" />
-                <Picker.Item label="Byåsen" value="Byåsen" />
-              </Picker>*/}
             <Text style={styles.headerStyle}>Tiller</Text>
             <Text>{props.lastFetched.toUTCString().split(':')[0]}</Text>
             <Image source={cloudy} style={styles.iconStyle} />
