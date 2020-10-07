@@ -5,7 +5,7 @@ https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.43
 import axios from 'axios';
 import store from '../store';
 import { WeatherData, WeatherElement } from '../types/_types';
-
+import { useDispatch, useSelector } from 'react-redux';
 const baseUrl = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?';
 
 function getUrl(latitude: number, longitude: number): string {
@@ -45,13 +45,17 @@ export async function getWeatherDataForLocation(
   latitude: number,
   longitude: number,
 ): Promise<WeatherData | null> {
+  console.log('Fetching');
   const lastFetched = store.getState().weather.lastFetched;
   const headers = {
     'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
     'If-Modified-Since': lastFetched.toUTCString(),
   };
   try {
-    let res = await axios.get(getUrl(latitude, longitude), { headers });
+    let res = await axios.get(
+      'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.4359',
+      { headers },
+    );
     console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
     const object = res.data.properties.timeseries[0].data;
@@ -61,7 +65,7 @@ export async function getWeatherDataForLocation(
     const rain = object.next_1_hours.details.precipitation_amount;
     const symbol = object.next_1_hours.summary.symbol_code;
     const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
-    console.log(weather);
+    console.log('weather', weather);
     return { data: [weather], lastFetched: updatedLastFetched };
   } catch (error) {
     console.log(error.response['status']);

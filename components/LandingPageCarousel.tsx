@@ -1,31 +1,52 @@
-import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  Picker,
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { getWeatherData } from '../actions/weatherActions';
-import { width } from '../constants/Layout';
+
 import { RootState } from '../reducers';
 import { CarouselItem } from './CarouselItem';
+import { cloudy } from '../assets/images/index';
+import { height, width } from '../constants/Layout';
 
 type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function LandingPageCarousel(props: WeatherProps) {
+  const [selectedValue, setSelectedValue] = useState('');
   return (
     <View style={styles.carouselContainerStyle}>
+      {props.fetchWeatherData(63.4099, 10.4359)}
       <ScrollView horizontal>
         <TouchableOpacity
-          onPress={() => props.fetchWeatherData(10.4359, 63.4099)}
+          onPress={() => props.fetchWeatherData(63.4099, 10.4359)}
         >
           <CarouselItem leftMostItem headerText="Vær">
-            <Text>Dette er været</Text>
-            <Text>{props.lastFetched.toUTCString()}</Text>
+            {/*<Picker
+                selectedValue={selectedValue}
+                style={{ height: 50, width: 150 }}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+              >
+                <Picker.Item label="Tillerrr" value="Tillller" />
+                <Picker.Item label="Byåsen" value="Byåsen" />
+              </Picker>*/}
+            <Text style={styles.headerStyle}>Tiller</Text>
+            <Text>{props.lastFetched.toUTCString().split(':')[0]}</Text>
+            <Image source={cloudy} style={styles.iconStyle} />
+
             {props.weatherData.length > 0 ? (
               <>
-                <Text>Temp: {props.weatherData[0].temp}℃</Text>
-                <Text>Rain: {props.weatherData[0].rain}</Text>
+                <Text>{props.weatherData[0].temp}℃</Text>
+                <Text>{props.weatherData[0].rain} mm</Text>
               </>
             ) : (
               <></>
@@ -61,7 +82,15 @@ export default connect(
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: 205,
+    height: height * 0.5,
     width: width,
+  },
+  headerStyle: {
+    marginTop: 5,
+    fontSize: 20,
+  },
+  iconStyle: {
+    height: 100,
+    width: 100,
   },
 });
