@@ -8,11 +8,13 @@ import useColorScheme from '../hooks/useColorScheme';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
+import MapPage from '../screens/MapPage';
 import {
   BottomTabParamList,
   CompetitionParamList,
   HomeParamList,
   TabTwoParamList,
+  MapParamList,
 } from '../types/_types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
@@ -52,6 +54,15 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
         }}
       />
+
+      <BottomTab.Screen
+        name="Map"
+        component={MapNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('md-map', color),
+        }}
+      />
+
       <BottomTab.Screen
         name="Competition"
         component={CompetitionNavigator}
@@ -82,6 +93,16 @@ function TabTwoNavigator() {
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
     </TabTwoStack.Navigator>
+  );
+}
+
+const MapStack = createStackNavigator<MapParamList>();
+
+function MapNavigator() {
+  return (
+    <MapStack.Navigator>
+      <MapStack.Screen name="MapPage" component={MapPage} />
+    </MapStack.Navigator>
   );
 }
 

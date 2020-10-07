@@ -1,4 +1,8 @@
-import { LeaderboardElement, UserRanking } from '../types/_types';
+import {
+  aqStationData,
+  LeaderboardElement,
+  UserRanking,
+} from '../types/_types';
 
 export type RootAction = LeaderboardActionTypes;
 
@@ -11,11 +15,20 @@ type GetLeaderboardAction = {
   data: LeaderboardElement[];
 };
 
+export type LeaderboardActionTypes =
+  | GetLeaderboardAction
+  | GetUserRankingAction;
+
+// Map
+export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
+
+type GetAirQualityDataAction = {
+  type: typeof GET_AIR_QUALITY_DATA;
+  data: aqStationData[];
+};
+
+export type MapActionTypes = GetAirQualityDataAction;
 type GetUserRankingAction = {
   type: typeof GET_USERRANKING;
   userRanking: UserRanking;
 };
-
-export type LeaderboardActionTypes =
-  | GetLeaderboardAction
-  | GetUserRankingAction;
