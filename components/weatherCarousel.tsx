@@ -21,7 +21,7 @@ export function WeatherCarousel(props: WeatherProps) {
     };
   }, []);
  */
-  useEffect(() => fetchWeatherData(63.4099, 10.4359), []);
+  useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
   /*  useEffect(() => {
     if (!unmounted.current && weatherData.length > 0) {
       setTextIcon('../assets/images/png/' + weatherData[0].symbol + '.png');

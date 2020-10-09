@@ -10,6 +10,7 @@ export type RootAction =
   | LeaderboardActionTypes
   | MapActionTypes;
 
+// Weather
 export const GET_WEATHER = 'GET_WEATHER';
 
 type GetWeatherAction = {
@@ -33,6 +34,11 @@ export type LeaderboardActionTypes =
   | GetLeaderboardAction
   | GetUserRankingAction;
 
+type GetUserRankingAction = {
+  type: typeof GET_USERRANKING;
+  userRanking: UserRanking;
+};
+
 // Map
 export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
 
@@ -42,7 +48,3 @@ type GetAirQualityDataAction = {
 };
 
 export type MapActionTypes = GetAirQualityDataAction;
-type GetUserRankingAction = {
-  type: typeof GET_USERRANKING;
-  userRanking: UserRanking;
-};

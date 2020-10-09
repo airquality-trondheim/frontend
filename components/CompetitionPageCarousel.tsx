@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { width, height } from '../constants/Layout';
+import { width, height, carouselHeight } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
 import LeaderboardCardWithModal from './LeaderBoardCardWithModal';
 
@@ -20,7 +20,7 @@ export default CompetitionPageCarousel;
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: height * 0.5 + 5,
+    height: carouselHeight,
     width: width,
   },
 });

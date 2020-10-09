@@ -13,7 +13,6 @@ export async function getWeatherData(
     longitude,
   );
   if (weatherData === null) {
-    console.log('Feil');
     return;
   }
   dispatch({

@@ -5,7 +5,6 @@ import CompetitionPageCarousel from '../components/CompetitionPageCarousel';
 function CompetitionPage() {
   return (
     <View style={styles.screenStyle}>
-      {/*<CarouselItem headerText="Hei" />*/}
       <CompetitionPageCarousel />
     </View>
   );

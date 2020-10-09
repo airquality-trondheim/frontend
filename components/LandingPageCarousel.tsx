@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { CarouselItem } from './CarouselItem';
-import { height, width } from '../constants/Layout';
+import { carouselHeight, height, width } from '../constants/Layout';
 import WeatherCarousel from './weatherCarousel';
 
 export default function LandingPageCarousel() {
@@ -20,7 +20,7 @@ export default function LandingPageCarousel() {
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: height * 0.5,
+    height: carouselHeight,
     width: width,
     alignSelf: 'flex-start',
   },

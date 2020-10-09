@@ -37,19 +37,6 @@ export type LeaderboardData = {
   data: LeaderboardElement[];
 };
 
-export type WeatherElement = {
-  time: string;
-  temp: number;
-  windSpeed: number;
-  rain: number;
-  symbol: string;
-};
-
-export type WeatherData = {
-  data: WeatherElement[];
-  lastFetched: Date;
-};
-
 export type UserRanking = {
   ranking: number;
   user: LeaderboardElement;
@@ -61,7 +48,6 @@ export type LeaderboardState = {
 };
 
 // Map
-
 export type aqStationData = {
   _id: string;
   id: number;
@@ -92,4 +78,18 @@ export type MapData = {
     longitudeDelta: number;
   };
   aqData: aqStationData[];
+};
+
+//Weather
+export type WeatherElement = {
+  time: string;
+  temp: number;
+  windSpeed: number;
+  rain: number;
+  symbol: string;
+};
+
+export type WeatherData = {
+  data: WeatherElement[];
+  lastFetched: Date;
 };

@@ -21,30 +21,10 @@ function createWeatherObject(
   return { time, temp, windSpeed, rain, symbol };
 }
 
-async function isModified(url: string) {
-  const lastFetched = store.getState().weather.lastFetched;
-  try {
-    const headers = {
-      'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
-      'If-Modified-Since': lastFetched.toUTCString(),
-    };
-    let res = await axios.head(url, { headers });
-    const lastUpdated = new Date(res.headers['last-modified']);
-    if (lastFetched > lastUpdated) {
-      return false;
-    }
-    return true;
-  } catch (error) {
-    console.log(error.response['status']);
-    return false;
-  }
-}
-
 export async function getWeatherDataForLocation(
   latitude: number,
   longitude: number,
 ): Promise<WeatherData | null> {
-  console.log('Fetching');
   const lastFetched = store.getState().weather.lastFetched;
   const headers = {
     'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
@@ -61,7 +41,6 @@ export async function getWeatherDataForLocation(
     const rain = object.next_1_hours.details.precipitation_amount;
     const symbol = object.next_1_hours.summary.symbol_code;
     const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
-    console.log('weather', weather);
     return { data: [weather], lastFetched: updatedLastFetched };
   } catch (error) {
     console.log(error.response['status']);
