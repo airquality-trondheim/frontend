@@ -2,9 +2,24 @@ import {
   aqStationData,
   LeaderboardElement,
   UserRanking,
+  WeatherElement,
 } from '../types/_types';
 
-export type RootAction = LeaderboardActionTypes;
+export type RootAction =
+  | WeatherActionTypes
+  | LeaderboardActionTypes
+  | MapActionTypes;
+
+// Weather
+export const GET_WEATHER = 'GET_WEATHER';
+
+type GetWeatherAction = {
+  type: typeof GET_WEATHER;
+  data: WeatherElement[];
+  lastFetched: Date;
+};
+
+export type WeatherActionTypes = GetWeatherAction;
 
 // Leaderboard
 export const GET_LEADERBOARD = 'GET_LEADERBOARD';
@@ -19,6 +34,11 @@ export type LeaderboardActionTypes =
   | GetLeaderboardAction
   | GetUserRankingAction;
 
+type GetUserRankingAction = {
+  type: typeof GET_USERRANKING;
+  userRanking: UserRanking;
+};
+
 // Map
 export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
 
@@ -28,7 +48,3 @@ type GetAirQualityDataAction = {
 };
 
 export type MapActionTypes = GetAirQualityDataAction;
-type GetUserRankingAction = {
-  type: typeof GET_USERRANKING;
-  userRanking: UserRanking;
-};

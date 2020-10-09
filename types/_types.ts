@@ -1,4 +1,3 @@
-// Navigation
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -49,7 +48,6 @@ export type LeaderboardState = {
 };
 
 // Map
-
 export type aqStationData = {
   _id: string;
   id: number;
@@ -80,4 +78,18 @@ export type MapData = {
     longitudeDelta: number;
   };
   aqData: aqStationData[];
+};
+
+//Weather
+export type WeatherElement = {
+  time: string;
+  temp: number;
+  windSpeed: number;
+  rain: number;
+  symbol: string;
+};
+
+export type WeatherData = {
+  data: WeatherElement[];
+  lastFetched: Date;
 };
