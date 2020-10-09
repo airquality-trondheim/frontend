@@ -59,7 +59,6 @@ export type LeaderboardState = {
 };
 
 // Map
-
 export type aqStationData = {
   _id: string;
   id: number;
@@ -95,4 +94,18 @@ export type MapData = {
 // Points
 export type PointsState = {
   points: number;
+};
+
+//Weather
+export type WeatherElement = {
+  time: string;
+  temp: number;
+  windSpeed: number;
+  rain: number;
+  symbol: string;
+};
+
+export type WeatherData = {
+  data: WeatherElement[];
+  lastFetched: Date;
 };

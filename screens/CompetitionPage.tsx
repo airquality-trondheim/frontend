@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import CompetitionPageCarousel from '../components/CompetitionPageCarousel';
-import { CarouselItem } from '../components/CarouselItem';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { RootState } from '../reducers';
 import { getUserPoints } from '../actions/pointsActions';
+import { height, width } from '../constants/Layout';
+import { CAROUSELITEM } from '../constants/Colors';
 
 type CompetitionPageProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -21,9 +22,9 @@ function CompetitionPage(props: CompetitionPageProps) {
 
   return (
     <View style={styles.screenStyle}>
-      <CarouselItem headerText="Hei">
+      <View style={styles.card}>
         <Text>Poeng: {points > -1 ? points : 'Kunne ikke hente poeng'}</Text>
-      </CarouselItem>
+      </View>
       <CompetitionPageCarousel />
     </View>
   );
@@ -49,5 +50,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
+  },
+  card: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width * 0.6,
+    height: height * 0.1,
+    backgroundColor: CAROUSELITEM,
+    borderRadius: 20,
   },
 });
