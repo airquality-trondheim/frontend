@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: CAROUSELITEM,
     width: 0.5 * width,
-    height: height * 0.5,
+    height: height * 0.4,
     borderRadius: 20,
     overflow: 'hidden',
     marginLeft: 5,
