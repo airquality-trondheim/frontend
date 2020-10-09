@@ -27,6 +27,16 @@ export type CompetitionParamList = {
   CompetitionPage: undefined;
 };
 
+// User
+export type UserElement = {
+  _id: string;
+  username: string;
+  points: number;
+  __v: 0;
+  createdAt: string;
+  updatedAt: string;
+};
+
 // Leaderboard
 export type LeaderboardElement = {
   id: string;
@@ -80,4 +90,9 @@ export type MapData = {
     longitudeDelta: number;
   };
   aqData: aqStationData[];
+};
+
+// Points
+export type PointsState = {
+  points: number;
 };

@@ -1,15 +1,6 @@
-import { LeaderboardElement, UserRanking } from '../types/_types';
+import { LeaderboardElement, UserElement, UserRanking } from '../types/_types';
 const endpoint =
   'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/leaderboard/';
-
-type UserElement = {
-  _id: string;
-  username: string;
-  points: number;
-  __v: 0;
-  createdAt: string;
-  updatedAt: string;
-};
 
 type Rankings = {
   rankings: UserElement[];
