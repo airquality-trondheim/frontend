@@ -5,12 +5,7 @@ import Map from '../components/map/Map';
 //import Search from '../components/map/Search';
 
 function MapPage() {
-  return (
-    <View style={styles.screenStyle}>
-      {/*<Search />*/}
-      <Map />
-    </View>
-  );
+  return <View style={styles.screenStyle}>{/*<Search /><Map />*/}</View>;
 }
 
 export default MapPage;
