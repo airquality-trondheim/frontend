@@ -10,7 +10,7 @@ import { ColorSchemeName, Image, ImageSourcePropType } from 'react-native';
 import { wind, snake } from '../assets/images';
 
 import NotFoundScreen from '../screens/NotFoundScreen';
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from '../types/_types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 

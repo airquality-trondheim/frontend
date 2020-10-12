@@ -7,7 +7,13 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
+import AchievementPage from '../screens/AchievementPage';
+import {
+  BottomTabParamList,
+  HomeParamList,
+  TabTwoParamList,
+  CompetitionParamList,
+} from '../types/_types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -33,6 +39,13 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
+        }}
+      />
+      <BottomTab.Screen
+        name="Competition"
+        component={CompetitionNavigator}
         options={{
           tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
         }}
@@ -66,5 +79,18 @@ function TabTwoNavigator() {
     <TabTwoStack.Navigator>
       <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
     </TabTwoStack.Navigator>
+  );
+}
+
+const CompetitionStack = createStackNavigator<CompetitionParamList>();
+
+function CompetitionNavigator() {
+  return (
+    <CompetitionStack.Navigator>
+      <CompetitionStack.Screen
+        name="AchievementPage"
+        component={AchievementPage}
+      />
+    </CompetitionStack.Navigator>
   );
 }
