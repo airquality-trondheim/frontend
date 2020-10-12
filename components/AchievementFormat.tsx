@@ -95,6 +95,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
     alignItems: 'center',
+    shadowColor: 'black',
+    shadowOffset: { width: 10, height: 10 },
+    elevation: 1,
+    shadowOpacity: 0.2,
   },
 
   touchableStyle: {
