@@ -1,4 +1,4 @@
-import { Button, Text } from 'native-base';
+import { Button, Row, Text } from 'native-base';
 import React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
@@ -16,7 +16,6 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
 
   const updateModal = () => {
     setModVisible(!modVisible);
-    console.log('her ja');
   };
 
   return (
@@ -37,43 +36,73 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              height: 50,
+              marginVertical: width * 0.01,
             }}
           >
-            <Text style={[styles.TextFormat, { fontSize: 50 }]}>
+            <Text style={{ fontSize: 50 }}>
               {String.fromCodePoint(data.achievementSymbol)}
             </Text>
+            <Text style={{ flexWrap: 'wrap', fontSize: 10 }}>
+              {data.achievementName}
+            </Text>
           </View>
-          <Modal transparent={true} visible={modVisible}>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Modal transparent={true} visible={modVisible} animationType="fade">
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                flex: 1,
+              }}
+            >
               <View
                 style={{
                   width: width * 0.9,
                   height: height * 0.7,
-                  backgroundColor: 'red',
+                  backgroundColor: 'white',
                   justifyContent: 'center',
+                  borderRadius: 20,
                   alignItems: 'center',
                 }}
               >
-                <View style={{ flex: 8 }}>
-                  <View>
-                    <Text>{data.achievementName}</Text>
+                <Row size={1}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <Text style={[styles.TextFormat, { fontSize: 35 }]}>
+                      {data.achievementName}
+                    </Text>
                   </View>
-                  <Text>{data.achievementDescription}</Text>
-                </View>
-                <View
-                  style={{ flexDirection: 'row', justifyContent: 'center' }}
+                </Row>
+                <Row size={8}>
+                  <View
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                  >
+                    <Text style={{ fontSize: 250 }}>
+                      {String.fromCodePoint(data.achievementSymbol)}
+                    </Text>
+                    <Text>{data.achievementDescription}</Text>
+                  </View>
+                </Row>
+                <Row
+                  size={1}
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
                 >
                   <Button
                     style={{
-                      width: width * 0.1,
-                      height: height * 0.1,
-                      backgroundColor: 'blue',
-                      flex: 1,
+                      width: width * 0.2,
+                      height: height * 0.04,
+                      backgroundColor: BACKGROUNDCOLOR2,
+                      borderRadius: 15,
                     }}
                     onPress={updateModal}
-                  ></Button>
-                </View>
+                  >
+                    <Text style={{ fontSize: 20 }}>Lukk</Text>
+                  </Button>
+                </Row>
               </View>
             </View>
           </Modal>

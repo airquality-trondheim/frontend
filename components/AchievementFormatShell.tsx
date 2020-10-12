@@ -4,7 +4,7 @@ import AchievementCard, { AchievementCardProps } from './AchievementCard';
 import { width, height } from '../constants/Layout';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
-  BACKGROUNDCOLOR1,
+  BACKGROUNDCOLOR2,
   BACKGROUNDCOLOR3,
   BACKGROUNDCOLOR4,
 } from '../constants/Colors';
@@ -20,7 +20,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   let accumulator: accumulatorInterface = {};
 
   let recentAchievements = dataSet.AchievementCardData.sort((a, b) => {
-    return a.Date > b.Date ? 1 : -1;
+    return a.Date > b.Date ? -1 : 1;
   });
 
   let data = dataSet.AchievementCardData.reduce((r, a) => {
@@ -62,10 +62,10 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
             >
               <View
                 style={{
-                  backgroundColor: BACKGROUNDCOLOR1,
+                  backgroundColor: BACKGROUNDCOLOR2,
                   borderRadius: 20,
-                  width: width * 0.8,
-                  height: width * 0.02,
+                  width: width * 0.9,
+                  height: width * 0.01,
                   marginHorizontal: 40,
                 }}
               />
@@ -79,7 +79,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                   justifyContent: 'flex-start',
-                  width: width * 0.82,
+                  width: width * 0.83,
                 }}
               >
                 {dato.map((data, index) => {
