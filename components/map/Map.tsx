@@ -37,7 +37,7 @@ function Map(props: mapProps) {
       style={styles.map}
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
-      // showsUserLocation={true}
+      showsUserLocation={true}
       // showsMyLocationButton={true}
     >
       {aqStations.map((aqStation: aqStationData, i) => {

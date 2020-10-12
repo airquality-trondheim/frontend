@@ -80,6 +80,31 @@ export type MapData = {
   aqData: aqStationData[];
 };
 
+//Session
+export type waypoints = {
+  longitude: number;
+  latitude: number;
+  timestamp: Date;
+  pollutionLevel: string;
+};
+
+export type SessionSchema = {
+  userId: string;
+  sessionType: string;
+  startTime: Date;
+  stopTime: Date;
+  waypoints: waypoints[];
+};
+
+export type SessionSummary = {
+  distance: number;
+  time: string;
+  totalPoints: number;
+  activityPoints: number;
+  airQualityPoints: number;
+  achievementPoints: number;
+};
+
 //Weather
 export type WeatherElement = {
   time: string;
