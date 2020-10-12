@@ -32,56 +32,25 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
 
   return (
     <View style={styles.outerView}>
-      <ScrollView
-        contentContainerStyle={{
-          backgroundColor: BACKGROUNDCOLOR3,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <ScrollView contentContainerStyle={styles.scrollStyle}>
         <View>
           <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         </View>
-        <View
-          style={{
-            justifyContent: 'flex-start',
-            flexDirection: 'row',
-            marginHorizontal: 40,
-          }}
-        >
+        <View style={styles.recentStyle}>
           {recentAchievements.slice(0, 3).map((data, index) => {
             return AchievementFormat(data, index);
           })}
         </View>
         {arrayData.map((dato, index) => {
           return (
-            <View
-              key={index}
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <View
-                style={{
-                  backgroundColor: BACKGROUNDCOLOR2,
-                  borderRadius: 20,
-                  width: width * 0.9,
-                  height: width * 0.01,
-                  marginHorizontal: 40,
-                }}
-              />
-              <View style={{ alignItems: 'center' }}>
+            <View key={index} style={styles.centerContent}>
+              <View style={styles.seperatorStyle} />
+              <View style={styles.centerContent}>
                 <Text style={styles.TextFormat}>
                   {dato[0].achievementGroup}
                 </Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  justifyContent: 'flex-start',
-                  width: width * 0.83,
-                }}
-              >
+              <View style={styles.groupStyle}>
                 {dato.map((data, index) => {
                   return AchievementFormat(data, index);
                 })}
@@ -97,6 +66,39 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
 export { AchievementFormatShell };
 
 const styles = StyleSheet.create({
+  groupStyle: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    width: width * 0.83,
+  },
+
+  seperatorStyle: {
+    backgroundColor: BACKGROUNDCOLOR2,
+    borderRadius: 20,
+    width: width * 0.9,
+    height: width * 0.01,
+    marginHorizontal: 40,
+  },
+
+  centerContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  recentStyle: {
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    marginHorizontal: width * 0.0383,
+  },
+
+  scrollStyle: {
+    backgroundColor: BACKGROUNDCOLOR3,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   TextFormat: {
     fontSize: 20,
     fontWeight: 'bold',

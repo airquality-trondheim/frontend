@@ -19,25 +19,11 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
   };
 
   return (
-    <View
-      key={index}
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        height: width * 0.2,
-        width: width * 0.2,
-        margin: 15,
-      }}
-    >
-      <TouchableHighlight onPress={updateModal} style={[styles.buttonStyle]}>
+    <View key={index} style={styles.AchievementBox}>
+      <TouchableHighlight onPress={updateModal} style={[styles.touchableStyle]}>
         <View>
           <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginVertical: width * 0.01,
-            }}
+            style={[styles.centerContent, { marginVertical: width * 0.01 }]}
           >
             <Text style={{ fontSize: 50 }}>
               {String.fromCodePoint(data.achievementSymbol)}
@@ -47,59 +33,25 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
             </Text>
           </View>
           <Modal transparent={true} visible={modVisible} animationType="fade">
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flex: 1,
-              }}
-            >
-              <View
-                style={{
-                  width: width * 0.9,
-                  height: height * 0.7,
-                  backgroundColor: 'white',
-                  justifyContent: 'center',
-                  borderRadius: 20,
-                  alignItems: 'center',
-                }}
-              >
+            <View style={[styles.centerContent, { flex: 1 }]}>
+              <View style={styles.modalView}>
                 <Row size={1}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
+                  <View style={styles.centerContent}>
                     <Text style={[styles.TextFormat, { fontSize: 35 }]}>
                       {data.achievementName}
                     </Text>
                   </View>
                 </Row>
                 <Row size={8}>
-                  <View
-                    style={{ justifyContent: 'center', alignItems: 'center' }}
-                  >
+                  <View style={styles.centerContent}>
                     <Text style={{ fontSize: 250 }}>
                       {String.fromCodePoint(data.achievementSymbol)}
                     </Text>
                     <Text>{data.achievementDescription}</Text>
                   </View>
                 </Row>
-                <Row
-                  size={1}
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Button
-                    style={{
-                      width: width * 0.2,
-                      height: height * 0.04,
-                      backgroundColor: BACKGROUNDCOLOR2,
-                      borderRadius: 15,
-                    }}
-                    onPress={updateModal}
-                  >
+                <Row size={1} style={styles.centerContent}>
+                  <Button style={styles.buttonStyle} onPress={updateModal}>
                     <Text style={{ fontSize: 20 }}>Lukk</Text>
                   </Button>
                 </Row>
@@ -115,6 +67,20 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
 export { AchievementFormat };
 
 const styles = StyleSheet.create({
+  AchievementBox: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: width * 0.2,
+    width: width * 0.2,
+    margin: width * 0.0383,
+  },
+
+  centerContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   TextFormat: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -123,17 +89,26 @@ const styles = StyleSheet.create({
   },
 
   modalView: {
-    flex: 1,
+    width: width * 0.9,
+    height: height * 0.7,
+    backgroundColor: 'white',
     justifyContent: 'center',
-    flexDirection: 'row',
-    backgroundColor: BACKGROUNDCOLOR2,
+    borderRadius: 20,
+    alignItems: 'center',
   },
 
-  buttonStyle: {
+  touchableStyle: {
     width: width * 0.2,
     height: width * 0.2,
     backgroundColor: BACKGROUNDCOLOR4,
     borderRadius: 10,
     alignItems: 'center',
+  },
+
+  buttonStyle: {
+    width: width * 0.2,
+    height: height * 0.04,
+    backgroundColor: BACKGROUNDCOLOR2,
+    borderRadius: 15,
   },
 });

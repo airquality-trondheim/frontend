@@ -59,7 +59,6 @@ const AchievementCard = (props: AchievementCardProps) => {
                     <Text style={styles.textStyle}>Bragder</Text>
                   </View>
                 </Row>
-                <View></View>
                 <Row size={8}>
                   <AchievementFormatShell {...props} />
                 </Row>
