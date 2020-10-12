@@ -118,15 +118,8 @@ const styles = StyleSheet.create({
   innerView: {
     backgroundColor: BACKGROUNDCOLOR2,
     borderRadius: 20,
-    width: 0.9 * width,
-    height: 0.75 * height,
-  },
-
-  touchView: {
-    justifyContent: 'center',
-    alignContent: 'center',
     width: width,
-    height: height,
+    height: 0.75 * height,
   },
 
   textStyle: {

@@ -31,6 +31,7 @@ export type AchievementCardElement = {
   achievementName: string;
   achievementDescription: string;
   achievementGroup: string;
+  Date: Date;
 };
 
 export type AchievementCardData = {

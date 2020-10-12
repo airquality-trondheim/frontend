@@ -1,7 +1,8 @@
 import { Button, Text } from 'native-base';
 import React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Modal } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import {
   BACKGROUNDCOLOR2,
   BACKGROUNDCOLOR1,
@@ -15,53 +16,69 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
 
   const updateModal = () => {
     setModVisible(!modVisible);
-    console.log(modVisible);
+    console.log('her ja');
   };
 
   return (
-    <View key={index}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}
-      >
-        <Button
-          onPress={updateModal}
-          style={[
-            styles.buttonStyle,
-            {
-              height: 50,
-              width: width * 0.6,
-              margin: 4,
-            },
-          ]}
-        >
+    <View
+      key={index}
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        height: width * 0.2,
+        width: width * 0.2,
+        margin: 15,
+      }}
+    >
+      <TouchableHighlight onPress={updateModal} style={[styles.buttonStyle]}>
+        <View>
           <View
             style={{
-              flex: 4,
-              flexDirection: 'row',
+              justifyContent: 'center',
               alignItems: 'center',
               height: 50,
             }}
           >
-            <Text style={[styles.TextFormat, { fontSize: 40 }]}>
-              {'' + String.fromCodePoint(data.achievementSymbol)}
+            <Text style={[styles.TextFormat, { fontSize: 50 }]}>
+              {String.fromCodePoint(data.achievementSymbol)}
             </Text>
-            <Text style={styles.TextFormat}>{'' + data.achievementName}</Text>
           </View>
-          <View style={{ flex: 1, justifyContent: 'center' }}></View>
-        </Button>
-      </View>
-
-      <View style={styles.modalView}>
-        {modVisible && (
-          <Text style={[styles.TextFormat, { fontSize: 14 }]}>
-            {data.achievementDescription}
-          </Text>
-        )}
-      </View>
+          <Modal transparent={true} visible={modVisible}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <View
+                style={{
+                  width: width * 0.9,
+                  height: height * 0.7,
+                  backgroundColor: 'red',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <View style={{ flex: 8 }}>
+                  <View>
+                    <Text>{data.achievementName}</Text>
+                  </View>
+                  <Text>{data.achievementDescription}</Text>
+                </View>
+                <View
+                  style={{ flexDirection: 'row', justifyContent: 'center' }}
+                >
+                  <Button
+                    style={{
+                      width: width * 0.1,
+                      height: height * 0.1,
+                      backgroundColor: 'blue',
+                      flex: 1,
+                    }}
+                    onPress={updateModal}
+                  ></Button>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      </TouchableHighlight>
     </View>
   );
 };
@@ -84,8 +101,10 @@ const styles = StyleSheet.create({
   },
 
   buttonStyle: {
-    // width: width * 0.05,
-    // height: width * 0.05,
+    width: width * 0.2,
+    height: width * 0.2,
     backgroundColor: BACKGROUNDCOLOR4,
+    borderRadius: 10,
+    alignItems: 'center',
   },
 });
