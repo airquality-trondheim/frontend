@@ -31,13 +31,23 @@ export async function getWeatherDataForLocation(
     'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
     'If-Modified-Since': lastFetched.toUTCString(),
   };
+  function setTime(time: string) {
+    let currentTime = new Date().getHours();
+    let dataTime = parseInt(time.split('T')[1].split(':')[0], 10);
+    return (
+      console.log('current', currentTime, 'data:', dataTime),
+      currentTime - dataTime
+    );
+  }
   try {
     const forecast: WeatherElement[] = [];
-    let counter = 0;
     let res = await axios.get(getUrl(latitude, longitude), { headers });
     console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
+    let counter = setTime(res.data.properties.timeseries[0].time);
     while (counter < 48) {
+      console.log('counter', counter);
+      console.log(res.data.properties.timeseries[counter].data);
       const object = res.data.properties.timeseries[counter].data;
       const time = res.data.properties.timeseries[counter].time;
       const temp = object.instant.details.air_temperature;
@@ -46,8 +56,6 @@ export async function getWeatherDataForLocation(
       const symbol = `../assets/images/png/${object.next_1_hours.summary.symbol_code}.png`;
       const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
       forecast.push(weather);
-      console.log(symbol);
-      console.log('weather', weather);
       counter += 1;
     }
     return { data: forecast, lastFetched: updatedLastFetched };

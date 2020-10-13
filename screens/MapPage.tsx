@@ -1,11 +1,14 @@
 import React from 'react';
-
 import { View, StyleSheet } from 'react-native';
 import Map from '../components/map/Map';
-//import Search from '../components/map/Search';
+// import Search from '../components/map/Search';
 
 function MapPage() {
-  return <View style={styles.screenStyle}>{/*<Search /><Map />*/}</View>;
+  return (
+    <View style={styles.screenStyle}>
+      <Map />
+    </View>
+  );
 }
 
 export default MapPage;
