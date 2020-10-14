@@ -1,14 +1,15 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import { width } from '../constants/Layout';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { CarouselItem } from './CarouselItem';
+import { carouselHeight, height, width } from '../constants/Layout';
+import WeatherCarousel from './weatherCarousel';
 
-function LandingPageCarousel() {
+export default function LandingPageCarousel() {
   return (
     <View style={styles.carouselContainerStyle}>
       <ScrollView horizontal>
         <CarouselItem leftMostItem headerText="Vær">
-          <Text>Dette er været</Text>
+          <WeatherCarousel />
         </CarouselItem>
         <CarouselItem headerText="Luft"></CarouselItem>
         <CarouselItem rightMostItem headerText="Pollen"></CarouselItem>
@@ -17,11 +18,10 @@ function LandingPageCarousel() {
   );
 }
 
-export default LandingPageCarousel;
-
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: 205,
+    height: carouselHeight,
     width: width,
+    alignSelf: 'flex-start',
   },
 });

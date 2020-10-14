@@ -11,7 +11,7 @@ import {
   BLACK,
   INFOCARD,
 } from '../constants/Colors';
-import { width, singleSideMargin } from '../constants/Layout';
+import { width, singleSideMargin, height } from '../constants/Layout';
 
 function InfoCard() {
   return (
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: INFOCARD,
     width: width - singleSideMargin * 2,
-    height: 200,
+    height: height * 0.2,
     borderRadius: 20,
     overflow: 'hidden',
   },
