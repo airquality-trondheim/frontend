@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import { width } from '../constants/Layout';
+import { height, width } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
 import AchievementCard from './AchievementCard';
 
@@ -22,7 +22,7 @@ export default AchievementCarousel;
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: 205,
+    height: height,
     width: width,
   },
 });

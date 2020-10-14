@@ -48,7 +48,7 @@ const AchievementCard = (props: AchievementCardProps) => {
     <TouchableHighlight onPress={fetchDataAndUpdateModalVisbile}>
       <View>
         <CarouselItem headerText="Bragder!">
-          <Text>Her er bragdene dine!</Text>
+          <Text style={{ marginTop: 16 }}>Her er bragdene dine!</Text>
         </CarouselItem>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.centerContent}>

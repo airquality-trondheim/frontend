@@ -30,6 +30,13 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
 
   let arrayData = Object.keys(data).map((keys) => data[keys]);
 
+  arrayData.sort((a, b) => {
+    return ((a[0].achievementGroup.charAt(7) as unknown) as number) >
+      ((b[0].achievementGroup.charAt(7) as unknown) as number)
+      ? 1
+      : -1;
+  });
+
   return (
     <View style={styles.outerView}>
       <ScrollView contentContainerStyle={styles.scrollStyle}>
