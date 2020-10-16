@@ -1,12 +1,14 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import InfoCard from '../components/InfoCard';
+import AirQualityInfo from '../components/AirQualityInfo';
 import LandingPageCarousel from '../components/LandingPageCarousel';
+import LocationDropdown from '../components/LocationDropdown';
 
 function LandingPage() {
   return (
     <View style={styles.screenStyle}>
-      <InfoCard />
+      <LocationDropdown />
+      <AirQualityInfo />
       <LandingPageCarousel />
     </View>
   );

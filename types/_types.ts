@@ -26,6 +26,13 @@ export type CompetitionParamList = {
   CompetitionPage: undefined;
 };
 
+// Location
+export type Location = {
+  locationName: string;
+  lat: number;
+  lon: number;
+};
+
 // Leaderboard
 export type LeaderboardElement = {
   id: string;
