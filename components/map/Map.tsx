@@ -38,6 +38,7 @@ function Map(props: mapProps) {
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
       showsUserLocation={true}
+      provider={'google'}
       // showsMyLocationButton={true}
     >
       {aqStations.map((aqStation: aqStationData, i) => {
@@ -84,6 +85,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Map);
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+    //position: "absolute",
     //paddingTop: 1,
     //marginTop: 45,
   },

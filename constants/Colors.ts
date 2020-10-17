@@ -33,3 +33,5 @@ export const GRAY = '#d6d7da';
 export const LINK = '#2e78b7';
 export const ODDROWCOLOR = WHITE;
 export const EVENROWCOLOR = '#f2f5f7';
+export const STOPBUTTON = '#b53737';
+export const STARTBUTTON = '#61abcd';

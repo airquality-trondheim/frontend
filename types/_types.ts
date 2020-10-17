@@ -81,7 +81,7 @@ export type MapData = {
 };
 
 //Session
-export type waypoints = {
+export type waypoint = {
   longitude: number;
   latitude: number;
   timestamp: Date;
@@ -93,9 +93,10 @@ export type SessionSchema = {
   sessionType: string;
   startTime: Date;
   stopTime: Date;
-  waypoints: waypoints[];
+  waypoints: waypoint[];
 };
 
+/*
 export type SessionSummary = {
   distance: number;
   time: string;
@@ -103,6 +104,41 @@ export type SessionSummary = {
   activityPoints: number;
   airQualityPoints: number;
   achievementPoints: number;
+};
+*/
+
+export type SessionResult = {
+  millisecondsElapsed: number;
+  metersTraveled: number;
+  avgKmph: number;
+  distancePoints: number;
+  safeZonePoints: number;
+  sumPoints: number;
+};
+
+export type SessionResponse = {
+  userId: string;
+  sessionType: string;
+  startTime: Date;
+  stopTime: Date;
+  waypoints: waypoint[];
+  sessionResult: SessionResult;
+};
+
+export type locationType = {
+  coords: {
+    accuracy: number;
+    altitude: number;
+    heading: number;
+    latitude: number;
+    longitude: number;
+    speed: number;
+  };
+  timestamp: number;
+};
+
+export type locationData = {
+  locations: locationType[];
 };
 
 //Weather
