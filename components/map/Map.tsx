@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { RootState } from '../../reducers';
@@ -43,24 +43,46 @@ function Map(props: mapProps) {
     >
       {aqStations.map((aqStation: aqStationData, i) => {
         return (
-          <Marker
-            coordinate={{
-              latitude: aqStation.latitude,
-              longitude: aqStation.longitude,
-            }}
-            pinColor={colorDict[aqStation.color]}
-            key={i}
-            title={'Stasjon: ' + aqStation.station}
-            description={
-              aqStation.component +
-              ': ' +
-              aqStation.value +
-              ' ' +
-              aqStation.unit
-            }
-          ></Marker>
+          <View key={i}>
+            <Marker
+              coordinate={{
+                latitude: aqStation.latitude,
+                longitude: aqStation.longitude,
+              }}
+              pinColor={colorDict[aqStation.color]}
+              title={'Stasjon: ' + aqStation.station}
+              description={
+                aqStation.component +
+                ': ' +
+                aqStation.value +
+                ' ' +
+                aqStation.unit
+              }
+            />
+            <MapView.Circle
+              center={{
+                latitude: aqStation.latitude,
+                longitude: aqStation.longitude,
+              }}
+              radius={500}
+              strokeWidth={1}
+              strokeColor={'#' + aqStation.color}
+              fillColor={'#' + aqStation.color + '40'}
+            />
+          </View>
         );
       })}
+      {/* Demo circle for geofencing area */}
+      <MapView.Circle
+        center={{
+          latitude: 63.4041721,
+          longitude: 10.4185564,
+        }}
+        radius={30}
+        strokeWidth={1}
+        strokeColor={'#cf5444'}
+        fillColor={'#cf544440'}
+      />
     </MapView>
   );
 }
