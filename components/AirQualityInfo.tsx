@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import useColorScheme from '../hooks/useColorScheme';
 import { connect } from 'react-redux';
@@ -10,6 +10,8 @@ import { RootState } from '../reducers';
 import { getAirQualityData } from '../actions/mapActions';
 import { Col, Grid, Row } from 'native-base';
 import AQHalfCircle from './AQHalfCircle';
+import InfoButton from './InfoButton';
+import AQInfoModal from './AQInfoModal';
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -17,10 +19,24 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
 function ProgressCircle(props: ProgressCircleProps) {
   const colorSheme = useColorScheme();
   const { airQuality, fetchAirQuality } = props;
+  const [modalVisible, setModalVisible] = useState(false);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   useEffect(() => {
     fetchAirQuality();
   }, [fetchAirQuality]);
+
+  const updateModalVisible = () => {
+    if (!unmounted.current) {
+      setModalVisible(!modalVisible);
+    }
+  };
 
   const createAirqualityComponent = (
     aqValue: number,
@@ -60,9 +76,15 @@ function ProgressCircle(props: ProgressCircleProps) {
   return (
     <View style={styles.center}>
       <View style={styles.airQualityInfo}>
+        <InfoButton onPress={updateModalVisible} />
+        <AQInfoModal
+          onCloseButtonPress={updateModalVisible}
+          modalVisible={modalVisible}
+          modalOnRequestClose={updateModalVisible}
+        />
         {airQuality.length > 0 ? (
           <>
-            <AQHalfCircle fill={10} />
+            <AQHalfCircle fill={10} size={width * 0.9} />
             <View style={styles.info}>
               <Grid>
                 <Row size={3} style={styles.mainRow}>
@@ -94,7 +116,19 @@ function ProgressCircle(props: ProgressCircleProps) {
             </View>
           </>
         ) : (
-          <></>
+          <>
+            <AQHalfCircle fill={0} size={width * 0.9} />
+            <View style={styles.info}>
+              <Text
+                style={[
+                  styles.AQUnavailable,
+                  { color: Colors[colorSheme].text },
+                ]}
+              >
+                Luftkvalitet ikke tilgjengelig
+              </Text>
+            </View>
+          </>
         )}
       </View>
     </View>
@@ -161,5 +195,13 @@ const styles = StyleSheet.create({
   rightBorder: {
     borderColor: GRAY,
     borderRightWidth: 2,
+  },
+  AQUnavailable: {
+    flex: 1,
+    fontSize: 21,
+    textAlign: 'center',
+    textAlignVertical: 'bottom',
+    paddingBottom: 10,
+    maxWidth: width * 0.75,
   },
 });

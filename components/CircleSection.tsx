@@ -3,18 +3,18 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { TRANSPARENT } from '../constants/Colors';
-import { width } from '../constants/Layout';
 
 type CircleSectionProps = {
   color: string;
   fillPercent: number;
+  size: number;
 };
 
 function CircleSection(props: CircleSectionProps) {
   return (
     <View style={styles.position}>
       <AnimatedCircularProgress
-        size={width * 0.9}
+        size={props.size}
         width={15}
         arcSweepAngle={180}
         rotation={-90}
