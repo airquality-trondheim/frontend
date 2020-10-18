@@ -1,7 +1,7 @@
 import {
   GET_ACHIEVEMENTCARD,
   AchievementCardActionTypes,
-} from '../actions.ts/types';
+} from '../actions/types';
 import { AchievementCardData } from '../types/_types';
 
 const initialState: AchievementCardData = {
