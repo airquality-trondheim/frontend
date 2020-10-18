@@ -6,8 +6,8 @@ import { Modal } from 'react-native';
 import { Text, View, StyleSheet } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Dispatch } from 'redux';
-import { getAchievementCardData } from '../actions.ts/achievementCardActions';
-import { RootAction } from '../actions.ts/types';
+import { getAchievementCardData } from '../actions/achievementCardActions';
+import { RootAction } from '../actions/types';
 import { width, height } from '../constants/Layout';
 import { RootState } from '../reducers';
 import { CarouselItem } from './CarouselItem';
@@ -19,11 +19,13 @@ import {
   BACKGROUNDCOLOR3,
   BACKGROUNDCOLOR4,
 } from '../constants/Colors';
+import { AchievementFormat } from './AchievementFormat';
 
 type AchievementCardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDistpatchToProps>;
 
 const AchievementCard = (props: AchievementCardProps) => {
+  const { AchievementCardData, getAchievementCardData } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -33,6 +35,10 @@ const AchievementCard = (props: AchievementCardProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    getAchievementCardData();
+  }, [getAchievementCardData]);
+
   const updateModalVisible = () => {
     if (!unmounted.current) {
       setModalVisible(!modalVisible);
@@ -40,15 +46,35 @@ const AchievementCard = (props: AchievementCardProps) => {
   };
 
   const fetchDataAndUpdateModalVisbile = () => {
-    props.getAchievementCardData();
+    // props.getAchievementCardData();
     updateModalVisible();
   };
+
+  const lastElement = AchievementCardData[0];
+  const secondElement = AchievementCardData[1];
 
   return (
     <TouchableHighlight onPress={fetchDataAndUpdateModalVisbile}>
       <View>
         <CarouselItem headerText="Bragder!">
-          <Text style={{ marginTop: 16 }}>Her er bragdene dine!</Text>
+          <View>
+            <View style={{justifyContent:'center', flex:1}}>
+              <View style={styles.seperatorStyle} />
+              <View style={[styles.centerContent, {flex:2}]}>
+                <Text style={[styles.textStyle, {fontSize: 15}]}>Sist Oppnådd</Text>
+                <Text style={{fontSize: 60}}>{lastElement === undefined ? "": String.fromCodePoint(lastElement.achievementSymbol)}</Text>
+                <Text style={[styles.textStyle, {fontSize:15}]}>{lastElement === undefined ? "": lastElement.achievementName}</Text>
+              </View>
+            </View>
+            <View style={{justifyContent:'center', flex: 1}}>
+              <View style={styles.seperatorStyle} />
+              <View style={[styles.centerContent, {flex:2}]}>
+                <Text style={[styles.textStyle, {fontSize: 15}]}> Nest sist Oppnådd</Text>
+                <Text style={{fontSize: 60}}>{secondElement === undefined ? "": String.fromCodePoint(secondElement.achievementSymbol)}</Text>
+                <Text style={[styles.textStyle, {fontSize:15}]}>{secondElement === undefined ? "":secondElement.achievementName}</Text>
+              </View>
+            </View>
+          </View>
         </CarouselItem>
         <Modal animationType="fade" transparent={true} visible={modalVisible}>
           <View style={styles.centerContent}>
@@ -107,6 +133,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
+  TextFormat: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 50,
+    color: 'black',
+  },
+
   centerContent2: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -132,6 +165,14 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     width: 0.2 * width,
     height: 0.05 * height,
+  },
+
+  seperatorStyle: {
+    backgroundColor: BACKGROUNDCOLOR2,
+    borderRadius: 20,
+    width: width * 0.4,
+    height: width * 0.01,
+    marginHorizontal: 40,
   },
 
   modalView: {},

@@ -45,7 +45,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
                 <Row size={8}>
                   <View style={styles.centerContent}>
                     <Text style={{ fontSize: 250 }}>
-                      {String.fromCodePoint(data.achievementSymbol)}
+                      {data === undefined ? '': String.fromCodePoint(data.achievementSymbol)}
                     </Text>
                     <Text>{data.achievementDescription}</Text>
                   </View>

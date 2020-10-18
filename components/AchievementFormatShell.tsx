@@ -19,10 +19,6 @@ interface accumulatorInterface {
 const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   let accumulator: accumulatorInterface = {};
 
-  let recentAchievements = dataSet.AchievementCardData.sort((a, b) => {
-    return a.Date > b.Date ? -1 : 1;
-  });
-
   let data = dataSet.AchievementCardData.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
@@ -44,7 +40,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
           <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         </View>
         <View style={styles.recentStyle}>
-          {recentAchievements.slice(0, 3).map((data, index) => {
+          {dataSet.AchievementCardData.slice(0, 3).map((data, index) => {
             return AchievementFormat(data, index);
           })}
         </View>
