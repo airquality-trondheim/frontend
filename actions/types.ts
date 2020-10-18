@@ -15,7 +15,8 @@ export const GET_WEATHER = 'GET_WEATHER';
 
 type GetWeatherAction = {
   type: typeof GET_WEATHER;
-  data: WeatherElement[];
+  today: WeatherElement[];
+  tomorrow: WeatherElement[];
   lastFetched: Date;
 };
 

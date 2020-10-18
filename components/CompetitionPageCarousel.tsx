@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { width, height, carouselHeight } from '../constants/Layout';
+import { width, carouselHeight } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
 import LeaderboardCardWithModal from './LeaderBoardCardWithModal';
 

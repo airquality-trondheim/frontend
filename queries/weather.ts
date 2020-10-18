@@ -3,7 +3,6 @@ Example: Moholt
 https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=63.4099&lon=10.4359
 */
 import axios from 'axios';
-import { useState } from 'react';
 import store from '../store';
 import { WeatherData, WeatherElement } from '../types/_types';
 const baseUrl = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?';
@@ -34,31 +33,43 @@ export async function getWeatherDataForLocation(
   function setTime(time: string) {
     let currentTime = new Date().getHours();
     let dataTime = parseInt(time.split('T')[1].split(':')[0], 10);
-    return (
-      console.log('current', currentTime, 'data:', dataTime),
-      currentTime - dataTime
-    );
+    return currentTime - dataTime;
   }
   try {
-    const forecast: WeatherElement[] = [];
+    const forecastToday: WeatherElement[] = [];
+    const forecastTomorrow: WeatherElement[] = [];
     let res = await axios.get(getUrl(latitude, longitude), { headers });
     console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
+    const currentDate = new Date().getDate();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
     let counter = setTime(res.data.properties.timeseries[0].time);
-    while (counter < 48) {
-      console.log('counter', counter);
-      console.log(res.data.properties.timeseries[counter].data);
+    while (true) {
       const object = res.data.properties.timeseries[counter].data;
       const time = res.data.properties.timeseries[counter].time;
+      const date = new Date(
+        res.data.properties.timeseries[counter].time,
+      ).getDate();
       const temp = object.instant.details.air_temperature;
       const windSpeed = object.instant.details.wind_speed;
       const rain = object.next_1_hours.details.precipitation_amount;
-      const symbol = `../assets/images/png/${object.next_1_hours.summary.symbol_code}.png`;
+      const symbol = `https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/${object.next_1_hours.summary.symbol_code}.png`; // eslint-disable-line
       const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
-      forecast.push(weather);
+      if (currentDate === date) {
+        forecastToday.push(weather);
+      } else if (tomorrow.getDate() === date) {
+        forecastTomorrow.push(weather);
+      } else {
+        break;
+      }
       counter += 1;
     }
-    return { data: forecast, lastFetched: updatedLastFetched };
+    return {
+      today: forecastToday,
+      tomorrow: forecastTomorrow,
+      lastFetched: updatedLastFetched,
+    };
   } catch (error) {
     console.log(error.response['status']);
     return null;

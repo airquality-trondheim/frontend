@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { CarouselItem } from './CarouselItem';
 import { carouselHeight, width } from '../constants/Layout';
-import WeatherCarousel from './weatherCarousel';
+import WeatherCarousel from './weather/WeatherMain';
 
 export default function LandingPageCarousel() {
   return (
