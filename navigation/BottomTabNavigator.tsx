@@ -5,17 +5,26 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import AchievementPage from '../screens/AchievementPage';
 import {
   BottomTabParamList,
+  CompetitionParamList,
   HomeParamList,
   TabTwoParamList,
-  CompetitionParamList,
+  MapParamList,
 } from '../types/_types';
+import MapPage from '../screens/MapPage';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
+
+// You can explore the built-in icon families and icons on the web at:
+// https://icons.expo.fyi/
+function TabBarIcon(props: { name: string; color: string }) {
+  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+}
 
 function createTabBarIcon(name: string, color: string) {
   return <TabBarIcon name={name} color={color} />;
@@ -27,7 +36,10 @@ export default function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: Colors[colorScheme].tint,
+        showLabel: false,
+      }}
     >
       <BottomTab.Screen
         name="Home"
@@ -43,21 +55,24 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
         }}
       />
+
+      <BottomTab.Screen
+        name="Map"
+        component={MapNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('md-map', color),
+        }}
+      />
+
       <BottomTab.Screen
         name="Competition"
         component={CompetitionNavigator}
         options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
+          tabBarIcon: ({ color }) => createTabBarIcon('md-trophy', color),
         }}
       />
     </BottomTab.Navigator>
   );
-}
-
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
@@ -82,14 +97,24 @@ function TabTwoNavigator() {
   );
 }
 
+const MapStack = createStackNavigator<MapParamList>();
+
+function MapNavigator() {
+  return (
+    <MapStack.Navigator>
+      <MapStack.Screen name="MapPage" component={MapPage} />
+    </MapStack.Navigator>
+  );
+}
+
 const CompetitionStack = createStackNavigator<CompetitionParamList>();
 
 function CompetitionNavigator() {
   return (
     <CompetitionStack.Navigator>
       <CompetitionStack.Screen
-        name="AchievementPage"
-        component={AchievementPage}
+        name="CompetitionPage"
+        component={CompetitionPage}
       />
     </CompetitionStack.Navigator>
   );
