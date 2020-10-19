@@ -46,7 +46,6 @@ const AchievementCard = (props: AchievementCardProps) => {
   };
 
   const fetchDataAndUpdateModalVisbile = () => {
-    // props.getAchievementCardData();
     updateModalVisible();
   };
 
@@ -62,7 +61,9 @@ const AchievementCard = (props: AchievementCardProps) => {
               <View style={styles.seperatorStyle} />
               <View style={[styles.centerContent, {flex:2}]}>
                 <Text style={[styles.textStyle, {fontSize: 15}]}>Sist Oppnådd</Text>
+                {/*checks if redux functioality has defined element yet, and if so displays the Symbol of the most recent achievement*/}
                 <Text style={{fontSize: 60}}>{lastElement === undefined ? "": String.fromCodePoint(lastElement.achievementSymbol)}</Text>
+                {/*does the same for the achievement name*/}
                 <Text style={[styles.textStyle, {fontSize:15}]}>{lastElement === undefined ? "": lastElement.achievementName}</Text>
               </View>
             </View>
@@ -70,7 +71,9 @@ const AchievementCard = (props: AchievementCardProps) => {
               <View style={styles.seperatorStyle} />
               <View style={[styles.centerContent, {flex:2}]}>
                 <Text style={[styles.textStyle, {fontSize: 15}]}> Nest sist Oppnådd</Text>
+                {/*checks if redux functioality has defined element yet, and if so displays the Symbol of the second most recent achievement*/}
                 <Text style={{fontSize: 60}}>{secondElement === undefined ? "": String.fromCodePoint(secondElement.achievementSymbol)}</Text>
+                {/*does the same for the achievement name*/}
                 <Text style={[styles.textStyle, {fontSize:15}]}>{secondElement === undefined ? "":secondElement.achievementName}</Text>
               </View>
             </View>
@@ -88,7 +91,6 @@ const AchievementCard = (props: AchievementCardProps) => {
                 <Row size={8}>
                   <AchievementFormatShell {...props} />
                 </Row>
-
                 <Row size={1} style={styles.centerContent2}>
                   <View style={styles.centerContent}>
                     <Button

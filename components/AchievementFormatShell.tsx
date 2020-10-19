@@ -19,14 +19,21 @@ interface accumulatorInterface {
 const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   let accumulator: accumulatorInterface = {};
 
-  let data = dataSet.AchievementCardData.reduce((r, a) => {
+  // Groups achievement data. Returns an object (dictionary) with group names as keys, 
+  // and lists with the correct elements as values.
+  // a: currentElement
+  // r: temporary dictionary
+  let groupDictionary = dataSet.AchievementCardData.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
   }, accumulator);
 
-  let arrayData = Object.keys(data).map((keys) => data[keys]);
+  //returns the grouped elements as an array of arrays
+  let groupArray = Object.keys(groupDictionary).map((keys) => groupDictionary[keys]);
 
-  arrayData.sort((a, b) => {
+  //sorts the groups by their number, specified at character 7 in groupname
+  //a and b are the two elements being compared
+  groupArray.sort((a, b) => {
     return ((a[0].achievementGroup.charAt(7) as unknown) as number) >
       ((b[0].achievementGroup.charAt(7) as unknown) as number)
       ? 1
@@ -44,7 +51,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
             return AchievementFormat(data, index);
           })}
         </View>
-        {arrayData.map((dato, index) => {
+        {groupArray.map((dato, index) => {
           return (
             <View key={index} style={styles.centerContent}>
               <View style={styles.seperatorStyle} />

@@ -25,10 +25,10 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
           <View
             style={[styles.centerContent, { marginVertical: width * 0.01 }]}
           >
-            <Text style={{ fontSize: 50 }}>
+            <Text style={styles.FontSize50}>
               {String.fromCodePoint(data.achievementSymbol)}
             </Text>
-            <Text style={{ flexWrap: 'wrap', fontSize: 10 }}>
+            <Text style={styles.wrappingText}>
               {data.achievementName}
             </Text>
           </View>
@@ -44,7 +44,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
                 </Row>
                 <Row size={8}>
                   <View style={styles.centerContent}>
-                    <Text style={{ fontSize: 250 }}>
+                    <Text style={styles.FontSize250}>
                       {data === undefined ? '': String.fromCodePoint(data.achievementSymbol)}
                     </Text>
                     <Text>{data.achievementDescription}</Text>
@@ -52,7 +52,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
                 </Row>
                 <Row size={1} style={styles.centerContent}>
                   <Button style={styles.buttonStyle} onPress={updateModal}>
-                    <Text style={{ fontSize: 20 }}>Lukk</Text>
+                    <Text style={styles.FontSize20}>Lukk</Text>
                   </Button>
                 </Row>
               </View>
@@ -86,6 +86,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 50,
     color: 'black',
+  },
+
+  FontSize250: {
+     fontSize: 250 
+  },
+
+  FontSize50:{ 
+    fontSize: 50 
+  },
+
+  FontSize20: { 
+    fontSize: 20 
+  },
+
+  wrappingText:{ 
+    flexWrap: 'wrap',
+    fontSize: 10
   },
 
   modalView: {

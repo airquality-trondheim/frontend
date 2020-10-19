@@ -18,7 +18,7 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
-//
+//Achievements
 export type AchievementCardGroup = {
   groups: AchievementCardElement[];
 };
