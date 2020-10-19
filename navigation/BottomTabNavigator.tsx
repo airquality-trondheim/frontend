@@ -8,7 +8,6 @@ import useColorScheme from '../hooks/useColorScheme';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import AchievementPage from '../screens/AchievementPage';
 import {
   BottomTabParamList,
   CompetitionParamList,

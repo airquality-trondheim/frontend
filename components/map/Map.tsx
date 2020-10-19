@@ -26,7 +26,7 @@ function Map(props: mapProps) {
 
   useEffect(() => {
     props.fetchAirQualityData();
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     setAqStations(props.aqData);

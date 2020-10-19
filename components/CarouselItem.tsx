@@ -2,12 +2,7 @@ import { Grid, Row } from 'native-base';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { CAROUSELITEM } from '../constants/Colors';
-import {
-  singleSideMargin,
-  width,
-  height,
-  carouselHeight,
-} from '../constants/Layout';
+import { singleSideMargin, width, carouselHeight } from '../constants/Layout';
 
 type CarouselItemType = {
   leftMostItem?: boolean;
@@ -59,7 +54,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   centerContent: {
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
