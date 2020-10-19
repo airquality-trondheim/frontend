@@ -13,6 +13,13 @@ import InfoButton from '../InfoButton';
 import AQInfoModal from './AQInfoModal';
 import { getAirQualityDataForStation } from '../../actions/airqualityActions';
 
+enum airQuality {
+  'Utmerket' = 1,
+  'Bra',
+  'Dårlig',
+  'Uhyggelig',
+}
+
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
@@ -97,7 +104,11 @@ function ProgressCircle(props: ProgressCircleProps) {
                       { color: Colors[colorSheme].text },
                     ]}
                   >
-                    Utmerket
+                    {
+                      airQuality[
+                        Math.floor(airqualityData.time[0].variables.AQI.value)
+                      ]
+                    }
                   </Text>
                 </Row>
                 <Row size={1}>
@@ -189,7 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   info: {
-    height: (width * 0.9) / 2 + 10,
+    height: (width * 0.9) / 2,
     width: width * 0.9,
     position: 'absolute',
     top: 0,
