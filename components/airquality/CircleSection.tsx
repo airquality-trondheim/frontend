@@ -2,7 +2,7 @@ import { View } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { TRANSPARENT } from '../constants/Colors';
+import { TRANSPARENT } from '../../constants/Colors';
 
 type CircleSectionProps = {
   color: string;

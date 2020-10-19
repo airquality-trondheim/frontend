@@ -10,7 +10,7 @@ import {
   TRANSPARENT,
   WHITE,
   DARKGRAY,
-} from '../constants/Colors';
+} from '../../constants/Colors';
 import CircleSection from './CircleSection';
 
 function AQHalfCircle(props: {

@@ -1,10 +1,10 @@
 import { Grid, Row, Col } from 'native-base';
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
-import { GRAY, WHITE } from '../constants/Colors';
-import { width, singleSideMargin, height } from '../constants/Layout';
+import { GRAY, WHITE } from '../../constants/Colors';
+import { width, singleSideMargin, height } from '../../constants/Layout';
 import AQHalfCircle from './AQHalfCircle';
-import CloseButton from './CloseButton';
+import CloseButton from '../CloseButton';
 
 const createAQComponentInfo = (
   componentNameLetters: string,
