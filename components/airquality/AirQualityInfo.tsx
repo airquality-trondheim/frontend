@@ -1,24 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
-import useColorScheme from '../hooks/useColorScheme';
+import useColorScheme from '../../hooks/useColorScheme';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { RootAction } from '../actions/types';
-import Colors, { GRAY } from '../constants/Colors';
-import { width } from '../constants/Layout';
-import { RootState } from '../reducers';
-import { getAirQualityData } from '../actions/mapActions';
+import { RootAction } from '../../actions/types';
+import Colors, { GRAY } from '../../constants/Colors';
+import { width } from '../../constants/Layout';
+import { RootState } from '../../reducers';
 import { Col, Grid, Row } from 'native-base';
 import AQHalfCircle from './AQHalfCircle';
-import InfoButton from './InfoButton';
+import InfoButton from '../InfoButton';
 import AQInfoModal from './AQInfoModal';
+import { getAirQualityDataForStation } from '../../actions/airqualityActions';
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
   const colorSheme = useColorScheme();
-  const { airQuality, fetchAirQuality } = props;
+  const { airqualityData, fetchAirQuality } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -29,7 +29,7 @@ function ProgressCircle(props: ProgressCircleProps) {
   }, []);
 
   useEffect(() => {
-    fetchAirQuality();
+    fetchAirQuality('Tiller');
   }, [fetchAirQuality]);
 
   const updateModalVisible = () => {
@@ -82,9 +82,12 @@ function ProgressCircle(props: ProgressCircleProps) {
           modalVisible={modalVisible}
           modalOnRequestClose={updateModalVisible}
         />
-        {airQuality.length > 0 ? (
+        {airqualityData.time.length > 0 ? (
           <>
-            <AQHalfCircle fill={10} size={width * 0.9} />
+            <AQHalfCircle
+              fill={(airqualityData.time[0].variables.AQI.value - 1) * 25}
+              size={width * 0.9}
+            />
             <View style={styles.info}>
               <Grid>
                 <Row size={3} style={styles.mainRow}>
@@ -99,18 +102,32 @@ function ProgressCircle(props: ProgressCircleProps) {
                 </Row>
                 <Row size={1}>
                   {createAirqualityComponent(
-                    12,
+                    Math.round(
+                      airqualityData.time[0].variables.pm25_concentration
+                        .value + Number.EPSILON,
+                    ),
                     'PM',
                     '2.5',
                     styles.rightBorder,
                   )}
                   {createAirqualityComponent(
-                    Math.round(airQuality[0].value + Number.EPSILON),
+                    Math.round(
+                      airqualityData.time[0].variables.pm10_concentration
+                        .value + Number.EPSILON,
+                    ),
                     'PM',
                     '10',
                     styles.rightBorder,
                   )}
-                  {createAirqualityComponent(14, 'NO', '2', {})}
+                  {createAirqualityComponent(
+                    Math.round(
+                      airqualityData.time[0].variables.no2_concentration.value +
+                        Number.EPSILON,
+                    ),
+                    'NO',
+                    '2',
+                    {},
+                  )}
                 </Row>
               </Grid>
             </View>
@@ -137,15 +154,15 @@ function ProgressCircle(props: ProgressCircleProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchAirQuality: () => {
-      getAirQualityData(dispatch);
+    fetchAirQuality: (station: string) => {
+      getAirQualityDataForStation(dispatch, station);
     },
   };
 };
 
 const mapStateToProps = (state: RootState) => {
   return {
-    airQuality: state.map.aqData,
+    airqualityData: state.airquality,
   };
 };
 
