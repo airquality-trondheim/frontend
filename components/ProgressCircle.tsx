@@ -36,7 +36,7 @@ function ProgressCircle(props: ProgressCircleProps) {
         arcSweepAngle={250}
         rotation={-125}
         lineCap="round"
-        fill={(points / 100) * 100}
+        fill={(points / 500) * 100}
         tintColor="#00e0ff"
         backgroundColor="#3d5875"
       >
