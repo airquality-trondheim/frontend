@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
-import { Row, Col, Text, Switch } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import useColorScheme from '../hooks/useColorScheme';
-import Colors from '../constants/Colors';
+import useColorScheme from '../../hooks/useColorScheme';
+import Colors from '../../constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Auth } from 'aws-amplify';
+import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
 
 type SettingElementProps = {
   elementName: string;
   elementDesc: string;
   elementTrigger: boolean;
+  elementNavigator: string;
 };
 
 const SettingElement = ({
   elementName,
   elementDesc,
   elementTrigger,
+  elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
+  useEffect(() => {
+    if (Auth.Credentials.Auth.user !== null) {
+      console.log('Store setting in DB');
+    }
+  }, []);
+  useEffect(() => {
+    storeData(isEnabled, elementName);
+  }, [elementName, isEnabled]);
   return (
     <Row style={styles.elementRow}>
       <Col size={9}>
@@ -33,23 +46,24 @@ const SettingElement = ({
       <Col size={3} style={styles.leftColPlacement}>
         {elementTrigger ? (
           <Switch
-            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
             thumbColor="#f4f3f4"
-            ios_backgroundColor="#3e3e3e"
+            ios_backgroundColor={LIGHTGRAY}
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
         ) : (
-          <TouchableOpacity
-            style={{ backgroundColor: 'red' }}
-            onPress={() => navigation.navigate('/')}
-          >
-            <MaterialIcons
-              name="keyboard-arrow-right"
-              size={40}
-              color="black"
-            />
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate(elementNavigator)}
+            >
+              <MaterialIcons
+                name="keyboard-arrow-right"
+                size={40}
+                color={LIGHTBLUE}
+              />
+            </TouchableOpacity>
+          </View>
         )}
       </Col>
     </Row>
@@ -58,16 +72,28 @@ const SettingElement = ({
 
 export default SettingElement;
 
+const storeData = async (value: boolean, storageKey: string) => {
+  try {
+    const jsonValue = JSON.stringify(value);
+    await AsyncStorage.setItem(storageKey, jsonValue);
+  } catch (e) {
+    // saving error
+  }
+};
+
 const styles = StyleSheet.create({
   elementRow: {
-    paddingBottom: 20,
+    paddingBottom: 7,
+    marginBottom: 20,
+    borderBottomColor: LIGHTGRAY,
+    borderBottomWidth: 2,
   },
   elementName: {
     fontSize: 16,
   },
   elementDesc: {
     fontSize: 12,
-    paddingRight: 20,
+    paddingRight: 30,
   },
   leftColPlacement: {
     justifyContent: 'center',
