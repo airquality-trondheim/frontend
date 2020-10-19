@@ -64,7 +64,7 @@ function Map(props: mapProps) {
                 latitude: aqStation.latitude,
                 longitude: aqStation.longitude,
               }}
-              radius={500}
+              radius={620}
               strokeWidth={1}
               strokeColor={'#' + aqStation.color}
               fillColor={'#' + aqStation.color + '40'}
@@ -72,17 +72,6 @@ function Map(props: mapProps) {
           </View>
         );
       })}
-      {/* Demo circle for geofencing area */}
-      <MapView.Circle
-        center={{
-          latitude: 63.4041721,
-          longitude: 10.4185564,
-        }}
-        radius={30}
-        strokeWidth={1}
-        strokeColor={'#cf5444'}
-        fillColor={'#cf544440'}
-      />
     </MapView>
   );
 }

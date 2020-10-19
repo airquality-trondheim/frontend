@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import { Button, Grid, Row, Col } from 'native-base';
+import { getDistance } from 'geolib';
 import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import * as Permissions from 'expo-permissions';
 import { postSessionData } from '../queries/session';
+import { connect } from 'react-redux';
+import { RootState } from '../reducers';
 import { Auth } from 'aws-amplify';
 import { waypoint, SessionResult } from '../types/_types';
 import { width, singleSideMargin, height } from '../constants/Layout';
@@ -14,12 +17,20 @@ import {
   STARTBUTTON,
   STOPBUTTON,
 } from '../constants/Colors';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 const LOCATION_TRACKING = 'location-tracking';
+const GEOFENCE_TRACKING = 'geofence-tracking';
 let waypoints: waypoint[] = [];
+let pollutionLevel = 'ukjent';
 
-function Session() {
+type sessionProps = ReturnType<typeof mapStateToProps>;
+
+function Session(props: sessionProps) {
   const [sessionActive, setSessionActive] = useState(false);
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [oldWaypointsLength, setOldWaypointsLength] = useState(0);
+  const [sessionMilliseconds, setSessionMilliseconds] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [result, setResult] = useState<SessionResult | undefined>(undefined);
   const unmounted = useRef(false);
@@ -29,6 +40,47 @@ function Session() {
       unmounted.current = true;
     };
   }, []);
+
+  useEffect(() => {
+    let interval = null;
+    if (sessionActive) {
+      interval = setInterval(() => {
+        if (waypoints.length >= 3 && waypoints.length > oldWaypointsLength) {
+          setOldWaypointsLength(waypoints.length);
+          const firstCoords = {
+            latitude: waypoints[waypoints.length - 2].latitude,
+            longitude: waypoints[waypoints.length - 2].longitude,
+          };
+          const secondsCoords = {
+            latitude: waypoints[waypoints.length - 1].latitude,
+            longitude: waypoints[waypoints.length - 1].longitude,
+          };
+          const newDistance = getDistance(firstCoords, secondsCoords);
+
+          const time =
+            waypoints[waypoints.length - 1].timestamp.getTime() -
+            waypoints[waypoints.length - 2].timestamp.getTime();
+
+          const avgSpeed = newDistance / (time / 1000);
+
+          console.log('New distance:', newDistance);
+          console.log('Time:', time);
+          console.log('Avg speed:', avgSpeed);
+          if (avgSpeed > 8) {
+            stopLocationTracking();
+          }
+
+          setTotalDistance(totalDistance + newDistance);
+        }
+        setSessionMilliseconds(
+          (sessionMilliseconds) => sessionMilliseconds + 1000,
+        );
+      }, 1000);
+    } else if (!sessionActive && sessionMilliseconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [sessionActive, sessionMilliseconds, totalDistance, oldWaypointsLength]);
 
   const startLocationTracking = async () => {
     let res = await Permissions.askAsync(Permissions.LOCATION);
@@ -44,34 +96,86 @@ function Session() {
     const hasStarted = await Location.hasStartedLocationUpdatesAsync(
       LOCATION_TRACKING,
     );
+
+    await Location.startGeofencingAsync(
+      GEOFENCE_TRACKING,
+      props.aqData.map((aqStation) => {
+        return {
+          identifier: aqStation.station,
+          latitude: aqStation.latitude,
+          longitude: aqStation.longitude,
+          pollutionLevel: 'Høy',
+          radius: 620,
+          notifyOnEnter: true,
+          notifyOnExit: true,
+        };
+      }),
+    );
+
+    const hasStartedGeofencing = await Location.hasStartedGeofencingAsync(
+      GEOFENCE_TRACKING,
+    );
+
+    if (hasStartedGeofencing) {
+      console.log('Started geofencing');
+    }
+
     setSessionActive(hasStarted);
   };
 
   const stopLocationTracking = async () => {
     setSessionActive(false);
     await Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
+    await Location.stopGeofencingAsync(GEOFENCE_TRACKING);
     const summary: SessionResult = await postSessionData({
-      userId: Auth.Credentials.Auth.user.attributes.sub,
-      sessionType: 'work',
+      userId: '5f6dde0d71a2bf3507462943', //Auth.Credentials.Auth.user.attributes.sub,
+      sessionType: 'Arbeid',
       startTime: waypoints[0].timestamp,
       stopTime: waypoints[waypoints.length - 1].timestamp,
       waypoints: waypoints,
     });
     setResult(summary);
     updateModalVisible();
+    setSessionMilliseconds(0);
+    setTotalDistance(0);
   };
 
   const updateModalVisible = () => {
     setModalVisible(!modalVisible);
   };
 
+  function msToTime(duration) {
+    var milliseconds = parseInt((duration % 1000) / 100),
+      seconds = Math.floor((duration / 1000) % 60),
+      minutes = Math.floor((duration / (1000 * 60)) % 60),
+      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = hours < 10 ? '0' + hours : hours;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    return hours + ':' + minutes + ':' + seconds;
+  }
+
   return (
     <View style={styles.transparentView}>
       {sessionActive ? (
-        <View style={styles.buttonView}>
-          <Button style={styles.stopButton} onPress={stopLocationTracking}>
-            <Text style={styles.buttonText}>Avslutt</Text>
-          </Button>
+        <View style={styles.sessionView}>
+          <View style={styles.sessionMetric}>
+            <Text>Tid</Text>
+            <Text style={styles.summaryText}>
+              {msToTime(sessionMilliseconds)}
+            </Text>
+          </View>
+          <View style={styles.sessionMetric}>
+            <Text>Avstand</Text>
+            <Text style={styles.summaryText}>{totalDistance / 1000} km</Text>
+          </View>
+          <View style={styles.sessionMetric}>
+            <Button style={styles.stopButton} onPress={stopLocationTracking}>
+              <Text style={styles.buttonText}>Avslutt</Text>
+            </Button>
+          </View>
         </View>
       ) : (
         <View>
@@ -106,7 +210,7 @@ function Session() {
                   <View style={styles.centeredView}>
                     <Text>Tid</Text>
                     <Text style={styles.summaryText}>
-                      {result?.millisecondsElapsed}
+                      {msToTime(result?.millisecondsElapsed)}
                     </Text>
                   </View>
                 </Col>
@@ -114,7 +218,7 @@ function Session() {
                   <View style={styles.centeredView}>
                     <Text>Avstand</Text>
                     <Text style={styles.summaryText}>
-                      {result?.metersTraveled} m
+                      {result?.metersTraveled / 1000} km
                     </Text>
                   </View>
                 </Col>
@@ -123,30 +227,38 @@ function Session() {
                 <View style={styles.centeredView}>
                   <Text>Du har oppnådd:</Text>
                   <Text style={styles.totalPointsText}>
-                    {result?.sumPoints} poeng
+                    {Math.floor(result?.sumPoints)} poeng
                   </Text>
                 </View>
               </Row>
               <Row size={2}>
                 <Col size={1}>
                   <View style={styles.centeredView}>
+                    <FontAwesome5 name="walking" size={50} color="black" />
+                    <Text>Distanse</Text>
                     <Text style={styles.summaryText}>
-                      {result?.distancePoints}p
+                      {Math.floor(result?.distancePoints)} p
                     </Text>
                   </View>
                 </Col>
                 <Col size={1}>
                   <View style={styles.centeredView}>
+                    <FontAwesome name="map-marker" size={50} color="#6EE86E" />
+                    <Text>Trygg sone</Text>
                     <Text style={styles.summaryText}>
-                      {result?.safeZonePoints}p
+                      {Math.floor(result?.safeZonePoints)} p
                     </Text>
                   </View>
                 </Col>
-                {/* <Col size={1}>
+                <Col size={1}>
                   <View style={styles.centeredView}>
-                    <Text style={styles.summaryText}>{result?.achievementPoints}p</Text>
+                    <FontAwesome5 name="trophy" size={50} color="black" />
+                    <Text>Bragder</Text>
+                    <Text style={styles.summaryText}>
+                      {result?.achievementPoints} p
+                    </Text>
                   </View>
-                </Col> */}
+                </Col>
               </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
@@ -163,7 +275,14 @@ function Session() {
   );
 }
 
-export default Session;
+const mapStateToProps = (state: RootState) => {
+  return {
+    aqData: state.map.aqData,
+    waypointState: waypoints,
+  };
+};
+
+export default connect(mapStateToProps)(Session);
 
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
   if (error) {
@@ -179,11 +298,30 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
       longitude: long,
       latitude: lat,
       timestamp: new Date(Date.now()),
-      pollutionLevel: '',
+      pollutionLevel: pollutionLevel,
     });
     console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
   }
 });
+
+TaskManager.defineTask(
+  GEOFENCE_TRACKING,
+  ({ data: { eventType, region }, error }) => {
+    console.log('In tracking task');
+    if (error) {
+      // check `error.message` for more details.
+      console.log('Something happened');
+      return;
+    }
+    if (eventType === Location.LocationGeofencingEventType.Enter) {
+      console.log("You've entered region:", region);
+      pollutionLevel = region.pollutionLevel;
+    } else if (eventType === Location.LocationGeofencingEventType.Exit) {
+      console.log("You've left region:", region);
+      pollutionLevel = 'ukjent';
+    }
+  },
+);
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -222,7 +360,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   transparentView: {
-    backgroundColor: 'rgba(0,0,0,0.0)',
+    backgroundColor: 'rgba(0,0,0,0)',
     position: 'absolute',
     right: 0,
     bottom: 0,
@@ -244,5 +382,16 @@ const styles = StyleSheet.create({
   },
   summaryText: {
     fontSize: 30,
+  },
+  sessionView: {
+    backgroundColor: WHITE,
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: singleSideMargin,
+  },
+  sessionMetric: {
+    alignItems: 'center',
   },
 });

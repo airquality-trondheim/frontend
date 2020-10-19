@@ -4,7 +4,8 @@ import { aqStationData } from '../types/_types';
 
 // TODO: Flytte URL?
 const apiUrl =
-  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/airquality';
+  // 'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/airquality';
+  'https://api.nilu.no/aq/utd?areas=trondheim&components=pm10';
 
 export async function getAQData() {
   // const data = [...store.getState().map.aqData];
