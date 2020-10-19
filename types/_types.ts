@@ -8,6 +8,7 @@ export type BottomTabParamList = {
   TabTwo: undefined;
   Map: undefined;
   Competition: undefined;
+  Profile: undefined;
 };
 
 export type HomeParamList = {
@@ -16,6 +17,23 @@ export type HomeParamList = {
 
 export type TabTwoParamList = {
   TabTwoScreen: undefined;
+};
+
+//Achievements
+export type AchievementCardGroup = {
+  groups: AchievementCardElement[];
+};
+
+export type AchievementCardElement = {
+  achievementSymbol: number;
+  achievementName: string;
+  achievementDescription: string;
+  achievementGroup: string;
+  Date: Date;
+};
+
+export type AchievementCardData = {
+  data: AchievementCardElement[];
 };
 
 export type MapParamList = {
@@ -32,6 +50,15 @@ export type Location = {
   lat: string;
   lon: string;
   eoi: string;
+};
+
+// Profile
+export type ProfileParamList = {
+  ProfilePage: undefined;
+  SettingPage: undefined;
+  SettingsFavoriteArea: undefined;
+  SettingsHelp: undefined;
+  SettingsPrivacy: undefined;
 };
 
 // Leaderboard
