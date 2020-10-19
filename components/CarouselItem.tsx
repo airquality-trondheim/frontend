@@ -46,12 +46,13 @@ export { CarouselItem };
 const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: CAROUSELITEM,
-    width: 0.5 * width,
+    width: 0.43 * width,
     height: carouselHeight,
     borderRadius: 20,
     overflow: 'hidden',
-    marginLeft: 5,
+    marginLeft: 3,
     marginRight: 5,
+    elevation: 5,
   },
   centerContent: {
     marginTop: 20,

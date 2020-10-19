@@ -34,4 +34,4 @@ export const LINK = '#2e78b7';
 export const ODDROWCOLOR = WHITE;
 export const EVENROWCOLOR = '#f2f5f7';
 export const WEATHERICON = '#8cc9ff';
-export const BOTTOMBORDER = 'lightgrey';
+export const BOTTOMBORDER = '#E1E1E1';

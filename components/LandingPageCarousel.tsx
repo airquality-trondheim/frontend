@@ -1,19 +1,20 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CarouselItem } from './CarouselItem';
 import { carouselHeight, width } from '../constants/Layout';
 import WeatherCarousel from './weather/WeatherMain';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LandingPageCarousel() {
+  const navigation = useNavigation();
   return (
     <View style={styles.carouselContainerStyle}>
-      <ScrollView horizontal>
+      <TouchableOpacity onPress={() => navigation.navigate('WeatherScreen')}>
         <CarouselItem leftMostItem headerText="Vær">
           <WeatherCarousel />
         </CarouselItem>
-        <CarouselItem headerText="Luft"></CarouselItem>
-        <CarouselItem rightMostItem headerText="Pollen"></CarouselItem>
-      </ScrollView>
+      </TouchableOpacity>
+      <CarouselItem headerText="Luft"></CarouselItem>
     </View>
   );
 }
@@ -23,5 +24,7 @@ const styles = StyleSheet.create({
     height: carouselHeight,
     width: width,
     alignSelf: 'flex-start',
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

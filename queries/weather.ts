@@ -41,16 +41,14 @@ export async function getWeatherDataForLocation(
     let res = await axios.get(getUrl(latitude, longitude), { headers });
     console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
-    const currentDate = new Date().getDate();
+    const currentDate = new Date().getUTCDate();
     const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setDate(tomorrow.getUTCDate() + 1);
     let counter = setTime(res.data.properties.timeseries[0].time);
     while (true) {
       const object = res.data.properties.timeseries[counter].data;
       const time = res.data.properties.timeseries[counter].time;
-      const date = new Date(
-        res.data.properties.timeseries[counter].time,
-      ).getDate();
+      const date = new Date(time).getUTCDate();
       const temp = object.instant.details.air_temperature;
       const windSpeed = object.instant.details.wind_speed;
       const rain = object.next_1_hours.details.precipitation_amount;
@@ -58,7 +56,7 @@ export async function getWeatherDataForLocation(
       const weather = createWeatherObject(time, temp, windSpeed, rain, symbol);
       if (currentDate === date) {
         forecastToday.push(weather);
-      } else if (tomorrow.getDate() === date) {
+      } else if (tomorrow.getUTCDate() === date) {
         forecastTomorrow.push(weather);
       } else {
         break;

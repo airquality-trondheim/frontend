@@ -73,6 +73,8 @@ const styles = StyleSheet.create({
   screenStyle: {
     flex: 1,
     justifyContent: 'space-evenly',
+    padding: 8,
+    marginBottom: 8,
   },
   mainComponent: {
     width: width,
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     paddingTop: 8,
     padding: 8,
+    elevation: 5,
   },
   text: {
     marginTop: 15,
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   scroll: {
-    height: height * 0.15,
+    height: height * 0.18,
     marginTop: 12,
   },
 });

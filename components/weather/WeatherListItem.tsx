@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -8,23 +8,33 @@ import { RootState } from '../../reducers';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { WEATHERICON } from '../../constants/Colors';
+import { WeatherElement } from '../../types/_types';
 
 type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> & { count: number };
 
 function WeatherComponentSmall(props: WeatherProps) {
   const { count, tomorrow, today, fetchWeatherData } = props;
-  const [weather, setWeather] = useState(today);
-  useEffect(() => joinData, [fetchWeatherData]);
+  const [weather, setWeather] = useState<WeatherElement[]>(today);
+  const unmounted = useRef(false);
 
-  function joinData() {
-    fetchWeatherData(63.4099, 10.4359);
-    setWeather(today.concat(tomorrow));
-  }
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
+  useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
+
+  useEffect(() => {
+    if (!unmounted.current) {
+      setWeather(today.concat(tomorrow));
+    }
+  }, [today, tomorrow]);
 
   return (
     <View>
-      {today.length > 0 ? (
+      {weather.length > 0 ? (
         <View style={styles.weather}>
           <View style={styles.iconHead}>
             <Text>{'kl. ' + weather[count].time.substring(11, 13)}</Text>
