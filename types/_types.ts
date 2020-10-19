@@ -19,6 +19,23 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
+//Achievements
+export type AchievementCardGroup = {
+  groups: AchievementCardElement[];
+};
+
+export type AchievementCardElement = {
+  achievementSymbol: number;
+  achievementName: string;
+  achievementDescription: string;
+  achievementGroup: string;
+  Date: Date;
+};
+
+export type AchievementCardData = {
+  data: AchievementCardElement[];
+};
+
 export type MapParamList = {
   MapPage: undefined;
 };

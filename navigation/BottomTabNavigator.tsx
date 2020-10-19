@@ -8,7 +8,6 @@ import useColorScheme from '../hooks/useColorScheme';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import MapPage from '../screens/MapPage';
 import {
   BottomTabParamList,
   CompetitionParamList,
@@ -17,11 +16,15 @@ import {
   TabTwoParamList,
   MapParamList,
 } from '../types/_types';
+
+import MapPage from '../screens/MapPage';
+
 import ProfilePage from '../screens/ProfilePage';
 import SettingPage from '../screens/SettingPage';
 import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
+
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

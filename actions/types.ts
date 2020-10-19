@@ -1,4 +1,5 @@
 import {
+  AchievementCardElement,
   aqStationData,
   LeaderboardElement,
   UserRanking,
@@ -8,7 +9,19 @@ import {
 export type RootAction =
   | WeatherActionTypes
   | LeaderboardActionTypes
-  | MapActionTypes;
+  | MapActionTypes
+  | AchievementCardActionTypes;
+
+//Achievements
+
+export const GET_ACHIEVEMENTCARD = 'GET_ACHIEVEMENT';
+
+type GetAchievementCardAction = {
+  type: typeof GET_ACHIEVEMENTCARD;
+  data: AchievementCardElement[];
+};
+
+export type AchievementCardActionTypes = GetAchievementCardAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';
