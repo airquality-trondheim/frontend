@@ -12,15 +12,11 @@ type DropdownListItem = {
 };
 
 function LocationDropdown() {
-  const [location, setLocation] = useState<Location>({
-    locationName: 'Moholt',
-    lat: 63.4099,
-    lon: 10.4359,
-  });
+  const [location, setLocation] = useState<Location>(locations.Tiller);
   const [locationList, setLocationList] = useState<DropdownListItem[]>([
     {
-      label: 'Moholt',
-      value: 'Moholt',
+      label: 'Tiller',
+      value: 'Tiller',
     },
   ]);
   const unmounted = useRef(false);
