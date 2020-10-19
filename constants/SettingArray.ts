@@ -26,6 +26,7 @@ const settingArray = [
         name: 'Område',
         desc: 'Velg områder du ønsker å motta varslinger for',
         useOfToggle: false,
+        navigateTo: 'SettingsFavoriteArea',
       },
       {
         id: 2,
@@ -42,14 +43,18 @@ const settingArray = [
       {
         id: 1,
         name: 'Ofte stilte spørsmål',
-        desc: '',
+        desc:
+          'Her kan du se svar på ofte stilte spørsmål om luftkvalitet og bruken av Frisk',
         useOfToggle: false,
+        navigateTo: 'SettingsHelp',
       },
       {
         id: 2,
         name: 'Personvern',
-        desc: '',
+        desc:
+          'Her kan du se hvordan Frisk forholder seg til personvern og sikkerhet',
         useOfToggle: false,
+        navigateTo: 'SettingsPrivacy',
       },
     ],
   },

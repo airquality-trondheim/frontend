@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
-import SettingView from '../components/SettingView';
-import Colors from '../constants/Colors';
+import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import SettingView from '../components/settingFolder/SettingView';
 import settingArray from '../constants/SettingArray';
 import useColorScheme from '../hooks/useColorScheme';
 
@@ -13,11 +12,6 @@ function SettingsPage() {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <Text
-          style={[styles.settingsHeader, { color: Colors[colorScheme].text }]}
-        >
-          Innstillinger
-        </Text>
         {settingArray.map(createSettingView)}
       </ScrollView>
     </SafeAreaView>
@@ -45,13 +39,9 @@ export default SettingsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 30,
   },
   scrollView: {
-    marginHorizontal: 20,
-  },
-  settingsHeader: {
-    fontSize: 36,
-    paddingBottom: 20,
+    marginHorizontal: 12,
   },
 });
