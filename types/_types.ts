@@ -8,6 +8,7 @@ export type BottomTabParamList = {
   TabTwo: undefined;
   Map: undefined;
   Competition: undefined;
+  Profile: undefined;
 };
 
 export type HomeParamList = {
@@ -24,6 +25,14 @@ export type MapParamList = {
 
 export type CompetitionParamList = {
   CompetitionPage: undefined;
+};
+
+export type ProfileParamList = {
+  ProfilePage: undefined;
+  SettingPage: undefined;
+  SettingsFavoriteArea: undefined;
+  SettingsHelp: undefined;
+  SettingsPrivacy: undefined;
 };
 
 // Leaderboard
