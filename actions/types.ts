@@ -1,4 +1,5 @@
 import {
+  AirqualityData,
   aqStationData,
   LeaderboardElement,
   UserRanking,
@@ -8,7 +9,18 @@ import {
 export type RootAction =
   | WeatherActionTypes
   | LeaderboardActionTypes
-  | MapActionTypes;
+  | MapActionTypes
+  | AirqualityActionTypes;
+
+// Airquality
+export const GET_AIRQUALITYFORSTATION = 'GET_AIRQUALITYFORSTATION';
+
+type GetAirqualityForStationAction = {
+  type: typeof GET_AIRQUALITYFORSTATION;
+  data: AirqualityData;
+};
+
+export type AirqualityActionTypes = GetAirqualityForStationAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';

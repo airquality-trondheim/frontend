@@ -29,8 +29,9 @@ export type CompetitionParamList = {
 // Location
 export type Location = {
   locationName: string;
-  lat: number;
-  lon: number;
+  lat: string;
+  lon: string;
+  eoi: string;
 };
 
 // Leaderboard
@@ -98,5 +99,53 @@ export type WeatherElement = {
 
 export type WeatherData = {
   data: WeatherElement[];
+  lastFetched: Date;
+};
+
+// Airquality
+type VariableElement = {
+  value: number;
+  units: string;
+};
+
+export type AirqualityTimeElement = {
+  from: string;
+  to: string;
+  variables: {
+    AQI: VariableElement;
+    no2_concentration: VariableElement;
+    AQI_no2: VariableElement;
+    no2_nonlocal_fraction: VariableElement;
+    no2_local_fraction_traffic_exhaust: VariableElement;
+    no2_local_fraction_shipping: VariableElement;
+    no2_local_fraction_heating: VariableElement;
+    no2_local_fraction_industry: VariableElement;
+    pm10_concentration: VariableElement;
+    AQI_pm10: VariableElement;
+    pm10_nonlocal_fraction: VariableElement;
+    pm10_nonlocal_fraction_seasalt: VariableElement;
+    pm10_local_fraction_traffic_exhaust: VariableElement;
+    pm10_local_fraction_traffic_nonexhaust: VariableElement;
+    pm10_local_fraction_shipping: VariableElement;
+    pm10_local_fraction_heating: VariableElement;
+    pm10_local_fraction_industry: VariableElement;
+    pm25_concentration: VariableElement;
+    AQI_pm25: VariableElement;
+    pm25_nonlocal_fraction: VariableElement;
+    pm25_nonlocal_fraction_seasalt: VariableElement;
+    pm25_local_fraction_traffic_exhaust: VariableElement;
+    pm25_local_fraction_traffic_nonexhaust: VariableElement;
+    pm25_local_fraction_shipping: VariableElement;
+    pm25_local_fraction_heating: VariableElement;
+    pm25_local_fraction_industry: VariableElement;
+    o3_concentration: VariableElement;
+    AQI_o3: VariableElement;
+    o3_nonlocal_fraction: VariableElement;
+  };
+};
+
+export type AirqualityData = {
+  location: string;
+  time: AirqualityTimeElement[];
   lastFetched: Date;
 };
