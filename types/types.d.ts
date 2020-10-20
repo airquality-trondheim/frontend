@@ -1,1 +1,1 @@
-declare module 'react-native-leaderboard';
+declare module 'aws-amplify-react-native';
