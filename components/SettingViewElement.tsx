@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import useColorScheme from '../../hooks/useColorScheme';
-import Colors from '../../constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from 'aws-amplify';
-import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
+import { LIGHTBLUE, LIGHTGRAY } from '../constants/Colors';
 
 type SettingElementProps = {
   elementName: string;
   elementDesc: string;
-  elementTrigger: boolean;
-  elementNavigator: string;
+  elementNavigator?: string;
 };
 
 const SettingElement = ({
   elementName,
   elementDesc,
-  elementTrigger,
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  const colorScheme = useColorScheme();
   const navigation = useNavigation();
   useEffect(() => {
     if (Auth.Credentials.Auth.user !== null) {
@@ -38,13 +33,11 @@ const SettingElement = ({
   return (
     <Row style={styles.elementRow}>
       <Col size={9}>
-        <Text style={[styles.elementName, { color: Colors[colorScheme].text }]}>
-          {elementName}
-        </Text>
+        <Text style={styles.elementName}>{elementName}</Text>
         <Text style={styles.elementDesc}>{elementDesc}</Text>
       </Col>
       <Col size={3} style={styles.leftColPlacement}>
-        {elementTrigger ? (
+        {elementNavigator === undefined ? (
           <Switch
             trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
             thumbColor="#f4f3f4"

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
-import useColorScheme from '../../hooks/useColorScheme';
-import Colors from '../../constants/Colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -25,7 +23,6 @@ const SettingElement = ({
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  const colorScheme = useColorScheme();
   const navigation = useNavigation();
   useEffect(() => {
     if (Auth.Credentials.Auth.user !== null) {
@@ -38,9 +35,7 @@ const SettingElement = ({
   return (
     <Row style={styles.elementRow}>
       <Col size={9}>
-        <Text style={[styles.elementName, { color: Colors[colorScheme].text }]}>
-          {elementName}
-        </Text>
+        <Text style={styles.elementName}>{elementName}</Text>
         <Text style={styles.elementDesc}>{elementDesc}</Text>
       </Col>
       <Col size={3} style={styles.leftColPlacement}>

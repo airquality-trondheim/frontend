@@ -7,23 +7,21 @@ function WeatherCarouselItem({ weather }: { weather: WeatherElement }) {
   const { time, rain, temp, windSpeed, symbol } = weather;
 
   return (
-    <View>
-      <View>
-        <View style={styles.clockHeader}>
-          <Text>{'kl. ' + time.substring(11, 13)}</Text>
+    <>
+      <View style={styles.clockHeader}>
+        <Text>{'kl. ' + time.substring(11, 13)}</Text>
+      </View>
+      <View style={styles.weather}>
+        <View style={styles.iconHead}>
+          <Image source={{ uri: symbol }} style={styles.weatherIconStyle} />
         </View>
-        <View style={styles.weather}>
-          <View style={styles.iconHead}>
-            <Image source={{ uri: symbol }} style={styles.weatherIconStyle} />
-          </View>
-          <View style={styles.weatherInfo}>
-            <Text style={styles.text}>{temp} ℃</Text>
-            <Text style={styles.text}>{rain} mm</Text>
-            <Text style={styles.text}>{windSpeed} m/s</Text>
-          </View>
+        <View style={styles.weatherInfo}>
+          <Text style={styles.text}>{temp} ℃</Text>
+          <Text style={styles.text}>{rain} mm</Text>
+          <Text style={styles.text}>{windSpeed} m/s</Text>
         </View>
       </View>
-    </View>
+    </>
   );
 }
 

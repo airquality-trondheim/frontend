@@ -52,7 +52,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
 
   return (
     <TouchableOpacity onPress={fetchDataAndUpdateModalVisible}>
-      <CarouselItem leftMostItem headerText="Toppliste">
+      <CarouselItem headerText="Toppliste">
         <View style={{ flex: 1 }}>
           <Text style={styles.text}>Du er på</Text>
           <Text style={styles.placement}>{userRanking.ranking}.</Text>

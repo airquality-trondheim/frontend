@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import SettingViewElement from './SettingViewElement';
 
 type SettingViewType = {
@@ -10,12 +8,9 @@ type SettingViewType = {
 };
 
 const SettingView = ({ viewHeader, settingArray }: SettingViewType) => {
-  const colorScheme = useColorScheme();
   return (
     <View style={styles.settingsView}>
-      <Text style={[styles.viewHeader, { color: Colors[colorScheme].text }]}>
-        {viewHeader}
-      </Text>
+      <Text style={styles.viewHeader}>{viewHeader}</Text>
       {settingArray.map(createSettingElement)}
     </View>
   );
@@ -25,7 +20,7 @@ type settingArrayObject = {
   id: number;
   name: string;
   desc: string;
-  useOfToggle: boolean;
+  navigator?: string;
 };
 
 const createSettingElement = (arrayObject: settingArrayObject) => {
@@ -34,7 +29,7 @@ const createSettingElement = (arrayObject: settingArrayObject) => {
       key={arrayObject.id}
       elementName={arrayObject.name}
       elementDesc={arrayObject.desc}
-      elementTrigger={arrayObject.useOfToggle}
+      elementNavigator={arrayObject.navigator}
     />
   );
 };

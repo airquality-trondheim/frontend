@@ -1,22 +1,7 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
-
-export default {
-  light: {
-    text: '#000',
-    background: '#ffffff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#000',
-    background: '#000',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-  },
-};
+export const TINTCOLOR = '#2f95dc';
+export const MAINBACKGROUNDCOLOR = '#ffffff';
+export const IABICONDEFAULTE = '#ccc';
+export const TABICONSELECTED = TINTCOLOR;
 
 export const DANGER4 = '#990099';
 export const DANGER3 = '#FF0000';

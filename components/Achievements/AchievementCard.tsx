@@ -58,7 +58,7 @@ const AchievementCard = (props: AchievementCardProps) => {
                 </Text>
                 {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the most recent achievement*/}
-                <Text style={{ fontSize: 60 }}>
+                <Text style={{ fontSize: 50 }}>
                   {lastElement === undefined
                     ? ''
                     : String.fromCodePoint(lastElement.achievementSymbol)}
@@ -78,7 +78,7 @@ const AchievementCard = (props: AchievementCardProps) => {
                 </Text>
                 {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the second most recent achievement*/}
-                <Text style={{ fontSize: 60 }}>
+                <Text style={{ fontSize: 50 }}>
                   {secondElement === undefined
                     ? ''
                     : String.fromCodePoint(secondElement.achievementSymbol)}
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUNDCOLOR2,
     borderRadius: 20,
     width: width,
-    height: 0.75 * height,
+    height: 0.8 * height,
   },
 
   textStyle: {

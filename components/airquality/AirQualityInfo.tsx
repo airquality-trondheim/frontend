@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
-import useColorScheme from '../../hooks/useColorScheme';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootAction } from '../../actions/types';
-import Colors, { GRAY } from '../../constants/Colors';
+import { GRAY } from '../../constants/Colors';
 import { width } from '../../constants/Layout';
 import { RootState } from '../../reducers';
 import { Col, Grid, Row } from 'native-base';
@@ -24,7 +23,6 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
-  const colorSheme = useColorScheme();
   const { airqualityData, fetchAirQuality } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
@@ -54,27 +52,9 @@ function ProgressCircle(props: ProgressCircleProps) {
     return (
       <Col style={colStyle}>
         <View style={styles.row}>
-          <Text
-            style={[styles.airqualityValue, { color: Colors[colorSheme].text }]}
-          >
-            {aqValue}
-          </Text>
-          <Text
-            style={[
-              styles.airqualityComponentLetters,
-              { color: Colors[colorSheme].text },
-            ]}
-          >
-            {aqLetters}
-          </Text>
-          <Text
-            style={[
-              styles.airqualityComponentNumbers,
-              { color: Colors[colorSheme].text },
-            ]}
-          >
-            {aqNumbers}
-          </Text>
+          <Text style={styles.airqualityValue}>{aqValue}</Text>
+          <Text style={styles.airqualityComponentLetters}>{aqLetters}</Text>
+          <Text style={styles.airqualityComponentNumbers}>{aqNumbers}</Text>
         </View>
       </Col>
     );
@@ -98,12 +78,7 @@ function ProgressCircle(props: ProgressCircleProps) {
             <View style={styles.info}>
               <Grid>
                 <Row size={3} style={styles.mainRow}>
-                  <Text
-                    style={[
-                      styles.overallAirquality,
-                      { color: Colors[colorSheme].text },
-                    ]}
-                  >
+                  <Text style={styles.overallAirquality}>
                     {
                       airQuality[
                         Math.floor(airqualityData.time[0].variables.AQI.value)
@@ -147,12 +122,7 @@ function ProgressCircle(props: ProgressCircleProps) {
           <>
             <AQHalfCircle fill={0} size={width * 0.9} />
             <View style={styles.info}>
-              <Text
-                style={[
-                  styles.AQUnavailable,
-                  { color: Colors[colorSheme].text },
-                ]}
-              >
+              <Text style={styles.AQUnavailable}>
                 Luftkvalitet ikke tilgjengelig
               </Text>
             </View>

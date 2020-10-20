@@ -33,7 +33,7 @@ function WeatherComponentSmall(props: WeatherProps) {
   }, [today, tomorrow]);
 
   return (
-    <View>
+    <>
       {weather.length > 0 ? (
         <View style={styles.weather}>
           <View style={styles.iconHead}>
@@ -55,7 +55,7 @@ function WeatherComponentSmall(props: WeatherProps) {
       ) : (
         <></>
       )}
-    </View>
+    </>
   );
 }
 
