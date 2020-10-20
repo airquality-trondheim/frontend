@@ -76,4 +76,4 @@ export const achievements = [
     achievementGroup: 'Gruppe 3 - Varig Insats',
     Date: new Date('August 19, 2020 21:12:30'),
   },
-]
+];
