@@ -2,7 +2,7 @@ import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import { BLACK, EVENROWCOLOR, LIGHTBLUE, WHITE } from '../../constants/Colors';
+import { BLACK, EVENROWCOLOR } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
