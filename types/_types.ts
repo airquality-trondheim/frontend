@@ -1,4 +1,3 @@
-// Navigation
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -9,6 +8,7 @@ export type BottomTabParamList = {
   TabTwo: undefined;
   Map: undefined;
   Competition: undefined;
+  Profile: undefined;
 };
 
 export type HomeParamList = {
@@ -19,12 +19,37 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
+//Achievements
+export type AchievementCardGroup = {
+  groups: AchievementCardElement[];
+};
+
+export type AchievementCardElement = {
+  achievementSymbol: number;
+  achievementName: string;
+  achievementDescription: string;
+  achievementGroup: string;
+  Date: Date;
+};
+
+export type AchievementCardData = {
+  data: AchievementCardElement[];
+};
+
 export type MapParamList = {
   MapPage: undefined;
 };
 
 export type CompetitionParamList = {
   CompetitionPage: undefined;
+};
+
+export type ProfileParamList = {
+  ProfilePage: undefined;
+  SettingPage: undefined;
+  SettingsFavoriteArea: undefined;
+  SettingsHelp: undefined;
+  SettingsPrivacy: undefined;
 };
 
 // Leaderboard
@@ -49,7 +74,6 @@ export type LeaderboardState = {
 };
 
 // Map
-
 export type aqStationData = {
   _id: string;
   id: number;
@@ -80,4 +104,18 @@ export type MapData = {
     longitudeDelta: number;
   };
   aqData: aqStationData[];
+};
+
+//Weather
+export type WeatherElement = {
+  time: string;
+  temp: number;
+  windSpeed: number;
+  rain: number;
+  symbol: string;
+};
+
+export type WeatherData = {
+  data: WeatherElement[];
+  lastFetched: Date;
 };
