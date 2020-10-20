@@ -13,7 +13,6 @@ export const BACKGROUNDCOLOR3 = '#a4ecd7';
 export const BACKGROUNDCOLOR4 = '#e8ffc1';
 export const CAROUSELITEM = '#fff';
 export const INFOCARD = '#e4ecf7';
-export const MODALBACKGROUND = '#e0ece4';
 export const CLOSEBUTTON = '#61ABCD';
 export const BLACK = '#000';
 export const WHITE = '#fff';

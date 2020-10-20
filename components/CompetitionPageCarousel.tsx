@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { width, carouselHeight } from '../constants/Layout';
 import AchievementCard from './Achievements/AchievementCard';
-import LeaderboardCardWithModal from './LeaderBoardCardWithModal';
+import LeaderboardCardWithModal from './leaderboard/LeaderboardCard';
 
 function CompetitionPageCarousel() {
   return (

@@ -24,14 +24,17 @@ const SettingElement = ({
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const navigation = useNavigation();
+
   useEffect(() => {
     if (Auth.Credentials.Auth.user !== null) {
       console.log('Store setting in DB');
     }
   }, []);
+
   useEffect(() => {
     storeData(isEnabled, elementName);
   }, [elementName, isEnabled]);
+
   return (
     <Row style={styles.elementRow}>
       <Col size={9}>

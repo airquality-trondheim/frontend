@@ -21,6 +21,8 @@ import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
 import { TINTCOLOR } from '../constants/Colors';
+import LeaderboardScreen from '../screens/LeaderboardScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -133,6 +135,14 @@ function CompetitionNavigator() {
       <CompetitionStack.Screen
         name="CompetitionPage"
         component={CompetitionPage}
+      />
+      <CompetitionStack.Screen
+        name="LeaderboardScreen"
+        component={LeaderboardScreen}
+      />
+      <CompetitionStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
       />
     </CompetitionStack.Navigator>
   );

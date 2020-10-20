@@ -2,7 +2,7 @@ import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import { BLACK, WHITE } from '../../constants/Colors';
+import { BLACK, EVENROWCOLOR, LIGHTBLUE, WHITE } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
@@ -84,31 +84,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   TextFormat: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   FontSize200: {
     fontSize: 200,
   },
-
   FontSize40: {
     fontSize: 40,
   },
-
   wrappingText: {
     flexWrap: 'wrap',
     fontSize: 10,
     textAlign: 'center',
   },
-
   modalView: {
     width: width * 0.9,
     height: height * 0.7,
-    backgroundColor: WHITE,
+    backgroundColor: EVENROWCOLOR,
     justifyContent: 'center',
     borderRadius: 20,
     alignItems: 'center',
@@ -117,11 +112,9 @@ const styles = StyleSheet.create({
     elevation: 1,
     shadowOpacity: 0.2,
   },
-
   touchableStyle: {
     width: width * 0.2,
     height: width * 0.2,
-    backgroundColor: WHITE,
     borderRadius: 10,
     alignItems: 'center',
   },
