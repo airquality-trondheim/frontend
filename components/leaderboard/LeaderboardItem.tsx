@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
-import { EVENROWCOLOR, GRAY, ODDROWCOLOR } from '../constants/Colors';
-import { LeaderboardElement } from '../types/_types';
+import { EVENROWCOLOR, GRAY, ODDROWCOLOR } from '../../constants/Colors';
+import { LeaderboardElement } from '../../types/_types';
+import { width } from '../../constants/Layout';
 
 export default function LeaderboardItem({
   item,
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 5,
     borderColor: GRAY,
+    width: width,
   },
   leftItems: {
     flex: 1,

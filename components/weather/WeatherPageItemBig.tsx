@@ -18,7 +18,7 @@ function WeatherComponentBig(props: WeatherProps) {
   useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
 
   return (
-    <View>
+    <>
       <Text style={styles.muncipalityHeader}> Tiller</Text>
       {weatherData.length > 0 ? (
         <View style={styles.weather}>
@@ -45,7 +45,7 @@ function WeatherComponentBig(props: WeatherProps) {
       ) : (
         <></>
       )}
-    </View>
+    </>
   );
 }
 

@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import useColorScheme from '../hooks/useColorScheme';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { getUserPoints } from '../actions/pointsActions';
 import { RootAction } from '../actions/types';
-import Colors from '../constants/Colors';
-import { width, height } from '../constants/Layout';
+import { width } from '../constants/Layout';
 import { RootState } from '../reducers';
 import { snake } from '../assets/images';
 
@@ -15,7 +13,6 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
-  const colorSheme = useColorScheme();
   const { points, fetchPoints } = props;
   const avatar: { avatarIcon: any; avatarName: string } = {
     avatarIcon: snake,
@@ -43,15 +40,9 @@ function ProgressCircle(props: ProgressCircleProps) {
         {() => (
           <>
             <Image source={avatar.avatarIcon} style={styles.avatarIcon} />
-            <Text style={[styles.level, { color: Colors[colorSheme].text }]}>
-              Level {level}
-            </Text>
-            <Text
-              style={[styles.avatarName, { color: Colors[colorSheme].text }]}
-            >
-              {avatar.avatarName}
-            </Text>
-            <Text style={[styles.progress, { color: Colors[colorSheme].text }]}>
+            <Text style={styles.level}>Level {level}</Text>
+            <Text style={styles.avatarName}>{avatar.avatarName}</Text>
+            <Text style={styles.progress}>
               {points}/{500 * level}
             </Text>
           </>
@@ -79,11 +70,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProgressCircle);
 
 const styles = StyleSheet.create({
   card: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     width: width * 0.8,
-    height: height * 0.4,
-    borderRadius: 20,
+    height: width * 0.8 - 25,
   },
   avatarIcon: {
     width: width * 0.4,
