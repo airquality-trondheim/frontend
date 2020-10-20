@@ -10,27 +10,18 @@ export default function EditScreenInfo() {
   return (
     <View>
       <View style={styles.getStartedContainer}>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
+        <Text style={styles.getStartedText} lightColor="rgba(0,0,0,0.8)">
           Current air pollution level:
         </Text>
 
         <View
           style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
           darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)"
         >
           <MonoText>High</MonoText>
         </View>
 
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
+        <Text style={styles.getStartedText} lightColor="rgba(0,0,0,0.8)">
           Do not go outside
         </Text>
       </View>

@@ -59,7 +59,6 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    lastFetched: state.weather.lastFetched,
     weatherData: state.weather.today,
   };
 };

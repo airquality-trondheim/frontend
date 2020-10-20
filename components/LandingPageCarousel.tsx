@@ -10,7 +10,7 @@ export default function LandingPageCarousel() {
   return (
     <View style={styles.carouselContainerStyle}>
       <TouchableOpacity onPress={() => navigation.navigate('WeatherScreen')}>
-        <CarouselItem leftMostItem headerText="Vær">
+        <CarouselItem headerText="Vær">
           <WeatherCarousel />
         </CarouselItem>
       </TouchableOpacity>
@@ -23,8 +23,9 @@ const styles = StyleSheet.create({
   carouselContainerStyle: {
     height: carouselHeight,
     width: width,
-    alignSelf: 'flex-start',
+    justifyContent: 'space-evenly',
     display: 'flex',
     flexDirection: 'row',
+    marginTop: 30,
   },
 });
