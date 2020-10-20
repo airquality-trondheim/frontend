@@ -1,4 +1,5 @@
 import {
+  AirqualityData,
   AchievementCardElement,
   aqStationData,
   LeaderboardElement,
@@ -10,10 +11,21 @@ export type RootAction =
   | WeatherActionTypes
   | LeaderboardActionTypes
   | MapActionTypes
-  | PointsActionTypes;
-  | AchievementCardActionTypes;
+  | PointsActionTypes
+  | AchievementCardActionTypes
+  | AirqualityActionTypes;
 
-//Achievements
+// Airquality
+export const GET_AIRQUALITYFORSTATION = 'GET_AIRQUALITYFORSTATION';
+
+type GetAirqualityForStationAction = {
+  type: typeof GET_AIRQUALITYFORSTATION;
+  data: AirqualityData;
+};
+
+export type AirqualityActionTypes = GetAirqualityForStationAction;
+
+// Achievements
 
 export const GET_ACHIEVEMENTCARD = 'GET_ACHIEVEMENT';
 
@@ -23,7 +35,6 @@ type GetAchievementCardAction = {
 };
 
 export type AchievementCardActionTypes = GetAchievementCardAction;
-
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';

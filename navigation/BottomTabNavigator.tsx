@@ -25,7 +25,6 @@ import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
 
-
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 // You can explore the built-in icon families and icons on the web at:

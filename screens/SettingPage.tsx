@@ -2,10 +2,8 @@ import React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import SettingView from '../components/settingFolder/SettingView';
 import settingArray from '../constants/SettingArray';
-import useColorScheme from '../hooks/useColorScheme';
 
 function SettingsPage() {
-  const colorScheme = useColorScheme();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
