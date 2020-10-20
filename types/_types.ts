@@ -43,6 +43,13 @@ export type UserProfile = {
   username: string;
   points: number;
   level: number;
+  symbolUrl: string;
+  mail: string;
+  telefon: string;
+  birthdate: string;
+  location: string;
+  postalcode: string;
+  street: string;
   //createdAt: string;
   //updatedAt: string;
 };
