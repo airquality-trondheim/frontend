@@ -1,4 +1,5 @@
 // Navigation
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -14,6 +15,7 @@ export type BottomTabParamList = {
 
 export type HomeParamList = {
   LandingPage: undefined;
+  WeatherScreen: undefined;
 };
 
 export type TabTwoParamList = {
@@ -141,7 +143,8 @@ export type WeatherElement = {
 };
 
 export type WeatherData = {
-  data: WeatherElement[];
+  today: WeatherElement[];
+  tomorrow: WeatherElement[];
   lastFetched: Date;
 };
 
