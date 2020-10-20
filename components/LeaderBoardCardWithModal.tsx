@@ -2,7 +2,7 @@ import { View, Text, Modal, StyleSheet, FlatList } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Grid, Row, Button } from 'native-base';
-import { MODALBACKGROUND, CLOSEBUTTON, WHITE } from '../constants/Colors';
+import { CLOSEBUTTON, WHITE, CAROUSELITEM } from '../constants/Colors';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import { CarouselItem } from './CarouselItem';
 import { connect } from 'react-redux';
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: width - 2 * singleSideMargin,
-    height: height * 0.75,
-    backgroundColor: MODALBACKGROUND,
+    height: height * 0.8,
+    backgroundColor: CAROUSELITEM,
     justifyContent: 'center',
     alignSelf: 'center',
     borderRadius: 20,

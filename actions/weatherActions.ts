@@ -17,7 +17,8 @@ export async function getWeatherData(
   }
   dispatch({
     type: GET_WEATHER,
-    data: weatherData.data,
+    today: weatherData.today,
+    tomorrow: weatherData.tomorrow,
     lastFetched: weatherData.lastFetched,
   });
 }

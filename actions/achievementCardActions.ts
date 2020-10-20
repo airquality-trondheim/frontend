@@ -1,5 +1,4 @@
 import { Dispatch } from 'redux';
-import store from '../store';
 import { GET_ACHIEVEMENTCARD, RootAction } from './types';
 import { achievements } from '../constants/Achievements';
 
