@@ -36,6 +36,18 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
+//Profile
+
+export type UserProfile = {
+  id: string;
+  username: string;
+  points: number;
+  level: number;
+  //createdAt: string;
+  //updatedAt: string;
+};
+
+//
 export type MapParamList = {
   MapPage: undefined;
 };

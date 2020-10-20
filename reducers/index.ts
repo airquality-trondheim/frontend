@@ -4,12 +4,14 @@ import achievementCardReducer from './achievemetCardReducer';
 import weatherReducer from './weatherReducer';
 import leaderboardReducer from './leaderboardReducer';
 import mapReducer from './mapReducer';
+import userprofileReducer from './profileReducer';
 
 export const rootReducer = combineReducers({
   leaderboard: leaderboardReducer,
   weather: weatherReducer,
   map: mapReducer,
   achievementcard: achievementCardReducer,
+  userprofile: userprofileReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
