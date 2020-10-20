@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { width, carouselHeight } from '../constants/Layout';
-import AchievementCard from './Achievements/AchievementCard';
+import AchievementCard from './achievements/AchievementCard';
 import { CarouselItem } from './CarouselItem';
 import LeaderboardCardWithModal from './LeaderBoardCardWithModal';
 
