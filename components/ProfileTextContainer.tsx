@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 
   textFormat: {
-    marginLeft: width*0.04,
+    marginLeft: width*0.02,
     fontSize: 18,
     fontWeight: 'bold',
   },
