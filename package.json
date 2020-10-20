@@ -44,7 +44,6 @@
     "react-native-dropdown-picker": "^3.7.0",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-google-places-autocomplete": "^1.8.3",
-    "react-native-leaderboard": "^1.0.6",
     "react-native-maps": "^0.27.1",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",

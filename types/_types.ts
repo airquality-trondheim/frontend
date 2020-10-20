@@ -1,4 +1,5 @@
-//navigation
+// Navigation
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -21,7 +22,7 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
-//Achievements
+// Achievements
 export type AchievementCardGroup = {
   groups: AchievementCardElement[];
 };
@@ -46,12 +47,14 @@ export type CompetitionParamList = {
   CompetitionPage: undefined;
 };
 
-// Location
-export type Location = {
-  locationName: string;
-  lat: string;
-  lon: string;
-  eoi: string;
+// User
+export type UserElement = {
+  _id: string;
+  username: string;
+  points: number;
+  __v: 0;
+  createdAt: string;
+  updatedAt: string;
 };
 
 // Profile
@@ -61,6 +64,14 @@ export type ProfileParamList = {
   SettingsFavoriteArea: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
+};
+
+// Location
+export type Location = {
+  locationName: string;
+  lat: string;
+  lon: string;
+  eoi: string;
 };
 
 // Leaderboard
@@ -117,7 +128,12 @@ export type MapData = {
   aqData: aqStationData[];
 };
 
-//Weather
+// Points
+export type PointsState = {
+  points: number;
+};
+
+// Weather
 export type WeatherElement = {
   time: string;
   temp: number;
