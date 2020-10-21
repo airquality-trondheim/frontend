@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import { Button, Grid, Row, Col } from 'native-base';
 import { getDistance } from 'geolib';
@@ -27,6 +27,13 @@ function Session(props: sessionProps) {
   const [sessionMilliseconds, setSessionMilliseconds] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [result, setResult] = useState<SessionResult | undefined>(undefined);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   // Used to calculate session details such as average speed and duration.
   useEffect(() => {
