@@ -12,6 +12,7 @@ import { waypoint, SessionResult } from '../types/_types';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import { CLOSEBUTTON, WHITE, STOPBUTTON } from '../constants/Colors';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import Closebutton from './CloseButton';
 
 const LOCATION_TRACKING = 'location-tracking';
 const GEOFENCE_TRACKING = 'geofence-tracking';
@@ -159,7 +160,9 @@ function Session(props: sessionProps) {
         </View>
         <View style={styles.sessionMetric}>
           <Text>Avstand</Text>
-          <Text style={styles.summaryText}>{totalDistance / 1000} km</Text>
+          <Text style={styles.summaryText}>
+            {Math.round((totalDistance / 1000) * 10) / 10} km
+          </Text>
         </View>
         <View style={styles.sessionMetric}>
           <Button
@@ -269,9 +272,7 @@ function Session(props: sessionProps) {
               </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
-                  <Button style={styles.button} onPress={updateModalVisible}>
-                    <Text style={styles.buttonText}>Lukk</Text>
-                  </Button>
+                  <Closebutton onPress={updateModalVisible} />
                 </View>
               </Row>
             </Grid>
