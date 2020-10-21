@@ -326,10 +326,8 @@ TaskManager.defineTask(
       return;
     }
     if (eventType === Location.LocationGeofencingEventType.Enter) {
-      console.log("You've entered region:", region);
       pollutionLevel = region.pollutionLevel;
     } else if (eventType === Location.LocationGeofencingEventType.Exit) {
-      console.log("You've left region:", region);
       pollutionLevel = 'ukjent';
     }
   },
