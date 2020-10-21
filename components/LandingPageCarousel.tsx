@@ -1,6 +1,6 @@
 import React from 'react';
-import AQCard from './AirQualityCard';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import AQCard from './airquality/AirQualityCard';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { CarouselItem } from './CarouselItem';
 import { height, width } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
