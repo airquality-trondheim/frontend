@@ -1,54 +1,53 @@
-import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { BACKGROUNDCOLOR2 } from "../constants/Colors";
+import React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { BACKGROUNDCOLOR2 } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
+import Mail from '../assets/images/svgComponent/mail';
 
-interface profileTextContainerInterface {
-  text: string,
-  outerWidth?: number,
-}
-
+type profileTextContainerInterface = {
+  text: string;
+  outerWidth?: number;
+  children: React.ReactNode;
+};
 
 const ProfileTextContainer = ({
-  text, 
-  outerWidth = width*0.8,
-}: profileTextContainerInterface) => {  
-
+  text,
+  outerWidth = width * 0.8,
+  children,
+}: profileTextContainerInterface) => {
   return (
-    <View style={[styles.colouredBorder, {width:outerWidth}]}>
-      <View style={styles.iconSphere}/>
-        <Text style={styles.textFormat}>{text}</Text>
+    <View style={[styles.colouredBorder, { width: outerWidth }]}>
+      <View style={styles.iconStyle}>
+        {children}
+      </View>
+      <Text style={styles.textFormat}>{text}</Text>
     </View>
   );
 };
 
-export {ProfileTextContainer};
+export { ProfileTextContainer };
 
 const styles = StyleSheet.create({
-
   colouredBorder: {
-    borderWidth:width*0.01, 
-    borderRadius:width*0.05, 
-    borderColor:BACKGROUNDCOLOR2, 
+    borderWidth: width * 0.01,
+    borderRadius: width * 0.05,
+    borderColor: BACKGROUNDCOLOR2,
     backgroundColor: 'white',
-    height:height*0.05,
+    height: height * 0.05,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: height*0.01,
+    marginVertical: height * 0.01,
   },
 
-  iconSphere: {
-    width: width*0.05,
-    height: width*0.05,
-    backgroundColor: BACKGROUNDCOLOR2,
-    borderRadius: width*0.05,
-    marginHorizontal: width*0.02
+  iconStyle: {
+    width: width * 0.05,
+    height: width * 0.05,
+    marginLeft: width * 0.02,
   },
 
   textFormat: {
-    marginLeft: width*0.02,
+    marginLeft: width * 0.02,
     fontSize: 18,
     fontWeight: 'bold',
   },
-
 });
