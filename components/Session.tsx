@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import { Button, Grid, Row, Col } from 'native-base';
 import { getDistance } from 'geolib';
@@ -8,15 +8,9 @@ import * as Permissions from 'expo-permissions';
 import { postSessionData } from '../queries/session';
 import { connect } from 'react-redux';
 import { RootState } from '../reducers';
-import { Auth } from 'aws-amplify';
 import { waypoint, SessionResult } from '../types/_types';
 import { width, singleSideMargin, height } from '../constants/Layout';
-import {
-  CLOSEBUTTON,
-  WHITE,
-  STARTBUTTON,
-  STOPBUTTON,
-} from '../constants/Colors';
+import { CLOSEBUTTON, WHITE, STOPBUTTON } from '../constants/Colors';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 
 const LOCATION_TRACKING = 'location-tracking';
@@ -33,19 +27,14 @@ function Session(props: sessionProps) {
   const [sessionMilliseconds, setSessionMilliseconds] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [result, setResult] = useState<SessionResult | undefined>(undefined);
-  const unmounted = useRef(false);
 
-  useEffect(() => {
-    return () => {
-      unmounted.current = true;
-    };
-  }, []);
-
+  // Used to calculate session details such as average speed and duration.
   useEffect(() => {
     let interval = null;
     if (sessionActive) {
       interval = setInterval(() => {
         if (waypoints.length >= 3 && waypoints.length > oldWaypointsLength) {
+          // Has at least 3 waypoints and one more than last time
           setOldWaypointsLength(waypoints.length);
           const firstCoords = {
             latitude: waypoints[waypoints.length - 2].latitude,
@@ -63,39 +52,33 @@ function Session(props: sessionProps) {
 
           const avgSpeed = newDistance / (time / 1000);
 
-          console.log('New distance:', newDistance);
-          console.log('Time:', time);
-          console.log('Avg speed:', avgSpeed);
+          // Checks if the average speed is above 8 m/s = 28.8 km/h
           if (avgSpeed > 8) {
             stopLocationTracking();
           }
 
           setTotalDistance(totalDistance + newDistance);
         }
-        setSessionMilliseconds(
-          (sessionMilliseconds) => sessionMilliseconds + 1000,
-        );
+        setSessionMilliseconds(sessionMilliseconds + 1000);
       }, 1000);
     } else if (!sessionActive && sessionMilliseconds !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [sessionActive, sessionMilliseconds, totalDistance, oldWaypointsLength]);
+  });
 
   const startLocationTracking = async () => {
     let res = await Permissions.askAsync(Permissions.LOCATION);
     if (!res.permissions.location.foregroundGranted) {
       return;
     }
+
     waypoints = [];
     await Location.startLocationUpdatesAsync(LOCATION_TRACKING, {
       accuracy: Location.Accuracy.Highest,
       timeInterval: 5000,
       distanceInterval: 0,
     });
-    const hasStarted = await Location.hasStartedLocationUpdatesAsync(
-      LOCATION_TRACKING,
-    );
 
     await Location.startGeofencingAsync(
       GEOFENCE_TRACKING,
@@ -112,15 +95,15 @@ function Session(props: sessionProps) {
       }),
     );
 
+    const hasStarted = await Location.hasStartedLocationUpdatesAsync(
+      LOCATION_TRACKING,
+    );
+
     const hasStartedGeofencing = await Location.hasStartedGeofencingAsync(
       GEOFENCE_TRACKING,
     );
 
-    if (hasStartedGeofencing) {
-      console.log('Started geofencing');
-    }
-
-    setSessionActive(hasStarted);
+    setSessionActive(hasStarted && hasStartedGeofencing);
   };
 
   const stopLocationTracking = async () => {
@@ -128,7 +111,9 @@ function Session(props: sessionProps) {
     await Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
     await Location.stopGeofencingAsync(GEOFENCE_TRACKING);
     const summary: SessionResult = await postSessionData({
-      userId: '5f6dde0d71a2bf3507462943', //Auth.Credentials.Auth.user.attributes.sub,
+      // TODO: Add back this whenever the users gets an updated ID in the backed.
+      // userId: Auth.Credentials.Auth.user.attributes.sub,
+      userId: '5f6dde0d71a2bf3507462943',
       sessionType: 'Arbeid',
       startTime: waypoints[0].timestamp,
       stopTime: waypoints[waypoints.length - 1].timestamp,
@@ -144,9 +129,8 @@ function Session(props: sessionProps) {
     setModalVisible(!modalVisible);
   };
 
-  function msToTime(duration) {
-    var milliseconds = parseInt((duration % 1000) / 100),
-      seconds = Math.floor((duration / 1000) % 60),
+  function msToTime(duration: number) {
+    let seconds = Math.floor((duration / 1000) % 60),
       minutes = Math.floor((duration / (1000 * 60)) % 60),
       hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
@@ -157,40 +141,42 @@ function Session(props: sessionProps) {
     return hours + ':' + minutes + ':' + seconds;
   }
 
+  const activeSessionComponent = () => {
+    return (
+      <View style={styles.sessionView}>
+        <View style={styles.sessionMetric}>
+          <Text>Tid</Text>
+          <Text style={styles.summaryText}>
+            {msToTime(sessionMilliseconds)}
+          </Text>
+        </View>
+        <View style={styles.sessionMetric}>
+          <Text>Avstand</Text>
+          <Text style={styles.summaryText}>{totalDistance / 1000} km</Text>
+        </View>
+        <View style={styles.sessionMetric}>
+          <Button
+            style={[styles.button, styles.stopButton]}
+            onPress={stopLocationTracking}
+          >
+            <Text style={styles.buttonText}>Avslutt</Text>
+          </Button>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.transparentView}>
       {sessionActive ? (
-        <View style={styles.sessionView}>
-          <View style={styles.sessionMetric}>
-            <Text>Tid</Text>
-            <Text style={styles.summaryText}>
-              {msToTime(sessionMilliseconds)}
-            </Text>
-          </View>
-          <View style={styles.sessionMetric}>
-            <Text>Avstand</Text>
-            <Text style={styles.summaryText}>{totalDistance / 1000} km</Text>
-          </View>
-          <View style={styles.sessionMetric}>
-            <Button style={styles.stopButton} onPress={stopLocationTracking}>
-              <Text style={styles.buttonText}>Avslutt</Text>
-            </Button>
-          </View>
+        activeSessionComponent()
+      ) : !modalVisible ? (
+        <View style={styles.buttonView}>
+          <Button style={styles.button} onPress={startLocationTracking}>
+            <Text style={styles.buttonText}>Start</Text>
+          </Button>
         </View>
-      ) : (
-        <View>
-          {!modalVisible ? (
-            <View style={styles.buttonView}>
-              <Button
-                style={styles.startButton}
-                onPress={startLocationTracking}
-              >
-                <Text style={styles.buttonText}>Start</Text>
-              </Button>
-            </View>
-          ) : null}
-        </View>
-      )}
+      ) : null}
       <Modal
         animationType="slide"
         transparent={true}
@@ -210,7 +196,11 @@ function Session(props: sessionProps) {
                   <View style={styles.centeredView}>
                     <Text>Tid</Text>
                     <Text style={styles.summaryText}>
-                      {msToTime(result?.millisecondsElapsed)}
+                      {msToTime(
+                        result?.millisecondsElapsed
+                          ? result.millisecondsElapsed
+                          : 0,
+                      )}
                     </Text>
                   </View>
                 </Col>
@@ -218,7 +208,10 @@ function Session(props: sessionProps) {
                   <View style={styles.centeredView}>
                     <Text>Avstand</Text>
                     <Text style={styles.summaryText}>
-                      {result?.metersTraveled / 1000} km
+                      {result?.metersTraveled
+                        ? result.metersTraveled / 1000
+                        : 0}{' '}
+                      km
                     </Text>
                   </View>
                 </Col>
@@ -227,7 +220,7 @@ function Session(props: sessionProps) {
                 <View style={styles.centeredView}>
                   <Text>Du har oppnådd:</Text>
                   <Text style={styles.totalPointsText}>
-                    {Math.floor(result?.sumPoints)} poeng
+                    {Math.floor(result?.sumPoints ? result.sumPoints : 0)} poeng
                   </Text>
                 </View>
               </Row>
@@ -237,7 +230,10 @@ function Session(props: sessionProps) {
                     <FontAwesome5 name="walking" size={50} color="black" />
                     <Text>Distanse</Text>
                     <Text style={styles.summaryText}>
-                      {Math.floor(result?.distancePoints)} p
+                      {Math.floor(
+                        result?.distancePoints ? result.distancePoints : 0,
+                      )}{' '}
+                      p
                     </Text>
                   </View>
                 </Col>
@@ -246,10 +242,14 @@ function Session(props: sessionProps) {
                     <FontAwesome name="map-marker" size={50} color="#6EE86E" />
                     <Text>Trygg sone</Text>
                     <Text style={styles.summaryText}>
-                      {Math.floor(result?.safeZonePoints)} p
+                      {Math.floor(
+                        result?.safeZonePoints ? result.safeZonePoints : 0,
+                      )}{' '}
+                      p
                     </Text>
                   </View>
                 </Col>
+                {/* Add back when backend supports scoring achievements
                 <Col size={1}>
                   <View style={styles.centeredView}>
                     <FontAwesome5 name="trophy" size={50} color="black" />
@@ -258,7 +258,7 @@ function Session(props: sessionProps) {
                       {result?.achievementPoints} p
                     </Text>
                   </View>
-                </Col>
+                </Col> */}
               </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
@@ -284,6 +284,10 @@ const mapStateToProps = (state: RootState) => {
 
 export default connect(mapStateToProps)(Session);
 
+/**
+ * Defines the task for location tracking.
+ * Is triggerd every timestep as defined in Location.startGeofencingAsync
+ */
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
   if (error) {
     console.log('LOCATION_TRACKING task ERROR:', error);
@@ -300,17 +304,18 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
       timestamp: new Date(Date.now()),
       pollutionLevel: pollutionLevel,
     });
-    console.log(`${new Date(Date.now()).toLocaleString()}: ${lat},${long}`);
   }
 });
 
+/**
+ * Defines the task for geofencing.
+ * Is triggered when a user enters or exits a defined region.
+ */
 TaskManager.defineTask(
   GEOFENCE_TRACKING,
   ({ data: { eventType, region }, error }) => {
-    console.log('In tracking task');
     if (error) {
-      // check `error.message` for more details.
-      console.log('Something happened');
+      console.log(error.message);
       return;
     }
     if (eventType === Location.LocationGeofencingEventType.Enter) {
@@ -347,20 +352,10 @@ const styles = StyleSheet.create({
     elevation: 2,
     alignSelf: 'center',
   },
-  startButton: {
-    backgroundColor: STARTBUTTON,
-    width: 80,
-    borderRadius: 20,
-    justifyContent: 'center',
-  },
   stopButton: {
     backgroundColor: STOPBUTTON,
-    width: 80,
-    borderRadius: 20,
-    justifyContent: 'center',
   },
   transparentView: {
-    backgroundColor: 'rgba(0,0,0,0)',
     position: 'absolute',
     right: 0,
     bottom: 0,
