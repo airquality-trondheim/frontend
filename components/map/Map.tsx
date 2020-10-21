@@ -12,6 +12,7 @@ type mapProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function Map(props: mapProps) {
+  const { aqData, fetchAirQualityData } = props;
   const [mapRegion, setMapRegion] = useState(props.region);
   const [aqStations, setAqStations] = useState(props.aqData);
 
@@ -25,12 +26,12 @@ function Map(props: mapProps) {
   };
 
   useEffect(() => {
-    props.fetchAirQualityData();
-  }, []);
+    fetchAirQualityData();
+  }, [fetchAirQualityData]);
 
   useEffect(() => {
-    setAqStations(props.aqData);
-  }, [props.aqData]);
+    setAqStations(aqData);
+  }, [aqData]);
 
   return (
     <MapView

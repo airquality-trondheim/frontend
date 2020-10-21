@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { View, StyleSheet } from 'react-native';
 import Map from '../components/map/Map';
 import Session from '../components/Session';
@@ -8,7 +7,6 @@ import Session from '../components/Session';
 function MapPage() {
   return (
     <View style={styles.screenStyle}>
-      {/*<Search />*/}
       <Map />
       <Session />
     </View>
