@@ -2,17 +2,24 @@ import React from 'react';
 import { View } from 'react-native';
 import { BarChart, Grid } from 'react-native-svg-charts';
 
-export default function AQBarChart (){
-    const fill = ['rgb(134, 65, 244)', 'rgb(0, 65, 244)', 'rgb(134, 0, 244)', 'rgb(0, 65, 244)']
-    const data = [{value:50, svg:{fill:'rgb(0, 65, 244}'}},40,30,40]
+export default function AQBarChart() {
+  const fill = 'rgb(134, 65, 244)';
+  const data = [49, 30, 40, 50]; //[{value:50, svg:{fill:'rgb(0, 65, 244}'}},40,30,40]
 
-    return (
-      <View>
-        <BarChart style={{ height: 40 , width:100}} data={data} yMin={0} spacingInner={0.5} spacingOuter={0.9}  >
-            <Grid />
-        </BarChart>
-      </View>
-    ) 
+  return (
+    <View>
+      <BarChart
+        style={{ height: 40, width: 100 }}
+        data={data}
+        yMin={0}
+        spacingInner={0.5}
+        spacingOuter={0.9}
+        svg={{ fill }}
+      >
+        <Grid />
+      </BarChart>
+    </View>
+  );
 }
 /*import { View, StyleSheet, Text } from 'react-native';
 import { width } from '../../constants/Layout';

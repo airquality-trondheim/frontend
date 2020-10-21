@@ -1,7 +1,5 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import { width, height } from '../../constants/Layout';
-import { BarChart } from 'react-native-chart-kit';
+import { View, StyleSheet } from 'react-native';
 import AQBarChart from './BarChart';
 
 function AQCard() {
