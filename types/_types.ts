@@ -190,7 +190,6 @@ export type locationData = {
   locations: locationType[];
 };
 
-//Weather
 // Points
 export type PointsState = {
   points: number;
