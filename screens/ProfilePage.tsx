@@ -33,25 +33,25 @@ function ProfilePage(props: UserProfileProps) {
   }, [fetchUserProfile]);
 
   const formatProfileLevelText =
-    userProfile.level == 0
-      ? 'Nivå 2 - 304 poeng'
+    userProfile.level === undefined
+      ? 'Nivå ? - ???? poeng'
       : 'Nivå ' + userProfile.level + ' - ' + userProfile.points + ' poeng';
 
   const formatProfileNameText =
-    userProfile.username == '0' ? 'Blekk Blekksprut' : userProfile.username;
+    userProfile.username == undefined ? 'Inkognito Impala' : userProfile.username;
 
   const formatMail =
-    userProfile.mail === '0' ? 'fill in mail' : userProfile.mail;
+    userProfile.mail === undefined ? 'fill in mail' : userProfile.mail;
   const formatTelefon =
-    userProfile.telefon === '0' ? 'fill in mail' : userProfile.telefon;
+    userProfile.telefon === undefined ? 'fill in telephone' : userProfile.telefon;
   const formatLocation =
-    userProfile.location === '0' ? 'fill in mail' : userProfile.location;
+    userProfile.location === undefined ? 'location' : userProfile.location;
   const formatBirthdate =
-    userProfile.birthdate === '0' ? 'fill in mail' : userProfile.birthdate;
+    userProfile.birthdate === undefined ? 'fill in birthdate' : userProfile.birthdate;
   const formatStreet =
-    userProfile.street === '0' ? 'fill in mail' : userProfile.street;
+    userProfile.street === undefined ? 'fill in street' : userProfile.street;
   const formatPostalCode =
-    userProfile.postalcode === '0' ? 'fill in mail' : userProfile.postalcode;
+    userProfile.postalcode === undefined ? 'Area' : userProfile.postalcode;
 
   return (
     <Grid>
