@@ -61,7 +61,7 @@ function ProfilePage(props: UserProfileProps) {
             <View style={styles.upperLeftContainer}>
               <View style={styles.avatarContainer}>
                 <View style={{ width: width * 0.2 }}>
-                  <SvgFormater xml={Pearl}/>
+                  <SvgFormater xml={Pearl} />
                 </View>
               </View>
             </View>
