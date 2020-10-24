@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { BACKGROUNDCOLOR2 } from '../constants/Colors';
+import { BACKGROUNDCOLOR2, WHITE } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
-import Mail from '../assets/images/svgComponent/mail';
 
 type profileTextContainerInterface = {
   text: string;
@@ -17,9 +16,7 @@ const ProfileTextContainer = ({
 }: profileTextContainerInterface) => {
   return (
     <View style={[styles.colouredBorder, { width: outerWidth }]}>
-      <View style={styles.iconStyle}>
-        {children}
-      </View>
+      <View style={styles.iconStyle}>{children}</View>
       <Text style={styles.textFormat}>{text}</Text>
     </View>
   );
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
     borderWidth: width * 0.01,
     borderRadius: width * 0.05,
     borderColor: BACKGROUNDCOLOR2,
-    backgroundColor: 'white',
+    backgroundColor: WHITE,
     height: height * 0.05,
     flexDirection: 'row',
     alignItems: 'center',
