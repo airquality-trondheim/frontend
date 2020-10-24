@@ -9,7 +9,7 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
     const profile: UserProfile = await response.json();
     return {
       ...profile,
-      symbolUrl: 'http://thenewcode.com/assets/svg/developer-tea.svg',
+      symbolUrl: 'Not yet ready for opening',
     };
   } catch(error){
     console.log("failed to fetch profile data");
@@ -18,7 +18,7 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
       username: 'Røyskatten',
       points: 1200,
       level: 3,
-      symbolUrl: 'http://thenewcode.com/assets/svg/developer-tea.svg',
+      symbolUrl: 'Not used yet',
       mail: 'example@mail.com',
       telefon: '999 11 888',
       birthdate: '12.12.1990',
