@@ -1,28 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Grid, Row } from 'native-base';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { getProfileData } from '../actions/profileActions';
 import { RootState } from '../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
-import {
-  LIGHTBLUE,
-  WHITE,
-  DARKRED,
-  BACKGROUNDCOLOR4,
-  BACKGROUNDCOLOR2,
-} from '../constants/Colors';
+import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
-import Pearl from '../assets/images/svgComponent/pearl';
-import Mail from '../assets/images/svgComponent/mail';
-import Telefone from '../assets/images/svgComponent/telefone';
-import Birthdaycake from '../assets/images/svgComponent/birthdaycake';
-import LocationMap from '../assets/images/svgComponent/locationMap';
-import LocationPin from '../assets/images/svgComponent/locationPin';
-import StreetSign from '../assets/images/svgComponent/streetSign';
+import Pearl from '../assets/images/svgTextFiles/pearl';
+import SvgFormater from '../components/SvgFormater';
 import { ProfileTextContainer } from '../components/ProfileTextContainer';
+import {
+  FontAwesome,
+  Ionicons,
+  Foundation,
+  Entypo,
+  Fontisto,
+} from '@expo/vector-icons';
 
 type UserProfileProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -65,7 +61,7 @@ function ProfilePage(props: UserProfileProps) {
             <View style={styles.upperLeftContainer}>
               <View style={styles.avatarContainer}>
                 <View style={{ width: width * 0.2 }}>
-                  <Pearl/>
+                  <SvgFormater xml={Pearl}/>
                 </View>
               </View>
             </View>
@@ -88,23 +84,33 @@ function ProfilePage(props: UserProfileProps) {
               { width: width, height: height * 0.4 },
             ]}
           >
-            <ProfileTextContainer text={formatMail} children={<Mail/>} />
-            <ProfileTextContainer text={formatTelefon} children={<Telefone/>}/>
-            <ProfileTextContainer text={formatBirthdate} children={<Birthdaycake/>}/>
+            <ProfileTextContainer text={formatMail}>
+              <Ionicons name="ios-mail" size={20} color="#51acdf" />
+            </ProfileTextContainer>
+            <ProfileTextContainer text={formatTelefon}>
+              <Foundation name="telephone" size={20} color="#51acdf" />
+            </ProfileTextContainer>
+            <ProfileTextContainer text={formatBirthdate}>
+              <FontAwesome name="birthday-cake" size={20} color="#51acdf" />
+            </ProfileTextContainer>
             <View style={{ flexDirection: 'row' }}>
               <ProfileTextContainer
                 text={formatLocation}
                 outerWidth={width * 0.47}
-                children={<LocationMap/>}
-              />
+              >
+                <FontAwesome name="map" size={18} color="#51adcf" />
+              </ProfileTextContainer>
               <View style={styles.minorSpace} />
               <ProfileTextContainer
                 text={formatPostalCode}
                 outerWidth={width * 0.3}
-                children={<LocationPin/>}
-              />
+              >
+                <Entypo name="location-pin" size={20} color="#51adcf" />
+              </ProfileTextContainer>
             </View>
-            <ProfileTextContainer text={formatStreet} children={<StreetSign/>}/>
+            <ProfileTextContainer text={formatStreet}>
+              <Fontisto name="direction-sign" size={20} color="#51adcf" />
+            </ProfileTextContainer>
           </View>
         </View>
       </Row>
@@ -197,10 +203,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  marginLeftFour: {
-    marginLeft: width * 0.04,
-  },
-
   upperRightContainer: {
     width: width * 0.61,
     height: height * 0.25,
@@ -222,31 +224,6 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.16,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  imageStyle: {
-    width: width * 0.3,
-    height: width * 0.3,
-  },
-
-  colouredBorder: {
-    borderWidth: width * 0.01,
-    borderRadius: width * 0.05,
-    borderColor: BACKGROUNDCOLOR2,
-    backgroundColor: 'white',
-    width: width * 0.8,
-    height: height * 0.05,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: height * 0.01,
-  },
-
-  iconSphere: {
-    width: width * 0.05,
-    height: width * 0.05,
-    backgroundColor: BACKGROUNDCOLOR2,
-    borderRadius: width * 0.05,
-    marginHorizontal: width * 0.02,
   },
 
   minorSpace: {
