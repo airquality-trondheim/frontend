@@ -24,6 +24,17 @@ const SettingElement = ({
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
+  useEffect(() => {
+    if (elementTrigger) {
+      getData(elementName).then((value) => {
+        if (value === 'true') {
+          setIsEnabled(true);
+        } else {
+          setIsEnabled(false);
+        }
+      });
+    }
+  }, [elementName, elementTrigger]);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const colorScheme = useColorScheme();
   const navigation = useNavigation();
@@ -78,6 +89,14 @@ const storeData = async (value: boolean, storageKey: string) => {
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
     // saving error
+  }
+};
+
+const getData = async (storageKey: string) => {
+  try {
+    return await AsyncStorage.getItem(storageKey);
+  } catch (e) {
+    // error reading value
   }
 };
 
