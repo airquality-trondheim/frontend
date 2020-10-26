@@ -22,7 +22,7 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
       username: 'Røyskatten',
       points: 1200,
       level: 3,
-      avatar: 'https://picsum.photos/150/150',
+      avatar: 'https://frisk-airquality.s3.eu-central-1.amazonaws.com/avatars/oyster.png',
       mail: 'example@mail.com',
       telefon: '999 11 888',
       birthdate: '12.12.1990',
