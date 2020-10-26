@@ -6,10 +6,15 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
   try {
     const response: Response = await fetch(endpoint + 'users/' + userID);
     const profile: UserProfile = await response.json();
+    const symbolResponse: Response = await fetch(endpoint + 'levels/' + profile.level);;
+    const symbol: string = await symbolResponse.json();
+
     return {
       ...profile,
-      symbolUrl: 'Not yet ready for opening',
+      avatar: symbol,
     };
+    
+
   } catch(error){
     console.log("failed to fetch profile data");
     return {
@@ -17,7 +22,7 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
       username: 'Røyskatten',
       points: 1200,
       level: 3,
-      symbolUrl: 'Not used yet',
+      avatar: 'https://picsum.photos/150/150',
       mail: 'example@mail.com',
       telefon: '999 11 888',
       birthdate: '12.12.1990',

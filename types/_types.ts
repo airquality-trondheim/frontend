@@ -55,7 +55,7 @@ export type UserProfile = {
   username: string;
   points: number;
   level: number;
-  symbolUrl: string;
+  avatar: string;
   mail: string;
   telefon: string;
   birthdate: string;

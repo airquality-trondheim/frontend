@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Grid, Row } from 'native-base';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { getProfileData } from '../actions/profileActions';
 import { RootState } from '../reducers';
@@ -9,8 +9,6 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
-import Pearl from '../assets/images/svgTextFiles/pearl';
-import SvgFormater from '../components/SvgFormater';
 import { ProfileTextContainer } from '../components/ProfileTextContainer';
 import {
   FontAwesome,
@@ -61,7 +59,10 @@ function ProfilePage(props: UserProfileProps) {
             <View style={styles.upperLeftContainer}>
               <View style={styles.avatarContainer}>
                 <View style={{ width: width * 0.2 }}>
-                  <SvgFormater xml={Pearl} />
+                  <Image
+                    source={{ uri: userProfile.avatar }}
+                    style={{width: 80, height:80}}
+                  />
                 </View>
               </View>
             </View>
