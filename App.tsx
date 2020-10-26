@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
+import { postPushNotificationToken } from './queries/pushNotificationToken';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
@@ -29,12 +30,10 @@ export default function App() {
         finalStatus = status;
       }
       if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!');
         return;
       }
       const token = await Notifications.getExpoPushTokenAsync();
-      console.log('Token:', token);
-      // TODO: Add token to redux and/or post it to backend
+      postPushNotificationToken(token);
     } else {
       alert('Must use physical device for Push Notifications');
     }
