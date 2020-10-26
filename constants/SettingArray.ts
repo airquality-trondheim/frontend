@@ -9,12 +9,6 @@ const settingArray = [
         desc: 'Aktiver konkurranse og nivåer',
         useOfToggle: true,
       },
-      {
-        id: 2,
-        name: 'Sensitivitet',
-        desc: 'Aktiver dersom du tilhører risikogrupper',
-        useOfToggle: true,
-      },
     ],
   },
   {
@@ -32,6 +26,12 @@ const settingArray = [
         id: 2,
         name: 'Smarte notifikasjoner',
         desc: 'Aktiver notifikasjoner som er tilpasset dine behov',
+        useOfToggle: true,
+      },
+      {
+        id: 3,
+        name: 'Sensitivitet',
+        desc: 'Aktiver dersom du tilhører risikogrupper',
         useOfToggle: true,
       },
     ],
