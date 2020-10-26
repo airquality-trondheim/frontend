@@ -2,8 +2,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
@@ -22,6 +20,9 @@ import SettingPage from '../screens/SettingPage';
 import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
+import { TINTCOLOR } from '../constants/Colors';
+import LeaderboardScreen from '../screens/LeaderboardScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -43,13 +44,11 @@ function createTabBarIcon(name: string, color: string, size?: number) {
 }
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: Colors[colorScheme].tint,
+        activeTintColor: TINTCOLOR,
         showLabel: false,
       }}
     >
@@ -136,6 +135,14 @@ function CompetitionNavigator() {
       <CompetitionStack.Screen
         name="CompetitionPage"
         component={CompetitionPage}
+      />
+      <CompetitionStack.Screen
+        name="LeaderboardScreen"
+        component={LeaderboardScreen}
+      />
+      <CompetitionStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
       />
     </CompetitionStack.Navigator>
   );

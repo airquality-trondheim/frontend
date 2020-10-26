@@ -1,9 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import Colors from '../constants/Colors';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 import Amplify from 'aws-amplify';
 import config from '../aws-exports';
@@ -31,15 +27,10 @@ function TabTwoScreen() {
       <Text style={styles.title}>
         Hello {Auth.Credentials.Auth.user.username}
       </Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo />
+      <View style={styles.separator} />
       <View>
         <TouchableOpacity onPress={signOut}>
-          <Text lightColor={Colors.light.tint}>Click here to log out</Text>
+          <Text>Click here to log out</Text>
         </TouchableOpacity>
       </View>
     </View>

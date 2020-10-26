@@ -1,61 +1,64 @@
-import { Button, Row, Text } from 'native-base';
-import React from 'react';
+import { Row, Text } from 'native-base';
+import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-import { BACKGROUNDCOLOR2, BLACK, WHITE } from '../../constants/Colors';
+import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { BLACK, EVENROWCOLOR } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
+import CloseButton from '../CloseButton';
 
 const AchievementFormat = (data: AchievementCardElement, index: number) => {
   const [modVisible, setModVisible] = useState(false);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   const updateModal = () => {
-    setModVisible(!modVisible);
+    if (!unmounted.current) {
+      setModVisible(!modVisible);
+    }
   };
 
   return (
     <View key={index} style={styles.AchievementBox}>
-      <TouchableHighlight onPress={updateModal} style={styles.touchableStyle}>
-        <View>
-          <View
-            style={[styles.centerContent, { marginVertical: width * 0.01 }]}
-          >
-            <Text style={styles.FontSize50}>
-              {String.fromCodePoint(data.achievementSymbol)}
-            </Text>
-            <Text style={styles.wrappingText}>{data.achievementName}</Text>
-          </View>
-          <Modal transparent={true} visible={modVisible} animationType="fade">
-            <View style={[styles.centerContent, { flex: 1 }]}>
-              <View style={styles.modalView}>
-                <Row size={1}>
-                  <View style={styles.centerContent}>
-                    <Text style={[styles.TextFormat, { fontSize: 35 }]}>
-                      {data.achievementName}
-                    </Text>
-                  </View>
-                </Row>
-                <Row size={8}>
-                  <View style={styles.centerContent}>
-                    <Text style={styles.FontSize250}>
-                      {data === undefined
-                        ? ''
-                        : String.fromCodePoint(data.achievementSymbol)}
-                    </Text>
-                    <Text>{data.achievementDescription}</Text>
-                  </View>
-                </Row>
-                <Row size={1} style={styles.centerContent}>
-                  <Button style={styles.buttonStyle} onPress={updateModal}>
-                    <Text style={styles.FontSize20}>Lukk</Text>
-                  </Button>
-                </Row>
-              </View>
-            </View>
-          </Modal>
+      <TouchableOpacity onPress={updateModal} style={styles.touchableStyle}>
+        <View style={[styles.achievement, { marginVertical: width * 0.01 }]}>
+          <Text style={styles.FontSize40}>
+            {String.fromCodePoint(data.achievementSymbol)}
+          </Text>
+          <Text style={styles.wrappingText}>{data.achievementName}</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
+      <Modal transparent={true} visible={modVisible} animationType="fade">
+        <View style={styles.centerContent}>
+          <View style={styles.modalView}>
+            <Row size={2}>
+              <View style={styles.centerContent}>
+                <Text style={[styles.TextFormat, { fontSize: 35 }]}>
+                  {data.achievementName}
+                </Text>
+              </View>
+            </Row>
+            <Row size={8}>
+              <View style={styles.centerContent}>
+                <Text style={styles.FontSize200}>
+                  {data === undefined
+                    ? ''
+                    : String.fromCodePoint(data.achievementSymbol)}
+                </Text>
+                <Text>{data.achievementDescription}</Text>
+              </View>
+            </Row>
+            <Row size={1} style={styles.centerContent}>
+              <CloseButton onPress={updateModal} />
+            </Row>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -71,40 +74,36 @@ const styles = StyleSheet.create({
     width: width * 0.2,
     margin: width * 0.0383,
   },
-
+  achievement: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
   centerContent: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   TextFormat: {
     fontSize: 20,
     fontWeight: 'bold',
-    lineHeight: 50,
-    color: BLACK,
+    textAlign: 'center',
   },
-
-  FontSize250: {
-    fontSize: 250,
+  FontSize200: {
+    fontSize: 200,
   },
-
-  FontSize50: {
-    fontSize: 50,
+  FontSize40: {
+    fontSize: 40,
   },
-
-  FontSize20: {
-    fontSize: 20,
-  },
-
   wrappingText: {
     flexWrap: 'wrap',
     fontSize: 10,
+    textAlign: 'center',
   },
-
   modalView: {
     width: width * 0.9,
     height: height * 0.7,
-    backgroundColor: WHITE,
+    backgroundColor: EVENROWCOLOR,
     justifyContent: 'center',
     borderRadius: 20,
     alignItems: 'center',
@@ -113,19 +112,10 @@ const styles = StyleSheet.create({
     elevation: 1,
     shadowOpacity: 0.2,
   },
-
   touchableStyle: {
     width: width * 0.2,
     height: width * 0.2,
-    backgroundColor: WHITE,
     borderRadius: 10,
     alignItems: 'center',
-  },
-
-  buttonStyle: {
-    width: width * 0.2,
-    height: height * 0.04,
-    backgroundColor: BACKGROUNDCOLOR2,
-    borderRadius: 15,
   },
 });

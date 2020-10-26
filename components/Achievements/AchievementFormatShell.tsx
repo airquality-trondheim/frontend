@@ -45,9 +45,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   return (
     <View style={styles.outerView}>
       <ScrollView contentContainerStyle={styles.scrollStyle}>
-        <View>
-          <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
-        </View>
+        <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         <View style={styles.recentStyle}>
           {dataSet.AchievementCardData.slice(0, 3).map((data, index) => {
             return AchievementFormat(data, index);
@@ -99,7 +97,6 @@ const styles = StyleSheet.create({
   },
 
   recentStyle: {
-    justifyContent: 'flex-start',
     flexDirection: 'row',
     marginHorizontal: width * 0.0383,
   },

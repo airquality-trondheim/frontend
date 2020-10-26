@@ -1,5 +1,4 @@
 // Navigation
-
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -22,6 +21,16 @@ export type TabTwoParamList = {
   TabTwoScreen: undefined;
 };
 
+export type MapParamList = {
+  MapPage: undefined;
+};
+
+export type CompetitionParamList = {
+  CompetitionPage: undefined;
+  LeaderboardScreen: undefined;
+  AchievementsScreen: undefined;
+};
+
 // Achievements
 export type AchievementCardGroup = {
   groups: AchievementCardElement[];
@@ -37,14 +46,6 @@ export type AchievementCardElement = {
 
 export type AchievementCardData = {
   data: AchievementCardElement[];
-};
-
-export type MapParamList = {
-  MapPage: undefined;
-};
-
-export type CompetitionParamList = {
-  CompetitionPage: undefined;
 };
 
 // User

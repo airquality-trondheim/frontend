@@ -1,19 +1,13 @@
 import { Button } from 'native-base';
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { StyleSheet, Text, View } from 'react-native';
 import { getWeatherDataForLocation } from '../queries/weather';
 
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Air Quality App</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+      <View style={styles.separator} />
       <Button
         color="hotpink"
         onPress={() => getWeatherDataForLocation(63, 10)}
@@ -21,7 +15,6 @@ export default function TabOneScreen() {
       {
         //getWeatherDataForLocation(63,10)}
       }
-      <EditScreenInfo />
     </View>
   );
 }
