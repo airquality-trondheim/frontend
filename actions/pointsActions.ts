@@ -11,11 +11,15 @@ export async function getUserPoints(
     dispatch({
       type: GET_USERPOINTS,
       points: -1,
+      name: '',
+      avatar: '',
     });
     return;
   }
   dispatch({
     type: GET_USERPOINTS,
-    points: newPoints,
+    points: newPoints.points,
+    name: newPoints.name,
+    avatar: newPoints.avatar,
   });
 }

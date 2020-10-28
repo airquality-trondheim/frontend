@@ -53,10 +53,21 @@ export type UserElement = {
   _id: string;
   username: string;
   points: number;
+  level: number;
   __v: 0;
   createdAt: string;
   updatedAt: string;
 };
+
+// Level
+export type Level = {
+  levelNo:	number;
+  name:	string;
+  iconUrl:	string;
+  pointThreshold:	number;
+  pointsRequired:	number;
+  qty:	number;
+}
 
 // Profile
 export type ProfileParamList = {
@@ -132,6 +143,8 @@ export type MapData = {
 // Points
 export type PointsState = {
   points: number;
+  name: string;
+  avatar: string;
 };
 
 // Weather

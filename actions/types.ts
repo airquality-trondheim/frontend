@@ -82,6 +82,8 @@ export const GET_USERPOINTS = 'GET_USERPOINTS';
 type GetUserPointsAction = {
   type: typeof GET_USERPOINTS;
   points: number;
+  name: string;
+  avatar: string;
 };
 
 export type PointsActionTypes = GetUserPointsAction;
