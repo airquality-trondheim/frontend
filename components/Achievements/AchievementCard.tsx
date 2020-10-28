@@ -11,6 +11,7 @@ import { CarouselItem } from '../CarouselItem';
 import { connect } from 'react-redux';
 import { BACKGROUNDCOLOR2 } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type AchievementCardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDistpatchToProps>;
@@ -38,11 +39,7 @@ const AchievementCard = (props: AchievementCardProps) => {
               </Text>
               {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the most recent achievement*/}
-              <Text style={{ fontSize: 50 }}>
-                {lastElement === undefined
-                  ? ''
-                  : String.fromCodePoint(lastElement.achievementSymbol)}
-              </Text>
+              <MaterialCommunityIcons name="trophy" size={50} color="#111" />
               {/*does the same for the achievement name*/}
               <Text style={[styles.textStyle, { fontSize: 15 }]}>
                 {lastElement === undefined ? '' : lastElement.achievementName}
@@ -58,11 +55,7 @@ const AchievementCard = (props: AchievementCardProps) => {
               </Text>
               {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the second most recent achievement*/}
-              <Text style={{ fontSize: 50 }}>
-                {secondElement === undefined
-                  ? ''
-                  : String.fromCodePoint(secondElement.achievementSymbol)}
-              </Text>
+              <MaterialCommunityIcons name="trophy" size={50} color="#111" />
               {/*does the same for the achievement name*/}
               <Text style={[styles.textStyle, { fontSize: 15 }]}>
                 {secondElement === undefined

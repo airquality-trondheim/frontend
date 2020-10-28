@@ -1,3 +1,4 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
@@ -27,9 +28,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
     <View key={index} style={styles.AchievementBox}>
       <TouchableOpacity onPress={updateModal} style={styles.touchableStyle}>
         <View style={[styles.achievement, { marginVertical: width * 0.01 }]}>
-          <Text style={styles.FontSize40}>
-            {String.fromCodePoint(data.achievementSymbol)}
-          </Text>
+        <MaterialCommunityIcons name="trophy" size={50} color="#111" />
           <Text style={styles.wrappingText}>{data.achievementName}</Text>
         </View>
       </TouchableOpacity>
@@ -45,11 +44,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
             </Row>
             <Row size={8}>
               <View style={styles.centerContent}>
-                <Text style={styles.FontSize200}>
-                  {data === undefined
-                    ? ''
-                    : String.fromCodePoint(data.achievementSymbol)}
-                </Text>
+              <MaterialCommunityIcons name="trophy" size={240} color="#111" />
                 <Text>{data.achievementDescription}</Text>
               </View>
             </Row>
