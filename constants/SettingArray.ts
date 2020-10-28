@@ -17,19 +17,12 @@ const settingArray = [
     viewArray: [
       {
         id: 1,
-        name: 'Område',
-        desc: 'Velg områder du ønsker å motta varslinger for',
-        useOfToggle: false,
-        navigateTo: 'SettingsFavoriteArea',
-      },
-      {
-        id: 2,
         name: 'Smarte notifikasjoner',
         desc: 'Aktiver notifikasjoner som er tilpasset dine behov',
         useOfToggle: true,
       },
       {
-        id: 3,
+        id: 2,
         name: 'Sensitivitet',
         desc: 'Aktiver dersom du tilhører risikogrupper',
         useOfToggle: true,
