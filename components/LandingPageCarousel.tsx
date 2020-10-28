@@ -15,9 +15,11 @@ export default function LandingPageCarousel() {
           <WeatherCarousel />
         </CarouselItem>
       </TouchableOpacity>
-      <CarouselItem headerText="Luft">
-        <AQCard />
-      </CarouselItem>
+      <TouchableOpacity onPress={() => navigation.navigate('AirQualityScreen')}>
+        <CarouselItem headerText="Luft">
+          <AQCard />
+        </CarouselItem>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -29,6 +31,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 0,
   },
 });

@@ -23,6 +23,7 @@ import SettingsPrivacy from '../screens/SettingsPrivacy';
 import { TINTCOLOR } from '../constants/Colors';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
+import AirQualityScreen from '../screens/AchievementsScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -103,6 +104,7 @@ function HomeNavigator() {
     <HomeStack.Navigator>
       <HomeStack.Screen name="LandingPage" component={LandingPage} />
       <HomeStack.Screen name="WeatherScreen" component={WeatherScreen} />
+      <HomeStack.Screen name="AirQualityScreen" component={AirQualityScreen} />
     </HomeStack.Navigator>
   );
 }

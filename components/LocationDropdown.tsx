@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   pickerContainer: {
     height: 50,
     width: width * 0.8,
+    marginBottom: 20,
   },
   pickerItem: {
     justifyContent: 'flex-start',

@@ -15,6 +15,7 @@ export type BottomTabParamList = {
 export type HomeParamList = {
   LandingPage: undefined;
   WeatherScreen: undefined;
+  AirQualityScreen: undefined;
 };
 
 export type TabTwoParamList = {

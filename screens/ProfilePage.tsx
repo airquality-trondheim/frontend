@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Grid, Row } from 'native-base';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import AQBarChart from '../components/airquality/BarChart';
 import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 
@@ -11,9 +10,7 @@ function ProfilePage() {
   return (
     <Grid>
       <Row size={4}>
-        <View style={[styles.centeredView, styles.profileView]}>
-          <AQBarChart />
-        </View>
+        <View style={[styles.centeredView, styles.profileView]}></View>
       </Row>
       <Row size={1}>
         <View style={styles.centeredView}>
