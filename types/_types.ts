@@ -37,7 +37,7 @@ export type AchievementCardGroup = {
 };
 
 export type AchievementCardElement = {
-  achievementSymbol: number;
+  achievementId: string;
   achievementName: string;
   achievementDescription: string;
   achievementGroup: string;
