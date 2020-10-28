@@ -48,6 +48,11 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
+export type UserAchievement = {
+  timestampEarned: Date;
+  achievementId:	string;
+};
+
 // User
 export type UserElement = {
   _id: string;
