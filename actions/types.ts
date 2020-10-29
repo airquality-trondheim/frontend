@@ -5,6 +5,8 @@ import {
   LeaderboardElement,
   UserRanking,
   WeatherElement,
+  Location,
+  Station,
 } from '../types/_types';
 
 export type RootAction =
@@ -13,7 +15,8 @@ export type RootAction =
   | MapActionTypes
   | PointsActionTypes
   | AchievementCardActionTypes
-  | AirqualityActionTypes;
+  | AirqualityActionTypes
+  | LocationsActionTypes;
 
 // Airquality
 export const GET_AIRQUALITYFORSTATION = 'GET_AIRQUALITYFORSTATION';
@@ -85,3 +88,35 @@ type GetUserPointsAction = {
 };
 
 export type PointsActionTypes = GetUserPointsAction;
+
+// Locations
+export const GET_STATIONS = 'GET_STATIONS';
+export const GET_LOCATIONS = 'GET_LOCATIONS';
+export const GET_CURRENT_LOCATION = 'GET_CURRENT_STATION';
+export const POST_CURRENT_LOCATION = 'POST_CURRENT_STATION';
+
+type GetStationsAction = {
+  type: typeof GET_STATIONS;
+  stations: Station[];
+};
+
+type GetLocationsAction = {
+  type: typeof GET_LOCATIONS;
+  locations: Location[];
+};
+
+type GetCurrentLocation = {
+  type: typeof GET_CURRENT_LOCATION;
+  currentLocation: Location;
+};
+
+type PostCurrentLocation = {
+  type: typeof POST_CURRENT_LOCATION;
+  currentLocation: Location;
+};
+
+export type LocationsActionTypes =
+  | GetStationsAction
+  | GetLocationsAction
+  | GetCurrentLocation
+  | PostCurrentLocation;

@@ -68,11 +68,41 @@ export type ProfileParamList = {
 };
 
 // Location
-export type Location = {
-  locationName: string;
-  lat: string;
-  lon: string;
+export type Station = {
+  name: string;
   eoi: string;
+  height: number;
+  longitude: number;
+  latitude: number;
+  grunnkrets: {
+    name: string;
+    areacode: string;
+  };
+  delområde: {
+    name: string;
+    areacode: string;
+  };
+  kommune: {
+    name: string;
+    areacode: string;
+  };
+};
+
+export type Location = {
+  _id: string;
+  name: string;
+  path: string;
+  longitude: number;
+  latitude: number;
+  areacode: string;
+  areaclass: string;
+  superareacode: string;
+};
+
+export type LocationState = {
+  stations: Station[];
+  locations: Location[];
+  currentLocation: Location | null;
 };
 
 // Leaderboard
