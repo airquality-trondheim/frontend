@@ -1,3 +1,13 @@
+// App state
+export type AppState = {
+  leaderboard: LeaderboardState;
+  weather: WeatherData;
+  map: MapData;
+  points: PointsState;
+  airquality: AirqualityData;
+  achievementcard: AchievementCardData;
+};
+
 // Navigation
 export type RootStackParamList = {
   Root: undefined;

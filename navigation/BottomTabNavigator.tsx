@@ -98,7 +98,7 @@ export default function BottomTabNavigator() {
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const HomeStack = createStackNavigator<HomeParamList>();
 
-function HomeNavigator() {
+export function HomeNavigator() {
   return (
     <HomeStack.Navigator>
       <HomeStack.Screen name="LandingPage" component={LandingPage} />

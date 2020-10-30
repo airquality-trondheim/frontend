@@ -4,7 +4,7 @@ import { rootReducer } from './reducers';
 
 const initialState = {};
 
-const middelware = [thunk];
+export const middelware = [thunk];
 
 const store = createStore(
   rootReducer,
