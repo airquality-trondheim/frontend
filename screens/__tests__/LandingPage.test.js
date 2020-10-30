@@ -39,6 +39,26 @@ describe('Landing page', () => {
     expect(rendered).toBeDefined();
   });
 
+  it('displays airquality', async () => {
+    const component = (
+      <NavigationContainer>
+        <HomeNavigator />
+      </NavigationContainer>
+    );
+    const page = renderPage(component);
+    await act(async () => {});
+
+    const airQualityText = page.getAllByText('Utmerket');
+    const pm10Text = page.getByText('39');
+    const pm25Text = page.getByText('29');
+    const no2Text = page.getByText('60');
+
+    expect(airQualityText.length).toBe(2); // Modal + skjerm
+    expect(pm10Text).toBeTruthy();
+    expect(pm25Text).toBeTruthy();
+    expect(no2Text).toBeTruthy();
+  });
+
   it('navigates to weather screen', async () => {
     const component = (
       <NavigationContainer>
@@ -52,9 +72,9 @@ describe('Landing page', () => {
 
     fireEvent(toClick, 'press');
 
-    const newSubHeader1 = waitFor(() => page.queyByText('Nå'));
-    const newSubHeader2 = waitFor(() => page.queyByText('I dag'));
-    const newSubHeader3 = waitFor(() => page.findByText('I morgen'));
+    const newSubHeader1 = await waitFor(() => page.queryByText(' Nå '));
+    const newSubHeader2 = await waitFor(() => page.queryByText('I dag'));
+    const newSubHeader3 = await waitFor(() => page.queryByText('I morgen'));
 
     expect(newSubHeader1).toBeTruthy();
     expect(newSubHeader2).toBeTruthy();

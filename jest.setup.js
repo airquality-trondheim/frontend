@@ -259,27 +259,271 @@ jest.mock('./queries/airquality', () => {
 });
 
 jest.mock('./queries/weather', () => {
-  const forecast = [];
-  const cloudyUri = Image.resolveAssetSource(cloudy).uri;
-  const forecastElement = {
-    time: new Date().getUTCDate(),
-    temp: 18,
-    windSpeed: 1.8,
-    rain: 0.0,
-    symbol: cloudyUri,
-  };
-  for (let i = 0; i < 24; i++) {
-    forecast.push(forecastElement);
-  }
   const weatherData = {
-    today: forecast,
-    tomorrow: forecast,
-    lastFetched: new Date(0),
+    lastFetched: '2020-10-30T15:42:47.000Z',
+    today: [
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/fair_night.png',
+        temp: 6.5,
+        time: '2020-10-30T16:00:00Z',
+        windSpeed: 5.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 6.7,
+        time: '2020-10-30T17:00:00Z',
+        windSpeed: 6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 6.7,
+        time: '2020-10-30T18:00:00Z',
+        windSpeed: 5.9,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 6.9,
+        time: '2020-10-30T19:00:00Z',
+        windSpeed: 4.5,
+      },
+      {
+        rain: 0.6,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 7,
+        time: '2020-10-30T20:00:00Z',
+        windSpeed: 3.2,
+      },
+      {
+        rain: 0.8,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 6.5,
+        time: '2020-10-30T21:00:00Z',
+        windSpeed: 3.4,
+      },
+      {
+        rain: 0.7,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 6.3,
+        time: '2020-10-30T22:00:00Z',
+        windSpeed: 2.9,
+      },
+      {
+        rain: 1.2,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/heavyrain.png',
+        temp: 6.1,
+        time: '2020-10-30T23:00:00Z',
+        windSpeed: 3.3,
+      },
+    ],
+    tomorrow: [
+      {
+        rain: 0.6,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 5.9,
+        time: '2020-10-31T00:00:00Z',
+        windSpeed: 3.1,
+      },
+      {
+        rain: 0.6,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 5.8,
+        time: '2020-10-31T01:00:00Z',
+        windSpeed: 3.6,
+      },
+      {
+        rain: 0.3,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/rain.png',
+        temp: 5.6,
+        time: '2020-10-31T02:00:00Z',
+        windSpeed: 3.4,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 5.4,
+        time: '2020-10-31T03:00:00Z',
+        windSpeed: 3.4,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 5,
+        time: '2020-10-31T04:00:00Z',
+        windSpeed: 3.4,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 4.5,
+        time: '2020-10-31T05:00:00Z',
+        windSpeed: 3.3,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_night.png',
+        temp: 4.1,
+        time: '2020-10-31T06:00:00Z',
+        windSpeed: 3.5,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 3.4,
+        time: '2020-10-31T07:00:00Z',
+        windSpeed: 3.5,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 3.4,
+        time: '2020-10-31T08:00:00Z',
+        windSpeed: 3.4,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 4,
+        time: '2020-10-31T09:00:00Z',
+        windSpeed: 3.2,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 5.2,
+        time: '2020-10-31T10:00:00Z',
+        windSpeed: 2.5,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 6.5,
+        time: '2020-10-31T11:00:00Z',
+        windSpeed: 0.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 7.2,
+        time: '2020-10-31T12:00:00Z',
+        windSpeed: 0.9,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 7.3,
+        time: '2020-10-31T13:00:00Z',
+        windSpeed: 1.1,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_day.png',
+        temp: 7.1,
+        time: '2020-10-31T14:00:00Z',
+        windSpeed: 2.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/clearsky_night.png',
+        temp: 6.2,
+        time: '2020-10-31T15:00:00Z',
+        windSpeed: 4.5,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 5.7,
+        time: '2020-10-31T16:00:00Z',
+        windSpeed: 5.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 5.4,
+        time: '2020-10-31T17:00:00Z',
+        windSpeed: 4.5,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 5.5,
+        time: '2020-10-31T18:00:00Z',
+        windSpeed: 4.7,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 5.9,
+        time: '2020-10-31T19:00:00Z',
+        windSpeed: 4.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 5.9,
+        time: '2020-10-31T20:00:00Z',
+        windSpeed: 3.6,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/partlycloudy_night.png',
+        temp: 6.1,
+        time: '2020-10-31T21:00:00Z',
+        windSpeed: 3.8,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 6.7,
+        time: '2020-10-31T22:00:00Z',
+        windSpeed: 5.2,
+      },
+      {
+        rain: 0,
+        symbol:
+          'https://frisk-airquality.s3.eu-central-1.amazonaws.com/weathericons/png/cloudy.png',
+        temp: 7.5,
+        time: '2020-10-31T23:00:00Z',
+        windSpeed: 7.2,
+      },
+    ],
   };
   return {
-    getWeatherDataForLocation: jest.fn((lat, lon) =>
-      Promise.resolve(weatherData),
-    ),
+    getWeatherDataForLocation: jest.fn(() => Promise.resolve(weatherData)),
   };
 });
 
