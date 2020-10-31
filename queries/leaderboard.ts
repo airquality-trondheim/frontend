@@ -22,11 +22,11 @@ export async function fetchLeaderboardData(): Promise<LeaderboardElement[]> {
     return data;
   } catch (error) {
     return [
-      { id: 'raeseeie2', username: 'Røyskatten', points: 1200 },
+      { id: 'raeseeie2', username: 'Slangen', points: 1200 },
       { id: 'raesfsie2', username: 'Minken', points: 1000 },
       { id: 'raesfdie2', username: 'Haren', points: 600 },
       { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-      { id: 'raesfuie2', username: 'Slangen', points: 200 },
+      { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
       { id: 'raesfuie4', username: 'Uglen', points: 150 },
       { id: 'raesfuie5', username: 'Marken', points: 100 },
       { id: 'raesfuie6', username: 'Katten', points: 80 },
@@ -58,7 +58,7 @@ export async function fetchUserRanking(userID: string): Promise<UserRanking> {
   } catch (error) {
     return {
       ranking: 5,
-      user: { id: 'raesfuie2', username: 'Slangen', points: 200 },
+      user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
     };
   }
 }

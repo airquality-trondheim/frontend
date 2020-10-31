@@ -3,17 +3,24 @@ import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CarouselItem } from '../CarouselItem';
 import { connect } from 'react-redux';
-import { getUserRanking } from '../../actions/leaderboardActions';
+import { getLeaderboardData, getUserRanking } from '../../actions/leaderboardActions';
 import { RootState } from '../../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../../actions/types';
 import { useNavigation } from '@react-navigation/native';
+import { height, width } from '../../constants/Layout';
+import { BACKGROUNDCOLOR2 } from '../../constants/Colors';
 
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function LeaderboardCard(props: LeaderboardProps) {
-  const { userRanking, fetchUserRanking } = props;
+  const {
+    leaderboardData,
+    userRanking,
+    fetchLeaderboardData,
+    fetchUserRanking,
+  } = props;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -21,13 +28,28 @@ function LeaderboardCard(props: LeaderboardProps) {
     fetchUserRanking('5f6dde0d71a2bf3507462942');
   }, [fetchUserRanking]);
 
+  useEffect(() => {
+    fetchLeaderboardData();
+  }, [fetchLeaderboardData]);
+
   return (
     <TouchableOpacity onPress={() => navigation.navigate('LeaderboardScreen')}>
       <CarouselItem headerText="Toppliste">
-        <View style={{ flex: 1 }}>
-          <Text style={styles.text}>Du er på</Text>
-          <Text style={styles.placement}>{userRanking.ranking}.</Text>
-          <Text style={styles.text}>plass</Text>
+        <View style={styles.seperatorStyle} />
+        <View style={[styles.compartementStyle, {flex: 2}]}>
+          <Text style={[styles.text, {marginVertical: height*0.012}]}>Topp 5</Text>
+          {leaderboardData.slice(0, 
+            leaderboardData.length < 5 ? leaderboardData.length : 5
+          ).map((element, index) =>{
+            return (<Text style={styles.text} key={index}>
+              {index + 1}. {element.username}
+            </Text>);
+          })}
+        </View>
+        <View style={styles.seperatorStyle} />
+        <View style={[styles.compartementStyle, {flex: 1}]}>
+          <Text style={[styles.text, {marginVertical: height*0.015}]}>Din plassering</Text>
+          <Text style={styles.text}>{userRanking.ranking}. {userRanking.user.username}.</Text>
         </View>
       </CarouselItem>
     </TouchableOpacity>
@@ -36,6 +58,9 @@ function LeaderboardCard(props: LeaderboardProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
+    fetchLeaderboardData: () => {
+      getLeaderboardData(dispatch);
+    },
     fetchUserRanking: (userID: string) => {
       getUserRanking(userID, dispatch);
     },
@@ -44,6 +69,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
+    leaderboardData: state.leaderboard.data,
     userRanking: state.leaderboard.userRanking,
   };
 };
@@ -52,11 +78,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(LeaderboardCard);
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 17,
-    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginBottom: height * 0.01,
   },
+
+  compartementStyle: {
+    width: width * 0.3,
+  },
+  
   placement: {
     fontSize: 50,
     textAlign: 'center',
+  },
+  
+  seperatorStyle: {
+    backgroundColor: BACKGROUNDCOLOR2,
+    borderRadius: 20,
+    width: width * 0.38,
+    height: width * 0.01,
+    marginHorizontal: 40,
   },
 });
