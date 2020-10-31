@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import achievementCardReducer from './achievemetCardReducer';
+import achievementCardReducer from './achievementCardReducer';
 
 import weatherReducer from './weatherReducer';
 import leaderboardReducer from './leaderboardReducer';
