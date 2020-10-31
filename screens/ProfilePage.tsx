@@ -5,12 +5,24 @@ import { StyleSheet, Text, View } from 'react-native';
 import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 
+import { Auth } from 'aws-amplify';
+
+async function signOut() {
+  try {
+    await Auth.signOut();
+  } catch (error) {
+    console.log('error signing out: ', error);
+  }
+}
+
 function ProfilePage() {
   const navigation = useNavigation();
   return (
     <Grid>
       <Row size={4}>
-        <View style={[styles.centeredView, styles.profileView]}></View>
+        <View style={[styles.centeredView, styles.profileView]}>
+          <Text>Username: {Auth.Credentials.Auth.user.username}</Text>
+        </View>
       </Row>
       <Row size={1}>
         <View style={styles.centeredView}>
@@ -22,7 +34,7 @@ function ProfilePage() {
           </Button>
           <Button
             style={[styles.button, styles.logOutButton]}
-            onPress={() => navigation.navigate('')}
+            onPress={signOut}
           >
             <Text style={styles.buttonText}>Logg ut</Text>
           </Button>
