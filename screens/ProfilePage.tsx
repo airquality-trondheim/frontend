@@ -36,16 +36,22 @@ function ProfilePage(props: UserProfileProps) {
       : 'Nivå ' + userProfile.level + ' - ' + userProfile.points + ' poeng';
 
   const formatProfileNameText =
-    userProfile.username == undefined ? 'Inkognito Impala' : userProfile.username;
+    userProfile.username == undefined
+      ? 'Inkognito Impala'
+      : userProfile.username;
 
   const formatMail =
     userProfile.mail === undefined ? 'fill in mail' : userProfile.mail;
   const formatTelefon =
-    userProfile.telefon === undefined ? 'fill in telephone' : userProfile.telefon;
+    userProfile.telefon === undefined
+      ? 'fill in telephone'
+      : userProfile.telefon;
   const formatLocation =
     userProfile.location === undefined ? 'location' : userProfile.location;
   const formatBirthdate =
-    userProfile.birthdate === undefined ? 'fill in birthdate' : userProfile.birthdate;
+    userProfile.birthdate === undefined
+      ? 'fill in birthdate'
+      : userProfile.birthdate;
   const formatStreet =
     userProfile.street === undefined ? 'fill in street' : userProfile.street;
   const formatPostalCode =
@@ -61,7 +67,7 @@ function ProfilePage(props: UserProfileProps) {
                 <View style={{ width: width * 0.2 }}>
                   <Image
                     source={{ uri: userProfile.avatar }}
-                    style={{width: 80, height:80}}
+                    style={{ width: 80, height: 80 }}
                   />
                 </View>
               </View>

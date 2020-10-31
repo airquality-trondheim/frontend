@@ -1,5 +1,5 @@
 import { GET_USERPROFILE, UserProfileActionTypes } from '../actions/types';
-import {UserProfile} from '../types/_types'
+import { UserProfile } from '../types/_types';
 
 const initialState: UserProfile = {
   id: '0',
@@ -15,20 +15,20 @@ const initialState: UserProfile = {
   street: '0',
 };
 
-export default function(
+export default function (
   state = initialState,
   action: UserProfileActionTypes,
-): UserProfile{
-  switch(action.type){
+): UserProfile {
+  switch (action.type) {
     case GET_USERPROFILE:
       return {
         ...state,
-        id: action.userProfile.id,        
+        id: action.userProfile.id,
         username: action.userProfile.username,
         points: action.userProfile.points,
         level: action.userProfile.level,
         avatar: action.userProfile.avatar,
-        mail:action.userProfile.mail,
+        mail: action.userProfile.mail,
         telefon: action.userProfile.telefon,
         birthdate: action.userProfile.birthdate,
         location: action.userProfile.location,
