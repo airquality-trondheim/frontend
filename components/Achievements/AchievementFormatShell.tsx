@@ -47,7 +47,10 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         <View style={styles.recentStyle}>
-          {dataSet.AchievementCardData.slice(0, 3).map((data, index) => {
+          {dataSet.AchievementCardData.slice(0, 
+            //only renders appropriate amount of cards if achieved amount is less than 3
+            dataSet.AchievementCardData.length < 3 ? dataSet.AchievementCardData.length : 3
+          ).map((data, index) => {
             return AchievementFormat(data, index);
           })}
         </View>
