@@ -1,8 +1,20 @@
 import { Dispatch } from 'redux';
 import { GET_ACHIEVEMENTCARD, RootAction } from './types';
-import { achievements } from '../constants/Achievements';
+// import { achievements } from '../constants/Achievements';
+import { fetchAchievements } from '../queries/achievements';
 
-export function getAchievementCardData(dispatch: Dispatch<RootAction>) {
+export async function getAchievementCardData(dispatch: Dispatch<RootAction>) {
+
+  const achievements = await fetchAchievements();
+
+  if (achievements === undefined) {
+    dispatch({
+      type: GET_ACHIEVEMENTCARD,
+      data: [],
+    });
+    return;
+  }
+
   achievements.sort((a, b) => {
     return a.Date > b.Date ? -1 : 1;
   });
