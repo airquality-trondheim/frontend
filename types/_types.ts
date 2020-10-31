@@ -41,11 +41,12 @@ export type AchievementCardElement = {
   achievementName: string;
   achievementDescription: string;
   achievementGroup: string;
-  Date: Date;
+  date?: Date;
 };
 
-export type AchievementCardData = {
+export type AchievementData = {
   data: AchievementCardElement[];
+  achieved: AchievementStamp[];
 };
 
 //Achievementstamp

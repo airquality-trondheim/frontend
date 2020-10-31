@@ -10,20 +10,30 @@ import {
   WHITE,
 } from '../../constants/Colors';
 import { AchievementFormat } from './AchievementFormat';
-import { AchievementCardElement } from '../../types/_types';
+import { AchievementCardElement, AchievementStamp } from '../../types/_types';
 
-type accumulatorInterface = {
+interface accumulatorInterface {
   [key: string]: AchievementCardElement[];
 };
 
 const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   let accumulator: accumulatorInterface = {};
 
+  const combinedSet = [...dataSet.AchievementCardData];
+
+  combinedSet.forEach(
+    achievement => {
+      achievement.date = dataSet.Achieved.find(
+        element => element.achievementId == achievement.achievementId
+      )?.timestampEarned 
+    }
+  );
+
   // Groups achievement data. Returns an object (dictionary) with group names as keys,
   // and lists with the correct elements as values.
   // a: currentElement
   // r: temporary dictionary
-  let groupDictionary = dataSet.AchievementCardData.reduce((r, a) => {
+  let groupDictionary = combinedSet.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
   }, accumulator);
@@ -51,21 +61,21 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
             //only renders appropriate amount of cards if achieved amount is less than 3
             dataSet.AchievementCardData.length < 3 ? dataSet.AchievementCardData.length : 3
           ).map((data, index) => {
-            return AchievementFormat(data, index);
+            return AchievementFormat(data, index, data.date,);
           })}
         </View>
-        {groupArray.map((dato, index) => {
+        {groupArray.map((achievements, index) => {
           return (
             <View key={index} style={styles.centerContent}>
               <View style={styles.seperatorStyle} />
               <View style={styles.centerContent}>
                 <Text style={styles.TextFormat}>
-                  {dato[0].achievementGroup}
+                  {achievements[0].achievementGroup}
                 </Text>
               </View>
               <View style={styles.groupStyle}>
-                {dato.map((data, index2) => {
-                  return AchievementFormat(data, index2, new Date(),);
+                {achievements.map((data, index2) => {
+                  return AchievementFormat(data, index2, data.date,);
                 })}
               </View>
             </View>

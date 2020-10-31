@@ -9,10 +9,13 @@ import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
 
 const AchievementFormat = (data: AchievementCardElement, index: number, date?: Date) => {
+
   const [modVisible, setModVisible] = useState(false);
   const unmounted = useRef(false);
 
-  const [colour, achievedText] = date === undefined ? [GRAY, 'Ikke oppnåd ennå'] : [BLACK, 'her'];
+  const [colour, achievedText] = date === undefined ? [GRAY, 'Ikke oppnåd ennå'] : [BLACK,
+    String(date).substring(0, 25)
+  ];
 
   useEffect(() => {
     return () => {
