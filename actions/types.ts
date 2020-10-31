@@ -5,7 +5,6 @@ import {
   LeaderboardElement,
   UserRanking,
   WeatherElement,
-  AchievementStamp,
 } from '../types/_types';
 
 export type RootAction =
@@ -33,7 +32,6 @@ export const GET_ACHIEVEMENTCARD = 'GET_ACHIEVEMENT';
 type GetAchievementCardAction = {
   type: typeof GET_ACHIEVEMENTCARD;
   data: AchievementCardElement[];
-  achieved: AchievementStamp[];
 };
 
 export type AchievementCardActionTypes = GetAchievementCardAction;

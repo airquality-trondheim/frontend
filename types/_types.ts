@@ -46,7 +46,6 @@ export type AchievementCardElement = {
 
 export type AchievementData = {
   data: AchievementCardElement[];
-  achieved: AchievementStamp[];
 };
 
 //Achievementstamp

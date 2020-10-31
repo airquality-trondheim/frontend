@@ -81,7 +81,6 @@ const mapDistpatchToProps = (dispatch: Dispatch<RootAction>) => {
 const mapStateToProps = (state: RootState) => {
   return {
     AchievementCardData: state.achievementcard.data,
-    Achieved: state.achievementcard.achieved,
   };
 };
 

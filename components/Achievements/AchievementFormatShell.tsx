@@ -19,21 +19,11 @@ interface accumulatorInterface {
 const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   let accumulator: accumulatorInterface = {};
 
-  const combinedSet = [...dataSet.AchievementCardData];
-
-  combinedSet.forEach(
-    achievement => {
-      achievement.date = dataSet.Achieved.find(
-        element => element.achievementId == achievement.achievementId
-      )?.timestampEarned 
-    }
-  );
-
   // Groups achievement data. Returns an object (dictionary) with group names as keys,
   // and lists with the correct elements as values.
   // a: currentElement
   // r: temporary dictionary
-  let groupDictionary = combinedSet.reduce((r, a) => {
+  let groupDictionary = dataSet.AchievementCardData.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
   }, accumulator);

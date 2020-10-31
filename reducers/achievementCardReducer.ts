@@ -6,7 +6,6 @@ import { AchievementData } from '../types/_types';
 
 const initialState: AchievementData = {
   data: [],
-  achieved: [],
 };
 
 export default function (
@@ -18,7 +17,6 @@ export default function (
       return {
         ...state,
         data: action.data,
-        achieved: action.achieved,
       };
 
     default:
