@@ -65,7 +65,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
               </View>
               <View style={styles.groupStyle}>
                 {dato.map((data, index2) => {
-                  return AchievementFormat(data, index2);
+                  return AchievementFormat(data, index2, new Date(),);
                 })}
               </View>
             </View>

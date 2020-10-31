@@ -3,14 +3,16 @@ import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import { BLACK, EVENROWCOLOR } from '../../constants/Colors';
+import { BLACK, EVENROWCOLOR, GRAY } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
 
-const AchievementFormat = (data: AchievementCardElement, index: number) => {
+const AchievementFormat = (data: AchievementCardElement, index: number, date?: Date) => {
   const [modVisible, setModVisible] = useState(false);
   const unmounted = useRef(false);
+
+  const [colour, achievedText] = date === undefined ? [GRAY, 'Ikke oppnåd ennå'] : [BLACK, 'her'];
 
   useEffect(() => {
     return () => {
@@ -28,7 +30,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
     <View key={index} style={styles.AchievementBox}>
       <TouchableOpacity onPress={updateModal} style={styles.touchableStyle}>
         <View style={[styles.achievement, { marginVertical: width * 0.01 }]}>
-        <MaterialCommunityIcons name="trophy" size={50} color="#111" />
+        <MaterialCommunityIcons name="trophy" size={50} color={colour} />
           <Text style={styles.wrappingText}>{data.achievementName}</Text>
         </View>
       </TouchableOpacity>
@@ -44,8 +46,9 @@ const AchievementFormat = (data: AchievementCardElement, index: number) => {
             </Row>
             <Row size={8}>
               <View style={styles.centerContent}>
-              <MaterialCommunityIcons name="trophy" size={240} color="#111" />
-                <Text>{data.achievementDescription}</Text>
+              <MaterialCommunityIcons name="trophy" size={240} color={colour} />
+              <Text>Oppnåd: {achievedText}</Text>
+              <Text>{data.achievementDescription}</Text>
               </View>
             </Row>
             <Row size={1} style={styles.centerContent}>

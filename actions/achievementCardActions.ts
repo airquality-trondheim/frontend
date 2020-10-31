@@ -5,9 +5,9 @@ import { fetchAchievements } from '../queries/achievements';
 
 export async function getAchievementCardData(dispatch: Dispatch<RootAction>) {
 
-  const achievements = await fetchAchievements();
+  const response = await fetchAchievements();
 
-  if (achievements === undefined) {
+  if (response === undefined) {
     dispatch({
       type: GET_ACHIEVEMENTCARD,
       data: [],
@@ -15,12 +15,12 @@ export async function getAchievementCardData(dispatch: Dispatch<RootAction>) {
     return;
   }
 
-  achievements.sort((a, b) => {
+  response.achievements.sort((a, b) => {
     return a.Date > b.Date ? -1 : 1;
   });
 
   dispatch({
     type: GET_ACHIEVEMENTCARD,
-    data: achievements,
+    data: response.achievements,
   });
 }
