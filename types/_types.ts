@@ -62,8 +62,6 @@ export type UserProfile = {
   location: string;
   postalcode: string;
   street: string;
-  //createdAt: string;
-  //updatedAt: string;
 };
 
 // User
