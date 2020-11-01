@@ -20,6 +20,7 @@ export const GRAY = '#E1E1E1';
 export const DARKGRAY = '#9D9D9D';
 export const LIGHTBLUE = '#61ABCD';
 export const DARKBLUE = '#0278AC';
+export const DARKERBLUE = '#02689c';
 export const DARKRED = '#B53737';
 // export const GRAY = '#d6d7da';
 // export const DARKGRAY = '#646464';
