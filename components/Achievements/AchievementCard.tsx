@@ -35,7 +35,7 @@ const AchievementCard = (props: AchievementCardProps) => {
           <View style={styles.outerStyle}>
             <View style={styles.seperatorStyle} />
             <View style={[styles.centerContent, styles.achievementContainerStyle]}>
-              <Text style={[styles.textStyle, { width: width*0.3 }]}>
+              <Text style={ styles.textStyle }>
                 Sist oppnådd
               </Text>
               {/*checks if redux functioality has defined element yet,
@@ -54,7 +54,7 @@ const AchievementCard = (props: AchievementCardProps) => {
           <View style={styles.outerStyle}>
             <View style={styles.seperatorStyle} />
             <View style={[styles.centerContent, styles.achievementContainerStyle]}>
-              <Text style={[styles.textStyle, { width: width*0.3 }]}>
+              <Text style={ styles.textStyle }>
                 Mulig neste
               </Text>
               {/*checks if redux functioality has defined element yet,
