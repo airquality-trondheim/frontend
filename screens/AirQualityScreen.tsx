@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
-import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
 import AQChart from '../components/airquality/AQChart';
 import { height, width } from '../constants/Layout';
 import { LIGHTBLUE } from '../constants/Colors';
+import LocationDropdown from '../components/LocationDropdown';
 
 export type AQIData = {
   todayData: Array<number>;
@@ -69,6 +70,9 @@ export default function AirQualityScreen() {
     <View style={styles.carouselContainerStyle}>
       <ScrollView>
         <View style={styles.scrollStyle}>
+          <View style={styles.dropdownView}>
+            <LocationDropdown />
+          </View>
           <AQChart {...{ AQ }} />
           <AQChart {...{ AQ }} />
           <AQChart {...{ AQ }} />
@@ -84,30 +88,14 @@ const styles = StyleSheet.create({
     height: height,
     borderWidth: 2,
   },
-  barYAxis: {
-    backgroundColor: LIGHTBLUE,
-    width: 30,
-    height: height * 0.3,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    marginRight: 4,
-    marginLeft: 4,
-  },
-  chartContainer: {
-    height: height * 0.3,
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  chart: {
-    marginLeft: 4,
-  },
-  text: {
-    fontSize: 16,
-  },
-  button: {
-    width: width * 0.3,
-  },
   scrollStyle: {
     height: height * 1.8,
+  },
+  dropdownView: {
+    width: width,
+    height: height * 0.1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    zIndex: 999,
   },
 });
