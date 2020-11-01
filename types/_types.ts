@@ -43,6 +43,22 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
+//Profile
+
+export type UserProfile = {
+  id: string;
+  username: string;
+  points: number;
+  level: number;
+  avatar: string;
+  mail: string;
+  telefon: string;
+  birthdate: string;
+  location: string;
+  postalcode: string;
+  street: string;
+};
+
 // User
 export type UserElement = {
   _id: string;
