@@ -23,7 +23,7 @@ import SettingsPrivacy from '../screens/SettingsPrivacy';
 import { TINTCOLOR } from '../constants/Colors';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
-import AirQualityScreen from '../screens/AchievementsScreen';
+import AirQualityScreen from '../screens/AirQualityScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

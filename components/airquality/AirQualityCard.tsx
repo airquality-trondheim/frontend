@@ -1,25 +1,37 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import {
-  AQHIGH,
-  AQLOW,
-  AQMEDIUM,
-  AQVERYHIGH,
-  LIGHTGRAY,
-} from '../../constants/Colors';
+import { LIGHTGRAY } from '../../constants/Colors';
 import { carouselHeight, width } from '../../constants/Layout';
 import AQBarChart from './BarChart';
 import { AQData } from './BarChart';
 
 function AQCard() {
+  const data: Array<AQData> = [
+    {
+      value: 1,
+      type: 'pm10',
+    },
+    {
+      value: 2,
+      type: 'pm10',
+    },
+    {
+      value: 3,
+      type: 'pm10',
+    },
+    {
+      value: 4,
+      type: 'pm10',
+    },
+  ];
   return (
     <View style={styles.chart}>
       <Text style={styles.border} />
       <View style={styles.container}>
         <Text>Today</Text>
-        <AQBarChart />
+        {/*  */}
+        <AQBarChart {...{ data }} />
         <Text>Tomorrow</Text>
-        <AQBarChart />
       </View>
     </View>
   );

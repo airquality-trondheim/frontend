@@ -30,7 +30,3 @@ export const EVENROWCOLOR = '#f2f5f7';
 export const WEATHERICON = '#8cc9ff';
 export const BOTTOMBORDER = '#E1E1E1';
 export const TRANSPARENT = '#ffffff00';
-export const AQLOW = '#3F9F41';
-export const AQMEDIUM = '#FFCB00';
-export const AQHIGH = '#C13500';
-export const AQVERYHIGH = '#4900AC';
