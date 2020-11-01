@@ -14,12 +14,15 @@ type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function WeatherComponentBig(props: WeatherProps) {
-  const { weatherData, fetchWeatherData } = props;
-  useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
+  const { currentLocation, weatherData, fetchWeatherData } = props;
+  useEffect(() => {
+    if (currentLocation) {
+      fetchWeatherData(currentLocation.latitude, currentLocation.longitude);
+    }
+  }, [fetchWeatherData, currentLocation]);
 
   return (
     <>
-      <Text style={styles.muncipalityHeader}> Tiller</Text>
       {weatherData.length > 0 ? (
         <View style={styles.weather}>
           <View style={styles.iconHead}>
@@ -60,6 +63,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 const mapStateToProps = (state: RootState) => {
   return {
     weatherData: state.weather.today,
+    currentLocation: state.locations.currentLocation,
   };
 };
 
@@ -74,7 +78,6 @@ const styles = StyleSheet.create({
     width: 170,
     marginRight: 40,
   },
-
   weather: {
     display: 'flex',
     flexDirection: 'row',
