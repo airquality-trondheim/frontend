@@ -10,7 +10,7 @@ import { Col, Grid, Row } from 'native-base';
 import AQHalfCircle from './AQHalfCircle';
 import InfoButton from '../InfoButton';
 import AQInfoModal from './AQInfoModal';
-import { getAirQualityDataForStation } from '../../actions/airqualityActions';
+import { getAirQualityDataForLocation } from '../../actions/airqualityActions';
 
 enum airQuality {
   'Utmerket' = 1,
@@ -23,7 +23,7 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
-  const { airqualityData, fetchAirQuality } = props;
+  const { currentLocation, airqualityData, fetchAirQualityData } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -34,8 +34,10 @@ function ProgressCircle(props: ProgressCircleProps) {
   }, []);
 
   useEffect(() => {
-    fetchAirQuality('Tiller');
-  }, [fetchAirQuality]);
+    if (currentLocation) {
+      fetchAirQualityData(currentLocation.areacode);
+    }
+  }, [fetchAirQualityData, currentLocation]);
 
   const updateModalVisible = () => {
     if (!unmounted.current) {
@@ -69,10 +71,12 @@ function ProgressCircle(props: ProgressCircleProps) {
           modalVisible={modalVisible}
           modalOnRequestClose={updateModalVisible}
         />
-        {airqualityData.time.length > 0 ? (
+        {airqualityData.airqualityData.length > 0 ? (
           <>
             <AQHalfCircle
-              fill={(airqualityData.time[0].variables.AQI.value - 1) * 25}
+              fill={
+                (airqualityData.airqualityData[0].variables.AQI.value - 1) * 25
+              }
               size={width * 0.9}
             />
             <View style={styles.info}>
@@ -81,7 +85,9 @@ function ProgressCircle(props: ProgressCircleProps) {
                   <Text style={styles.overallAirquality}>
                     {
                       airQuality[
-                        Math.floor(airqualityData.time[0].variables.AQI.value)
+                        Math.floor(
+                          airqualityData.airqualityData[0].variables.AQI.value,
+                        )
                       ]
                     }
                   </Text>
@@ -89,8 +95,8 @@ function ProgressCircle(props: ProgressCircleProps) {
                 <Row size={1}>
                   {createAirqualityComponent(
                     Math.round(
-                      airqualityData.time[0].variables.pm25_concentration
-                        .value + Number.EPSILON,
+                      airqualityData.airqualityData[0].variables
+                        .pm25_concentration.value + Number.EPSILON,
                     ),
                     'PM',
                     '2.5',
@@ -98,8 +104,8 @@ function ProgressCircle(props: ProgressCircleProps) {
                   )}
                   {createAirqualityComponent(
                     Math.round(
-                      airqualityData.time[0].variables.pm10_concentration
-                        .value + Number.EPSILON,
+                      airqualityData.airqualityData[0].variables
+                        .pm10_concentration.value + Number.EPSILON,
                     ),
                     'PM',
                     '10',
@@ -107,8 +113,8 @@ function ProgressCircle(props: ProgressCircleProps) {
                   )}
                   {createAirqualityComponent(
                     Math.round(
-                      airqualityData.time[0].variables.no2_concentration.value +
-                        Number.EPSILON,
+                      airqualityData.airqualityData[0].variables
+                        .no2_concentration.value + Number.EPSILON,
                     ),
                     'NO',
                     '2',
@@ -135,8 +141,8 @@ function ProgressCircle(props: ProgressCircleProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchAirQuality: (station: string) => {
-      getAirQualityDataForStation(dispatch, station);
+    fetchAirQualityData: (areacode: string) => {
+      getAirQualityDataForLocation(dispatch, areacode);
     },
   };
 };
@@ -144,6 +150,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 const mapStateToProps = (state: RootState) => {
   return {
     airqualityData: state.airquality,
+    currentLocation: state.locations.currentLocation,
   };
 };
 
