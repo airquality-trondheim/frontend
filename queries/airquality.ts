@@ -1,15 +1,16 @@
 import axios from 'axios';
-import { locations } from '../constants/Locations';
-import store from '../store';
-//import store from '../store';
-import { AirqualityData, aqStationData } from '../types/_types';
+import {
+  AirqualityData,
+  AirqualityForecast,
+  aqStationData,
+} from '../types/_types';
 
 // TODO: Flytte URL?
 const apiUrl = 'https://api.nilu.no/aq/utd?areas=trondheim&components=pm10';
-const baseUrl = 'https://api.met.no/weatherapi/airqualityforecast/0.1/';
+const baseUrl =
+  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/air-quality/forecast/';
 
 export async function getAQData() {
-  // const data = [...store.getState().map.aqData];
   let result: aqStationData[] = [];
   try {
     let r = await axios.get(apiUrl);
@@ -21,25 +22,19 @@ export async function getAQData() {
   }
 }
 
-export async function getDataForComponent(
-  station: string,
+export async function fetchAirqualityDataForLocation(
+  areacode: string,
 ): Promise<AirqualityData | null> {
-  const endpoint = baseUrl + '?station=' + locations[station].eoi;
-  const lastFetched = store.getState().airquality.lastFetched;
-  const headers = {
-    'User-Agent': 'NTNU-Kundestyrtprosjekt sunniva.bk@gmail.com',
-    'If-Modified-Since': lastFetched.toUTCString(),
-  };
+  const endpoint = baseUrl + areacode;
   try {
-    let res = await axios.get(endpoint, { headers });
-    const updatedLastFetched = new Date(res.headers['last-modified']);
+    const res: Response = await fetch(endpoint);
+    const data: AirqualityForecast = await res.json();
     return {
-      location: station,
-      time: res.data.data.time,
-      lastFetched: updatedLastFetched,
+      areacode: data.location.areacode,
+      airqualityData: data.data,
     };
   } catch (error) {
-    console.log(error.response['status']);
+    console.log('Could not fetch airquality for given areacode');
     return null;
   }
 }

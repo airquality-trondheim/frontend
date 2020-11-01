@@ -1,17 +1,23 @@
 import { Dispatch } from 'redux';
-import { getDataForComponent } from '../queries/airquality';
-import { GET_AIRQUALITYFORSTATION, RootAction } from './types';
+import { fetchAirqualityDataForLocation } from '../queries/airquality';
+import store from '../store';
+import { GET_AIRQUALITY_FOR_LOCATION, RootAction } from './types';
 
-export async function getAirQualityDataForStation(
+export async function getAirQualityDataForLocation(
   dispatch: Dispatch<RootAction>,
-  station: string,
+  areacode: string,
 ) {
-  const aqData = await getDataForComponent(station);
+  const currentAreacode = store.getState().airquality.areacode;
+  if (areacode === currentAreacode) {
+    return;
+  }
+  const aqData = await fetchAirqualityDataForLocation(areacode);
   if (aqData === null) {
     return;
   }
   dispatch({
-    type: GET_AIRQUALITYFORSTATION,
-    data: aqData,
+    type: GET_AIRQUALITY_FOR_LOCATION,
+    areacode: aqData.areacode,
+    airqualityData: aqData.airqualityData,
   });
 }

@@ -7,7 +7,18 @@ import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation';
 import store from './store';
 
-export default function App() {
+import Amplify from 'aws-amplify';
+import config from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react-native';
+
+Amplify.configure({
+  ...config,
+  Analytics: {
+    disabled: true,
+  },
+});
+
+function App() {
   const isLoadingComplete = useCachedResources();
 
   if (!isLoadingComplete) {
@@ -23,3 +34,5 @@ export default function App() {
     );
   }
 }
+
+export default withAuthenticator(App);
