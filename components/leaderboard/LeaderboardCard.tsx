@@ -3,13 +3,17 @@ import React, { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CarouselItem } from '../CarouselItem';
 import { connect } from 'react-redux';
-import { getLeaderboardData, getUserRanking } from '../../actions/leaderboardActions';
+import {
+  getLeaderboardData,
+  getUserRanking,
+} from '../../actions/leaderboardActions';
 import { RootState } from '../../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../../actions/types';
 import { useNavigation } from '@react-navigation/native';
 import { height, width } from '../../constants/Layout';
 import { BACKGROUNDCOLOR2 } from '../../constants/Colors';
+import { Auth } from 'aws-amplify';
 
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -22,11 +26,11 @@ function LeaderboardCard(props: LeaderboardProps) {
     fetchUserRanking,
   } = props;
   const navigation = useNavigation();
+  const credential = Auth?.Credentials?.Auth?.user?.sub;
 
   useEffect(() => {
-    // TODO: Change to user's ID after log in is done
-    fetchUserRanking('5f6dde0d71a2bf3507462942');
-  }, [fetchUserRanking]);
+    fetchUserRanking(credential);
+  }, [fetchUserRanking, credential]);
 
   useEffect(() => {
     fetchLeaderboardData();
@@ -36,23 +40,31 @@ function LeaderboardCard(props: LeaderboardProps) {
     <TouchableOpacity onPress={() => navigation.navigate('LeaderboardScreen')}>
       <CarouselItem headerText="Toppliste">
         <View style={styles.seperatorStyle} />
-        <Text style={[styles.text, {marginVertical: height*0.012}]}>Topp 5</Text>
-        <View style={[styles.compartementStyle, {flex: 3}]}>
-          {leaderboardData.slice(0, 
-            leaderboardData.length < 5 ? leaderboardData.length : 5
-          ).map((element, index) => {
-            return (
-            <View key={index} style={{flexDirection: 'row'}}>
-              <Text style={[styles.text, {width: width*0.05}]}>{index + 1}.</Text>
-              <Text style={styles.text}>{element.username}</Text>
-            </View>              
-            );
-          })}
+        <Text style={[styles.text, { marginVertical: height * 0.012 }]}>
+          Topp 5
+        </Text>
+        <View style={[styles.compartementStyle, { flex: 3 }]}>
+          {leaderboardData
+            .slice(0, leaderboardData.length < 5 ? leaderboardData.length : 5)
+            .map((element, index) => {
+              return (
+                <View key={index} style={{ flexDirection: 'row' }}>
+                  <Text style={[styles.text, { width: width * 0.05 }]}>
+                    {index + 1}.
+                  </Text>
+                  <Text style={styles.text}>{element.username}</Text>
+                </View>
+              );
+            })}
         </View>
         <View style={styles.seperatorStyle} />
-        <Text style={[styles.text, {marginVertical: height*0.015}]}>Din plassering</Text>
-        <View style={[styles.compartementStyle, {flex: 1}]}>
-          <Text style={styles.text}>{userRanking.ranking}.  {userRanking.user.username}</Text>
+        <Text style={[styles.text, { marginVertical: height * 0.015 }]}>
+          Din plassering
+        </Text>
+        <View style={[styles.compartementStyle, { flex: 1 }]}>
+          <Text style={styles.text}>
+            {userRanking.ranking}. {userRanking.user.username}
+          </Text>
         </View>
       </CarouselItem>
     </TouchableOpacity>
@@ -89,12 +101,7 @@ const styles = StyleSheet.create({
   compartementStyle: {
     width: width * 0.3,
   },
-  
-  placement: {
-    fontSize: 50,
-    textAlign: 'center',
-  },
-  
+
   seperatorStyle: {
     backgroundColor: BACKGROUNDCOLOR2,
     borderRadius: 20,
