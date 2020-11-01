@@ -7,9 +7,12 @@ type Rankings = {
   last: boolean;
 };
 
-export async function fetchLeaderboardData(): Promise<LeaderboardElement[]> {
+export async function fetchLeaderboardData(area?: string): Promise<LeaderboardElement[]> {
   try {
-    const response: Response = await fetch(endpoint + 'top');
+
+    const dir = area === undefined ? 'top?limit=10' : 'top?limit=10&area=' + area;
+
+    const response: Response = await fetch(endpoint + dir);
     const rankings: Rankings = await response.json();
     let data: LeaderboardElement[] = [];
     for (let user of rankings.rankings) {

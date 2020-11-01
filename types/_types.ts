@@ -111,6 +111,7 @@ export type UserRanking = {
 
 export type LeaderboardState = {
   data: LeaderboardElement[];
+  localData: LeaderboardElement[];
   userRanking: UserRanking;
 };
 

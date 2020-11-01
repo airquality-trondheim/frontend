@@ -51,6 +51,7 @@ export type WeatherActionTypes = GetWeatherAction;
 // Leaderboard
 export const GET_LEADERBOARD = 'GET_LEADERBOARD';
 export const GET_USERRANKING = 'GET_USERRANKING';
+export const GET_LOCALLEADERBOARD = 'GET_LOCALLEADERBOARD';
 
 type GetLeaderboardAction = {
   type: typeof GET_LEADERBOARD;
@@ -62,9 +63,15 @@ type GetUserRankingAction = {
   userRanking: UserRanking;
 };
 
+type GetlocalLeaderboardAction = {
+  type: typeof GET_LOCALLEADERBOARD;
+  data: LeaderboardElement[];
+}
+
 export type LeaderboardActionTypes =
   | GetLeaderboardAction
-  | GetUserRankingAction;
+  | GetUserRankingAction
+  | GetlocalLeaderboardAction;
 
 // Map
 export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
