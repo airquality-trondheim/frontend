@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { postPushNotificationToken } from './queries/pushNotificationToken';
 
 import useCachedResources from './hooks/useCachedResources';
-import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import store from './store';
 import Constants from 'expo-constants';
@@ -15,7 +14,6 @@ import * as Notifications from 'expo-notifications';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
   const registerForPushNotificationsAsync = async () => {
     if (Constants.isDevice) {
@@ -60,7 +58,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <SafeAreaProvider>
-          <Navigation colorScheme={colorScheme} />
+          <Navigation />
           <StatusBar />
         </SafeAreaProvider>
       </Provider>
