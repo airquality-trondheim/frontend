@@ -6,7 +6,6 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Home: undefined;
-  TabTwo: undefined;
   Map: undefined;
   Competition: undefined;
   Profile: undefined;
@@ -15,10 +14,6 @@ export type BottomTabParamList = {
 export type HomeParamList = {
   LandingPage: undefined;
   WeatherScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
 };
 
 export type MapParamList = {
