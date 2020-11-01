@@ -25,52 +25,66 @@ const AchievementCard = (props: AchievementCardProps) => {
   }, [getAchievementData]);
 
   const lastElement = AchievementCardData[0];
-  const potentialElement = (AchievementCardData.find(element => {
-    return !(element?.date);
-  }) || AchievementCardData[0]);
+  const potentialElement =
+    AchievementCardData.find((element) => {
+      return !element?.date;
+    }) || AchievementCardData[0];
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('AchievementsScreen')}>
       <CarouselItem headerText="Bragder">
-          <View style={styles.outerStyle}>
-            <View style={styles.seperatorStyle} />
-            <View style={[styles.centerContent, styles.achievementContainerStyle]}>
-              <Text style={ styles.textStyle }>
-                Sist oppnådd
-              </Text>
-              {/*checks if redux functioality has defined element yet,
+        <View style={styles.outerStyle}>
+          <View style={styles.seperatorStyle} />
+          <View
+            style={[styles.centerContent, styles.achievementContainerStyle]}
+          >
+            <Text style={styles.textStyle}>Sist oppnådd</Text>
+            {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the most recent achievement*/}
-              <MaterialCommunityIcons name="trophy" size={50} color={
-                lastElement?.date === undefined ? GRAY: BLACK 
-              } />
-              {/*does the same for the achievement name*/}
-              <Text style={[styles.textStyle, {marginVertical: height*0.01}]}>
-                {lastElement === undefined ? '' : 
-                lastElement?.date === undefined ? 
-                "Ingen bragder oppnåd" : lastElement.achievementName}
-              </Text>
-            </View>
+            <MaterialCommunityIcons
+              name="trophy"
+              size={50}
+              color={lastElement?.date === undefined ? GRAY : BLACK}
+            />
+            {/*does the same for the achievement name*/}
+            <Text style={[styles.textStyle, { marginVertical: height * 0.01 }]}>
+              {lastElement === undefined
+                ? ''
+                : lastElement?.date === undefined
+                ? 'Ingen bragder oppnåd'
+                : lastElement.achievementName}
+            </Text>
           </View>
-          <View style={styles.outerStyle}>
-            <View style={styles.seperatorStyle} />
-            <View style={[styles.centerContent, styles.achievementContainerStyle]}>
-              <Text style={ styles.textStyle }>
-                Mulig neste
-              </Text>
-              {/*checks if redux functioality has defined element yet,
+        </View>
+        <View style={styles.outerStyle}>
+          <View style={styles.seperatorStyle} />
+          <View
+            style={[styles.centerContent, styles.achievementContainerStyle]}
+          >
+            <Text style={styles.textStyle}>Mulig neste</Text>
+            {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the second most recent achievement*/}
-              <MaterialCommunityIcons name="trophy" size={50} color={
-                potentialElement === undefined? GRAY :
-                potentialElement?.date !== undefined? '#f33' : GRAY
-              }/>
-              {/*does the same for the achievement name*/}
-              <Text style={[styles.textStyle, {marginVertical: height*0.01}]}>
-                {potentialElement === undefined ? '' :
-                potentialElement?.date !== undefined ? 
-                'Du har oppnåd alt!' : potentialElement.achievementName}
-              </Text>
-            </View>
+            <MaterialCommunityIcons
+              name="trophy"
+              size={50}
+              color={
+                potentialElement === undefined
+                  ? GRAY
+                  : potentialElement?.date !== undefined
+                  ? '#f33'
+                  : GRAY
+              }
+            />
+            {/*does the same for the achievement name*/}
+            <Text style={[styles.textStyle, { marginVertical: height * 0.01 }]}>
+              {potentialElement === undefined
+                ? ''
+                : potentialElement?.date !== undefined
+                ? 'Du har oppnåd alt!'
+                : potentialElement.achievementName}
+            </Text>
           </View>
+        </View>
       </CarouselItem>
     </TouchableOpacity>
   );

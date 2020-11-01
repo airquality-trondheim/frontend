@@ -8,14 +8,18 @@ import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
 
-const AchievementFormat = (data: AchievementCardElement, index: number, date?: Date) => {
-
+const AchievementFormat = (
+  data: AchievementCardElement,
+  index: number,
+  date?: Date,
+) => {
   const [modVisible, setModVisible] = useState(false);
   const unmounted = useRef(false);
 
-  const [colour, achievedText] = date === undefined ? [GRAY, 'Ikke oppnåd ennå'] : [BLACK,
-    String(date).substring(0, 25)
-  ];
+  const [colour, achievedText] =
+    date === undefined
+      ? [GRAY, 'Ikke oppnåd ennå']
+      : [BLACK, String(date).substring(0, 25)];
 
   useEffect(() => {
     return () => {
@@ -33,7 +37,7 @@ const AchievementFormat = (data: AchievementCardElement, index: number, date?: D
     <View key={index} style={styles.AchievementBox}>
       <TouchableOpacity onPress={updateModal} style={styles.touchableStyle}>
         <View style={[styles.achievement, { marginVertical: width * 0.01 }]}>
-        <MaterialCommunityIcons name="trophy" size={50} color={colour} />
+          <MaterialCommunityIcons name="trophy" size={50} color={colour} />
           <Text style={styles.wrappingText}>{data.achievementName}</Text>
         </View>
       </TouchableOpacity>
@@ -49,9 +53,13 @@ const AchievementFormat = (data: AchievementCardElement, index: number, date?: D
             </Row>
             <Row size={8}>
               <View style={styles.centerContent}>
-              <MaterialCommunityIcons name="trophy" size={240} color={colour} />
-              <Text>Oppnåd: {achievedText}</Text>
-              <Text>{data.achievementDescription}</Text>
+                <MaterialCommunityIcons
+                  name="trophy"
+                  size={240}
+                  color={colour}
+                />
+                <Text>Oppnåd: {achievedText}</Text>
+                <Text>{data.achievementDescription}</Text>
               </View>
             </Row>
             <Row size={1} style={styles.centerContent}>
@@ -89,12 +97,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-  },
-  FontSize200: {
-    fontSize: 200,
-  },
-  FontSize40: {
-    fontSize: 40,
   },
   wrappingText: {
     flexWrap: 'wrap',

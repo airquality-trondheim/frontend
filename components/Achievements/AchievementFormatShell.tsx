@@ -10,9 +10,9 @@ import {
   WHITE,
 } from '../../constants/Colors';
 import { AchievementFormat } from './AchievementFormat';
-import { AchievementCardElement, AchievementStamp } from '../../types/_types';
+import { AchievementCardElement } from '../../types/_types';
 
-interface accumulatorInterface {
+type accumulatorInterface = {
   [key: string]: AchievementCardElement[];
 };
 
@@ -47,11 +47,14 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         <View style={styles.recentStyle}>
-          {dataSet.AchievementCardData.slice(0, 
+          {dataSet.AchievementCardData.slice(
+            0,
             //only renders appropriate amount of cards if achieved amount is less than 3
-            dataSet.AchievementCardData.length < 3 ? dataSet.AchievementCardData.length : 3
+            dataSet.AchievementCardData.length < 3
+              ? dataSet.AchievementCardData.length
+              : 3,
           ).map((data, index) => {
-            return AchievementFormat(data, index, data.date,);
+            return AchievementFormat(data, index, data.date);
           })}
         </View>
         {groupArray.map((achievements, index) => {
@@ -65,7 +68,7 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
               </View>
               <View style={styles.groupStyle}>
                 {achievements.map((data, index2) => {
-                  return AchievementFormat(data, index2, data.date,);
+                  return AchievementFormat(data, index2, data.date);
                 })}
               </View>
             </View>
