@@ -7,10 +7,12 @@ type Rankings = {
   last: boolean;
 };
 
-export async function fetchLeaderboardData(area?: string): Promise<LeaderboardElement[]> {
+export async function fetchLeaderboardData(
+  area?: string,
+): Promise<LeaderboardElement[]> {
   try {
-
-    const dir = area === undefined ? 'top?limit=10' : 'top?limit=10&area=' + area;
+    const dir =
+      area === undefined ? 'top?limit=13' : 'top?limit=13&area=' + area;
 
     const response: Response = await fetch(endpoint + dir);
     const rankings: Rankings = await response.json();
@@ -24,25 +26,33 @@ export async function fetchLeaderboardData(area?: string): Promise<LeaderboardEl
     }
     return data;
   } catch (error) {
-    return area === undefined ? [
-      { id: 'raeseeie2', username: 'Slangen', points: 1200 },
-      { id: 'raesfsie2', username: 'Minken', points: 1000 },
-      { id: 'raesfdie2', username: 'Haren', points: 600 },
-      { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-      { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-      { id: 'raesfuie4', username: 'Uglen', points: 150 },
-      { id: 'raesfuie5', username: 'Marken', points: 100 },
-      { id: 'raesfuie6', username: 'Katten', points: 80 },
-      { id: 'raesfuie7', username: 'Hunden', points: 60 },
-      { id: 'raesfuie8', username: 'Ulven', points: 50 },
-    ] : [
-      { id: 'raeseeie2', username: 'Slangen', points: 1200 },
-      { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-      { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-      { id: 'raesfuie4', username: 'Uglen', points: 150 },
-      { id: 'raesfuie6', username: 'Katten', points: 80 },
-      { id: 'raesfuie7', username: 'Hunden', points: 60 },
-    ];
+    return area === undefined
+      ? [
+          { id: 'raeseeie2', username: 'Slangen', points: 1200 },
+          { id: 'raesfsie2', username: 'Minken', points: 1000 },
+          { id: 'raesfdie2', username: 'Haren', points: 600 },
+          { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
+          { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+          { id: 'raesfuie4', username: 'Uglen', points: 150 },
+          { id: 'raesfuie5', username: 'Marken', points: 100 },
+          { id: 'raesfuie6', username: 'Katten', points: 80 },
+          { id: 'raesfuie7', username: 'Hunden', points: 60 },
+          { id: 'raesfuie8', username: 'Ulven', points: 50 },
+          { id: 'raesfuie8', username: 'Piggsvinet', points: 50 },
+          { id: 'raesfuie8', username: 'Bredøren', points: 50 },
+          { id: 'raesfuie8', username: 'Rådyret', points: 40 },
+          { id: 'raesfuie8', username: 'Nisen', points: 40 },
+          { id: 'raesfuie8', username: 'Rødreven', points: 20 },
+          { id: 'raesfuie8', username: 'Brunbjørnen', points: 0 },
+        ]
+      : [
+          { id: 'raeseeie2', username: 'Slangen', points: 1200 },
+          { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
+          { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+          { id: 'raesfuie4', username: 'Uglen', points: 150 },
+          { id: 'raesfuie6', username: 'Katten', points: 80 },
+          { id: 'raesfuie7', username: 'Hunden', points: 60 },
+        ];
   }
 }
 
@@ -51,9 +61,11 @@ type UserRankingResponse = {
   user: UserElement;
 };
 
-export async function fetchUserRanking(userID: string, area?: string): Promise<UserRanking> {
+export async function fetchUserRanking(
+  userID: string,
+  area?: string,
+): Promise<UserRanking> {
   try {
-
     const dir = area === undefined ? userID : userID + '&area=' + area;
 
     const response: Response = await fetch(endpoint + 'user/' + dir);
@@ -69,12 +81,14 @@ export async function fetchUserRanking(userID: string, area?: string): Promise<U
     };
     return userRanking;
   } catch (error) {
-    return area === undefined ? {
-      ranking: 5,
-      user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-    } : {
-      ranking: 3,
-      user: { id: 'raesfuie2', username: 'Røyskatten', points: 200}
-    };
+    return area === undefined
+      ? {
+          ranking: 5,
+          user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+        }
+      : {
+          ranking: 3,
+          user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+        };
   }
 }

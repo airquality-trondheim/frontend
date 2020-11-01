@@ -1,25 +1,25 @@
-import { AchievementStamp } from "../types/_types";
+import { AchievementStamp } from '../types/_types';
 
 export const achieved: AchievementStamp[] = [
   {
     timestampEarned: new Date('August 18, 2020 20:10:30'),
-    achievementId: "1",    
+    achievementId: '1',
   },
   {
     timestampEarned: new Date('August 19, 2020 23:15:30'),
-    achievementId: "2",    
+    achievementId: '2',
   },
   {
     timestampEarned: new Date('August 18, 2020 23:17:30'),
-    achievementId: "3",    
+    achievementId: '3',
   },
   {
     timestampEarned: new Date('August 18, 2020 21:32:30'),
-    achievementId: "4",    
+    achievementId: '4',
   },
   {
     timestampEarned: new Date('August 19, 2020 20:19:30'),
-    achievementId: "5",    
+    achievementId: '5',
   },
 ];
 

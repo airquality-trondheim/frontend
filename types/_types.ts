@@ -68,13 +68,13 @@ export type UserElement = {
 
 // Level
 export type Level = {
-  levelNo:	number;
-  name:	string;
-  iconUrl:	string;
-  pointThreshold:	number;
-  pointsRequired:	number;
-  qty:	number;
-}
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
+};
 
 // Profile
 export type ProfileParamList = {

@@ -1,7 +1,13 @@
 import { Dispatch } from 'redux';
 import { fetchLeaderboardData, fetchUserRanking } from '../queries/leaderboard';
 import store from '../store';
-import { GET_LEADERBOARD, GET_LOCALLEADERBOARD, GET_LOCALUSERRANKING, GET_USERRANKING, RootAction } from './types';
+import {
+  GET_LEADERBOARD,
+  GET_LOCALLEADERBOARD,
+  GET_LOCALUSERRANKING,
+  GET_USERRANKING,
+  RootAction,
+} from './types';
 
 export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
   const data = [...store.getState().leaderboard.data];
@@ -40,9 +46,9 @@ export async function getUserRanking(
 }
 
 export async function getLocalLeaderboardData(
-    area: string,
-    dispatch: Dispatch<RootAction>  
-  ) {
+  area: string,
+  dispatch: Dispatch<RootAction>,
+) {
   const data = [...store.getState().leaderboard.localData];
   if (data.length > 0) {
     // data has already been fetched

@@ -4,7 +4,8 @@ import { PointsState } from '../types/_types';
 const initialState: PointsState = {
   points: 0,
   name: 'Inkognito Impala',
-  avatar: 'https://frisk-airquality.s3.eu-central-1.amazonaws.com/avatars/worm.png',
+  avatar:
+    'https://frisk-airquality.s3.eu-central-1.amazonaws.com/avatars/worm.png',
 };
 
 export default function (

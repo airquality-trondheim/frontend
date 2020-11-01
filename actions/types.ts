@@ -67,7 +67,7 @@ type GetUserRankingAction = {
 type GetLocalLeaderboardAction = {
   type: typeof GET_LOCALLEADERBOARD;
   data: LeaderboardElement[];
-}
+};
 
 type GetLocalUserRankingAction = {
   type: typeof GET_LOCALUSERRANKING;

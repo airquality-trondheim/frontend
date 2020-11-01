@@ -33,7 +33,7 @@ export default function (
       return {
         ...state,
         localData: action.data,
-      }
+      };
     case GET_LOCALUSERRANKING:
       return {
         ...state,
