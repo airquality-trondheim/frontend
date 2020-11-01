@@ -6,7 +6,7 @@ import { getAchievementCardData } from '../actions/achievementCardActions';
 import { RootAction } from '../actions/types';
 import { RootState } from '../reducers';
 import { connect } from 'react-redux';
-import { AchievementFormatShell } from '../components/achievements/AchievementFormatShell';
+import { AchievementFormatShell } from '../components/ievements/AchievementFormatShell';
 
 type AchievementCardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDistpatchToProps>;
