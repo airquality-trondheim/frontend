@@ -17,6 +17,15 @@ import {
   Entypo,
   Fontisto,
 } from '@expo/vector-icons';
+import { Auth } from 'aws-amplify';
+
+async function signOut() {
+  try {
+    await Auth.signOut();
+  } catch (error) {
+    console.log('error signing out: ', error);
+  }
+}
 
 type UserProfileProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -26,8 +35,7 @@ function ProfilePage(props: UserProfileProps) {
   const { userProfile, fetchUserProfile } = props;
 
   useEffect(() => {
-    //No idea how IDs are used, this one was copied from LeaderBoardCardWithModal.tsx
-    fetchUserProfile('5f6dde0d71a2bf3507462942');
+    fetchUserProfile(Auth.Credentials.Auth.user.sub);
   }, [fetchUserProfile]);
 
   const formatProfileLevelText =
@@ -131,7 +139,7 @@ function ProfilePage(props: UserProfileProps) {
           </Button>
           <Button
             style={[styles.button, styles.logOutButton]}
-            onPress={() => navigation.navigate('')}
+            onPress={signOut}
           >
             <Text style={styles.buttonText}>Logg ut</Text>
           </Button>
