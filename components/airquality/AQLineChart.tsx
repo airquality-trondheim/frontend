@@ -12,33 +12,9 @@ import {
 } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 
-export default function AQLineChart() {
-  const data = [
-    1,
-    2,
-    4,
-    3,
-    2,
-    2,
-    3,
-    1,
-    1,
-    1,
-    3,
-    1,
-    1,
-    2,
-    3,
-    4,
-    1,
-    4,
-    2,
-    2,
-    1,
-    1,
-    1,
-  ];
+export default function AQLineChart(props: { data: Array<number> }) {
   const axesSvg = { fontSize: 10, fill: 'grey' };
+  const data = props.data;
 
   const Decorator = ({
     x,

@@ -28,10 +28,11 @@ function AQCard() {
     <View style={styles.chart}>
       <Text style={styles.border} />
       <View style={styles.container}>
-        <Text>Today</Text>
+        <Text>Nå </Text>
         {/*  */}
         <AQBarChart {...{ data }} />
-        <Text>Tomorrow</Text>
+        <Text>Om 1 time</Text>
+        <AQBarChart {...{ data }} />
       </View>
     </View>
   );

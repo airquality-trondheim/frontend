@@ -1,32 +1,80 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
-import AQLineChart from '../components/airquality/AQLineChart';
-import { height } from '../constants/Layout';
+import { View, Text, StyleSheet, ScrollView, Button } from 'react-native';
+import React, { useState } from 'react';
+import AQChart from '../components/airquality/AQChart';
+import { height, width } from '../constants/Layout';
 import { LIGHTBLUE } from '../constants/Colors';
 
-const YAxis = () => {
-  return (
-    <View style={styles.barYAxis}>
-      <Text>4</Text>
-      <Text>3</Text>
-      <Text>2</Text>
-      <Text>1</Text>
-      <Text>0</Text>
-    </View>
-  );
+export type AQIData = {
+  todayData: Array<number>;
+  tomorrowData: Array<number>;
+  type: string;
 };
 
 export default function AirQualityScreen() {
+  const AQ = {
+    todayData: [
+      1,
+      2,
+      4,
+      3,
+      2,
+      2,
+      3,
+      1,
+      1,
+      1,
+      3,
+      1,
+      1,
+      2,
+      3,
+      4,
+      1,
+      4,
+      2,
+      2,
+      1,
+      1,
+      1,
+    ],
+    tomorrowData: [
+      4,
+      4,
+      1,
+      4,
+      4,
+      2,
+      3,
+      1,
+      1,
+      1,
+      3,
+      1,
+      1,
+      2,
+      3,
+      4,
+      1,
+      4,
+      2,
+      2,
+      1,
+      1,
+      1,
+    ],
+    type: 'AQI',
+  };
+
   return (
     <View style={styles.carouselContainerStyle}>
-      <Text>AQ</Text>
-      <Text style={styles.text}>AQI</Text>
-      <View style={styles.chartContainer}>
-        <YAxis />
-        <ScrollView style={styles.chart} horizontal>
-          <AQLineChart />
-        </ScrollView>
-      </View>
+      <ScrollView>
+        <View style={styles.scrollStyle}>
+          <AQChart {...{ AQ }} />
+          <AQChart {...{ AQ }} />
+          <AQChart {...{ AQ }} />
+          <AQChart {...{ AQ }} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -55,5 +103,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+  },
+  button: {
+    width: width * 0.3,
+  },
+  scrollStyle: {
+    height: height * 1.8,
   },
 });
