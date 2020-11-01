@@ -44,7 +44,7 @@ type UserRankingResponse = {
   user: UserElement;
 };
 
-export async function fetchUserRanking(userID: string): Promise<UserRanking> {
+export async function fetchUserRanking(userID: string, area?: string): Promise<UserRanking> {
   try {
     const response: Response = await fetch(endpoint + 'user/' + userID);
     const userRankingResponse: UserRankingResponse = await response.json();
