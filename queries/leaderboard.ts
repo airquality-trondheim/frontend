@@ -24,7 +24,7 @@ export async function fetchLeaderboardData(area?: string): Promise<LeaderboardEl
     }
     return data;
   } catch (error) {
-    return [
+    return area === undefined ? [
       { id: 'raeseeie2', username: 'Slangen', points: 1200 },
       { id: 'raesfsie2', username: 'Minken', points: 1000 },
       { id: 'raesfdie2', username: 'Haren', points: 600 },
@@ -35,6 +35,13 @@ export async function fetchLeaderboardData(area?: string): Promise<LeaderboardEl
       { id: 'raesfuie6', username: 'Katten', points: 80 },
       { id: 'raesfuie7', username: 'Hunden', points: 60 },
       { id: 'raesfuie8', username: 'Ulven', points: 50 },
+    ] : [
+      { id: 'raeseeie2', username: 'Slangen', points: 1200 },
+      { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
+      { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+      { id: 'raesfuie4', username: 'Uglen', points: 150 },
+      { id: 'raesfuie6', username: 'Katten', points: 80 },
+      { id: 'raesfuie7', username: 'Hunden', points: 60 },
     ];
   }
 }
@@ -46,7 +53,10 @@ type UserRankingResponse = {
 
 export async function fetchUserRanking(userID: string, area?: string): Promise<UserRanking> {
   try {
-    const response: Response = await fetch(endpoint + 'user/' + userID);
+
+    const dir = area === undefined ? userID : userID + '&area=' + area;
+
+    const response: Response = await fetch(endpoint + 'user/' + dir);
     const userRankingResponse: UserRankingResponse = await response.json();
     const user: LeaderboardElement = {
       id: userRankingResponse.user._id,
@@ -59,9 +69,12 @@ export async function fetchUserRanking(userID: string, area?: string): Promise<U
     };
     return userRanking;
   } catch (error) {
-    return {
+    return area === undefined ? {
       ranking: 5,
       user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
+    } : {
+      ranking: 3,
+      user: { id: 'raesfuie2', username: 'Røyskatten', points: 200}
     };
   }
 }

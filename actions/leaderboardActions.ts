@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { fetchLeaderboardData, fetchUserRanking } from '../queries/leaderboard';
 import store from '../store';
-import { GET_LEADERBOARD, GET_LOCALLEADERBOARD, GET_USERRANKING, RootAction } from './types';
+import { GET_LEADERBOARD, GET_LOCALLEADERBOARD, GET_LOCALUSERRANKING, GET_USERRANKING, RootAction } from './types';
 
 export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
   const data = [...store.getState().leaderboard.data];
@@ -64,5 +64,17 @@ export async function getLocalLeaderboardData(
   dispatch({
     type: GET_LOCALLEADERBOARD,
     data: newData,
+  });
+}
+
+export async function getLocalUserRanking(
+  userID: string,
+  area: string,
+  dispatch: Dispatch<RootAction>,
+) {
+  const newUserRanking = await fetchUserRanking(userID, area);
+  dispatch({
+    type: GET_LOCALUSERRANKING,
+    userRanking: newUserRanking,
   });
 }

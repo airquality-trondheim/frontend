@@ -113,6 +113,7 @@ export type LeaderboardState = {
   data: LeaderboardElement[];
   localData: LeaderboardElement[];
   userRanking: UserRanking;
+  localUserRanking: UserRanking;
 };
 
 // Map
