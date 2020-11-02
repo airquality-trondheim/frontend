@@ -6,8 +6,6 @@ import * as Location from 'expo-location';
 import * as TaskManager from 'expo-task-manager';
 import * as Permissions from 'expo-permissions';
 import { postSessionData } from '../queries/session';
-import { connect } from 'react-redux';
-import { RootState } from '../reducers';
 import { waypoint, SessionResult } from '../types/_types';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import { CLOSEBUTTON, WHITE, STOPBUTTON } from '../constants/Colors';
@@ -16,13 +14,10 @@ import Closebutton from './CloseButton';
 import { Auth } from 'aws-amplify';
 
 const LOCATION_TRACKING = 'location-tracking';
-// const GEOFENCE_TRACKING = 'geofence-tracking';
 let waypoints: waypoint[] = [];
 let pollutionLevel = 'ukjent';
 
-type sessionProps = ReturnType<typeof mapStateToProps>;
-
-function Session(props: sessionProps) {
+export default function Session() {
   const [sessionActive, setSessionActive] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
   const [oldWaypointsLength, setOldWaypointsLength] = useState(0);
@@ -88,48 +83,25 @@ function Session(props: sessionProps) {
       timeInterval: 5000,
       distanceInterval: 0,
     });
-    /*
-    await Location.startGeofencingAsync(
-      GEOFENCE_TRACKING,
-      props.aqData.map((aqStation) => {
-        return {
-          identifier: aqStation.station,
-          latitude: aqStation.latitude,
-          longitude: aqStation.longitude,
-          pollutionLevel: 'Høy',
-          radius: 620,
-          notifyOnEnter: true,
-          notifyOnExit: true,
-        };
-      }),
-    );
-    */
 
     const hasStarted = await Location.hasStartedLocationUpdatesAsync(
       LOCATION_TRACKING,
     );
-    /*
-    const hasStartedGeofencing = await Location.hasStartedGeofencingAsync(
-      GEOFENCE_TRACKING,
-    );*/
 
-    setSessionActive(hasStarted); // && hasStartedGeofencing);
+    setSessionActive(hasStarted);
   };
 
   const stopLocationTracking = async () => {
     setSessionActive(false);
     await Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
-    // await Location.stopGeofencingAsync(GEOFENCE_TRACKING);
     const summary: SessionResult = await postSessionData({
       userId:
         Auth.Credentials.Auth.user.signInUserSession.accessToken.payload.sub,
-      // userId: '5f6dde0d71a2bf3507462943',
       sessionType: 'Arbeid',
       startTime: waypoints[0].timestamp,
       stopTime: waypoints[waypoints.length - 1].timestamp,
       waypoints: waypoints,
     });
-    console.log(summary);
     setResult(summary);
     updateModalVisible();
     setSessionMilliseconds(0);
@@ -262,16 +234,6 @@ function Session(props: sessionProps) {
                     </Text>
                   </View>
                 </Col>
-                {/* Add back when backend supports scoring achievements
-                <Col size={1}>
-                  <View style={styles.centeredView}>
-                    <FontAwesome5 name="trophy" size={50} color="black" />
-                    <Text>Bragder</Text>
-                    <Text style={styles.summaryText}>
-                      {result?.achievementPoints} p
-                    </Text>
-                  </View>
-                </Col> */}
               </Row>
               <Row size={1}>
                 <View style={styles.centeredView}>
@@ -285,15 +247,6 @@ function Session(props: sessionProps) {
     </View>
   );
 }
-
-const mapStateToProps = (state: RootState) => {
-  return {
-    aqData: state.map.aqData,
-    waypointState: waypoints,
-  };
-};
-
-export default connect(mapStateToProps)(Session);
 
 /**
  * Defines the task for location tracking.
@@ -318,26 +271,6 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
     });
   }
 });
-
-/**
- * Defines the task for geofencing.
- * Is triggered when a user enters or exits a defined region.
- */
-/*
-TaskManager.defineTask(
-  GEOFENCE_TRACKING,
-  ({ data: { eventType, region }, error }) => {
-    if (error) {
-      console.log(error.message);
-      return;
-    }
-    if (eventType === Location.LocationGeofencingEventType.Enter) {
-      pollutionLevel = region.pollutionLevel;
-    } else if (eventType === Location.LocationGeofencingEventType.Exit) {
-      pollutionLevel = 'ukjent';
-    }
-  },
-);*/
 
 const styles = StyleSheet.create({
   centeredView: {
