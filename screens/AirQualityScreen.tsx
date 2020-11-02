@@ -2,14 +2,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
 import AQChart from '../components/airquality/AQChart';
 import { height, width } from '../constants/Layout';
-import { LIGHTBLUE } from '../constants/Colors';
 import LocationDropdown from '../components/LocationDropdown';
-
-export type AQIData = {
-  todayData: Array<number>;
-  tomorrowData: Array<number>;
-  type: string;
-};
 
 export default function AirQualityScreen() {
   const AQ = {

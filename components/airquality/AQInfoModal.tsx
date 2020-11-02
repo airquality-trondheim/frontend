@@ -59,21 +59,21 @@ function AQInfoModal(props: {
 
             {createAQComponentInfo(
               'AQI',
-              'indeks som viser luftkvalitet basert på...',
+              'indeks som viser luftkvalitet. AQI går fra 1 til 4 og høyere AQI viser dårligere luftkvalitet',
             )}
             {createAQComponentInfo(
               'PM',
-              'indeks som viser luftkvalitet basert på...',
+              'viser finfraksjon av svevestøv i målenehet mikrogram per kvadratmeter',
               '2.5',
             )}
             {createAQComponentInfo(
               'PM',
-              'indeks som viser luftkvalitet basert på...',
+              'viser grovfraksjon av svevestøv i målenehet mikrogram per kvadratmeter',
               '10',
             )}
             {createAQComponentInfo(
               'NO',
-              'indeks som viser luftkvalitet basert på...',
+              'viser nitrogendioksid i målenehet mikrogram per kvadratmeter',
               '2',
             )}
             <Row size={8}>
@@ -84,7 +84,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Utmerket'}
                     belowText={
-                      'AQI er lav (0-20) noe som tilsvarer god luftkvalitet.'
+                      'AQI er 0-1 noe som tilsvarer lave forekomster av luftforurensning.'
                     }
                   />
                 </View>
@@ -94,7 +94,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Dårlig'}
                     belowText={
-                      'AQI er middels høy (40-60) noe som tilsvarer dårlig luftkvalitet.'
+                      'AQI er 2-3 noe som tilsvarer høy forekomst av luftforurensing.'
                     }
                   />
                 </View>
@@ -104,9 +104,9 @@ function AQInfoModal(props: {
                   <AQHalfCircle
                     fill={37.5}
                     size={modalWidth / 2.5}
-                    insideText={'Bra'}
+                    insideText={'Middels'}
                     belowText={
-                      'AQI er middels lav (20-40) noe som tilsvarer grei luftkvalitet.'
+                      'AQI er 1-2 noe som tilsvarer middels forekomst av luftforurensing.'
                     }
                   />
                 </View>
@@ -114,9 +114,9 @@ function AQInfoModal(props: {
                   <AQHalfCircle
                     fill={87.5}
                     size={modalWidth / 2.5}
-                    insideText={'Uhyggelig'}
+                    insideText={'Svært dårlig'}
                     belowText={
-                      'AQI er høy (60-80) noe som tilsvarer svært dårlig luftkvalitet.'
+                      'AQI er større enn 3 noe som tilsvarer svært høy forekomst av luftforurensing.'
                     }
                   />
                 </View>

@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { fetchAirqualityDataForLocation } from '../queries/airquality';
 import store from '../store';
+import { AQIData } from '../types/_types';
 import { GET_AIRQUALITY_FOR_LOCATION, RootAction } from './types';
 
 export async function getAirQualityDataForLocation(
@@ -18,6 +19,9 @@ export async function getAirQualityDataForLocation(
   dispatch({
     type: GET_AIRQUALITY_FOR_LOCATION,
     areacode: aqData.areacode,
-    airqualityData: aqData.airqualityData,
+    AQI: aqData.AQI,
+    NO2_AQI: aqData.NO2_AQI,
+    PM10_AQI: aqData.PM10_AQI,
+    PM25_AQI: aqData.PM25_AQI,
   });
 }

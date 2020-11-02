@@ -208,5 +208,13 @@ export type AirqualityForecast = {
 
 export type AirqualityData = {
   areacode: string;
-  airqualityData: AirqualityTimeElement[];
+  AQI: AQIData;
+  NO2_AQI: AQIData;
+  PM10_AQI: AQIData;
+  PM25_AQI: AQIData;
+};
+
+export type AQIData = {
+  todayData: Array<{ clock: string; value: number }>;
+  tomorrowData: Array<{ clock: string; value: number }>;
 };

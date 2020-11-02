@@ -6,7 +6,10 @@ import { AirqualityData } from '../types/_types';
 
 const initialState: AirqualityData = {
   areacode: '',
-  airqualityData: [],
+  AQI: { todayData: [], tomorrowData: [] },
+  NO2_AQI: { todayData: [], tomorrowData: [] },
+  PM10_AQI: { todayData: [], tomorrowData: [] },
+  PM25_AQI: { todayData: [], tomorrowData: [] },
 };
 
 export default function (
@@ -18,7 +21,10 @@ export default function (
       return {
         ...state,
         areacode: action.areacode,
-        airqualityData: action.airqualityData,
+        AQI: action.AQI,
+        NO2_AQI: action.NO2_AQI,
+        PM10_AQI: action.PM10_AQI,
+        PM25_AQI: action.PM25_AQI,
       };
     default:
       return state;
