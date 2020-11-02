@@ -1,6 +1,5 @@
 import {
   AchievementCardElement,
-  aqStationData,
   LeaderboardElement,
   UserRanking,
   WeatherElement,
@@ -8,6 +7,7 @@ import {
   Location,
   Station,
   AirqualityTimeElement,
+  currentAqData,
 } from '../types/_types';
 
 export type RootAction =
@@ -89,7 +89,7 @@ export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
 
 type GetAirQualityDataAction = {
   type: typeof GET_AIR_QUALITY_DATA;
-  data: aqStationData[];
+  data: currentAqData[];
 };
 
 export type MapActionTypes = GetAirQualityDataAction;
