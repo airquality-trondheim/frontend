@@ -60,16 +60,6 @@ function Map(props: mapProps) {
                 aqStation.unit
               }
             />
-            <MapView.Circle
-              center={{
-                latitude: aqStation.latitude,
-                longitude: aqStation.longitude,
-              }}
-              radius={620}
-              strokeWidth={1}
-              strokeColor={'#' + aqStation.color}
-              fillColor={'#' + aqStation.color + '40'}
-            />
           </View>
         );
       })}
