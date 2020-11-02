@@ -14,7 +14,9 @@ export default function LandingPageCarousel() {
           <WeatherCarousel />
         </CarouselItem>
       </TouchableOpacity>
-      <CarouselItem headerText="Luft"></CarouselItem>
+      <TouchableOpacity>
+        <CarouselItem headerText="Luft"></CarouselItem>
+      </TouchableOpacity>
     </View>
   );
 }

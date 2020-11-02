@@ -14,7 +14,7 @@ type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps> & { count: number };
 
 function WeatherComponentSmall(props: WeatherProps) {
-  const { count, tomorrow, today, fetchWeatherData } = props;
+  const { currentLocation, count, tomorrow, today, fetchWeatherData } = props;
   const [weather, setWeather] = useState<WeatherElement[]>(today);
   const unmounted = useRef(false);
 
@@ -24,7 +24,11 @@ function WeatherComponentSmall(props: WeatherProps) {
     };
   }, []);
 
-  useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
+  useEffect(() => {
+    if (currentLocation) {
+      fetchWeatherData(currentLocation.latitude, currentLocation.longitude);
+    }
+  }, [fetchWeatherData, currentLocation]);
 
   useEffect(() => {
     if (!unmounted.current) {
@@ -72,6 +76,7 @@ const mapStateToProps = (state: RootState) => {
     lastFetched: state.weather.lastFetched,
     today: state.weather.today,
     tomorrow: state.weather.tomorrow,
+    currentLocation: state.locations.currentLocation,
   };
 };
 
