@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Platform } from 'react-native';
 import React from 'react';
 import AQChart from '../components/airquality/AQChart';
 import { height, width } from '../constants/Layout';
@@ -67,35 +67,36 @@ export default function AirQualityScreen() {
   };
 
   return (
-    <View style={styles.carouselContainerStyle}>
-      <ScrollView>
-        <View style={styles.scrollStyle}>
-          <View style={styles.dropdownView}>
-            <LocationDropdown />
-          </View>
-          <AQChart {...{ AQ }} />
-          <AQChart {...{ AQ }} />
-          <AQChart {...{ AQ }} />
-          <AQChart {...{ AQ }} />
-        </View>
-      </ScrollView>
-    </View>
+    <ScrollView contentContainerStyle={styles.carouselContainerStyle}>
+      <View
+        style={
+          (styles.dropdownView,
+          {
+            ...(Platform.OS !== 'android' && {
+              zIndex: 99,
+            }),
+          })
+        }
+      >
+        <LocationDropdown />
+      </View>
+      <AQChart {...{ AQ }} />
+      <AQChart {...{ AQ }} />
+      <AQChart {...{ AQ }} />
+      <AQChart {...{ AQ }} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: height,
-    borderWidth: 2,
-  },
-  scrollStyle: {
-    height: height * 1.8,
+    minHeight: height,
+    alignItems: 'center',
   },
   dropdownView: {
     width: width,
     height: height * 0.1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    zIndex: 999,
   },
 });

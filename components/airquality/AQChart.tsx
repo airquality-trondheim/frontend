@@ -62,6 +62,7 @@ export default function AirQChart(props: { AQ: AQIData }) {
 const styles = StyleSheet.create({
   containerStyle: {
     height: height * 0.4,
+    width: width,
   },
   barYAxis: {
     backgroundColor: LIGHTBLUE,
