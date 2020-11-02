@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, Grid, Row, Col } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -12,7 +12,19 @@ type HelpElementType = {
 
 const HelpElement = ({ question, answer }: HelpElementType) => {
   const [showAnswer, setShowAnswer] = React.useState(false);
-  const onClick = () => setShowAnswer((previousState) => !previousState);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
+  const onClick = () => {
+    if (!unmounted.current) {
+      setShowAnswer((previousState) => !previousState);
+    }
+  };
   return (
     <Grid>
       <Row style={styles.questionRow}>
