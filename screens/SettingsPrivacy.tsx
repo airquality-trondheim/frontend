@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, ScrollView, StyleSheet } from 'react-native';
 import PrivacyElement from '../components/settingFolder/PrivacyElement';
 import settingPrivacyArray from '../constants/SettingPrivacyArray';
-import { DARKGRAY } from '../constants/Colors';
+import { EXTRADARKGRAY } from '../constants/Colors';
 
 function SettingsPrivacy() {
   return (
@@ -53,6 +53,6 @@ const styles = StyleSheet.create({
   },
   privacyDescText: {
     fontSize: 18,
-    color: DARKGRAY,
+    color: EXTRADARKGRAY,
   },
 });
