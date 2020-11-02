@@ -9,9 +9,6 @@ function SettingsPrivacy() {
   return (
     <ScrollView style={styles.scrollViewStyling}>
       <Grid>
-        <Row style={styles.privacyHeader}>
-          <Text style={styles.privacyHeaderText}>Personvern</Text>
-        </Row>
         <Row style={styles.privacyDesc}>
           <Text style={styles.privacyDescText}>
             Ditt personvern er svært viktig for oss. For å kunne tilby vår
@@ -48,20 +45,11 @@ const styles = StyleSheet.create({
   scrollViewStyling: {
     paddingBottom: 20,
   },
-  privacyHeader: {
-    justifyContent: 'center',
-    flex: 1,
-    alignItems: 'center',
-    paddingTop: 50,
-  },
-  privacyHeaderText: {
-    fontSize: 34,
-  },
   privacyDesc: {
     marginLeft: 20,
     marginRight: 15,
-    marginBottom: 40,
-    paddingTop: 10,
+    marginBottom: 25,
+    paddingTop: 30,
   },
   privacyDescText: {
     fontSize: 18,
