@@ -16,8 +16,6 @@ function Map(props: mapProps) {
   const [mapRegion, setMapRegion] = useState(props.region);
   const [aqStations, setAqStations] = useState(props.aqData);
 
-  // Android har begrenset med farger tilgjengelig for pinColor, må bruke standard
-  // TODO: Flytte til riktig fil hvis dette er løsningen som skal brukes
   const colorDict: { [id: string]: string } = {
     '6ee86e': 'green',
     ff9900: 'yellow',
@@ -38,8 +36,8 @@ function Map(props: mapProps) {
       style={styles.map}
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
-      // showsUserLocation={true}
-      // showsMyLocationButton={true}
+      showsUserLocation={true}
+      showsMyLocationButton={false}
     >
       {aqStations.map((aqStation: aqStationData, i) => {
         return (
@@ -85,7 +83,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Map);
 const styles = StyleSheet.create({
   map: {
     flex: 1,
-    //paddingTop: 1,
-    //marginTop: 45,
   },
 });
