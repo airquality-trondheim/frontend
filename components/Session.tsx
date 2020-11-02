@@ -13,9 +13,10 @@ import { width, singleSideMargin, height } from '../constants/Layout';
 import { CLOSEBUTTON, WHITE, STOPBUTTON } from '../constants/Colors';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import Closebutton from './CloseButton';
+import { Auth } from 'aws-amplify';
 
 const LOCATION_TRACKING = 'location-tracking';
-const GEOFENCE_TRACKING = 'geofence-tracking';
+// const GEOFENCE_TRACKING = 'geofence-tracking';
 let waypoints: waypoint[] = [];
 let pollutionLevel = 'ukjent';
 
@@ -87,7 +88,7 @@ function Session(props: sessionProps) {
       timeInterval: 5000,
       distanceInterval: 0,
     });
-
+    /*
     await Location.startGeofencingAsync(
       GEOFENCE_TRACKING,
       props.aqData.map((aqStation) => {
@@ -102,31 +103,33 @@ function Session(props: sessionProps) {
         };
       }),
     );
+    */
 
     const hasStarted = await Location.hasStartedLocationUpdatesAsync(
       LOCATION_TRACKING,
     );
-
+    /*
     const hasStartedGeofencing = await Location.hasStartedGeofencingAsync(
       GEOFENCE_TRACKING,
-    );
+    );*/
 
-    setSessionActive(hasStarted && hasStartedGeofencing);
+    setSessionActive(hasStarted); // && hasStartedGeofencing);
   };
 
   const stopLocationTracking = async () => {
     setSessionActive(false);
     await Location.stopLocationUpdatesAsync(LOCATION_TRACKING);
-    await Location.stopGeofencingAsync(GEOFENCE_TRACKING);
+    // await Location.stopGeofencingAsync(GEOFENCE_TRACKING);
     const summary: SessionResult = await postSessionData({
-      // TODO: Add back this whenever the users gets an updated ID in the backed.
-      // userId: Auth.Credentials.Auth.user.attributes.sub,
-      userId: '5f6dde0d71a2bf3507462943',
+      userId:
+        Auth.Credentials.Auth.user.signInUserSession.accessToken.payload.sub,
+      // userId: '5f6dde0d71a2bf3507462943',
       sessionType: 'Arbeid',
       startTime: waypoints[0].timestamp,
       stopTime: waypoints[waypoints.length - 1].timestamp,
       waypoints: waypoints,
     });
+    console.log(summary);
     setResult(summary);
     updateModalVisible();
     setSessionMilliseconds(0);
@@ -296,6 +299,7 @@ export default connect(mapStateToProps)(Session);
  * Defines the task for location tracking.
  * Is triggerd every timestep as defined in Location.startGeofencingAsync
  */
+
 TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
   if (error) {
     console.log('LOCATION_TRACKING task ERROR:', error);
@@ -319,6 +323,7 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
  * Defines the task for geofencing.
  * Is triggered when a user enters or exits a defined region.
  */
+/*
 TaskManager.defineTask(
   GEOFENCE_TRACKING,
   ({ data: { eventType, region }, error }) => {
@@ -332,7 +337,7 @@ TaskManager.defineTask(
       pollutionLevel = 'ukjent';
     }
   },
-);
+);*/
 
 const styles = StyleSheet.create({
   centeredView: {
