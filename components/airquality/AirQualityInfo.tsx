@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   airQualityInfo: {
-    height: (width * 0.75) / 2 + 20,
+    height: (width * 0.9) / 2 + 20,
+    marginBottom: 20,
   },
   overallAirquality: {
     fontSize: 40,
