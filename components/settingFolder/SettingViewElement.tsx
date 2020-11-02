@@ -22,8 +22,9 @@ const SettingElement = ({
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
-
+  const navigation = useNavigation();
   const unmounted = useRef(false);
+
   useEffect(() => {
     return () => {
       unmounted.current = true;
@@ -37,24 +38,26 @@ const SettingElement = ({
           setIsEnabled(value === 'true');
         }
       });
+      if (Auth.Credentials.Auth.user !== null) {
+        //TODO: Use settings from DB fetched when loading Profile page
+      }
     }
   }, [elementName, elementTrigger]);
+
   const toggleSwitch = () => {
     if (!unmounted.current) {
       setIsEnabled((previousState) => !previousState);
     }
   };
-  const navigation = useNavigation();
 
   useEffect(() => {
-    if (Auth.Credentials.Auth.user !== null) {
-      console.log('Store setting in DB');
+    if (elementTrigger) {
+      if (Auth.Credentials.Auth.user !== null) {
+        // TODO: Update settings in DB
+      }
+      storeData(isEnabled, elementName);
     }
-  }, []);
-
-  useEffect(() => {
-    storeData(isEnabled, elementName);
-  }, [elementName, isEnabled]);
+  }, [isEnabled, elementTrigger, elementName]);
 
   return (
     <TouchableOpacity
