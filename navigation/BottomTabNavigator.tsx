@@ -4,13 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import {
   BottomTabParamList,
   CompetitionParamList,
   ProfileParamList,
   HomeParamList,
-  TabTwoParamList,
   MapParamList,
 } from '../types/_types';
 import WeatherScreen from '../screens/WeatherScreen';
@@ -59,13 +57,6 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => createTabBarIcon('home', color),
         }}
       />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('code', color),
-        }}
-      />
 
       <BottomTab.Screen
         name="Map"
@@ -104,16 +95,6 @@ function HomeNavigator() {
       <HomeStack.Screen name="LandingPage" component={LandingPage} />
       <HomeStack.Screen name="WeatherScreen" component={WeatherScreen} />
     </HomeStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
-    </TabTwoStack.Navigator>
   );
 }
 
