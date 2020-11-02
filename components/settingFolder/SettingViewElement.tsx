@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -22,18 +22,28 @@ const SettingElement = ({
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
+
+  const unmounted = useRef(false);
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
   useEffect(() => {
     if (elementTrigger) {
       getData(elementName).then((value) => {
-        if (value === 'true') {
-          setIsEnabled(true);
-        } else {
-          setIsEnabled(false);
+        if (!unmounted.current) {
+          setIsEnabled(value === 'true');
         }
       });
     }
   }, [elementName, elementTrigger]);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const toggleSwitch = () => {
+    if (!unmounted.current) {
+      setIsEnabled((previousState) => !previousState);
+    }
+  };
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -82,19 +92,21 @@ const SettingElement = ({
 export default SettingElement;
 
 const storeData = async (value: boolean, storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
-    // saving error
+    console.log('Error storing data in settings');
   }
 };
 
 const getData = async (storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     return await AsyncStorage.getItem(storageKey);
   } catch (e) {
-    // error reading value
+    console.log('Error getting data from settings');
   }
 };
 
