@@ -55,7 +55,7 @@ function LocationDropdown(props: LocationDropdownProps) {
 
   const updateLocation = (item: DropdownListItem) => {
     const newCurrentLocation = locations.find(
-      (value) => value._id === item.value,
+      (loc: Location) => loc._id === item.value,
     );
     if (newCurrentLocation !== undefined) {
       updateCurrentLocation(newCurrentLocation);
@@ -68,7 +68,7 @@ function LocationDropdown(props: LocationDropdownProps) {
         <DropDownPicker
           items={locationList}
           defaultValue={
-            locations.find((value) => value._id === currentLocation?._id)
+            locations.find((loc) => loc._id === currentLocation?._id)
               ? currentLocation?._id
               : locationList[0].value
           }
@@ -82,6 +82,7 @@ function LocationDropdown(props: LocationDropdownProps) {
           dropDownStyle={styles.pickerDropDown}
           style={styles.picker}
           searchable={true}
+          searchableStyle={styles.searchableStyle}
           searchableError={() => <Text>Finner ikke område</Text>}
           onChangeItem={(item: DropdownListItem) => updateLocation(item)}
         />
@@ -136,5 +137,8 @@ const styles = StyleSheet.create({
   },
   picker: {
     backgroundColor: CAROUSELITEM,
+  },
+  searchableStyle: {
+    color: BLACK,
   },
 });
