@@ -7,6 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from 'aws-amplify';
 import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
+import {
+  postPushNotificationToken,
+  registerForPushNotificationsAsync,
+} from '../../queries/pushNotificationToken';
 
 type SettingElementProps = {
   elementName: string;
@@ -22,8 +26,16 @@ const SettingElement = ({
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const navigation = useNavigation();
+  const toggleSwitch = async () => {
+    const allowPushNotifications = !isEnabled;
+    if (allowPushNotifications) {
+      await registerForPushNotificationsAsync();
+    } else {
+      await postPushNotificationToken('', false);
+    }
+    setIsEnabled(allowPushNotifications);
+  };
 
   useEffect(() => {
     if (Auth.Credentials.Auth.user !== null) {
