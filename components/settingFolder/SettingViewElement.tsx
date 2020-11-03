@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -22,60 +22,99 @@ const SettingElement = ({
   elementNavigator,
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const navigation = useNavigation();
+  const unmounted = useRef(false);
 
   useEffect(() => {
-    if (Auth.Credentials.Auth.user !== null) {
-      console.log('Store setting in DB');
-    }
+    return () => {
+      unmounted.current = true;
+    };
   }, []);
 
   useEffect(() => {
-    storeData(isEnabled, elementName);
-  }, [elementName, isEnabled]);
+    if (elementTrigger) {
+      getData(elementName).then((value) => {
+        if (!unmounted.current) {
+          setIsEnabled(value === 'true');
+        }
+      });
+      if (Auth.Credentials.Auth.user !== null) {
+        //TODO: Use settings from DB fetched when loading Profile page
+      }
+    }
+  }, [elementName, elementTrigger]);
+
+  const toggleSwitch = () => {
+    if (!unmounted.current) {
+      setIsEnabled((previousState) => !previousState);
+    }
+  };
+
+  useEffect(() => {
+    if (elementTrigger) {
+      if (Auth.Credentials.Auth.user !== null) {
+        // TODO: Update settings in DB
+      }
+      storeData(isEnabled, elementName);
+    }
+  }, [isEnabled, elementTrigger, elementName]);
 
   return (
-    <Row style={styles.elementRow}>
-      <Col size={9}>
-        <Text style={styles.elementName}>{elementName}</Text>
-        <Text style={styles.elementDesc}>{elementDesc}</Text>
-      </Col>
-      <Col size={3} style={styles.leftColPlacement}>
-        {elementTrigger ? (
-          <Switch
-            trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
-            thumbColor="#f4f3f4"
-            ios_backgroundColor={LIGHTGRAY}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        ) : (
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(elementNavigator)}
-            >
+    <TouchableOpacity
+      onPress={() => {
+        if (elementTrigger) {
+          toggleSwitch();
+        } else {
+          navigation.navigate(elementNavigator);
+        }
+      }}
+    >
+      <Row style={styles.elementRow}>
+        <Col size={9}>
+          <Text style={styles.elementName}>{elementName}</Text>
+          <Text style={styles.elementDesc}>{elementDesc}</Text>
+        </Col>
+        <Col size={3} style={styles.leftColPlacement}>
+          {elementTrigger ? (
+            <Switch
+              trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
+              thumbColor="#f4f3f4"
+              ios_backgroundColor={LIGHTGRAY}
+              value={isEnabled}
+            />
+          ) : (
+            <View>
               <MaterialIcons
                 name="keyboard-arrow-right"
                 size={40}
                 color={LIGHTBLUE}
               />
-            </TouchableOpacity>
-          </View>
-        )}
-      </Col>
-    </Row>
+            </View>
+          )}
+        </Col>
+      </Row>
+    </TouchableOpacity>
   );
 };
 
 export default SettingElement;
 
 const storeData = async (value: boolean, storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
-    // saving error
+    console.log('Error storing data in settings');
+  }
+};
+
+const getData = async (storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
+  try {
+    return await AsyncStorage.getItem(storageKey);
+  } catch (e) {
+    console.log('Error getting data from settings');
   }
 };
 

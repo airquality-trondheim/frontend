@@ -10,6 +10,7 @@ import { RootAction } from '../actions/types';
 import { getWeatherData } from '../actions/weatherActions';
 import { RootState } from '../reducers';
 import { WeatherElement } from '../types/_types';
+import LocationDropdown from '../components/LocationDropdown';
 
 type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -21,6 +22,9 @@ function WeatherScreen(props: WeatherProps) {
   return (
     <View style={styles.screenStyle}>
       <View style={styles.mainComponent}>
+        <View style={styles.dropdownView}>
+          <LocationDropdown />
+        </View>
         <WeatherComponentBig />
       </View>
       <View>
@@ -78,7 +82,8 @@ const styles = StyleSheet.create({
   mainComponent: {
     width: width,
     fontSize: 40,
-    height: height * 0.4,
+    height: height * 0.38,
+    zIndex: 99,
   },
   containerStyle: {
     backgroundColor: CAROUSELITEM,
@@ -88,6 +93,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginLeft: 5,
     marginRight: 5,
+    marginTop: 2,
     paddingTop: 8,
     padding: 8,
     elevation: 5,
@@ -100,5 +106,12 @@ const styles = StyleSheet.create({
   scroll: {
     height: height * 0.18,
     marginTop: 12,
+  },
+  dropdownView: {
+    width: width,
+    height: height * 0.1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    zIndex: 999,
   },
 });

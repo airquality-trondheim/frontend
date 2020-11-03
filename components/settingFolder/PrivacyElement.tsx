@@ -1,7 +1,6 @@
 import { View } from 'native-base';
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { DARKGRAY } from '../../constants/Colors';
 
 type privacyElementType = {
   header: string;
@@ -30,6 +29,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     paddingBottom: 25,
-    color: DARKGRAY,
   },
 });

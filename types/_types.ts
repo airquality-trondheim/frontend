@@ -16,7 +16,6 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Home: undefined;
-  TabTwo: undefined;
   Map: undefined;
   Competition: undefined;
   Profile: undefined;
@@ -25,10 +24,6 @@ export type BottomTabParamList = {
 export type HomeParamList = {
   LandingPage: undefined;
   WeatherScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
 };
 
 export type MapParamList = {
@@ -58,6 +53,22 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
+//Profile
+
+export type UserProfile = {
+  id: string;
+  username: string;
+  points: number;
+  level: number;
+  avatar: string;
+  mail: string;
+  telefon: string;
+  birthdate: string;
+  location: string;
+  postalcode: string;
+  street: string;
+};
+
 // User
 export type UserElement = {
   _id: string;
@@ -72,17 +83,47 @@ export type UserElement = {
 export type ProfileParamList = {
   ProfilePage: undefined;
   SettingPage: undefined;
-  SettingsFavoriteArea: undefined;
+  SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
 };
 
 // Location
-export type Location = {
-  locationName: string;
-  lat: string;
-  lon: string;
+export type Station = {
+  name: string;
   eoi: string;
+  height: number;
+  longitude: number;
+  latitude: number;
+  grunnkrets: {
+    name: string;
+    areacode: string;
+  };
+  delområde: {
+    name: string;
+    areacode: string;
+  };
+  kommune: {
+    name: string;
+    areacode: string;
+  };
+};
+
+export type Location = {
+  _id: string;
+  name: string;
+  path: string;
+  longitude: number;
+  latitude: number;
+  areacode: string;
+  areaclass: string;
+  superareacode: string;
+};
+
+export type LocationState = {
+  stations: Station[];
+  locations: Location[];
+  currentLocation: Location | null;
 };
 
 // Leaderboard
@@ -104,39 +145,6 @@ export type UserRanking = {
 export type LeaderboardState = {
   data: LeaderboardElement[];
   userRanking: UserRanking;
-};
-
-// Map
-export type aqStationData = {
-  _id: string;
-  id: number;
-  zone: string;
-  municipality: string;
-  area: string;
-  station: string;
-  eoi: string;
-  component: string;
-  fromTime: Date;
-  toTime: Date;
-  value: number;
-  unit: string;
-  latitude: number;
-  longitude: number;
-  timestep: number;
-  index: number;
-  color: string;
-  isValid: boolean;
-  __v: number;
-};
-
-export type MapData = {
-  region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  aqData: aqStationData[];
 };
 
 // Points
@@ -162,7 +170,7 @@ export type WeatherData = {
 // Airquality
 type VariableElement = {
   value: number;
-  units: string;
+  unit: string;
 };
 
 export type AirqualityTimeElement = {
@@ -172,37 +180,43 @@ export type AirqualityTimeElement = {
     AQI: VariableElement;
     no2_concentration: VariableElement;
     AQI_no2: VariableElement;
-    no2_nonlocal_fraction: VariableElement;
-    no2_local_fraction_traffic_exhaust: VariableElement;
-    no2_local_fraction_shipping: VariableElement;
-    no2_local_fraction_heating: VariableElement;
-    no2_local_fraction_industry: VariableElement;
     pm10_concentration: VariableElement;
     AQI_pm10: VariableElement;
-    pm10_nonlocal_fraction: VariableElement;
-    pm10_nonlocal_fraction_seasalt: VariableElement;
-    pm10_local_fraction_traffic_exhaust: VariableElement;
-    pm10_local_fraction_traffic_nonexhaust: VariableElement;
-    pm10_local_fraction_shipping: VariableElement;
-    pm10_local_fraction_heating: VariableElement;
-    pm10_local_fraction_industry: VariableElement;
     pm25_concentration: VariableElement;
     AQI_pm25: VariableElement;
-    pm25_nonlocal_fraction: VariableElement;
-    pm25_nonlocal_fraction_seasalt: VariableElement;
-    pm25_local_fraction_traffic_exhaust: VariableElement;
-    pm25_local_fraction_traffic_nonexhaust: VariableElement;
-    pm25_local_fraction_shipping: VariableElement;
-    pm25_local_fraction_heating: VariableElement;
-    pm25_local_fraction_industry: VariableElement;
-    o3_concentration: VariableElement;
-    AQI_o3: VariableElement;
-    o3_nonlocal_fraction: VariableElement;
   };
 };
 
+export type AirqualityForecast = {
+  location: {
+    name: string;
+    longitude: number;
+    latitude: number;
+    areacode: string;
+  };
+  reftime: string;
+  data: AirqualityTimeElement[];
+};
+
 export type AirqualityData = {
-  location: string;
-  time: AirqualityTimeElement[];
-  lastFetched: Date;
+  areacode: string;
+  airqualityData: AirqualityTimeElement[];
+};
+
+// Map
+export type currentAqData = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  data: AirqualityTimeElement;
+};
+
+export type MapData = {
+  region: {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+  aqData: currentAqData[];
 };

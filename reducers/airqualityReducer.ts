@@ -1,13 +1,12 @@
 import {
   AirqualityActionTypes,
-  GET_AIRQUALITYFORSTATION,
+  GET_AIRQUALITY_FOR_LOCATION,
 } from '../actions/types';
 import { AirqualityData } from '../types/_types';
 
 const initialState: AirqualityData = {
-  location: '',
-  time: [],
-  lastFetched: new Date(0),
+  areacode: '',
+  airqualityData: [],
 };
 
 export default function (
@@ -15,11 +14,11 @@ export default function (
   action: AirqualityActionTypes,
 ): AirqualityData {
   switch (action.type) {
-    case GET_AIRQUALITYFORSTATION:
+    case GET_AIRQUALITY_FOR_LOCATION:
       return {
         ...state,
-        location: action.data.location,
-        time: action.data.time,
+        areacode: action.areacode,
+        airqualityData: action.airqualityData,
       };
     default:
       return state;

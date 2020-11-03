@@ -4,23 +4,21 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
 import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
-import TabTwoScreen from '../screens/TabTwoScreen';
 import {
   BottomTabParamList,
   CompetitionParamList,
   ProfileParamList,
   HomeParamList,
-  TabTwoParamList,
   MapParamList,
 } from '../types/_types';
 import WeatherScreen from '../screens/WeatherScreen';
 import MapPage from '../screens/MapPage';
 import ProfilePage from '../screens/ProfilePage';
 import SettingPage from '../screens/SettingPage';
-import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
+import SettingsAbout from '../screens/SettingsAbout';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
-import { TINTCOLOR } from '../constants/Colors';
+import { WHITE } from '../constants/Colors';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
 
@@ -48,8 +46,9 @@ export default function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="Home"
       tabBarOptions={{
-        activeTintColor: TINTCOLOR,
-        showLabel: false,
+        activeTintColor: WHITE,
+        style: { minHeight: 55 },
+        labelStyle: { marginBottom: 3 },
       }}
     >
       <BottomTab.Screen
@@ -57,13 +56,7 @@ export default function BottomTabNavigator() {
         component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => createTabBarIcon('home', color),
-        }}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('code', color),
+          tabBarLabel: 'Hjem',
         }}
       />
 
@@ -72,6 +65,7 @@ export default function BottomTabNavigator() {
         component={MapNavigator}
         options={{
           tabBarIcon: ({ color }) => createTabBarIcon('map', color, 22),
+          tabBarLabel: 'Kart',
         }}
       />
 
@@ -80,6 +74,7 @@ export default function BottomTabNavigator() {
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color }) => createTabBarIcon('user', color),
+          tabBarLabel: 'Profil',
         }}
       />
 
@@ -88,6 +83,7 @@ export default function BottomTabNavigator() {
         component={CompetitionNavigator}
         options={{
           tabBarIcon: ({ color }) => createTabBarIcon('trophy', color),
+          tabBarLabel: 'Konkurranse',
         }}
       />
     </BottomTab.Navigator>
@@ -100,20 +96,18 @@ const HomeStack = createStackNavigator<HomeParamList>();
 
 export function HomeNavigator() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="LandingPage" component={LandingPage} />
-      <HomeStack.Screen name="WeatherScreen" component={WeatherScreen} />
+    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <HomeStack.Screen
+        name="LandingPage"
+        component={LandingPage}
+        options={{ title: 'Hjem' }}
+      />
+      <HomeStack.Screen
+        name="WeatherScreen"
+        component={WeatherScreen}
+        options={{ title: 'Vær' }}
+      />
     </HomeStack.Navigator>
-  );
-}
-
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
-
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
-    </TabTwoStack.Navigator>
   );
 }
 
@@ -121,8 +115,12 @@ const MapStack = createStackNavigator<MapParamList>();
 
 function MapNavigator() {
   return (
-    <MapStack.Navigator>
-      <MapStack.Screen name="MapPage" component={MapPage} />
+    <MapStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <MapStack.Screen
+        name="MapPage"
+        component={MapPage}
+        options={{ title: 'Kart' }}
+      />
     </MapStack.Navigator>
   );
 }
@@ -131,18 +129,21 @@ const CompetitionStack = createStackNavigator<CompetitionParamList>();
 
 function CompetitionNavigator() {
   return (
-    <CompetitionStack.Navigator>
+    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <CompetitionStack.Screen
         name="CompetitionPage"
         component={CompetitionPage}
+        options={{ title: 'Konkurranse' }}
       />
       <CompetitionStack.Screen
         name="LeaderboardScreen"
         component={LeaderboardScreen}
+        options={{ title: 'Toppliste' }}
       />
       <CompetitionStack.Screen
         name="AchievementsScreen"
         component={AchievementsScreen}
+        options={{ title: 'Bragder' }}
       />
     </CompetitionStack.Navigator>
   );
@@ -152,15 +153,32 @@ const ProfileStack = createStackNavigator<ProfileParamList>();
 
 function ProfileNavigator() {
   return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen name="ProfilePage" component={ProfilePage} />
-      <ProfileStack.Screen name="SettingPage" component={SettingPage} />
+    <ProfileStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <ProfileStack.Screen
-        name="SettingsFavoriteArea"
-        component={SettingsFavoriteArea}
+        name="ProfilePage"
+        component={ProfilePage}
+        options={{ title: 'Profil' }}
       />
-      <ProfileStack.Screen name="SettingsHelp" component={SettingsHelp} />
-      <ProfileStack.Screen name="SettingsPrivacy" component={SettingsPrivacy} />
+      <ProfileStack.Screen
+        name="SettingPage"
+        component={SettingPage}
+        options={{ title: 'Innstillinger' }}
+      />
+      <ProfileStack.Screen
+        name="SettingsAbout"
+        component={SettingsAbout}
+        options={{ title: 'About' }}
+      />
+      <ProfileStack.Screen
+        name="SettingsHelp"
+        component={SettingsHelp}
+        options={{ title: 'Ofte stilte spørsmål' }}
+      />
+      <ProfileStack.Screen
+        name="SettingsPrivacy"
+        component={SettingsPrivacy}
+        options={{ title: 'Personvern' }}
+      />
     </ProfileStack.Navigator>
   );
 }

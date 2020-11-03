@@ -1,18 +1,13 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import settingHelpArray from '../constants/SettingHelpArray';
 import HelpElement from '../components/settingFolder/HelpElement';
 
 function SettingsHelp() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
-        {settingHelpArray.map(createHelpElement)}
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      {settingHelpArray.map(createHelpElement)}
+    </ScrollView>
   );
 }
 
@@ -35,11 +30,9 @@ const createHelpElement = (helpElement: helpElementType) => {
 export default SettingsHelp;
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
     marginTop: 30,
-  },
-  scrollView: {
     marginHorizontal: 12,
   },
 });
