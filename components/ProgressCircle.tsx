@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { getUserPoints } from '../actions/pointsActions';
 import { RootAction } from '../actions/types';
-import { width } from '../constants/Layout';
+import { height, width } from '../constants/Layout';
 import { RootState } from '../reducers';
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
@@ -80,6 +80,8 @@ const styles = StyleSheet.create({
   },
   avatarName: {
     fontSize: 16,
+    marginTop: height * 0.01,
+    marginBottom: height * 0.005,
   },
   progress: {
     fontSize: 10,
