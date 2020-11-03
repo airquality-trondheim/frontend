@@ -43,12 +43,6 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   const ranking = rankingBinary ? localLeaderboardData : leaderboardData;
   let rankAmount = 10;
 
-  const topRankLayout = {
-    first: 18,
-    second: 18,
-    third: 18,
-  }
-
   useEffect(() => {
     // TODO: Change to user's ID after log in is done
     fetchLeaderboardData();
@@ -72,7 +66,6 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   const updateRankHeight = (childHeight: number) => {
     rankAmount = Math.floor(height * 0.3 / childHeight);
   }
-
 
   return (
     <>
@@ -118,19 +111,39 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
         <View style={styles.rankUpperPortionStyle}>
           <View style={styles.rankWrapperStyle}>
             <Text
-              style={[styles.text,]}>{ranking[1]?.username}</Text>
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={styles.text}
+            >
+              {ranking[1]?.username}
+            </Text>
             <View style={styles.secondStyle}>
               <Text style={styles.rankText}>2</Text>
             </View>
           </View>
           <View style={styles.rankWrapperStyle}>
-            <Text style={styles.text}>{ranking[0]?.username}</Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={styles.text}
+            >
+              {ranking[0]?.username}
+            </Text>
             <View style={styles.firstStyle}>
               <Text style={styles.rankText}>1</Text>
             </View>
           </View>
           <View style={styles.rankWrapperStyle}>
-            <Text style={styles.text}>{ranking[2]?.username}</Text>
+            <Text
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={styles.text}
+            >
+              {ranking[2]?.username}
+            </Text>
             <View style={styles.thirdStyle}>
               <Text style={styles.rankText}>3</Text>
             </View>
