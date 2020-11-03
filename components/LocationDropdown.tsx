@@ -1,13 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import {
-  getCurrentLocation,
-  getLocations,
-  postCurrentLocation,
-} from '../actions/locationsActions';
+import { postCurrentLocation } from '../actions/locationsActions';
 import { RootAction } from '../actions/types';
 import { BLACK, CAROUSELITEM, DARKGRAY } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
@@ -23,13 +19,7 @@ type LocationDropdownProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function LocationDropdown(props: LocationDropdownProps) {
-  const {
-    fetchCurrentLocation,
-    updateCurrentLocation,
-    fetchLocations,
-    locations,
-    currentLocation,
-  } = props;
+  const { updateCurrentLocation, locations, currentLocation } = props;
   const [locationList, setLocationList] = useState<DropdownListItem[]>([]);
   const unmounted = useRef(false);
 
@@ -38,10 +28,6 @@ function LocationDropdown(props: LocationDropdownProps) {
       unmounted.current = true;
     };
   }, []);
-
-  useEffect(() => fetchLocations(), [fetchLocations]);
-
-  useEffect(() => fetchCurrentLocation(), [fetchCurrentLocation]);
 
   useEffect(() => {
     let locList: DropdownListItem[] = [];
@@ -53,18 +39,27 @@ function LocationDropdown(props: LocationDropdownProps) {
     }
   }, [locations]);
 
-  const updateLocation = (item: DropdownListItem) => {
-    const newCurrentLocation = locations.find(
-      (loc: Location) => loc._id === item.value,
-    );
-    if (newCurrentLocation !== undefined) {
-      updateCurrentLocation(newCurrentLocation);
+  const updateLocation = useCallback(
+    (item: DropdownListItem) => {
+      const newCurrentLocation = locations.find(
+        (loc: Location) => loc._id === item.value,
+      );
+      if (newCurrentLocation !== undefined) {
+        updateCurrentLocation(newCurrentLocation);
+      }
+    },
+    [locations, updateCurrentLocation],
+  );
+
+  useEffect(() => {
+    if (!currentLocation && locationList.length > 0) {
+      updateLocation(locationList[0]);
     }
-  };
+  }, [currentLocation, locationList, updateLocation]);
 
   return (
     <>
-      {locationList.length > 1 ? (
+      {locationList.length > 0 ? (
         <DropDownPicker
           items={locationList}
           defaultValue={
@@ -95,12 +90,6 @@ function LocationDropdown(props: LocationDropdownProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchLocations: () => {
-      getLocations(dispatch);
-    },
-    fetchCurrentLocation: () => {
-      getCurrentLocation(dispatch);
-    },
     updateCurrentLocation: (station: Location) => {
       postCurrentLocation(station, dispatch);
     },
