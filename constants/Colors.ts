@@ -31,3 +31,10 @@ export const WEATHERICON = '#8cc9ff';
 export const BOTTOMBORDER = '#E1E1E1';
 export const TRANSPARENT = '#ffffff00';
 export const STOPBUTTON = '#b53737';
+
+export const aqiToColor: { [id: number]: string } = {
+  1: DANGER1,
+  2: DANGER2,
+  3: DANGER3,
+  4: DANGER4,
+};

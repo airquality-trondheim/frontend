@@ -6,7 +6,15 @@ import { RootState } from '../../reducers';
 import { MapActionTypes } from '../../actions/types';
 import { Dispatch } from 'redux';
 import { getAirQualityData } from '../../actions/mapActions';
-import { aqStationData } from '../../types/_types';
+import { currentAqData } from '../../types/_types';
+import { aqiToColor } from '../../constants/Colors';
+
+enum pollution {
+  'Lite' = 1,
+  'Moderat',
+  'Høyt',
+  'Svært høyt',
+}
 
 type mapProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -15,13 +23,6 @@ function Map(props: mapProps) {
   const { aqData, fetchAirQualityData } = props;
   const [mapRegion, setMapRegion] = useState(props.region);
   const [aqStations, setAqStations] = useState(props.aqData);
-
-  const colorDict: { [id: string]: string } = {
-    '6ee86e': 'green',
-    ff9900: 'yellow',
-    ff0000: 'red',
-    '990099': 'purple',
-  };
 
   useEffect(() => {
     fetchAirQualityData();
@@ -36,25 +37,23 @@ function Map(props: mapProps) {
       style={styles.map}
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
-      showsUserLocation={true}
+      // showsUserLocation={true}
       showsMyLocationButton={false}
     >
-      {aqStations.map((aqStation: aqStationData, i) => {
+      {aqStations.map((station: currentAqData, i) => {
         return (
           <Marker
             coordinate={{
-              latitude: aqStation.latitude,
-              longitude: aqStation.longitude,
+              latitude: station.latitude,
+              longitude: station.longitude,
             }}
-            pinColor={colorDict[aqStation.color]}
+            pinColor={aqiToColor[Math.floor(station.data.variables.AQI.value)]}
             key={i}
-            title={'Stasjon: ' + aqStation.station}
+            title={'Stasjon: ' + station.name}
             description={
-              aqStation.component +
+              'Luftforurensning' +
               ': ' +
-              aqStation.value +
-              ' ' +
-              aqStation.unit
+              pollution[Math.floor(station.data.variables.AQI.value)]
             }
           ></Marker>
         );
