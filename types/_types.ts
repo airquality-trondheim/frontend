@@ -94,7 +94,7 @@ export type UserElement = {
 export type ProfileParamList = {
   ProfilePage: undefined;
   SettingPage: undefined;
-  SettingsFavoriteArea: undefined;
+  SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
 };
