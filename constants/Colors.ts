@@ -1,8 +1,3 @@
-export const TINTCOLOR = '#2f95dc';
-export const MAINBACKGROUNDCOLOR = '#ffffff';
-export const IABICONDEFAULTE = '#ccc';
-export const TABICONSELECTED = TINTCOLOR;
-
 export const DANGER4 = '#990099';
 export const DANGER3 = '#FF0000';
 export const DANGER2 = '#FFFF99';
@@ -18,11 +13,10 @@ export const BLACK = '#000';
 export const WHITE = '#fff';
 export const GRAY = '#E1E1E1';
 export const DARKGRAY = '#9D9D9D';
+export const EXTRADARKGRAY = '#5F5F5F';
 export const LIGHTBLUE = '#61ABCD';
 export const DARKBLUE = '#0278AC';
 export const DARKRED = '#B53737';
-// export const GRAY = '#d6d7da';
-// export const DARKGRAY = '#646464';
 export const LIGHTGRAY = '#e1e1e1';
 export const LINK = '#2e78b7';
 export const ODDROWCOLOR = WHITE;
@@ -30,3 +24,11 @@ export const EVENROWCOLOR = '#f2f5f7';
 export const WEATHERICON = '#8cc9ff';
 export const BOTTOMBORDER = '#E1E1E1';
 export const TRANSPARENT = '#ffffff00';
+export const STOPBUTTON = '#b53737';
+
+export const aqiToColor: { [id: number]: string } = {
+  1: DANGER1,
+  2: DANGER2,
+  3: DANGER3,
+  4: DANGER4,
+};

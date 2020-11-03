@@ -96,7 +96,9 @@ const styles = StyleSheet.create({
   },
   mainComponent: {
     width: width,
-    height: height * 0.4,
+    fontSize: 40,
+    height: height * 0.38,
+    zIndex: 99,
   },
   containerStyle: {
     backgroundColor: CAROUSELITEM,
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginLeft: 5,
     marginRight: 5,
+    marginTop: 2,
     paddingTop: 8,
     padding: 8,
     elevation: 5,

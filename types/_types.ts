@@ -44,6 +44,22 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
+//Profile
+
+export type UserProfile = {
+  id: string;
+  username: string;
+  points: number;
+  level: number;
+  avatar: string;
+  mail: string;
+  telefon: string;
+  birthdate: string;
+  location: string;
+  postalcode: string;
+  street: string;
+};
+
 // User
 export type UserElement = {
   _id: string;
@@ -58,7 +74,7 @@ export type UserElement = {
 export type ProfileParamList = {
   ProfilePage: undefined;
   SettingPage: undefined;
-  SettingsFavoriteArea: undefined;
+  SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
 };
@@ -122,39 +138,6 @@ export type LeaderboardState = {
   userRanking: UserRanking;
 };
 
-// Map
-export type aqStationData = {
-  _id: string;
-  id: number;
-  zone: string;
-  municipality: string;
-  area: string;
-  station: string;
-  eoi: string;
-  component: string;
-  fromTime: Date;
-  toTime: Date;
-  value: number;
-  unit: string;
-  latitude: number;
-  longitude: number;
-  timestep: number;
-  index: number;
-  color: string;
-  isValid: boolean;
-  __v: number;
-};
-
-export type MapData = {
-  region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  aqData: aqStationData[];
-};
-
 // Points
 export type PointsState = {
   points: number;
@@ -178,7 +161,7 @@ export type WeatherData = {
 // Airquality
 type VariableElement = {
   value: number;
-  units: string;
+  unit: string;
 };
 
 export type AirqualityTimeElement = {
@@ -218,4 +201,22 @@ export type AirqualityData = {
 export type AQIData = {
   todayData: Array<{ clock: string; value: number }>;
   tomorrowData: Array<{ clock: string; value: number }>;
+};
+
+// Map
+export type currentAqData = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  data: AirqualityTimeElement;
+};
+
+export type MapData = {
+  region: {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+  aqData: currentAqData[];
 };

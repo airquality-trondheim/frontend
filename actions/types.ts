@@ -1,19 +1,22 @@
 import {
   AchievementCardElement,
-  aqStationData,
   LeaderboardElement,
   UserRanking,
   WeatherElement,
+  UserProfile,
   Location,
   Station,
   AirqualityTimeElement,
   AQIData,
+  currentAqData,
 } from '../types/_types';
 
 export type RootAction =
   | WeatherActionTypes
   | LeaderboardActionTypes
   | MapActionTypes
+  | AchievementCardActionTypes
+  | UserProfileActionTypes
   | PointsActionTypes
   | AchievementCardActionTypes
   | AirqualityActionTypes
@@ -44,6 +47,17 @@ type GetAchievementCardAction = {
 };
 
 export type AchievementCardActionTypes = GetAchievementCardAction;
+
+// Profile
+
+export const GET_USERPROFILE = 'GET_USERPROFILE';
+
+type GetUserProfileAction = {
+  type: typeof GET_USERPROFILE;
+  userProfile: UserProfile;
+};
+
+export type UserProfileActionTypes = GetUserProfileAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';
@@ -80,7 +94,7 @@ export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
 
 type GetAirQualityDataAction = {
   type: typeof GET_AIR_QUALITY_DATA;
-  data: aqStationData[];
+  data: currentAqData[];
 };
 
 export type MapActionTypes = GetAirQualityDataAction;

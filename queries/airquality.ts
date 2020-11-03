@@ -1,27 +1,7 @@
-import axios from 'axios';
-import {
-  AirqualityData,
-  AirqualityForecast,
-  AQIData,
-  aqStationData,
-} from '../types/_types';
+import { AirqualityData, AirqualityForecast, AQIData } from '../types/_types';
 
-// TODO: Flytte URL?
-const apiUrl = 'https://api.nilu.no/aq/utd?areas=trondheim&components=pm10';
 const baseUrl =
   'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/air-quality/forecast/';
-
-export async function getAQData() {
-  let result: aqStationData[] = [];
-  try {
-    let r = await axios.get(apiUrl);
-    result = r.data;
-    return result;
-  } catch (error) {
-    console.log(error.response['status']);
-    return result;
-  }
-}
 
 export async function fetchAirqualityDataForLocation(
   areacode: string,
