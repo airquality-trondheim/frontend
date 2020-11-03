@@ -11,13 +11,11 @@ import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { ProfileTextContainer } from '../components/ProfileTextContainer';
 import {
-  FontAwesome,
   Ionicons,
   Foundation,
-  Entypo,
-  Fontisto,
 } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
+import ProfileDropdown from '../components/ProfileDropdown';
 
 async function signOut() {
   try {
@@ -33,9 +31,10 @@ type UserProfileProps = ReturnType<typeof mapStateToProps> &
 function ProfilePage(props: UserProfileProps) {
   const navigation = useNavigation();
   const { userProfile, fetchUserProfile } = props;
+  const userInformation = Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
   useEffect(() => {
-    fetchUserProfile(Auth.Credentials.Auth.user.sub);
+    fetchUserProfile(userInformation?.sub);
   }, [fetchUserProfile]);
 
   const formatProfileLevelText =
@@ -49,13 +48,13 @@ function ProfilePage(props: UserProfileProps) {
       : userProfile.username;
 
   const formatMail =
-    userProfile.mail === undefined ? 'fill in mail' : userProfile.mail;
+    userInformation.email === undefined ? 'fill in mail' : userInformation.email;
   const formatTelefon =
-    userProfile.telefon === undefined
+    userInformation.phone_number === undefined
       ? 'fill in telephone'
-      : userProfile.telefon;
+      : userInformation.phone_number;
   const formatLocation =
-    userProfile.location === undefined ? 'location' : userProfile.location;
+    userProfile.homeArea === undefined ? 'location' : userProfile.homeArea;
   const formatBirthdate =
     userProfile.birthdate === undefined
       ? 'fill in birthdate'
@@ -95,18 +94,19 @@ function ProfilePage(props: UserProfileProps) {
           </View>
           <View
             style={[
-              styles.centeredView,
-              { width: width, height: height * 0.4 },
+              // styles.centeredView,
+              { alignItems: 'center', width: width, height: height * 0.4 },
             ]}
           >
+            <ProfileDropdown />
             <ProfileTextContainer text={formatMail}>
-              <Ionicons name="ios-mail" size={20} color="#51acdf" />
+              <Ionicons name="ios-mail" size={20} color={LIGHTBLUE} />
             </ProfileTextContainer>
             <ProfileTextContainer text={formatTelefon}>
-              <Foundation name="telephone" size={20} color="#51acdf" />
+              <Foundation name="telephone" size={20} color={LIGHTBLUE}  />
             </ProfileTextContainer>
-            <ProfileTextContainer text={formatBirthdate}>
-              <FontAwesome name="birthday-cake" size={20} color="#51acdf" />
+            {/* <ProfileTextContainer text={formatBirthdate}>
+              <FontAwesome name="birthday-cake" size={20} color={LIGHTBLUE}  />
             </ProfileTextContainer>
             <View style={{ flexDirection: 'row' }}>
               <ProfileTextContainer
@@ -124,8 +124,8 @@ function ProfilePage(props: UserProfileProps) {
               </ProfileTextContainer>
             </View>
             <ProfileTextContainer text={formatStreet}>
-              <Fontisto name="direction-sign" size={20} color="#51adcf" />
-            </ProfileTextContainer>
+              <Fontisto name="direction-sign" size={20} color={LIGHTBLUE} />
+            </ProfileTextContainer> */}
           </View>
         </View>
       </Row>
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
 
   upperTextContainer: {
     width: width * 0.55,
-    height: height * 0.04,
+    height: height * 0.05,
     backgroundColor: WHITE,
     borderRadius: height * 0.02,
     margin: height * 0.015,
