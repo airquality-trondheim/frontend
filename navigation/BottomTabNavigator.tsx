@@ -165,8 +165,9 @@ function ProfileNavigator() {
         options={{ title: 'Innstillinger' }}
       />
       <ProfileStack.Screen
-        name="SettingsFavoriteArea"
-        component={SettingsFavoriteArea}
+        name="SettingsAbout"
+        component={SettingsAbout}
+        options={{ title: 'About' }}
       />
       <ProfileStack.Screen
         name="SettingsHelp"
