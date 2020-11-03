@@ -208,7 +208,7 @@ export type currentAqData = {
   name: string;
   latitude: number;
   longitude: number;
-  data: AirqualityTimeElement;
+  AQI_value: number;
 };
 
 export type MapData = {

@@ -6,7 +6,6 @@ import {
   UserProfile,
   Location,
   Station,
-  AirqualityTimeElement,
   AQIData,
   currentAqData,
 } from '../types/_types';
