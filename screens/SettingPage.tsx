@@ -1,18 +1,13 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import SettingView from '../components/settingFolder/SettingView';
 import settingArray from '../constants/SettingArray';
 
 function SettingsPage() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-      >
-        {settingArray.map(createSettingView)}
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      {settingArray.map(createSettingView)}
+    </ScrollView>
   );
 }
 
@@ -35,11 +30,9 @@ const createSettingView = (settingObject: settingObjectType) => {
 export default SettingsPage;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 30,
-  },
   scrollView: {
+    flex: 1,
+    marginTop: 20,
     marginHorizontal: 12,
   },
 });

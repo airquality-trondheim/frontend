@@ -15,7 +15,7 @@ import WeatherScreen from '../screens/WeatherScreen';
 import MapPage from '../screens/MapPage';
 import ProfilePage from '../screens/ProfilePage';
 import SettingPage from '../screens/SettingPage';
-import SettingsFavoriteArea from '../screens/SettingsFavoriteArea';
+import SettingsAbout from '../screens/SettingsAbout';
 import SettingsHelp from '../screens/SettingsHelp';
 import SettingsPrivacy from '../screens/SettingsPrivacy';
 import { WHITE } from '../constants/Colors';
@@ -165,8 +165,9 @@ function ProfileNavigator() {
         options={{ title: 'Innstillinger' }}
       />
       <ProfileStack.Screen
-        name="SettingsFavoriteArea"
-        component={SettingsFavoriteArea}
+        name="SettingsAbout"
+        component={SettingsAbout}
+        options={{ title: 'About' }}
       />
       <ProfileStack.Screen
         name="SettingsHelp"
