@@ -32,8 +32,8 @@ export const BOTTOMBORDER = '#E1E1E1';
 export const TRANSPARENT = '#ffffff00';
 
 export const aqiToColor: { [id: number]: string } = {
-  1: 'green',
-  2: 'yellow',
-  3: 'red',
-  4: 'purple',
+  1: DANGER1,
+  2: DANGER2,
+  3: DANGER3,
+  4: DANGER4,
 };
