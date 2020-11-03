@@ -34,11 +34,11 @@ export default function AQLineChart(props: {
         cy={y(value)}
         r={5}
         fill={
-          value <= 1
+          value < 2
             ? DANGER1
-            : value <= 2
+            : value < 3
             ? DANGER2
-            : value <= 3
+            : value < 4
             ? DANGER3
             : DANGER4
         }

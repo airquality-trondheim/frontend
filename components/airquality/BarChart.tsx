@@ -20,11 +20,11 @@ export function colorFill(data: Array<number>) {
   const newData: Array<AQColorData> = [];
   data.map((element) => {
     let color: string = 'white';
-    if (element == 1) {
+    if (element < 2) {
       color = DANGER1;
-    } else if (element == 2) {
+    } else if (element < 3) {
       color = DANGER2;
-    } else if (element == 3) {
+    } else if (element < 4) {
       color = DANGER3;
     } else {
       color = DANGER4;

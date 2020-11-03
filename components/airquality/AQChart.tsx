@@ -9,10 +9,10 @@ import { AQIData } from '../../types/_types';
 export const YAxis = () => {
   return (
     <View style={styles.barYAxis}>
-      <Text>Høyt</Text>
+      <Text>4</Text>
       <Text>3</Text>
       <Text>2</Text>
-      <Text>Lavt</Text>
+      <Text>1</Text>
       <Text>0</Text>
     </View>
   );

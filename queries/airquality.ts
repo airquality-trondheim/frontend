@@ -46,36 +46,36 @@ export async function fetchAirqualityDataForLocation(
       if (dataDate === currentDate) {
         AQI.todayData.push({
           clock: clock,
-          value: Math.round(object.AQI.value),
+          value: object.AQI.value,
         });
         NO2_AQI.todayData.push({
           clock: clock,
-          value: Math.round(object.AQI_no2.value + Number.EPSILON),
+          value: object.AQI_no2.value,
         });
         PM10_AQI.todayData.push({
           clock: clock,
-          value: Math.round(object.AQI_pm10.value + Number.EPSILON),
+          value: object.AQI_pm10.value,
         });
         PM25_AQI.todayData.push({
           clock: clock,
-          value: Math.round(object.AQI_pm25.value + Number.EPSILON),
+          value: object.AQI_pm25.value,
         });
       } else if (dataDate === tomorrow.getUTCDate()) {
         AQI.tomorrowData.push({
           clock: clock,
-          value: Math.round(object.AQI.value + Number.EPSILON),
+          value: object.AQI.value,
         });
         NO2_AQI.tomorrowData.push({
           clock: clock,
-          value: Math.round(object.AQI_no2.value + Number.EPSILON),
+          value: object.AQI_no2.value,
         });
         PM10_AQI.tomorrowData.push({
           clock: clock,
-          value: Math.round(object.AQI_pm10.value + Number.EPSILON),
+          value: object.AQI_pm10.value,
         });
         PM25_AQI.tomorrowData.push({
           clock: clock,
-          value: Math.round(object.AQI_pm25.value + Number.EPSILON),
+          value: object.AQI_pm25.value,
         });
       }
     }

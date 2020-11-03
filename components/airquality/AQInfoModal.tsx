@@ -59,21 +59,21 @@ function AQInfoModal(props: {
 
             {createAQComponentInfo(
               'AQI',
-              'indeks som viser luftkvalitet. AQI går fra 1 til 4 og høyere AQI viser dårligere luftkvalitet',
+              'indeks fra 1 til 5 som viser luftkvalitet. Høyere AQI viser dårligere luftkvalitet.',
             )}
             {createAQComponentInfo(
               'PM',
-              'viser finfraksjon av svevestøv som luftkvalitets indeks av luftkvalitet',
+              'viser finfraksjon av svevestøv i luften som luftkvalitetsindeks.',
               '2.5',
             )}
             {createAQComponentInfo(
               'PM',
-              'viser grovfraksjon av svevestøv som luftkvalitets indeks av luftkvalitet',
+              'viser grovfraksjon av svevestøv i luften som luftkvalitetsindeks.',
               '10',
             )}
             {createAQComponentInfo(
               'NO',
-              'viser nitrogendioksid som luftkvalitets indeks av luftkvalitet',
+              'viser andel nitrogendioksid i luften som luftkvalitetsindeks.',
               '2',
             )}
             <Row size={8}>
@@ -83,9 +83,7 @@ function AQInfoModal(props: {
                     fill={12.5}
                     size={modalWidth / 2.5}
                     insideText={'Utmerket'}
-                    belowText={
-                      'AQI er 0-1 noe som tilsvarer lav forekomst av luftforurensing.'
-                    }
+                    belowText={'Det er lite luftforurensning'}
                   />
                 </View>
                 <View style={styles.rightBorder}>
@@ -94,7 +92,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Dårlig'}
                     belowText={
-                      'AQI er 2-3 noe som tilsvarer høy forekomst av luftforurensing. '
+                      'Barn, gravide, syke og eldre bør vurdere begrenset utendørs fysisk aktivitet. '
                     }
                   />
                 </View>
@@ -105,9 +103,7 @@ function AQInfoModal(props: {
                     fill={37.5}
                     size={modalWidth / 2.5}
                     insideText={'Middels'}
-                    belowText={
-                      'AQI er 1-2 noe som tilsvarer middels forekomst av luftforurensing.'
-                    }
+                    belowText={'Utendørs aktivitet anbefales for de fleste'}
                   />
                 </View>
                 <View style={{ flex: 1 }}>
@@ -116,7 +112,8 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Svært dårlig'}
                     belowText={
-                      'AQI er større enn 3 noe som tilsvarer svært høy forekomst av luftforurensing.'
+                      'Vurder å ikke oppholde deg utendørs i lengre perioder.' +
+                      'Barn, gravide, syke og eldre må være spesielt forsiktige.'
                     }
                   />
                 </View>

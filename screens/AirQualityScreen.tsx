@@ -56,20 +56,20 @@ function AirQualityScreen(props: AirQualityScreenProps) {
           })
         }
       >
-        <View style={styles.topView}>
-          <LocationDropdown />
-          <InfoButton onPress={updateModalVisible} />
-        </View>
-        <AQInfoModal
-          onCloseButtonPress={updateModalVisible}
-          modalVisible={modalVisible}
-          modalOnRequestClose={updateModalVisible}
-        />
+        <LocationDropdown />
       </View>
+      <View style={styles.topView}>
+        <InfoButton onPress={updateModalVisible} />
+      </View>
+      <AQInfoModal
+        onCloseButtonPress={updateModalVisible}
+        modalVisible={modalVisible}
+        modalOnRequestClose={updateModalVisible}
+      />
       <AQChart {...{ name: 'AQI', nameNumber: '', AQ: AQI }} />
       <AQChart {...{ name: 'AQI NO', nameNumber: '2', AQ: NO2_AQI }} />
       <AQChart {...{ name: 'AQI PM', nameNumber: '2.5', AQ: PM10_AQI }} />
-      <AQChart {...{ name: 'AQI PM', nameNumber: '2', AQ: PM25_AQI }} />
+      <AQChart {...{ name: 'AQI PM', nameNumber: '10', AQ: PM25_AQI }} />
     </ScrollView>
   );
 }
@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   topView: {
-    display: 'flex',
-    flexDirection: 'row',
+    width: width,
+    alignContent: 'flex-end',
+    marginRight: 20,
   },
 });
