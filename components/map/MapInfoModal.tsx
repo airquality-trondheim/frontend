@@ -1,7 +1,17 @@
 import { Button, Grid, Row, Col } from 'native-base';
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
-import { GRAY, WHITE, CLOSEBUTTON, STOPBUTTON } from '../../constants/Colors';
+import {
+  GRAY,
+  WHITE,
+  CLOSEBUTTON,
+  STOPBUTTON,
+  BLACK,
+  DANGER1,
+  DANGER2,
+  DANGER3,
+  DANGER4,
+} from '../../constants/Colors';
 import { width, singleSideMargin, height } from '../../constants/Layout';
 import CloseButton from '../CloseButton';
 import { FontAwesome } from '@expo/vector-icons';
@@ -78,7 +88,7 @@ export default function MapInfoModal(props: {
               <Col size={1}>
                 <View style={[styles.rightBorder, styles.bottomBorder]}>
                   <View style={styles.centeredView}>
-                    <FontAwesome name="map-marker" size={50} color="#3f9f41" />
+                    <FontAwesome name="map-marker" size={50} color={DANGER1} />
                   </View>
                   <Text style={styles.textBelow}>
                     Luftforurensingen er lav. Liten eller ingen risiko for
@@ -87,7 +97,7 @@ export default function MapInfoModal(props: {
                 </View>
                 <View style={styles.rightBorder}>
                   <View style={styles.centeredView}>
-                    <FontAwesome name="map-marker" size={50} color="#c13500" />
+                    <FontAwesome name="map-marker" size={50} color={DANGER3} />
                   </View>
                   <Text style={styles.textBelow}>
                     Luftforurensingen er høy. Betydelig helserisiko.
@@ -97,7 +107,7 @@ export default function MapInfoModal(props: {
               <Col size={1}>
                 <View style={styles.bottomBorder}>
                   <View style={styles.centeredView}>
-                    <FontAwesome name="map-marker" size={50} color="#ffcb00" />
+                    <FontAwesome name="map-marker" size={50} color={DANGER2} />
                   </View>
                   <Text style={styles.textBelow}>
                     Luftforurensingen er moderat. Moderat helserisiko.
@@ -105,7 +115,7 @@ export default function MapInfoModal(props: {
                 </View>
                 <View style={{ flex: 1 }}>
                   <View style={styles.centeredView}>
-                    <FontAwesome name="map-marker" size={50} color="#4900ac" />
+                    <FontAwesome name="map-marker" size={50} color={DANGER4} />
                   </View>
                   <Text style={styles.textBelow}>
                     Luftforurensingen er svært høy. Alvorlig helserisiko.
@@ -140,6 +150,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     padding: 5,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   headerText: {
     flex: 1,

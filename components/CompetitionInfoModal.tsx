@@ -1,21 +1,30 @@
 import { Grid, Row, Col } from 'native-base';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, StyleSheet, Image } from 'react-native';
-import { WHITE } from '../constants/Colors';
+import { WHITE, BLACK } from '../constants/Colors';
 import { width, singleSideMargin, height } from '../constants/Layout';
 import CloseButton from './CloseButton';
-import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
-import { snake } from '../assets/images';
+import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
+import { fetchUserProfile } from '../queries/profile';
+import { Auth } from 'aws-amplify';
 
 export default function CompetitionInfoModal(props: {
   modalVisible: boolean;
   modalOnRequestClose: () => void;
   onCloseButtonPress: () => void;
 }) {
-  const avatar: { avatarIcon: any; avatarName: string } = {
-    avatarIcon: snake,
-    avatarName: 'Slangen',
-  };
+  const [avatar, setAvatar] = useState('');
+
+  useEffect(() => {
+    const getAvatar = async () => {
+      const profileData = await fetchUserProfile(
+        Auth.Credentials.Auth.user.signInUserSession.accessToken.payload.sub,
+      );
+      setAvatar(profileData.avatar);
+    };
+    getAvatar();
+  }, []);
+
   return (
     <Modal
       animationType="slide"
@@ -40,14 +49,15 @@ export default function CompetitionInfoModal(props: {
               <Col size={3}>
                 <View style={styles.row}>
                   <View style={styles.centeredView}>
-                    <FontAwesome5 name="walking" size={32} color="black" />
+                    <FontAwesome5 name="walking" size={40} color="black" />
                   </View>
                 </View>
               </Col>
               <Col size={8}>
                 <Text style={[styles.text, styles.leftText]}>Gå til jobb</Text>
                 <Text style={[styles.text, styles.leftText, styles.smallText]}>
-                  Ved å gå til jobb kan du tjene ... p per minutt.
+                  Ved å gå til jobb kan du tjene 50 poeng de første 500m,
+                  deretter 10 poeng for hver 250m ekstra.
                 </Text>
               </Col>
             </Row>
@@ -56,34 +66,15 @@ export default function CompetitionInfoModal(props: {
               <Col size={3}>
                 <View style={styles.row}>
                   <View style={styles.centeredView}>
-                    <Ionicons name="md-bicycle" size={36} color="black" />
-                  </View>
-                </View>
-              </Col>
-              <Col size={8}>
-                <Text style={[styles.text, styles.leftText]}>
-                  Sykle til jobb
-                </Text>
-                <Text style={[styles.text, styles.leftText, styles.smallText]}>
-                  Ved å sykle til jobb kan du tjene ... p per minutt. Det er
-                  lagt til en grense på ... km/t.
-                </Text>
-              </Col>
-            </Row>
-
-            <Row size={1}>
-              <Col size={3}>
-                <View style={styles.row}>
-                  <View style={styles.centeredView}>
-                    <FontAwesome name="map-marker" size={36} color="green" />
+                    <FontAwesome name="map-marker" size={48} color="green" />
                   </View>
                 </View>
               </Col>
               <Col size={8}>
                 <Text style={[styles.text, styles.leftText]}>Trygg sone</Text>
                 <Text style={[styles.text, styles.leftText, styles.smallText]}>
-                  Ved å gå eller sykle innom soner med god luftkvalitet vil du
-                  få ...p i bonus
+                  Ved å gå innom soner med god luftkvalitet vil du få 25 poeng
+                  de første 500m, deretter 5 poeng for hver 250m ekstra.
                 </Text>
               </Col>
             </Row>
@@ -121,10 +112,7 @@ export default function CompetitionInfoModal(props: {
               <Col size={3}>
                 <View style={styles.row}>
                   <View style={styles.centeredView}>
-                    <Image
-                      source={avatar.avatarIcon}
-                      style={styles.avatarIcon}
-                    />
+                    <Image source={{ uri: avatar }} style={styles.avatarIcon} />
                   </View>
                 </View>
               </Col>
@@ -156,6 +144,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     padding: 5,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   headerText: {
     flex: 1,
