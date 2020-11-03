@@ -1,8 +1,3 @@
-export const TINTCOLOR = '#2f95dc';
-export const MAINBACKGROUNDCOLOR = '#ffffff';
-export const IABICONDEFAULTE = '#ccc';
-export const TABICONSELECTED = TINTCOLOR;
-
 export const DANGER4 = '#990099';
 export const DANGER3 = '#FF0000';
 export const DANGER2 = '#FFFF99';
@@ -21,8 +16,6 @@ export const DARKGRAY = '#9D9D9D';
 export const LIGHTBLUE = '#61ABCD';
 export const DARKBLUE = '#0278AC';
 export const DARKRED = '#B53737';
-// export const GRAY = '#d6d7da';
-// export const DARKGRAY = '#646464';
 export const LIGHTGRAY = '#e1e1e1';
 export const LINK = '#2e78b7';
 export const ODDROWCOLOR = WHITE;
