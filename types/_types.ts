@@ -47,7 +47,7 @@ export type AchievementCardData = {
 export type AchievementStamp = {
   timestampEarned: Date;
   achievementId: string;
-}
+};
 
 //Profile
 export type UserProfile = {
@@ -66,18 +66,19 @@ export type UserProfile = {
 //ProfileResponse
 export type ProfileResponse = {
   user: {
-    _id:	string;
-    username:	string;
+    _id: string;
+    username: string;
     required: true;
-    points:	number;
+    points: number;
     homeArea: string;
-    level:	number;
-    achievements:	AchievementStamp[];
-    settings:	{pushNotification: boolean};
-    __v:	number;
-    createdAt:	Date;
-    updatedAt:	Date;
-}}
+    level: number;
+    achievements: AchievementStamp[];
+    settings: { pushNotification: boolean };
+    __v: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
+};
 
 // User
 export type UserElement = {
@@ -100,13 +101,13 @@ export type ProfileParamList = {
 
 // Level
 export type LevelResponse = {
-  levelNo: number,
-  name: string,
-  iconUrl: string,
-  pointThreshold: number,
-  pointsRequired: number,
-  qty: number,
-}
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
+};
 
 // Location
 export type Station = {

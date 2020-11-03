@@ -1,16 +1,19 @@
 import { Fontisto } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import {
-  getLocations,
-} from '../actions/locationsActions';
+import { getLocations } from '../actions/locationsActions';
 import { getProfileData, putHomeArea } from '../actions/profileActions';
 import { RootAction } from '../actions/types';
-import { BACKGROUNDCOLOR2, BLACK, CAROUSELITEM, DARKGRAY, WHITE } from '../constants/Colors';
+import {
+  BACKGROUNDCOLOR2,
+  BLACK,
+  CAROUSELITEM,
+  DARKGRAY,
+} from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { pushUserArea } from '../queries/profile';
 import { RootState } from '../reducers';
@@ -24,13 +27,8 @@ type DropdownListItem = {
 type LocationDropdownProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-function profileDropdown(props: LocationDropdownProps) {
-  const {
-    fetchLocations,
-    fetchUserProfile,
-    locations,
-    userProfile,
-  } = props;
+function ProfileDropdown(props: LocationDropdownProps) {
+  const { fetchLocations, fetchUserProfile, locations, userProfile } = props;
   const [locationList, setLocationList] = useState<DropdownListItem[]>([]);
   const unmounted = useRef(false);
 
@@ -44,22 +42,29 @@ function profileDropdown(props: LocationDropdownProps) {
 
   useEffect(() => {
     fetchLocations();
-    fetchUserProfile(Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub);
-  }, [fetchLocations]);
+    fetchUserProfile(
+      Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub,
+    );
+  }, [fetchLocations, fetchUserProfile]);
 
   // console.log(userProfile);
 
   useEffect(() => {
     let locList: DropdownListItem[] = [];
     for (let location of locations) {
-      locList.push({ label: location.name, value: location._id,
-        icon: () => 
-        <Fontisto 
-        name="direction-sign"
-        size={20}
-        color={BACKGROUNDCOLOR2}
-        style={{marginRight: width * 0.007}}
-        />
+      locList.push({
+        label: location.name,
+        value: location._id,
+        icon: function Icon() {
+          return (
+            <Fontisto
+              name="direction-sign"
+              size={20}
+              color={BACKGROUNDCOLOR2}
+              style={{ marginRight: width * 0.007 }}
+            />
+          );
+        },
       });
     }
     if (!unmounted.current) {
@@ -77,7 +82,8 @@ function profileDropdown(props: LocationDropdownProps) {
         <DropDownPicker
           items={locationList}
           defaultValue={
-            locationList.find(value => value.label === userProfile?.homeArea)?.value || locationList[0].value
+            locationList.find((value) => value.label === userProfile?.homeArea)
+              ?.value || locationList[0].value
           }
           zIndex={999}
           containerStyle={styles.pickerContainer}
@@ -89,17 +95,20 @@ function profileDropdown(props: LocationDropdownProps) {
           dropDownStyle={styles.pickerDropDown}
           onOpen={() => setOpen(true)}
           onClose={() => setOpen(false)}
-          style={[styles.picker, {            
-            borderBottomLeftRadius: width * 0.05 * (open ? 0 : 1),
-            borderBottomRightRadius: width * 0.05 * (open ? 0 : 1),
-          }]}
+          style={[
+            styles.picker,
+            {
+              borderBottomLeftRadius: width * 0.05 * (open ? 0 : 1),
+              borderBottomRightRadius: width * 0.05 * (open ? 0 : 1),
+            },
+          ]}
           searchable={true}
-          searchableError={() => <Text style={styles.pickerLabel}>Finner ikke område</Text>}
+          searchableError={() => (
+            <Text style={styles.pickerLabel}>Finner ikke område</Text>
+          )}
           selectedLabelStyle={styles.selectedElement}
           searchableStyle={styles.pickerLabel}
-          onChangeItem={(item) => updateLocation(
-            item,
-          )}
+          onChangeItem={(item) => updateLocation(item)}
         />
       ) : (
         <></>
@@ -129,7 +138,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(profileDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDropdown);
 
 const styles = StyleSheet.create({
   pickerContainer: {
@@ -168,6 +177,5 @@ const styles = StyleSheet.create({
     borderColor: BACKGROUNDCOLOR2,
     height: height * 0.05,
   },
-  selectedElement: {
-  },
+  selectedElement: {},
 });

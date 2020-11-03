@@ -4,8 +4,7 @@ const endpoint = 'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/';
 
 export async function fetchUserProfile(userID: string): Promise<UserProfile> {
   try {
-    const response: Response = await fetch(endpoint + 'users/' + userID,
-    {
+    const response: Response = await fetch(endpoint + 'users/' + userID, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -47,26 +46,27 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
 
 export async function pushUserArea(area: string) {
   try {
-    
-    const response = await fetch(endpoint + 'users/' +
-      Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub +
-      '/homeArea',
-    {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        accesstoken:
-          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+    await fetch(
+      endpoint +
+        'users/' +
+        Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub +
+        '/homeArea',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          accesstoken:
+            Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+        },
+        body: JSON.stringify({
+          homeArea: area,
+        }),
       },
-      body: JSON.stringify({
-        homeArea: area,
-      }),
-    });
-    const profile: ProfileResponse = await response.json();
+    );
 
     return;
-  } catch(error) {
-    console.log("failed to update homearea in profile")
+  } catch (error) {
+    console.log('failed to update homearea in profile');
     return;
   }
 }

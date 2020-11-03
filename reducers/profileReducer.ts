@@ -1,4 +1,8 @@
-import { GET_USERPROFILE, PUT_HOMEAREA, UserProfileActionTypes } from '../actions/types';
+import {
+  GET_USERPROFILE,
+  PUT_HOMEAREA,
+  UserProfileActionTypes,
+} from '../actions/types';
 import { UserProfile } from '../types/_types';
 
 const initialState: UserProfile = {
@@ -36,7 +40,7 @@ export default function (
       return {
         ...state,
         homeArea: action.homeArea,
-      }
+      };
     default:
       return state;
   }

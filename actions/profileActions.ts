@@ -14,9 +14,9 @@ export async function getProfileData(
   });
 }
 
-export async function  putHomeArea(
+export async function putHomeArea(
   area: string,
-  dispatch: Dispatch<RootAction>
+  dispatch: Dispatch<RootAction>,
 ) {
   pushUserArea(area);
   dispatch({

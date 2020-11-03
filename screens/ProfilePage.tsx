@@ -10,10 +10,7 @@ import { RootAction } from '../actions/types';
 import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { ProfileTextContainer } from '../components/ProfileTextContainer';
-import {
-  Ionicons,
-  Foundation,
-} from '@expo/vector-icons';
+import { Ionicons, Foundation } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
 import ProfileDropdown from '../components/ProfileDropdown';
 
@@ -31,11 +28,12 @@ type UserProfileProps = ReturnType<typeof mapStateToProps> &
 function ProfilePage(props: UserProfileProps) {
   const navigation = useNavigation();
   const { userProfile, fetchUserProfile } = props;
-  const userInformation = Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
+  const userInformation =
+    Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
   useEffect(() => {
     fetchUserProfile(userInformation?.sub);
-  }, [fetchUserProfile]);
+  }, [fetchUserProfile, userInformation]);
 
   const formatProfileLevelText =
     userProfile.level === undefined
@@ -48,21 +46,23 @@ function ProfilePage(props: UserProfileProps) {
       : userProfile.username;
 
   const formatMail =
-    userInformation.email === undefined ? 'fill in mail' : userInformation.email;
+    userInformation.email === undefined
+      ? 'fill in mail'
+      : userInformation.email;
   const formatTelefon =
     userInformation.phone_number === undefined
       ? 'fill in telephone'
       : userInformation.phone_number;
-  const formatLocation =
-    userProfile.homeArea === undefined ? 'location' : userProfile.homeArea;
-  const formatBirthdate =
-    userProfile.birthdate === undefined
-      ? 'fill in birthdate'
-      : userProfile.birthdate;
-  const formatStreet =
-    userProfile.street === undefined ? 'fill in street' : userProfile.street;
-  const formatPostalCode =
-    userProfile.postalcode === undefined ? 'Area' : userProfile.postalcode;
+  // const formatLocation =
+  //   userProfile.homeArea === undefined ? 'location' : userProfile.homeArea;
+  // const formatBirthdate =
+  //   userProfile.birthdate === undefined
+  //     ? 'fill in birthdate'
+  //     : userProfile.birthdate;
+  // const formatStreet =
+  //   userProfile.street === undefined ? 'fill in street' : userProfile.street;
+  // const formatPostalCode =
+  //   userProfile.postalcode === undefined ? 'Area' : userProfile.postalcode;
 
   return (
     <Grid>
@@ -93,17 +93,14 @@ function ProfilePage(props: UserProfileProps) {
             </View>
           </View>
           <View
-            style={[
-              // styles.centeredView,
-              { alignItems: 'center', width: width, height: height * 0.4 },
-            ]}
+            style={{ alignItems: 'center', width: width, height: height * 0.4 }}
           >
             <ProfileDropdown />
             <ProfileTextContainer text={formatMail}>
               <Ionicons name="ios-mail" size={20} color={LIGHTBLUE} />
             </ProfileTextContainer>
             <ProfileTextContainer text={formatTelefon}>
-              <Foundation name="telephone" size={20} color={LIGHTBLUE}  />
+              <Foundation name="telephone" size={20} color={LIGHTBLUE} />
             </ProfileTextContainer>
             {/* <ProfileTextContainer text={formatBirthdate}>
               <FontAwesome name="birthday-cake" size={20} color={LIGHTBLUE}  />
@@ -239,9 +236,5 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.16,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-
-  minorSpace: {
-    width: width * 0.03,
   },
 });

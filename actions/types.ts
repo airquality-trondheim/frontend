@@ -56,11 +56,9 @@ type GetUserProfileAction = {
 type PutHomeAreaAction = {
   type: typeof PUT_HOMEAREA;
   homeArea: string;
-}
+};
 
-export type UserProfileActionTypes = 
-  | GetUserProfileAction
-  | PutHomeAreaAction;
+export type UserProfileActionTypes = GetUserProfileAction | PutHomeAreaAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';
