@@ -41,6 +41,13 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   const [rankingBinary, setRankingBinary] = useState(false);
   const credential = Auth?.Credentials?.Auth?.user?.sub;
   const ranking = rankingBinary ? localLeaderboardData : leaderboardData;
+  let rankAmount = 10;
+
+  const topRankLayout = {
+    first: 18,
+    second: 18,
+    third: 18,
+  }
 
   useEffect(() => {
     // TODO: Change to user's ID after log in is done
@@ -61,6 +68,11 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   const updateRankingBinary = (source: boolean) => {
     setRankingBinary(source);
   };
+
+  const updateRankHeight = (childHeight: number) => {
+    rankAmount = Math.floor(height * 0.3 / childHeight);
+  }
+
 
   return (
     <>
@@ -105,7 +117,8 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
       <View style={{ flex: 6 }}>
         <View style={styles.rankUpperPortionStyle}>
           <View style={styles.rankWrapperStyle}>
-            <Text style={styles.text}>{ranking[1]?.username}</Text>
+            <Text
+              style={[styles.text,]}>{ranking[1]?.username}</Text>
             <View style={styles.secondStyle}>
               <Text style={styles.rankText}>2</Text>
             </View>
@@ -125,9 +138,9 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
         </View>
         <View style={styles.rankInnerPortionStyle}>
           <View style={styles.rankElementStyle}>
-            {ranking.slice(3, 13)?.map((element, index) => {
+            {ranking.slice(3, rankAmount + 2)?.map((element, index) => {
               return (
-                <View key={index} style={{ flexDirection: 'row' }}>
+                <View key={index} style={{ flexDirection: 'row', }} onLayout={event => updateRankHeight(event.nativeEvent.layout.height)}>
                   <Text style={[styles.text, { width: width * 0.1 }]}>
                     {index + 4}.
                   </Text>
@@ -264,13 +277,14 @@ const styles = StyleSheet.create({
 
   rankInnerPortionStyle: {
     flex: 5,
-    justifyContent: 'center',
     alignItems: 'center',
   },
 
   rankElementStyle: {
     width: width * 0.4,
     height: height * 0.3,
+    overflow: 'hidden',
+    marginTop: height * 0.03,
   },
 
   userRankWrapper: {
