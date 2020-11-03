@@ -47,7 +47,7 @@ export default function BottomTabNavigator() {
       initialRouteName="Home"
       tabBarOptions={{
         activeTintColor: WHITE,
-        style: { height: 55 },
+        style: { minHeight: 55 },
         labelStyle: { marginBottom: 3 },
       }}
     >
