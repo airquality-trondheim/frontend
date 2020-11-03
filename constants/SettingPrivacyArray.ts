@@ -10,7 +10,7 @@ const settingPrivacyArray = [
     id: 2,
     header: '2. Personopplysninger som lagres',
     desc:
-      'Vi lagrer følgende personopplysninger om våre kunder: navn, adresse, telefonnummer, e-postadresse, fødselsdato og mengde opptjente poenger.',
+      'Vi lagrer følgende personopplysninger om våre kunder: navn, e-postadresse, telefonnummer, nabolag og mengde opptjente poenger.',
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const settingPrivacyArray = [
     id: 4,
     header: '4. Grunnlaget for behandlingen',
     desc:
-      'Dersom du har samtykket til smarte notifikasjoner vil aktivitetsdata brukes for å gi deg informasjon og tjenester som er spesielt tilpasset deg som bruker. Du kan når som helst trekke tilbake ditt samtykke til slike notifikasjoner i instillinger.',
+      'Dersom du har samtykket til notifikasjoner kan data brukes for å gi deg informasjon og tjenester som er spesielt tilpasset deg som bruker. Du kan når som helst trekke tilbake ditt samtykke til slike notifikasjoner i instillingene.',
   },
   {
     id: 5,
@@ -50,13 +50,13 @@ const settingPrivacyArray = [
   },
   {
     id: 9,
-    header: '10. Informasjonssikkerhet',
+    header: '9. Informasjonssikkerhet',
     desc:
       'Vi sikrer dine personopplysninger ved både fysisk og virtuell adgangs- og tilgangskontroll, samt ved kryptering av sensitive deler av avgitte opplysninger.',
   },
   {
     id: 11,
-    header: '11. Kontaktinformasjon',
+    header: '10. Kontaktinformasjon',
     desc:
       'Henvendelser om hvilke opplysninger som er registrert, retting og sletting kan sende skriftlig til følgende adresser:',
   },
