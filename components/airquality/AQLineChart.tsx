@@ -1,6 +1,6 @@
 /*  eslint-disable @typescript-eslint/no-shadow */
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { LineChart, XAxis } from 'react-native-svg-charts';
 import { Circle } from 'react-native-svg';
 import {
@@ -49,23 +49,24 @@ export default function AQLineChart(props: {
   return (
     <View style={styles.lineChart}>
       <LineChart
-        style={{ height: height * 0.3, marginHorizontal: 10 }}
+        style={styles.lineStyle}
         data={data}
         svg={{ stroke: 'gray' }}
-        contentInset={{ top: 20, bottom: 20, left: 10, right: 10 }}
+        contentInset={{ top: 20, bottom: 20, left: 15, right: 10 }}
         yMin={0}
         yMax={4}
       >
         <Decorator />
       </LineChart>
       <XAxis
-        style={{ marginHorizontal: 10, marginVertical: -25, height: 40 }}
+        style={styles.xAxStyle}
         data={fulldata}
         xAccessor={({ item }) => item.clock}
         formatLabel={(value) => value}
-        contentInset={{ left: 10, right: 10 }}
+        contentInset={{ left: 15, right: 10 }}
         svg={axesSvg}
       />
+      <Text style={styles.text}>Kl.</Text>
     </View>
   );
 }
@@ -77,5 +78,19 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: DARKGRAY,
     marginBottom: 35,
+  },
+  lineStyle: {
+    height: height * 0.3,
+    marginHorizontal: 10,
+  },
+  xAxStyle: {
+    marginHorizontal: 10,
+    marginVertical: -25,
+    height: 40,
+  },
+  text: {
+    fontSize: 10,
+    marginTop: -18,
+    color: DARKGRAY,
   },
 });

@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AQChart from '../components/airquality/AQChart';
 import { height, width } from '../constants/Layout';
 import LocationDropdown from '../components/LocationDropdown';
@@ -8,6 +8,8 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { getAirQualityDataForLocation } from '../actions/airqualityActions';
 import { connect } from 'react-redux';
+import InfoButton from '../components/InfoButton';
+import AQInfoModal from '../components/airquality/AQInfoModal';
 
 type AirQualityScreenProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -21,6 +23,7 @@ function AirQualityScreen(props: AirQualityScreenProps) {
     PM25_AQI,
     fetchAirQualityData,
   } = props;
+  const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
   useEffect(() => {
@@ -35,6 +38,12 @@ function AirQualityScreen(props: AirQualityScreenProps) {
     }
   }, [fetchAirQualityData, currentLocation]);
 
+  const updateModalVisible = () => {
+    if (!unmounted.current) {
+      setModalVisible(!modalVisible);
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.carouselContainerStyle}>
       <View
@@ -47,12 +56,20 @@ function AirQualityScreen(props: AirQualityScreenProps) {
           })
         }
       >
-        <LocationDropdown />
+        <View style={styles.topView}>
+          <LocationDropdown />
+          <InfoButton onPress={updateModalVisible} />
+        </View>
+        <AQInfoModal
+          onCloseButtonPress={updateModalVisible}
+          modalVisible={modalVisible}
+          modalOnRequestClose={updateModalVisible}
+        />
       </View>
-      <AQChart {...{ name: 'AQI', AQ: AQI }} />
-      <AQChart {...{ name: 'NO2 AQI', AQ: NO2_AQI }} />
-      <AQChart {...{ name: 'PM10 AQI', AQ: PM10_AQI }} />
-      <AQChart {...{ name: 'PM2.5 AQI', AQ: PM25_AQI }} />
+      <AQChart {...{ name: 'AQI', nameNumber: '', AQ: AQI }} />
+      <AQChart {...{ name: 'AQI NO', nameNumber: '2', AQ: NO2_AQI }} />
+      <AQChart {...{ name: 'AQI PM', nameNumber: '2.5', AQ: PM10_AQI }} />
+      <AQChart {...{ name: 'AQI PM', nameNumber: '2', AQ: PM25_AQI }} />
     </ScrollView>
   );
 }
@@ -87,5 +104,9 @@ const styles = StyleSheet.create({
     height: height * 0.1,
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  topView: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 });

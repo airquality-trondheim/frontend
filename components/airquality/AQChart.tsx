@@ -18,7 +18,11 @@ export const YAxis = () => {
   );
 };
 
-export default function AirQChart(props: { name: string; AQ: AQIData }) {
+export default function AirQChart(props: {
+  name: string;
+  nameNumber: string;
+  AQ: AQIData;
+}) {
   const [today, setToday] = useState(true);
   const [data, setData] = useState(props.AQ.todayData);
   function switchDay() {
@@ -33,7 +37,10 @@ export default function AirQChart(props: { name: string; AQ: AQIData }) {
   return (
     <View style={styles.containerStyle}>
       <View style={styles.buttonContainer}>
-        <Text style={styles.text}>{props.name}</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{props.name}</Text>
+          <Text style={styles.smallText}>{props.nameNumber}</Text>
+        </View>
         <Button
           title="I dag"
           type="clear"
@@ -81,9 +88,19 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    marginTop: 10,
-    marginRight: 30,
+
     marginLeft: 10,
+    fontWeight: 'bold',
+  },
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 15,
+  },
+  smallText: {
+    fontSize: 10,
+    marginRight: 30,
+    paddingTop: 10,
     fontWeight: 'bold',
   },
   button: {
@@ -95,7 +112,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     width: width * 0.25,
-    color: 'blue',
+    color: LIGHTBLUE,
     borderBottomWidth: 2,
   },
   buttonContainer: {

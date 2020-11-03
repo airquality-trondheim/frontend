@@ -63,17 +63,17 @@ function AQInfoModal(props: {
             )}
             {createAQComponentInfo(
               'PM',
-              'viser finfraksjon av svevestøv i målenehet mikrogram per kvadratmeter',
+              'viser finfraksjon av svevestøv som luftkvalitets indeks av luftkvalitet',
               '2.5',
             )}
             {createAQComponentInfo(
               'PM',
-              'viser grovfraksjon av svevestøv i målenehet mikrogram per kvadratmeter',
+              'viser grovfraksjon av svevestøv som luftkvalitets indeks av luftkvalitet',
               '10',
             )}
             {createAQComponentInfo(
               'NO',
-              'viser nitrogendioksid i målenehet mikrogram per kvadratmeter',
+              'viser nitrogendioksid som luftkvalitets indeks av luftkvalitet',
               '2',
             )}
             <Row size={8}>
@@ -84,7 +84,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Utmerket'}
                     belowText={
-                      'AQI er 0-1 noe som tilsvarer lave forekomster av luftforurensning.'
+                      'AQI er 0-1 noe som tilsvarer lav forekomst av luftforurensing.'
                     }
                   />
                 </View>
@@ -94,7 +94,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Dårlig'}
                     belowText={
-                      'AQI er 2-3 noe som tilsvarer høy forekomst av luftforurensing.'
+                      'AQI er 2-3 noe som tilsvarer høy forekomst av luftforurensing. '
                     }
                   />
                 </View>

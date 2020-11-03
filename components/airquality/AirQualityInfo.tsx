@@ -16,7 +16,7 @@ enum airQuality {
   'Utmerket' = 1,
   'Bra',
   'Dårlig',
-  'Uhyggelig',
+  'Svært dårlig',
 }
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
