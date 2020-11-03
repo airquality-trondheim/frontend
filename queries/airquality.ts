@@ -1,5 +1,4 @@
 import axios from 'axios';
-import AirQualityInfo from '../components/airquality/AirQualityInfo';
 import {
   AirqualityData,
   AirqualityForecast,
@@ -40,44 +39,59 @@ export async function fetchAirqualityDataForLocation(
     const data: AirqualityForecast = await res.json();
     let clock = '';
     let object;
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < data.data.length - 1; i++) {
       let dataDate = new Date(data.data[i].from).getUTCDate();
       clock = data.data[i].from.substring(11, 13);
       object = data.data[i].variables;
       if (dataDate === currentDate) {
-        AQI.todayData.push({ clock: clock, value: object.AQI.value });
-        NO2_AQI.todayData.push({ clock: clock, value: object.AQI_no2.value });
-        PM10_AQI.todayData.push({ clock: clock, value: object.AQI_pm10.value });
-        PM25_AQI.todayData.push({ clock: clock, value: object.AQI_pm25.value });
+        AQI.todayData.push({
+          clock: clock,
+          value: Math.round(object.AQI.value),
+        });
+        NO2_AQI.todayData.push({
+          clock: clock,
+          value: Math.round(object.AQI_no2.value + Number.EPSILON),
+        });
+        PM10_AQI.todayData.push({
+          clock: clock,
+          value: Math.round(object.AQI_pm10.value + Number.EPSILON),
+        });
+        PM25_AQI.todayData.push({
+          clock: clock,
+          value: Math.round(object.AQI_pm25.value + Number.EPSILON),
+        });
       } else if (dataDate === tomorrow.getUTCDate()) {
-        AQI.tomorrowData.push({ clock: clock, value: object.AQI.value });
+        AQI.tomorrowData.push({
+          clock: clock,
+          value: Math.round(object.AQI.value + Number.EPSILON),
+        });
         NO2_AQI.tomorrowData.push({
           clock: clock,
-          value: object.AQI_no2.value,
+          value: Math.round(object.AQI_no2.value + Number.EPSILON),
         });
         PM10_AQI.tomorrowData.push({
           clock: clock,
-          value: object.AQI_pm10.value,
+          value: Math.round(object.AQI_pm10.value + Number.EPSILON),
         });
         PM25_AQI.tomorrowData.push({
           clock: clock,
-          value: object.AQI_pm25.value,
+          value: Math.round(object.AQI_pm25.value + Number.EPSILON),
         });
       }
     }
-    console.log('####', {
-      areacode: areacode,
-      AQI: AQI,
-      NO2_AQI: NO2_AQI,
-      PM10_AQI: PM10_AQI,
-      PM25_AQI: PM25_AQI,
-    });
+
+    const currentHour = new Date().getHours().toString();
+    const newIndex = AQI.todayData.findIndex(
+      (obj) => obj.clock === currentHour,
+    );
+
     return {
       areacode: areacode,
       AQI: AQI,
       NO2_AQI: NO2_AQI,
       PM10_AQI: PM10_AQI,
       PM25_AQI: PM25_AQI,
+      index: newIndex,
     };
   } catch (error) {
     console.log('Could not fetch airquality for given areacode');

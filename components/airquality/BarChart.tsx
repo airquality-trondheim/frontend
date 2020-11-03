@@ -11,40 +11,35 @@ import {
 } from '../../constants/Colors';
 import { carouselHeight } from '../../constants/Layout';
 
-export type AQData = {
-  value: number;
-  type: string;
-};
 type AQColorData = {
   value: number;
   svg: PathProps;
-  type: string;
 };
 
-export function colorFill(data: Array<AQData>) {
+export function colorFill(data: Array<number>) {
   const newData: Array<AQColorData> = [];
   data.map((element) => {
     let color: string = 'white';
-    if (element.value == 1) {
+    if (element == 1) {
       color = DANGER1;
-    } else if (element.value == 2) {
+    } else if (element == 2) {
       color = DANGER2;
-    } else if (element.value == 3) {
+    } else if (element == 3) {
       color = DANGER3;
     } else {
       color = DANGER4;
     }
     newData.push({
-      value: element.value,
+      value: element,
       svg: { fill: color },
-      type: element.type,
     });
   });
   return newData;
 }
 
-export default function AQBarChart(props: { data: Array<AQData> }) {
+export default function AQBarChart(props: { data: Array<number> }) {
   const levels = colorFill(props.data);
+
   return (
     <View>
       <BarChart
@@ -55,13 +50,15 @@ export default function AQBarChart(props: { data: Array<AQData> }) {
         yAccessor={({ item }) => item.value}
         contentInset={{ top: 20, bottom: 20 }}
         spacingInner={0.2}
+        yMin={0}
+        yMax={4}
       ></BarChart>
       <Text style={styles.border} />
       <View style={styles.xAx}>
         <Text style={styles.text}>AQI</Text>
-        <Text style={styles.text}>PM10</Text>
-        <Text style={styles.text}>PM2.5</Text>
         <Text style={styles.text}>NO2</Text>
+        <Text style={styles.text}>PM2.5</Text>
+        <Text style={styles.text}>PM10</Text>
       </View>
     </View>
   );

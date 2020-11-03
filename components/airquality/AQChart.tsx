@@ -4,27 +4,25 @@ import React, { useState } from 'react';
 import AQLineChart from './AQLineChart';
 import { height, width } from '../../constants/Layout';
 import { LIGHTBLUE } from '../../constants/Colors';
-import { AQIData } from '../../screens/AirQualityScreen';
+import { AQIData } from '../../types/_types';
 
 export const YAxis = () => {
   return (
     <View style={styles.barYAxis}>
-      <Text>4</Text>
+      <Text>Høyt</Text>
       <Text>3</Text>
       <Text>2</Text>
-      <Text>1</Text>
+      <Text>Lavt</Text>
       <Text>0</Text>
     </View>
   );
 };
 
-export default function AirQChart(props: { AQ: AQIData }) {
+export default function AirQChart(props: { name: string; AQ: AQIData }) {
   const [today, setToday] = useState(true);
-  const [tomorrow, setTomorrow] = useState(false);
   const [data, setData] = useState(props.AQ.todayData);
   function switchDay() {
     setToday(!today);
-    setTomorrow(!tomorrow);
     if (!today) {
       setData(props.AQ.todayData);
     } else {
@@ -35,11 +33,11 @@ export default function AirQChart(props: { AQ: AQIData }) {
   return (
     <View style={styles.containerStyle}>
       <View style={styles.buttonContainer}>
-        <Text style={styles.text}>{props.AQ.type}</Text>
+        <Text style={styles.text}>{props.name}</Text>
         <Button
           title="I dag"
           type="clear"
-          buttonStyle={tomorrow ? styles.button : styles.buttonActive}
+          buttonStyle={!today ? styles.button : styles.buttonActive}
           onPress={() => switchDay()}
         />
         <Button

@@ -29,6 +29,7 @@ type GetAirqualityForStationAction = {
   NO2_AQI: AQIData;
   PM10_AQI: AQIData;
   PM25_AQI: AQIData;
+  index: number;
 };
 
 export type AirqualityActionTypes = GetAirqualityForStationAction;

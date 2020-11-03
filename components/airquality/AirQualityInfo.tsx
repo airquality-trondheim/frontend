@@ -29,25 +29,17 @@ function ProgressCircle(props: ProgressCircleProps) {
     NO2_AQI,
     PM10_AQI,
     PM25_AQI,
+    index,
     fetchAirQualityData,
   } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
-  const clock = new Date().getHours().toString();
-  const [index, setIndex] = useState(0);
-  // AQI.todayData.findIndex((obj) => obj.clock === clock)
 
   useEffect(() => {
     return () => {
       unmounted.current = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (!unmounted) {
-      setIndex(AQI.todayData.findIndex((obj) => obj.clock === clock));
-    }
-  }, [JSON.stringify(AQI.todayData), clock]);
 
   useEffect(() => {
     if (currentLocation) {
@@ -157,6 +149,7 @@ const mapStateToProps = (state: RootState) => {
     PM10_AQI: state.airquality.PM10_AQI,
     PM25_AQI: state.airquality.PM25_AQI,
     currentLocation: state.locations.currentLocation,
+    index: state.airquality.index,
   };
 };
 

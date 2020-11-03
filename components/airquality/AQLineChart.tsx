@@ -12,10 +12,12 @@ import {
 } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 
-export default function AQLineChart(props: { data: Array<number> }) {
+export default function AQLineChart(props: {
+  data: Array<{ clock: string; value: number }>;
+}) {
   const axesSvg = { fontSize: 10, fill: 'grey' };
-  const data = props.data;
-
+  const data: Array<number> = props.data.map((element) => element.value);
+  const fulldata: Array<{ clock: string; value: number }> = props.data;
   const Decorator = ({
     x,
     y,
@@ -32,24 +34,25 @@ export default function AQLineChart(props: { data: Array<number> }) {
         cy={y(value)}
         r={5}
         fill={
-          value === 1
+          value <= 1
             ? DANGER1
-            : value === 2
+            : value <= 2
             ? DANGER2
-            : value == 3
+            : value <= 3
             ? DANGER3
             : DANGER4
         }
       />
     ));
   };
+
   return (
     <View style={styles.lineChart}>
       <LineChart
         style={{ height: height * 0.3, marginHorizontal: 10 }}
         data={data}
         svg={{ stroke: 'gray' }}
-        contentInset={{ top: 20, bottom: 20 }}
+        contentInset={{ top: 20, bottom: 20, left: 10, right: 10 }}
         yMin={0}
         yMax={4}
       >
@@ -57,9 +60,10 @@ export default function AQLineChart(props: { data: Array<number> }) {
       </LineChart>
       <XAxis
         style={{ marginHorizontal: 10, marginVertical: -25, height: 40 }}
-        data={data}
-        formatLabel={(value, index) => index}
-        //contentInset={{ left: 10, right: 10 }}
+        data={fulldata}
+        xAccessor={({ item }) => item.clock}
+        formatLabel={(value) => value}
+        contentInset={{ left: 10, right: 10 }}
         svg={axesSvg}
       />
     </View>
