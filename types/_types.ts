@@ -137,100 +137,6 @@ export type LeaderboardState = {
   userRanking: UserRanking;
 };
 
-// Map
-export type aqStationData = {
-  _id: string;
-  id: number;
-  zone: string;
-  municipality: string;
-  area: string;
-  station: string;
-  eoi: string;
-  component: string;
-  fromTime: Date;
-  toTime: Date;
-  value: number;
-  unit: string;
-  latitude: number;
-  longitude: number;
-  timestep: number;
-  index: number;
-  color: string;
-  isValid: boolean;
-  __v: number;
-};
-
-export type MapData = {
-  region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  aqData: aqStationData[];
-};
-
-//Session
-export type waypoint = {
-  longitude: number;
-  latitude: number;
-  timestamp: Date;
-  pollutionLevel: string;
-};
-
-export type SessionSchema = {
-  userId: string;
-  sessionType: string;
-  startTime: Date;
-  stopTime: Date;
-  waypoints: waypoint[];
-};
-
-/*
-export type SessionSummary = {
-  distance: number;
-  time: string;
-  totalPoints: number;
-  activityPoints: number;
-  airQualityPoints: number;
-  achievementPoints: number;
-};
-*/
-
-export type SessionResult = {
-  millisecondsElapsed: number;
-  metersTraveled: number;
-  avgKmph: number;
-  distancePoints: number;
-  safeZonePoints: number;
-  sumPoints: number;
-};
-
-export type SessionResponse = {
-  userId: string;
-  sessionType: string;
-  startTime: Date;
-  stopTime: Date;
-  waypoints: waypoint[];
-  sessionResult: SessionResult;
-};
-
-export type locationType = {
-  coords: {
-    accuracy: number;
-    altitude: number;
-    heading: number;
-    latitude: number;
-    longitude: number;
-    speed: number;
-  };
-  timestamp: number;
-};
-
-export type locationData = {
-  locations: locationType[];
-};
-
 // Points
 export type PointsState = {
   points: number;
@@ -254,7 +160,7 @@ export type WeatherData = {
 // Airquality
 type VariableElement = {
   value: number;
-  units: string;
+  unit: string;
 };
 
 export type AirqualityTimeElement = {
@@ -285,4 +191,22 @@ export type AirqualityForecast = {
 export type AirqualityData = {
   areacode: string;
   airqualityData: AirqualityTimeElement[];
+};
+
+// Map
+export type currentAqData = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  data: AirqualityTimeElement;
+};
+
+export type MapData = {
+  region: {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+  aqData: currentAqData[];
 };
