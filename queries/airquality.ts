@@ -68,14 +68,6 @@ export async function fetchAirqualityDataForLocation(
           : obj.clock),
       correctClock === currentHour,
     );
-    console.log(
-      'current hour:',
-      currentHour,
-      ', index:',
-      newIndex,
-      'correct',
-      correctClock,
-    );
 
     return {
       areacode: areacode,
