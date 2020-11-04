@@ -47,8 +47,6 @@ function ProfileDropdown(props: LocationDropdownProps) {
     );
   }, [fetchLocations, fetchUserProfile]);
 
-  // console.log(userProfile);
-
   useEffect(() => {
     let locList: DropdownListItem[] = [];
     for (let location of locations) {

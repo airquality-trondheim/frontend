@@ -13,7 +13,6 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
       },
     });
     const profile: ProfileResponse = await response.json();
-    // console.log(profile);
     const avatarResponse: Response = await fetch(
       endpoint + 'levels/' + profile.user.level,
     );

@@ -53,16 +53,6 @@ function ProfilePage(props: UserProfileProps) {
     userInformation.phone_number === undefined
       ? 'fill in telephone'
       : userInformation.phone_number;
-  // const formatLocation =
-  //   userProfile.homeArea === undefined ? 'location' : userProfile.homeArea;
-  // const formatBirthdate =
-  //   userProfile.birthdate === undefined
-  //     ? 'fill in birthdate'
-  //     : userProfile.birthdate;
-  // const formatStreet =
-  //   userProfile.street === undefined ? 'fill in street' : userProfile.street;
-  // const formatPostalCode =
-  //   userProfile.postalcode === undefined ? 'Area' : userProfile.postalcode;
 
   return (
     <Grid>
@@ -102,27 +92,6 @@ function ProfilePage(props: UserProfileProps) {
             <ProfileTextContainer text={formatTelefon}>
               <Foundation name="telephone" size={20} color={LIGHTBLUE} />
             </ProfileTextContainer>
-            {/* <ProfileTextContainer text={formatBirthdate}>
-              <FontAwesome name="birthday-cake" size={20} color={LIGHTBLUE}  />
-            </ProfileTextContainer>
-            <View style={{ flexDirection: 'row' }}>
-              <ProfileTextContainer
-                text={formatLocation}
-                outerWidth={width * 0.47}
-              >
-                <FontAwesome name="map" size={18} color="#51adcf" />
-              </ProfileTextContainer>
-              <View style={styles.minorSpace} />
-              <ProfileTextContainer
-                text={formatPostalCode}
-                outerWidth={width * 0.3}
-              >
-                <Entypo name="location-pin" size={20} color="#51adcf" />
-              </ProfileTextContainer>
-            </View>
-            <ProfileTextContainer text={formatStreet}>
-              <Fontisto name="direction-sign" size={20} color={LIGHTBLUE} />
-            </ProfileTextContainer> */}
           </View>
         </View>
       </Row>
