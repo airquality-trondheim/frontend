@@ -6,7 +6,7 @@ import {
   UserProfile,
   Location,
   Station,
-  AirqualityTimeElement,
+  AQIData,
   currentAqData,
 } from '../types/_types';
 
@@ -27,7 +27,11 @@ export const GET_AIRQUALITY_FOR_LOCATION = 'GET_AIRQUALITY_FOR_LOCATION';
 type GetAirqualityForStationAction = {
   type: typeof GET_AIRQUALITY_FOR_LOCATION;
   areacode: string;
-  airqualityData: AirqualityTimeElement[];
+  AQI: AQIData;
+  NO2_AQI: AQIData;
+  PM10_AQI: AQIData;
+  PM25_AQI: AQIData;
+  index: number;
 };
 
 export type AirqualityActionTypes = GetAirqualityForStationAction;

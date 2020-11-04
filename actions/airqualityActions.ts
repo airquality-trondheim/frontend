@@ -15,9 +15,14 @@ export async function getAirQualityDataForLocation(
   if (aqData === null) {
     return;
   }
+
   dispatch({
     type: GET_AIRQUALITY_FOR_LOCATION,
     areacode: aqData.areacode,
-    airqualityData: aqData.airqualityData,
+    AQI: aqData.AQI,
+    NO2_AQI: aqData.NO2_AQI,
+    PM10_AQI: aqData.PM10_AQI,
+    PM25_AQI: aqData.PM25_AQI,
+    index: aqData.index,
   });
 }

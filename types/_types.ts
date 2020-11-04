@@ -14,6 +14,7 @@ export type BottomTabParamList = {
 export type HomeParamList = {
   LandingPage: undefined;
   WeatherScreen: undefined;
+  AirQualityScreen: undefined;
 };
 
 export type MapParamList = {
@@ -221,7 +222,16 @@ export type AirqualityForecast = {
 
 export type AirqualityData = {
   areacode: string;
-  airqualityData: AirqualityTimeElement[];
+  AQI: AQIData;
+  NO2_AQI: AQIData;
+  PM10_AQI: AQIData;
+  PM25_AQI: AQIData;
+  index: number;
+};
+
+export type AQIData = {
+  todayData: Array<{ clock: string; value: number }>;
+  tomorrowData: Array<{ clock: string; value: number }>;
 };
 
 // Map
@@ -229,7 +239,7 @@ export type currentAqData = {
   name: string;
   latitude: number;
   longitude: number;
-  data: AirqualityTimeElement;
+  AQI_value: number;
 };
 
 export type MapData = {
