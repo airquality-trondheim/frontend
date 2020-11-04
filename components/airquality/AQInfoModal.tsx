@@ -47,10 +47,10 @@ function AQInfoModal(props: {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Grid>
-            <Row size={2}>
+            <Row size={1.4}>
               <Text style={styles.headerText}>Informasjon</Text>
             </Row>
-            <Row size={2.25}>
+            <Row size={2.2}>
               <Text style={{ ...styles.text }}>
                 Frisk viser målingen av luftkvaliteten gjort av sensorer som er
                 plassert rundt om i byen. Disse sensorene måler:
@@ -76,7 +76,7 @@ function AQInfoModal(props: {
               'viser andel nitrogendioksid i luften som luftkvalitetsindeks.',
               '2',
             )}
-            <Row size={8}>
+            <Row size={9}>
               <Col size={1}>
                 <View style={[styles.rightBorder, styles.bottomBorder]}>
                   <AQHalfCircle
@@ -112,8 +112,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Svært dårlig'}
                     belowText={
-                      'Vurder å ikke oppholde deg utendørs i lengre perioder.' +
-                      'Barn, gravide, syke og eldre må være spesielt forsiktige.'
+                      'Vurder å ikke oppholde deg utendørs i lengre perioder. '
                     }
                   />
                 </View>

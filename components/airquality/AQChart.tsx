@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 4,
     marginLeft: 4,
+    paddingBottom: 10,
+    marginTop: -1,
   },
   chartContainer: {
     height: height * 0.3,

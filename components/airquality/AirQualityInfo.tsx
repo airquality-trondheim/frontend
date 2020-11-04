@@ -79,7 +79,8 @@ function ProgressCircle(props: ProgressCircleProps) {
           modalVisible={modalVisible}
           modalOnRequestClose={updateModalVisible}
         />
-        {AQI.todayData.length > 0 ? (
+        {console.log('index', index)}
+        {AQI.todayData.length > 0 && index >= 0 ? (
           <>
             <AQHalfCircle
               fill={(AQI.todayData[index].value - 1) * 25}

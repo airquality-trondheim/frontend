@@ -28,7 +28,7 @@ function AQCard(props: AirQualityCardProps) {
   }, [AQI, NO2_AQI, PM25_AQI, PM10_AQI, JSON.stringify(AQI)]);
 
   useEffect(() => {
-    if (!unmounted.current && types[0].todayData.length > 0) {
+    if (!unmounted.current && types[0].todayData.length > 0 && index >= 0) {
       setToday(types.map((element) => element.todayData[index].value));
       setTomorrow(types.map((element) => element.tomorrowData[index].value));
     }
