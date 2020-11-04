@@ -5,7 +5,6 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Auth } from 'aws-amplify';
 import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
 import {
   postPushNotificationToken,
@@ -29,22 +28,29 @@ const SettingElement = ({
   const navigation = useNavigation();
   const toggleSwitch = async () => {
     const allowPushNotifications = !isEnabled;
-    if (allowPushNotifications) {
-      await registerForPushNotificationsAsync();
-    } else {
-      await postPushNotificationToken('', false);
+    try {
+      if (allowPushNotifications) {
+        await registerForPushNotificationsAsync();
+      } else {
+        await postPushNotificationToken('', false);
+      }
+      setIsEnabled(allowPushNotifications);
+      storeData(allowPushNotifications, elementName);
+    } catch (error) {
+      alert('Det oppstod ett problem. Kunne ikke oppdatere innstillingene.');
     }
-    setIsEnabled(allowPushNotifications);
   };
 
   useEffect(() => {
-    if (Auth.Credentials.Auth.user !== null) {
-      console.log('Store setting in DB');
+    async function updateValue() {
+      const storedValue = await getStoreData(elementName);
+      if (storedValue) {
+        setIsEnabled(storedValue);
+      } else {
+        storeData(isEnabled, elementName);
+      }
     }
-  }, []);
-
-  useEffect(() => {
-    storeData(isEnabled, elementName);
+    updateValue();
   }, [elementName, isEnabled]);
 
   return (
@@ -88,6 +94,18 @@ const storeData = async (value: boolean, storageKey: string) => {
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
     // saving error
+  }
+};
+
+const getStoreData = async (storageKey: string) => {
+  try {
+    const jsonValue = await AsyncStorage.getItem(storageKey);
+    if (jsonValue) {
+      return JSON.parse(jsonValue);
+    }
+    return '';
+  } catch (e) {
+    // fetching error
   }
 };
 
