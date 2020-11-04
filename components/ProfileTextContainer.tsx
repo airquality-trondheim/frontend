@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
     borderRadius: width * 0.05,
     borderColor: BACKGROUNDCOLOR2,
     backgroundColor: WHITE,
-    height: height * 0.05,
+    height: height * 0.06,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: height * 0.01,
+    marginVertical: height * 0.015,
   },
 
   iconStyle: {
