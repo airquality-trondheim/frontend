@@ -38,12 +38,9 @@ function Map(props: mapProps) {
     <MapView
       style={styles.map}
       region={mapRegion}
-      onRegionChangeComplete={(region) => {
-        if (!unmounted.current) {
-          setMapRegion(region);
-        }
-      }}
-      // showsUserLocation={true}
+      onRegionChangeComplete={(region) => setMapRegion(region)}
+      showsUserLocation={true}
+      provider={'google'}
       showsMyLocationButton={false}
     >
       {aqData.map((station: currentAqData, i) => {

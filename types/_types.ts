@@ -44,20 +44,41 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
-//Profile
+//Achievementstamp
+export type AchievementStamp = {
+  timestampEarned: Date;
+  achievementId: string;
+};
 
+//Profile
 export type UserProfile = {
-  id: string;
+  _id: string;
   username: string;
   points: number;
   level: number;
+  achievements: AchievementStamp[];
   avatar: string;
-  mail: string;
-  telefon: string;
   birthdate: string;
-  location: string;
+  homeArea: string;
   postalcode: string;
   street: string;
+};
+
+//ProfileResponse
+export type ProfileResponse = {
+  user: {
+    _id: string;
+    username: string;
+    required: true;
+    points: number;
+    homeArea: string;
+    level: number;
+    achievements: AchievementStamp[];
+    settings: { pushNotification: boolean };
+    __v: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 };
 
 // User
@@ -77,6 +98,16 @@ export type ProfileParamList = {
   SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
+};
+
+// Level
+export type LevelResponse = {
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
 };
 
 // Location
