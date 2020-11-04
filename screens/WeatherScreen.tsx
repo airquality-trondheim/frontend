@@ -20,7 +20,7 @@ function WeatherScreen(props: WeatherProps) {
   useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
 
   return (
-    <View style={styles.screenStyle}>
+    <View accessibilityLabel={'WeatherScreen'} style={styles.screenStyle}>
       <View style={styles.mainComponent}>
         <View style={styles.dropdownView}>
           <LocationDropdown />

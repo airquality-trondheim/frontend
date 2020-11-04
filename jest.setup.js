@@ -1,6 +1,4 @@
 import '@testing-library/jest-native/extend-expect';
-import { Image } from 'react-native';
-import { cloudy } from './assets/images/cloudy.png';
 
 jest.mock('./queries/airquality', () => {
   const aq = {

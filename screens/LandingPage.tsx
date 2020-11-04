@@ -6,7 +6,7 @@ import LocationDropdown from '../components/LocationDropdown';
 
 function LandingPage() {
   return (
-    <View style={styles.screenStyle}>
+    <View accessibilityLabel={'HomeScreen'} style={styles.screenStyle}>
       <LocationDropdown />
       <AirQualityInfo />
       <LandingPageCarousel />

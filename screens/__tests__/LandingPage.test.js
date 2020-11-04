@@ -67,15 +67,24 @@ describe('Landing page', () => {
     );
     const page = renderPage(component);
 
+    const screen = await waitFor(() =>
+      page.queryByAccessibilityLabel('HomeScreen'),
+    );
+    expect(screen).toBeTruthy();
+
     const toClick = page.getByText('Vær');
     expect(toClick).toBeTruthy();
 
     fireEvent(toClick, 'press');
 
+    const newScreen = await waitFor(() =>
+      page.queryByAccessibilityLabel('WeatherScreen'),
+    );
     const newSubHeader1 = await waitFor(() => page.queryByText(' Nå '));
     const newSubHeader2 = await waitFor(() => page.queryByText('I dag'));
     const newSubHeader3 = await waitFor(() => page.queryByText('I morgen'));
 
+    expect(newScreen).toBeTruthy();
     expect(newSubHeader1).toBeTruthy();
     expect(newSubHeader2).toBeTruthy();
     expect(newSubHeader3).toBeTruthy();
