@@ -5,15 +5,10 @@ const settingArray = [
     viewArray: [
       {
         id: 1,
-        name: 'Spillelement',
-        desc: 'Aktiver konkurranse og nivåer',
-        useOfToggle: true,
-      },
-      {
-        id: 2,
-        name: 'Sensitivitet',
-        desc: 'Aktiver dersom du tilhører risikogrupper',
-        useOfToggle: true,
+        name: 'Om oss',
+        desc: 'Her kan du lese om oss og våre samarbeidspartnere',
+        useOfToggle: false,
+        navigateTo: 'SettingsAbout',
       },
     ],
   },
@@ -23,15 +18,9 @@ const settingArray = [
     viewArray: [
       {
         id: 1,
-        name: 'Område',
-        desc: 'Velg områder du ønsker å motta varslinger for',
-        useOfToggle: false,
-        navigateTo: 'SettingsFavoriteArea',
-      },
-      {
-        id: 2,
-        name: 'Smarte notifikasjoner',
-        desc: 'Aktiver notifikasjoner som er tilpasset dine behov',
+        name: 'Sensitivitet',
+        desc:
+          'Aktiver dersom du tilhører risikogrupper og ønsker å motta notifikasjoner om luftkvaliteten',
         useOfToggle: true,
       },
     ],

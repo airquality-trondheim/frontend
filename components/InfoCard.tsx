@@ -2,7 +2,6 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Grid, Row, Col, Container } from 'native-base';
 import React from 'react';
 import {
-  DANGER5,
   DANGER4,
   DANGER3,
   DANGER2,
@@ -42,7 +41,6 @@ function InfoCard() {
           <Row size={1}>
             <Container style={{ position: 'relative' }}>
               <Grid>
-                <Col size={1} style={{ backgroundColor: DANGER5 }}></Col>
                 <Col size={1} style={{ backgroundColor: DANGER4 }}></Col>
                 <Col size={1} style={{ backgroundColor: DANGER3 }}></Col>
                 <Col size={1} style={{ backgroundColor: DANGER2 }}></Col>

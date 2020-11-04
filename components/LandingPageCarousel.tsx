@@ -1,9 +1,10 @@
 import React from 'react';
+import AQCard from './airquality/AirQualityCard';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CarouselItem } from './CarouselItem';
-import { carouselHeight, width } from '../constants/Layout';
-import WeatherCarousel from './weather/WeatherMain';
+import { height, width } from '../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
+import WeatherCarousel from './weather/WeatherMain';
 
 export default function LandingPageCarousel() {
   const navigation = useNavigation();
@@ -14,8 +15,10 @@ export default function LandingPageCarousel() {
           <WeatherCarousel />
         </CarouselItem>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <CarouselItem headerText="Luft"></CarouselItem>
+      <TouchableOpacity onPress={() => navigation.navigate('AirQualityScreen')}>
+        <CarouselItem headerText="Luft">
+          <AQCard />
+        </CarouselItem>
       </TouchableOpacity>
     </View>
   );
@@ -23,11 +26,11 @@ export default function LandingPageCarousel() {
 
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: carouselHeight,
+    height: height * 0.3,
     width: width,
     justifyContent: 'space-evenly',
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 30,
+    marginTop: 0,
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -6,7 +6,15 @@ import { RootState } from '../../reducers';
 import { MapActionTypes } from '../../actions/types';
 import { Dispatch } from 'redux';
 import { getAirQualityData } from '../../actions/mapActions';
-import { aqStationData } from '../../types/_types';
+import { currentAqData } from '../../types/_types';
+import { aqiToColor } from '../../constants/Colors';
+
+enum pollution {
+  'Lite' = 1,
+  'Moderat',
+  'Høyt',
+  'Svært høyt',
+}
 
 type mapProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -14,49 +22,41 @@ type mapProps = ReturnType<typeof mapStateToProps> &
 function Map(props: mapProps) {
   const { aqData, fetchAirQualityData } = props;
   const [mapRegion, setMapRegion] = useState(props.region);
-  const [aqStations, setAqStations] = useState(props.aqData);
+  const unmounted = useRef(false);
 
-  // Android har begrenset med farger tilgjengelig for pinColor, må bruke standard
-  // TODO: Flytte til riktig fil hvis dette er løsningen som skal brukes
-  const colorDict: { [id: string]: string } = {
-    '6ee86e': 'green',
-    ff9900: 'yellow',
-    ff0000: 'red',
-    '990099': 'purple',
-  };
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   useEffect(() => {
     fetchAirQualityData();
   }, [fetchAirQualityData]);
-
-  useEffect(() => {
-    setAqStations(aqData);
-  }, [aqData]);
 
   return (
     <MapView
       style={styles.map}
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
-      // showsUserLocation={true}
-      // showsMyLocationButton={true}
+      showsUserLocation={true}
+      provider={'google'}
+      showsMyLocationButton={false}
     >
-      {aqStations.map((aqStation: aqStationData, i) => {
+      {aqData.map((station: currentAqData, i) => {
         return (
           <Marker
             coordinate={{
-              latitude: aqStation.latitude,
-              longitude: aqStation.longitude,
+              latitude: station.latitude,
+              longitude: station.longitude,
             }}
-            pinColor={colorDict[aqStation.color]}
+            pinColor={aqiToColor[Math.floor(station.AQI_value)]}
             key={i}
-            title={'Stasjon: ' + aqStation.station}
+            title={'Stasjon: ' + station.name}
             description={
-              aqStation.component +
+              'Luftforurensning' +
               ': ' +
-              aqStation.value +
-              ' ' +
-              aqStation.unit
+              pollution[Math.floor(station.AQI_value)]
             }
           ></Marker>
         );
@@ -85,7 +85,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Map);
 const styles = StyleSheet.create({
   map: {
     flex: 1,
-    //paddingTop: 1,
-    //marginTop: 45,
   },
 });

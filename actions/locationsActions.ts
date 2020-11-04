@@ -45,9 +45,7 @@ export async function getLocations(dispatch: Dispatch<RootAction>) {
 
 export async function getCurrentLocation(dispatch: Dispatch<RootAction>) {
   getData('currentStation').then((obj) => {
-    if (obj === null) {
-      // TODO: Collect data from DB if user is logged in
-    } else {
+    if (obj !== null) {
       dispatch({
         type: GET_CURRENT_LOCATION,
         currentLocation: obj,
@@ -67,24 +65,25 @@ export async function postCurrentLocation(
   });
 }
 
-// Code for getData and storeData is from https://react-native-async-storage.github.io/async-storage/docs/usage
 const getData = async (storageKey: string): Promise<Location | null> => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     const jsonValue = await AsyncStorage.getItem(storageKey);
     const obj: Location | null =
       jsonValue != null ? JSON.parse(jsonValue) : null;
     return obj;
   } catch (e) {
-    // error reading value
+    console.log('Error retrieving data for location');
     return null;
   }
 };
 
 const storeData = async (value: Location, storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
-    // saving error
+    console.log('Error saving data about location');
   }
 };

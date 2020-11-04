@@ -1,7 +1,7 @@
 import { Grid, Row, Col } from 'native-base';
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
-import { GRAY, WHITE } from '../../constants/Colors';
+import { BLACK, GRAY, WHITE } from '../../constants/Colors';
 import { width, singleSideMargin, height } from '../../constants/Layout';
 import AQHalfCircle from './AQHalfCircle';
 import CloseButton from '../CloseButton';
@@ -47,10 +47,10 @@ function AQInfoModal(props: {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Grid>
-            <Row size={2}>
+            <Row size={1.4}>
               <Text style={styles.headerText}>Informasjon</Text>
             </Row>
-            <Row size={2.25}>
+            <Row size={2.2}>
               <Text style={{ ...styles.text }}>
                 Frisk viser målingen av luftkvaliteten gjort av sensorer som er
                 plassert rundt om i byen. Disse sensorene måler:
@@ -59,33 +59,31 @@ function AQInfoModal(props: {
 
             {createAQComponentInfo(
               'AQI',
-              'indeks som viser luftkvalitet basert på...',
+              'indeks fra 1 til 5 som viser luftkvalitet. Høyere AQI viser dårligere luftkvalitet.',
             )}
             {createAQComponentInfo(
               'PM',
-              'indeks som viser luftkvalitet basert på...',
+              'viser finfraksjon av svevestøv i luften som luftkvalitetsindeks.',
               '2.5',
             )}
             {createAQComponentInfo(
               'PM',
-              'indeks som viser luftkvalitet basert på...',
+              'viser grovfraksjon av svevestøv i luften som luftkvalitetsindeks.',
               '10',
             )}
             {createAQComponentInfo(
               'NO',
-              'indeks som viser luftkvalitet basert på...',
+              'viser andel nitrogendioksid i luften som luftkvalitetsindeks.',
               '2',
             )}
-            <Row size={8}>
+            <Row size={9}>
               <Col size={1}>
                 <View style={[styles.rightBorder, styles.bottomBorder]}>
                   <AQHalfCircle
                     fill={12.5}
                     size={modalWidth / 2.5}
                     insideText={'Utmerket'}
-                    belowText={
-                      'AQI er lav (0-20) noe som tilsvarer god luftkvalitet.'
-                    }
+                    belowText={'Det er lite luftforurensning'}
                   />
                 </View>
                 <View style={styles.rightBorder}>
@@ -94,7 +92,7 @@ function AQInfoModal(props: {
                     size={modalWidth / 2.5}
                     insideText={'Dårlig'}
                     belowText={
-                      'AQI er middels høy (40-60) noe som tilsvarer dårlig luftkvalitet.'
+                      'Barn, gravide, syke og eldre bør vurdere begrenset utendørs fysisk aktivitet. '
                     }
                   />
                 </View>
@@ -104,19 +102,17 @@ function AQInfoModal(props: {
                   <AQHalfCircle
                     fill={37.5}
                     size={modalWidth / 2.5}
-                    insideText={'Bra'}
-                    belowText={
-                      'AQI er middels lav (20-40) noe som tilsvarer grei luftkvalitet.'
-                    }
+                    insideText={'Middels'}
+                    belowText={'Utendørs aktivitet anbefales for de fleste'}
                   />
                 </View>
                 <View style={{ flex: 1 }}>
                   <AQHalfCircle
                     fill={87.5}
                     size={modalWidth / 2.5}
-                    insideText={'Uhyggelig'}
+                    insideText={'Svært dårlig'}
                     belowText={
-                      'AQI er høy (60-80) noe som tilsvarer svært dårlig luftkvalitet.'
+                      'Vurder å ikke oppholde deg utendørs i lengre perioder. '
                     }
                   />
                 </View>
@@ -150,6 +146,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     padding: 5,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   headerText: {
     flex: 1,

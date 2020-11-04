@@ -54,46 +54,52 @@ const SettingElement = ({
   }, [elementName, isEnabled]);
 
   return (
-    <Row style={styles.elementRow}>
-      <Col size={9}>
-        <Text style={styles.elementName}>{elementName}</Text>
-        <Text style={styles.elementDesc}>{elementDesc}</Text>
-      </Col>
-      <Col size={3} style={styles.leftColPlacement}>
-        {elementTrigger ? (
-          <Switch
-            trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
-            thumbColor="#f4f3f4"
-            ios_backgroundColor={LIGHTGRAY}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        ) : (
-          <View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(elementNavigator)}
-            >
+    <TouchableOpacity
+      onPress={() => {
+        if (elementTrigger) {
+          toggleSwitch();
+        } else {
+          navigation.navigate(elementNavigator);
+        }
+      }}
+    >
+      <Row style={styles.elementRow}>
+        <Col size={9}>
+          <Text style={styles.elementName}>{elementName}</Text>
+          <Text style={styles.elementDesc}>{elementDesc}</Text>
+        </Col>
+        <Col size={3} style={styles.leftColPlacement}>
+          {elementTrigger ? (
+            <Switch
+              trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
+              thumbColor="#f4f3f4"
+              ios_backgroundColor={LIGHTGRAY}
+              value={isEnabled}
+            />
+          ) : (
+            <View>
               <MaterialIcons
                 name="keyboard-arrow-right"
                 size={40}
                 color={LIGHTBLUE}
               />
-            </TouchableOpacity>
-          </View>
-        )}
-      </Col>
-    </Row>
+            </View>
+          )}
+        </Col>
+      </Row>
+    </TouchableOpacity>
   );
 };
 
 export default SettingElement;
 
 const storeData = async (value: boolean, storageKey: string) => {
+  //Copyright (c) 2015-present, Facebook, Inc.
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(storageKey, jsonValue);
   } catch (e) {
-    // saving error
+    console.log('Error storing data in settings');
   }
 };
 
@@ -105,7 +111,7 @@ const getStoreData = async (storageKey: string) => {
     }
     return '';
   } catch (e) {
-    // fetching error
+    console.log('Error getting data from settings');
   }
 };
 
