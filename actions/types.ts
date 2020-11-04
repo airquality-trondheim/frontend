@@ -1,6 +1,5 @@
 import {
   AchievementCardElement,
-  aqStationData,
   LeaderboardElement,
   UserRanking,
   WeatherElement,
@@ -8,6 +7,7 @@ import {
   Location,
   Station,
   AirqualityTimeElement,
+  currentAqData,
 } from '../types/_types';
 
 export type RootAction =
@@ -46,13 +46,19 @@ export type AchievementCardActionTypes = GetAchievementCardAction;
 // Profile
 
 export const GET_USERPROFILE = 'GET_USERPROFILE';
+export const PUT_HOMEAREA = 'PUT_HOMEAREA';
 
 type GetUserProfileAction = {
   type: typeof GET_USERPROFILE;
   userProfile: UserProfile;
 };
 
-export type UserProfileActionTypes = GetUserProfileAction;
+type PutHomeAreaAction = {
+  type: typeof PUT_HOMEAREA;
+  homeArea: string;
+};
+
+export type UserProfileActionTypes = GetUserProfileAction | PutHomeAreaAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';
@@ -103,7 +109,7 @@ export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
 
 type GetAirQualityDataAction = {
   type: typeof GET_AIR_QUALITY_DATA;
-  data: aqStationData[];
+  data: currentAqData[];
 };
 
 export type MapActionTypes = GetAirQualityDataAction;

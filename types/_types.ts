@@ -47,22 +47,37 @@ export type AchievementData = {
 export type AchievementStamp = {
   timestampEarned: Date;
   achievementId: string;
-}
+};
 
 //Profile
-
 export type UserProfile = {
-  id: string;
+  _id: string;
   username: string;
   points: number;
   level: number;
+  achievements: AchievementStamp[];
   avatar: string;
-  mail: string;
-  telefon: string;
   birthdate: string;
-  location: string;
+  homeArea: string;
   postalcode: string;
   street: string;
+};
+
+//ProfileResponse
+export type ProfileResponse = {
+  user: {
+    _id: string;
+    username: string;
+    required: true;
+    points: number;
+    homeArea: string;
+    level: number;
+    achievements: AchievementStamp[];
+    settings: { pushNotification: boolean };
+    __v: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 };
 
 // User
@@ -91,9 +106,19 @@ export type Level = {
 export type ProfileParamList = {
   ProfilePage: undefined;
   SettingPage: undefined;
-  SettingsFavoriteArea: undefined;
+  SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
+};
+
+// Level
+export type LevelResponse = {
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
 };
 
 // Location
@@ -157,39 +182,6 @@ export type LeaderboardState = {
   localUserRanking: UserRanking;
 };
 
-// Map
-export type aqStationData = {
-  _id: string;
-  id: number;
-  zone: string;
-  municipality: string;
-  area: string;
-  station: string;
-  eoi: string;
-  component: string;
-  fromTime: Date;
-  toTime: Date;
-  value: number;
-  unit: string;
-  latitude: number;
-  longitude: number;
-  timestep: number;
-  index: number;
-  color: string;
-  isValid: boolean;
-  __v: number;
-};
-
-export type MapData = {
-  region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  aqData: aqStationData[];
-};
-
 // Points
 export type PointsState = {
   points: number;
@@ -215,7 +207,7 @@ export type WeatherData = {
 // Airquality
 type VariableElement = {
   value: number;
-  units: string;
+  unit: string;
 };
 
 export type AirqualityTimeElement = {
@@ -246,4 +238,22 @@ export type AirqualityForecast = {
 export type AirqualityData = {
   areacode: string;
   airqualityData: AirqualityTimeElement[];
+};
+
+// Map
+export type currentAqData = {
+  name: string;
+  latitude: number;
+  longitude: number;
+  data: AirqualityTimeElement;
+};
+
+export type MapData = {
+  region: {
+    latitude: number;
+    longitude: number;
+    latitudeDelta: number;
+    longitudeDelta: number;
+  };
+  aqData: currentAqData[];
 };
