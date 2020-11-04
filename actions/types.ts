@@ -6,7 +6,7 @@ import {
   UserProfile,
   Location,
   Station,
-  AirqualityTimeElement,
+  AQIData,
   currentAqData,
 } from '../types/_types';
 
@@ -27,7 +27,11 @@ export const GET_AIRQUALITY_FOR_LOCATION = 'GET_AIRQUALITY_FOR_LOCATION';
 type GetAirqualityForStationAction = {
   type: typeof GET_AIRQUALITY_FOR_LOCATION;
   areacode: string;
-  airqualityData: AirqualityTimeElement[];
+  AQI: AQIData;
+  NO2_AQI: AQIData;
+  PM10_AQI: AQIData;
+  PM25_AQI: AQIData;
+  index: number;
 };
 
 export type AirqualityActionTypes = GetAirqualityForStationAction;
@@ -46,13 +50,19 @@ export type AchievementCardActionTypes = GetAchievementCardAction;
 // Profile
 
 export const GET_USERPROFILE = 'GET_USERPROFILE';
+export const PUT_HOMEAREA = 'PUT_HOMEAREA';
 
 type GetUserProfileAction = {
   type: typeof GET_USERPROFILE;
   userProfile: UserProfile;
 };
 
-export type UserProfileActionTypes = GetUserProfileAction;
+type PutHomeAreaAction = {
+  type: typeof PUT_HOMEAREA;
+  homeArea: string;
+};
+
+export type UserProfileActionTypes = GetUserProfileAction | PutHomeAreaAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';

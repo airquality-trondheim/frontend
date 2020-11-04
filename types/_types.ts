@@ -24,6 +24,7 @@ export type BottomTabParamList = {
 export type HomeParamList = {
   LandingPage: undefined;
   WeatherScreen: undefined;
+  AirQualityScreen: undefined;
 };
 
 export type MapParamList = {
@@ -53,20 +54,41 @@ export type AchievementCardData = {
   data: AchievementCardElement[];
 };
 
-//Profile
+//Achievementstamp
+export type AchievementStamp = {
+  timestampEarned: Date;
+  achievementId: string;
+};
 
+//Profile
 export type UserProfile = {
-  id: string;
+  _id: string;
   username: string;
   points: number;
   level: number;
+  achievements: AchievementStamp[];
   avatar: string;
-  mail: string;
-  telefon: string;
   birthdate: string;
-  location: string;
+  homeArea: string;
   postalcode: string;
   street: string;
+};
+
+//ProfileResponse
+export type ProfileResponse = {
+  user: {
+    _id: string;
+    username: string;
+    required: true;
+    points: number;
+    homeArea: string;
+    level: number;
+    achievements: AchievementStamp[];
+    settings: { pushNotification: boolean };
+    __v: number;
+    createdAt: Date;
+    updatedAt: Date;
+  };
 };
 
 // User
@@ -86,6 +108,16 @@ export type ProfileParamList = {
   SettingsAbout: undefined;
   SettingsHelp: undefined;
   SettingsPrivacy: undefined;
+};
+
+// Level
+export type LevelResponse = {
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
 };
 
 // Location
@@ -200,7 +232,16 @@ export type AirqualityForecast = {
 
 export type AirqualityData = {
   areacode: string;
-  airqualityData: AirqualityTimeElement[];
+  AQI: AQIData;
+  NO2_AQI: AQIData;
+  PM10_AQI: AQIData;
+  PM25_AQI: AQIData;
+  index: number;
+};
+
+export type AQIData = {
+  todayData: Array<{ clock: string; value: number }>;
+  tomorrowData: Array<{ clock: string; value: number }>;
 };
 
 // Map
@@ -208,7 +249,7 @@ export type currentAqData = {
   name: string;
   latitude: number;
   longitude: number;
-  data: AirqualityTimeElement;
+  AQI_value: number;
 };
 
 export type MapData = {

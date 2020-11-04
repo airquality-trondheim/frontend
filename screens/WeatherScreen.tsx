@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, Platform } from 'react-native';
 import WeatherCarouselItem from '../components/weather/WeatherCarouselItem';
 import WeatherComponentBig from '../components/weather/WeatherPageItemBig';
 import { CAROUSELITEM } from '../constants/Colors';
@@ -21,15 +21,32 @@ function WeatherScreen(props: WeatherProps) {
 
   return (
     <View accessibilityLabel={'WeatherScreen'} style={styles.screenStyle}>
-      <View style={styles.mainComponent}>
+      <View
+        style={
+          (styles.mainComponent,
+          {
+            ...(Platform.OS !== 'android' && {
+              zIndex: 99,
+            }),
+          })
+        }
+      >
         <View style={styles.dropdownView}>
-          <LocationDropdown />
+          <View
+            style={{
+              ...(Platform.OS !== 'android' && {
+                zIndex: 99,
+              }),
+            }}
+          >
+            <LocationDropdown />
+          </View>
         </View>
         <WeatherComponentBig />
       </View>
-      <View>
+      <View style={{ zIndex: 10 }}>
         {today.length > 0 ? (
-          <View>
+          <>
             <Text style={styles.text}>I dag</Text>
             <ScrollView horizontal style={styles.scroll}>
               {today.map((weather: WeatherElement, index: number) => (
@@ -46,7 +63,7 @@ function WeatherScreen(props: WeatherProps) {
                 </View>
               ))}
             </ScrollView>
-          </View>
+          </>
         ) : (
           <></>
         )}
@@ -76,8 +93,6 @@ const styles = StyleSheet.create({
   screenStyle: {
     flex: 1,
     justifyContent: 'space-evenly',
-    padding: 8,
-    marginBottom: 8,
   },
   mainComponent: {
     width: width,
@@ -109,9 +124,6 @@ const styles = StyleSheet.create({
   },
   dropdownView: {
     width: width,
-    height: height * 0.1,
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    zIndex: 999,
   },
 });

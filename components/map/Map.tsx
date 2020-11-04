@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -22,38 +22,41 @@ type mapProps = ReturnType<typeof mapStateToProps> &
 function Map(props: mapProps) {
   const { aqData, fetchAirQualityData } = props;
   const [mapRegion, setMapRegion] = useState(props.region);
-  const [aqStations, setAqStations] = useState(props.aqData);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
 
   useEffect(() => {
     fetchAirQualityData();
   }, [fetchAirQualityData]);
-
-  useEffect(() => {
-    setAqStations(aqData);
-  }, [aqData]);
 
   return (
     <MapView
       style={styles.map}
       region={mapRegion}
       onRegionChangeComplete={(region) => setMapRegion(region)}
-      // showsUserLocation={true}
+      showsUserLocation={true}
+      provider={'google'}
       showsMyLocationButton={false}
     >
-      {aqStations.map((station: currentAqData, i) => {
+      {aqData.map((station: currentAqData, i) => {
         return (
           <Marker
             coordinate={{
               latitude: station.latitude,
               longitude: station.longitude,
             }}
-            pinColor={aqiToColor[Math.floor(station.data.variables.AQI.value)]}
+            pinColor={aqiToColor[Math.floor(station.AQI_value)]}
             key={i}
             title={'Stasjon: ' + station.name}
             description={
               'Luftforurensning' +
               ': ' +
-              pollution[Math.floor(station.data.variables.AQI.value)]
+              pollution[Math.floor(station.AQI_value)]
             }
           ></Marker>
         );
