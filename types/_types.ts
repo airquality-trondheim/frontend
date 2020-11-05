@@ -43,6 +43,23 @@ export type AchievementData = {
   data: AchievementCardElement[];
 };
 
+export type AchievementReturnType = {
+  achievements: AchievementReturnElement[],
+}
+
+export type AchievementReturnElement = {
+  
+  _id: string,
+  name: string,
+  category: string,
+  iconUrl: string,
+  description: string,
+  qty: number,
+  __v: number,
+  createdAt: Date,
+  updatedAt: Date,
+}
+
 //Achievementstamp
 export type AchievementStamp = {
   timestampEarned: Date;

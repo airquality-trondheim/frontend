@@ -1,6 +1,8 @@
 import {
   AchievementCardElement,
+  AchievementReturnType,
   AchievementStamp,
+  ProfileResponse,
   UserElement,
 } from '../types/_types';
 import { achievements } from '../constants/Achievements';
@@ -17,15 +19,36 @@ export async function fetchAchievements(): Promise<
   | undefined
 > {
   try {
-    const response: Response = await fetch(endpoint + 'nops'); //temp wrong to fail try
-    const achievementList: AchievementCardElement[] = await response.json();
-    const profileResponse: Response = await fetch(
-      endpoint + '/user/' + Auth.Credentials.Auth.user.sub,
-    );
-    const profile: UserElement = await profileResponse.json();
+    const response: Response = await fetch(endpoint + 'achievements');
+    const achievementList: AchievementReturnType = await response.json();
+    const returnList: AchievementCardElement[] = achievementList.achievements.map((element)=> {
+      return {
+        achievementId: element._id,
+        achievementName: element.name,
+        achievementDescription: element.description,
+        achievementGroup: element.category,
+      }
+    })
 
-    return { achievements: achievementList, achieved: profile.achievements };
+    const userResponse: Response = await fetch(endpoint + 'users/' + 
+    Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub, 
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
+
+    const profile: ProfileResponse = await userResponse.json();
+
+    return { 
+      achievements: returnList,
+      achieved: profile.user.achievements,
+    };
   } catch (error) {
+    console.log("failed to fetch achievements");
     return { achievements, achieved };
   }
 }

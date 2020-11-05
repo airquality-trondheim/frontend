@@ -19,7 +19,7 @@ const AchievementFormat = (
   const [colour, achievedText] =
     date === undefined
       ? [GRAY, 'Ikke oppnåd ennå']
-      : [BLACK, String(date).substring(0, 25)];
+      : [BLACK, String(date).substring(0, 10)];
 
   useEffect(() => {
     return () => {
