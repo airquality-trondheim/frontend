@@ -1,5 +1,9 @@
 import { Dispatch } from 'redux';
-import { fetchLeaderboardData, fetchLocalUserRanking, fetchUserRanking } from '../queries/leaderboard';
+import {
+  fetchLeaderboardData,
+  fetchLocalUserRanking,
+  fetchUserRanking,
+} from '../queries/leaderboard';
 import store from '../store';
 import {
   GET_LEADERBOARD,

@@ -14,7 +14,7 @@ export async function fetchLeaderboardData(
   try {
     const dir =
       area === undefined ? 'top?limit=10' : 'top?limit=10&areaName=' + area;
-    
+
     const response: Response = await fetch(endpoint + dir, {
       method: 'GET',
       headers: {
@@ -35,7 +35,7 @@ export async function fetchLeaderboardData(
     }
     return data;
   } catch (error) {
-    console.log("failed to get leaderboard data");
+    console.log('failed to get leaderboard data');
     return [];
   }
 }
@@ -45,9 +45,7 @@ type UserRankingResponse = {
   user: UserElement;
 };
 
-export async function fetchUserRanking(
-  userID: string,
-): Promise<UserRanking> {
+export async function fetchUserRanking(userID: string): Promise<UserRanking> {
   try {
     const dir = userID;
 
@@ -72,7 +70,7 @@ export async function fetchUserRanking(
     };
     return userRanking;
   } catch (error) {
-    console.log("error fetching userrank");
+    console.log('error fetching userrank');
     return {
       rank: '?',
       user: { id: '?', username: '?', points: 0 },
@@ -108,7 +106,7 @@ export async function fetchLocalUserRanking(
     };
     return userRanking;
   } catch (error) {
-    console.log("error Local fetching userrank");
+    console.log('error Local fetching userrank');
     return {
       rank: '?',
       user: { id: '?', username: '?', points: 0 },

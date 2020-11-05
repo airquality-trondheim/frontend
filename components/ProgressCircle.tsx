@@ -35,7 +35,10 @@ function ProgressCircle(props: ProgressCircleProps) {
       >
         {() => (
           <>
-            <Image source={{ uri: userProfile.avatar }} style={styles.avatarIcon} />
+            <Image
+              source={{ uri: userProfile.avatar }}
+              style={styles.avatarIcon}
+            />
             <Text style={styles.level}>Level {userProfile.level}</Text>
             <Text style={styles.avatarName}>{userProfile.username}</Text>
             <Text style={styles.progress}>

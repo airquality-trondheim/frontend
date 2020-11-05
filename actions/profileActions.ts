@@ -2,8 +2,6 @@ import { Dispatch } from 'redux';
 import { PUT_HOMEAREA, RootAction } from './types';
 import { fetchUserProfile, pushUserArea } from '../queries/profile';
 import { GET_USERPROFILE } from './types';
-import { getLocalLeaderboardData, getLocalUserRanking } from './leaderboardActions';
-import { Auth } from 'aws-amplify';
 
 export async function getProfileData(
   userID: string,
@@ -25,5 +23,4 @@ export async function putHomeArea(
     type: PUT_HOMEAREA,
     homeArea: area,
   });
-  
 }

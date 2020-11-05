@@ -3,7 +3,6 @@ import {
   AchievementReturnType,
   AchievementStamp,
   ProfileResponse,
-  UserElement,
 } from '../types/_types';
 import { achievements } from '../constants/Achievements';
 import { achieved } from '../constants/UserAchievement';
@@ -21,34 +20,39 @@ export async function fetchAchievements(): Promise<
   try {
     const response: Response = await fetch(endpoint + 'achievements');
     const achievementList: AchievementReturnType = await response.json();
-    const returnList: AchievementCardElement[] = achievementList.achievements.map((element)=> {
-      return {
-        achievementId: element._id,
-        achievementName: element.name,
-        achievementDescription: element.description,
-        achievementGroup: element.category,
-      }
-    })
-
-    const userResponse: Response = await fetch(endpoint + 'users/' + 
-    Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub, 
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        accesstoken:
-          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+    const returnList: AchievementCardElement[] = achievementList.achievements.map(
+      (element) => {
+        return {
+          achievementId: element._id,
+          achievementName: element.name,
+          achievementDescription: element.description,
+          achievementGroup: element.category,
+        };
       },
-    });
+    );
+
+    const userResponse: Response = await fetch(
+      endpoint +
+        'users/' +
+        Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          accesstoken:
+            Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+        },
+      },
+    );
 
     const profile: ProfileResponse = await userResponse.json();
 
-    return { 
+    return {
       achievements: returnList,
       achieved: profile.user.achievements,
     };
   } catch (error) {
-    console.log("failed to fetch achievements");
+    console.log('failed to fetch achievements');
     return { achievements, achieved };
   }
 }

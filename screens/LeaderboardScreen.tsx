@@ -24,7 +24,6 @@ import { Auth } from 'aws-amplify';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getProfileData } from '../actions/profileActions';
 
-
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
@@ -60,18 +59,20 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     fetchLocalUserRanking,
     fetchProfileData,
     userInformation,
+    profile.homeArea,
   ]);
 
-  useEffect(() => {    
+  useEffect(() => {
     fetchProfileData(userInformation?.sub);
     fetchLocalLeaderboardData(profile?.homeArea);
     fetchLocalUserRanking(userInformation?.sub, profile?.homeArea);
-  }, [    
+  }, [
     fetchProfileData,
     fetchLocalLeaderboardData,
     fetchLocalUserRanking,
     userInformation,
     rankingBinary,
+    profile.homeArea,
   ]);
 
   const updateRankingBinary = (source: boolean) => {
@@ -164,7 +165,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
           <View style={styles.rankElementStyle}>
             {ranking.slice(3, 10)?.map((element, index) => {
               return (
-                <View key={index} style={{ flexDirection: 'row', }}>
+                <View key={index} style={{ flexDirection: 'row' }}>
                   <Text style={[styles.text, { width: width * 0.1 }]}>
                     {index + 4}.
                   </Text>
@@ -178,9 +179,9 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
       <View style={styles.userRankWrapper}>
         <View style={styles.userRankContainerStyle}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={styles.text}>Din plassering: {
-              (rankingBinary ? profile.homeArea : 'Trondheim')
-            }</Text>
+            <Text style={styles.text}>
+              Din plassering: {rankingBinary ? profile.homeArea : 'Trondheim'}
+            </Text>
           </View>
           <View style={styles.seperatorStyle} />
           <View style={[styles.centeredContent, { flex: 2 }]}>
