@@ -21,6 +21,7 @@ import SettingsPrivacy from '../screens/SettingsPrivacy';
 import { WHITE } from '../constants/Colors';
 import LeaderboardScreen from '../screens/LeaderboardScreen';
 import AchievementsScreen from '../screens/AchievementsScreen';
+import AirQualityScreen from '../screens/AirQualityScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -106,6 +107,11 @@ function HomeNavigator() {
         name="WeatherScreen"
         component={WeatherScreen}
         options={{ title: 'Vær' }}
+      />
+      <HomeStack.Screen
+        name="AirQualityScreen"
+        component={AirQualityScreen}
+        options={{ title: 'Luftkvalitet' }}
       />
     </HomeStack.Navigator>
   );

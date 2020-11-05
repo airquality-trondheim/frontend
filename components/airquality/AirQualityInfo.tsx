@@ -16,14 +16,22 @@ enum airQuality {
   'Utmerket' = 1,
   'Bra',
   'Dårlig',
-  'Uhyggelig',
+  'Svært dårlig',
 }
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
-  const { currentLocation, airqualityData, fetchAirQualityData } = props;
+  const {
+    currentLocation,
+    AQI,
+    NO2_AQI,
+    PM10_AQI,
+    PM25_AQI,
+    index,
+    fetchAirQualityData,
+  } = props;
   const [modalVisible, setModalVisible] = useState(false);
   const unmounted = useRef(false);
 
@@ -71,32 +79,23 @@ function ProgressCircle(props: ProgressCircleProps) {
           modalVisible={modalVisible}
           modalOnRequestClose={updateModalVisible}
         />
-        {airqualityData.airqualityData.length > 0 ? (
+        {AQI.todayData.length > 0 && index >= 0 ? (
           <>
             <AQHalfCircle
-              fill={
-                (airqualityData.airqualityData[0].variables.AQI.value - 1) * 25
-              }
+              fill={(AQI.todayData[index].value - 1) * 25}
               size={width * 0.9}
             />
             <View style={styles.info}>
               <Grid>
                 <Row size={3} style={styles.mainRow}>
                   <Text style={styles.overallAirquality}>
-                    {
-                      airQuality[
-                        Math.floor(
-                          airqualityData.airqualityData[0].variables.AQI.value,
-                        )
-                      ]
-                    }
+                    {airQuality[Math.floor(AQI.todayData[index].value)]}
                   </Text>
                 </Row>
                 <Row size={1}>
                   {createAirqualityComponent(
                     Math.round(
-                      airqualityData.airqualityData[0].variables
-                        .pm25_concentration.value + Number.EPSILON,
+                      PM25_AQI.todayData[index].value + Number.EPSILON,
                     ),
                     'PM',
                     '2.5',
@@ -104,18 +103,14 @@ function ProgressCircle(props: ProgressCircleProps) {
                   )}
                   {createAirqualityComponent(
                     Math.round(
-                      airqualityData.airqualityData[0].variables
-                        .pm10_concentration.value + Number.EPSILON,
+                      PM10_AQI.todayData[index].value + Number.EPSILON,
                     ),
                     'PM',
                     '10',
                     styles.rightBorder,
                   )}
                   {createAirqualityComponent(
-                    Math.round(
-                      airqualityData.airqualityData[0].variables
-                        .no2_concentration.value + Number.EPSILON,
-                    ),
+                    Math.round(NO2_AQI.todayData[index].value + Number.EPSILON),
                     'NO',
                     '2',
                     {},
@@ -149,8 +144,12 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    airqualityData: state.airquality,
+    AQI: state.airquality.AQI,
+    NO2_AQI: state.airquality.NO2_AQI,
+    PM10_AQI: state.airquality.PM10_AQI,
+    PM25_AQI: state.airquality.PM25_AQI,
     currentLocation: state.locations.currentLocation,
+    index: state.airquality.index,
   };
 };
 
@@ -162,7 +161,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   airQualityInfo: {
-    height: (width * 0.75) / 2 + 20,
+    height: (width * 0.9) / 2 + 20,
+    marginBottom: 20,
   },
   overallAirquality: {
     fontSize: 40,

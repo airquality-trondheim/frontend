@@ -86,14 +86,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 24,
-    marginLeft: -12,
-  },
-  muncipalityHeader: {
-    fontSize: 24,
-    alignSelf: 'center',
-    margin: 16,
+    marginLeft: -6,
   },
   iconHead: {
+    justifyContent: 'flex-start',
     marginTop: 8,
     display: 'flex',
   },
