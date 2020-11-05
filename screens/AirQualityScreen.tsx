@@ -45,7 +45,10 @@ function AirQualityScreen(props: AirQualityScreenProps) {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.carouselContainerStyle}>
+    <ScrollView
+      accessibilityLabel={'Air quality screen'}
+      contentContainerStyle={styles.carouselContainerStyle}
+    >
       <View
         style={
           (styles.dropdownView,

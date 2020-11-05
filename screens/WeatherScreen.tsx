@@ -20,7 +20,7 @@ function WeatherScreen(props: WeatherProps) {
   useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
 
   return (
-    <View accessibilityLabel={'WeatherScreen'} style={styles.screenStyle}>
+    <View accessibilityLabel={'Weather screen'} style={styles.screenStyle}>
       <View
         style={
           (styles.mainComponent,
