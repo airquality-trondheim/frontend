@@ -34,7 +34,7 @@ function ProgressCircle(props: ProgressCircleProps) {
         backgroundColor="#3d5875"
       >
         {() => (
-          <>
+          <View style={styles.progressInfo}>
             <Image
               source={{ uri: userProfile.avatar }}
               style={styles.avatarIcon}
@@ -44,7 +44,7 @@ function ProgressCircle(props: ProgressCircleProps) {
             <Text style={styles.progress}>
               {userProfile.points}/{500 * userProfile.level}
             </Text>
-          </>
+          </View>
         )}
       </AnimatedCircularProgress>
     </View>
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     height: width * 0.8 - 25,
   },
   avatarIcon: {
-    width: width * 0.35,
-    height: width * 0.35,
+    width: width * 0.3,
+    height: width * 0.3,
   },
   level: {
     fontSize: 28,
@@ -89,5 +89,11 @@ const styles = StyleSheet.create({
   },
   progress: {
     fontSize: 10,
+  },
+  progressInfo: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingBottom: 8,
   },
 });

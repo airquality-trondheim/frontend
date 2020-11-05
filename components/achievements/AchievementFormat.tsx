@@ -58,8 +58,10 @@ const AchievementFormat = (
                   size={240}
                   color={colour}
                 />
-                <Text>Oppnåd: {achievedText}</Text>
-                <Text>{data.achievementDescription}</Text>
+                <Text style={styles.centerText}>Oppnåd: {achievedText}</Text>
+                <Text style={styles.centerText}>
+                  {data.achievementDescription}
+                </Text>
               </View>
             </Row>
             <Row size={1} style={styles.centerContent}>
@@ -93,6 +95,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  centerText: {
+    textAlign: 'center',
+  },
   TextFormat: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -111,9 +116,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     shadowColor: BLACK,
-    shadowOffset: { width: 10, height: 10 },
-    elevation: 1,
-    shadowOpacity: 0.2,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   touchableStyle: {
     width: width * 0.2,

@@ -55,8 +55,6 @@ const AchievementCard = (props: AchievementCardProps) => {
                 : lastElement.achievementName}
             </Text>
           </View>
-        </View>
-        <View style={styles.outerStyle}>
           <View style={styles.seperatorStyle} />
           <View
             style={[styles.centerContent, styles.achievementContainerStyle]}
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
 
   achievementContainerStyle: {
     width: width * 0.3,
-    flex: 2,
+    flex: 1,
   },
 
   outerStyle: {
@@ -130,6 +128,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
     marginBottom: height * 0.01,
+    textAlign: 'center',
   },
 
   seperatorStyle: {
