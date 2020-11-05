@@ -15,7 +15,6 @@ import {
   DARKGRAY,
 } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
-import { pushUserArea } from '../queries/profile';
 import { RootState } from '../reducers';
 
 type DropdownListItem = {
@@ -28,7 +27,13 @@ type LocationDropdownProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProfileDropdown(props: LocationDropdownProps) {
-  const { fetchLocations, fetchUserProfile, locations, userProfile } = props;
+  const {
+    fetchLocations,
+    fetchUserProfile,
+    pushHomeArea,
+    locations,
+    userProfile,
+  } = props;
   const [locationList, setLocationList] = useState<DropdownListItem[]>([]);
   const unmounted = useRef(false);
 
@@ -71,7 +76,7 @@ function ProfileDropdown(props: LocationDropdownProps) {
   }, [locations]);
 
   const updateLocation = (area: DropdownListItem) => {
-    pushUserArea(area.label);
+    pushHomeArea(area.label);
   };
 
   return (

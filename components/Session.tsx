@@ -8,7 +8,7 @@ import * as Permissions from 'expo-permissions';
 import { postSessionData } from '../queries/session';
 import { waypoint, SessionResult } from '../types/_types';
 import { width, singleSideMargin, height } from '../constants/Layout';
-import { CLOSEBUTTON, WHITE, STOPBUTTON } from '../constants/Colors';
+import { CLOSEBUTTON, WHITE, STOPBUTTON, BLACK } from '../constants/Colors';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import Closebutton from './CloseButton';
 import { Auth } from 'aws-amplify';
@@ -293,6 +293,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     width: 80,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
     elevation: 2,
     alignSelf: 'center',
   },

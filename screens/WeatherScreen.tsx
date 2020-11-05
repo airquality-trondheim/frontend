@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, ScrollView, Platform } from 'react-native';
 import WeatherCarouselItem from '../components/weather/WeatherCarouselItem';
 import WeatherComponentBig from '../components/weather/WeatherPageItemBig';
-import { CAROUSELITEM } from '../constants/Colors';
+import { BLACK, CAROUSELITEM } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -111,6 +111,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
     paddingTop: 8,
     padding: 8,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
     elevation: 5,
   },
   text: {

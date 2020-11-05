@@ -5,12 +5,13 @@ import { TouchableOpacity } from 'react-native';
 import { Dispatch } from 'redux';
 import { getAchievementCardData } from '../../actions/achievementCardActions';
 import { RootAction } from '../../actions/types';
-import { width } from '../../constants/Layout';
+import { height, width } from '../../constants/Layout';
 import { RootState } from '../../reducers';
 import { CarouselItem } from '../CarouselItem';
 import { connect } from 'react-redux';
-import { BACKGROUNDCOLOR2 } from '../../constants/Colors';
+import { BACKGROUNDCOLOR2, BLACK, GRAY } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 type AchievementCardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDistpatchToProps>;
@@ -24,52 +25,62 @@ const AchievementCard = (props: AchievementCardProps) => {
   }, [getAchievementData]);
 
   const lastElement = AchievementCardData[0];
-  const secondElement = AchievementCardData[1];
+  const potentialElement =
+    AchievementCardData.find((element) => {
+      return !element?.date;
+    }) || AchievementCardData[0];
 
   return (
     <TouchableOpacity onPress={() => navigation.navigate('AchievementsScreen')}>
       <CarouselItem headerText="Bragder">
-        <View>
-          <View style={{ justifyContent: 'center', flex: 1 }}>
-            <View style={styles.seperatorStyle} />
-            <View style={[styles.centerContent, { flex: 2 }]}>
-              <Text style={[styles.textStyle, { fontSize: 15 }]}>
-                Sist oppnådd
-              </Text>
-              {/*checks if redux functioality has defined element yet,
+        <View style={styles.outerStyle}>
+          <View style={styles.seperatorStyle} />
+          <View
+            style={[styles.centerContent, styles.achievementContainerStyle]}
+          >
+            <Text style={styles.textStyle}>Sist oppnådd</Text>
+            {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the most recent achievement*/}
-              <Text style={{ fontSize: 50 }}>
-                {lastElement === undefined
-                  ? ''
-                  : String.fromCodePoint(lastElement.achievementSymbol)}
-              </Text>
-              {/*does the same for the achievement name*/}
-              <Text style={[styles.textStyle, { fontSize: 15 }]}>
-                {lastElement === undefined ? '' : lastElement.achievementName}
-              </Text>
-            </View>
+            <MaterialCommunityIcons
+              name="trophy"
+              size={50}
+              color={lastElement?.date === undefined ? GRAY : BLACK}
+            />
+            {/*does the same for the achievement name*/}
+            <Text style={[styles.textStyle, { marginVertical: height * 0.01 }]}>
+              {lastElement === undefined
+                ? ''
+                : lastElement?.date === undefined
+                ? 'Ingen bragder oppnåd'
+                : lastElement.achievementName}
+            </Text>
           </View>
-          <View style={{ justifyContent: 'center', flex: 1 }}>
-            <View style={styles.seperatorStyle} />
-            <View style={[styles.centerContent, { flex: 2 }]}>
-              <Text style={[styles.textStyle, { fontSize: 15 }]}>
-                {' '}
-                Nest sist oppnådd
-              </Text>
-              {/*checks if redux functioality has defined element yet,
+          <View style={styles.seperatorStyle} />
+          <View
+            style={[styles.centerContent, styles.achievementContainerStyle]}
+          >
+            <Text style={styles.textStyle}>Mulig neste</Text>
+            {/*checks if redux functioality has defined element yet,
                 and if so displays the Symbol of the second most recent achievement*/}
-              <Text style={{ fontSize: 50 }}>
-                {secondElement === undefined
-                  ? ''
-                  : String.fromCodePoint(secondElement.achievementSymbol)}
-              </Text>
-              {/*does the same for the achievement name*/}
-              <Text style={[styles.textStyle, { fontSize: 15 }]}>
-                {secondElement === undefined
-                  ? ''
-                  : secondElement.achievementName}
-              </Text>
-            </View>
+            <MaterialCommunityIcons
+              name="trophy"
+              size={50}
+              color={
+                potentialElement === undefined
+                  ? GRAY
+                  : potentialElement?.date !== undefined
+                  ? '#f33'
+                  : GRAY
+              }
+            />
+            {/*does the same for the achievement name*/}
+            <Text style={[styles.textStyle, { marginVertical: height * 0.01 }]}>
+              {potentialElement === undefined
+                ? ''
+                : potentialElement?.date !== undefined
+                ? 'Du har oppnåd alt!'
+                : potentialElement.achievementName}
+            </Text>
           </View>
         </View>
       </CarouselItem>
@@ -101,14 +112,29 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     flex: 1,
   },
+
+  achievementContainerStyle: {
+    width: width * 0.3,
+    flex: 1,
+  },
+
+  outerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+
   textStyle: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 15,
+    marginBottom: height * 0.01,
+    textAlign: 'center',
   },
+
   seperatorStyle: {
     backgroundColor: BACKGROUNDCOLOR2,
     borderRadius: 20,
-    width: width * 0.4,
+    width: width * 0.38,
     height: width * 0.01,
     marginHorizontal: 40,
   },

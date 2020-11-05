@@ -3,9 +3,10 @@ export type AppState = {
   leaderboard: LeaderboardState;
   weather: WeatherData;
   map: MapData;
-  points: PointsState;
   airquality: AirqualityData;
-  achievementcard: AchievementCardData;
+  achievementcard: AchievementData;
+  locations: LocationState;
+  userprofile: UserProfile;
 };
 
 // Navigation
@@ -31,6 +32,14 @@ export type MapParamList = {
   MapPage: undefined;
 };
 
+export type ProfileParamList = {
+  ProfilePage: undefined;
+  SettingPage: undefined;
+  SettingsAbout: undefined;
+  SettingsHelp: undefined;
+  SettingsPrivacy: undefined;
+};
+
 export type CompetitionParamList = {
   CompetitionPage: undefined;
   LeaderboardScreen: undefined;
@@ -43,18 +52,33 @@ export type AchievementCardGroup = {
 };
 
 export type AchievementCardElement = {
-  achievementSymbol: number;
+  achievementId: string;
   achievementName: string;
   achievementDescription: string;
   achievementGroup: string;
-  Date: Date;
+  date?: Date;
 };
 
-export type AchievementCardData = {
+export type AchievementData = {
   data: AchievementCardElement[];
 };
 
-//Achievementstamp
+export type AchievementReturnType = {
+  achievements: AchievementReturnElement[];
+};
+
+export type AchievementReturnElement = {
+  _id: string;
+  name: string;
+  category: string;
+  iconUrl: string;
+  description: string;
+  qty: number;
+  __v: number;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 export type AchievementStamp = {
   timestampEarned: Date;
   achievementId: string;
@@ -68,13 +92,9 @@ export type UserProfile = {
   level: number;
   achievements: AchievementStamp[];
   avatar: string;
-  birthdate: string;
   homeArea: string;
-  postalcode: string;
-  street: string;
 };
 
-//ProfileResponse
 export type ProfileResponse = {
   user: {
     _id: string;
@@ -96,21 +116,22 @@ export type UserElement = {
   _id: string;
   username: string;
   points: number;
+  level: number;
+  achievements: AchievementStamp[];
   __v: 0;
   createdAt: string;
   updatedAt: string;
 };
 
-// Profile
-export type ProfileParamList = {
-  ProfilePage: undefined;
-  SettingPage: undefined;
-  SettingsAbout: undefined;
-  SettingsHelp: undefined;
-  SettingsPrivacy: undefined;
+export type Level = {
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
 };
 
-// Level
 export type LevelResponse = {
   levelNo: number;
   name: string;
@@ -170,18 +191,15 @@ export type LeaderboardData = {
 };
 
 export type UserRanking = {
-  ranking: number;
+  rank: number | '?';
   user: LeaderboardElement;
 };
 
 export type LeaderboardState = {
   data: LeaderboardElement[];
+  localData: LeaderboardElement[];
   userRanking: UserRanking;
-};
-
-// Points
-export type PointsState = {
-  points: number;
+  localUserRanking: UserRanking;
 };
 
 // Weather

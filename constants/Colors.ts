@@ -16,6 +16,7 @@ export const DARKGRAY = '#9D9D9D';
 export const EXTRADARKGRAY = '#5F5F5F';
 export const LIGHTBLUE = '#61ABCD';
 export const DARKBLUE = '#0278AC';
+export const DARKERBLUE = '#02689c';
 export const DARKRED = '#B53737';
 export const LIGHTGRAY = '#e1e1e1';
 export const LINK = '#2e78b7';

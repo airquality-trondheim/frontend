@@ -1,5 +1,7 @@
 import {
   GET_LEADERBOARD,
+  GET_LOCALLEADERBOARD,
+  GET_LOCALUSERRANKING,
   GET_USERRANKING,
   LeaderboardActionTypes,
 } from '../actions/types';
@@ -7,7 +9,9 @@ import { LeaderboardState } from '../types/_types';
 
 const initialState: LeaderboardState = {
   data: [],
-  userRanking: { ranking: 0, user: { id: '0', username: '0', points: 0 } },
+  localData: [],
+  userRanking: { rank: 0, user: { id: '0', username: '0', points: 0 } },
+  localUserRanking: { rank: 0, user: { id: '0', username: '0', points: 0 } },
 };
 
 export default function (
@@ -24,6 +28,16 @@ export default function (
       return {
         ...state,
         userRanking: action.userRanking,
+      };
+    case GET_LOCALLEADERBOARD:
+      return {
+        ...state,
+        localData: action.localData,
+      };
+    case GET_LOCALUSERRANKING:
+      return {
+        ...state,
+        localUserRanking: action.localUserRanking,
       };
     default:
       return state;
