@@ -2,16 +2,16 @@ import {
   GET_ACHIEVEMENTCARD,
   AchievementCardActionTypes,
 } from '../actions/types';
-import { AchievementCardData } from '../types/_types';
+import { AchievementData } from '../types/_types';
 
-const initialState: AchievementCardData = {
+const initialState: AchievementData = {
   data: [],
 };
 
 export default function (
   state = initialState,
   action: AchievementCardActionTypes,
-): AchievementCardData {
+): AchievementData {
   switch (action.type) {
     case GET_ACHIEVEMENTCARD:
       return {

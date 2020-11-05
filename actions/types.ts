@@ -16,7 +16,6 @@ export type RootAction =
   | MapActionTypes
   | AchievementCardActionTypes
   | UserProfileActionTypes
-  | PointsActionTypes
   | AchievementCardActionTypes
   | AirqualityActionTypes
   | LocationsActionTypes;
@@ -79,6 +78,8 @@ export type WeatherActionTypes = GetWeatherAction;
 // Leaderboard
 export const GET_LEADERBOARD = 'GET_LEADERBOARD';
 export const GET_USERRANKING = 'GET_USERRANKING';
+export const GET_LOCALLEADERBOARD = 'GET_LOCALLEADERBOARD';
+export const GET_LOCALUSERRANKING = 'GET_LOCALUSERRANKING';
 
 type GetLeaderboardAction = {
   type: typeof GET_LEADERBOARD;
@@ -90,9 +91,21 @@ type GetUserRankingAction = {
   userRanking: UserRanking;
 };
 
+type GetLocalLeaderboardAction = {
+  type: typeof GET_LOCALLEADERBOARD;
+  localData: LeaderboardElement[];
+};
+
+type GetLocalUserRankingAction = {
+  type: typeof GET_LOCALUSERRANKING;
+  localUserRanking: UserRanking;
+};
+
 export type LeaderboardActionTypes =
   | GetLeaderboardAction
-  | GetUserRankingAction;
+  | GetUserRankingAction
+  | GetLocalLeaderboardAction
+  | GetLocalUserRankingAction;
 
 // Map
 export const GET_AIR_QUALITY_DATA = 'GET_AIR_QUALITY_DATA';
@@ -103,16 +116,6 @@ type GetAirQualityDataAction = {
 };
 
 export type MapActionTypes = GetAirQualityDataAction;
-
-// Points
-export const GET_USERPOINTS = 'GET_USERPOINTS';
-
-type GetUserPointsAction = {
-  type: typeof GET_USERPOINTS;
-  points: number;
-};
-
-export type PointsActionTypes = GetUserPointsAction;
 
 // Locations
 export const GET_STATIONS = 'GET_STATIONS';

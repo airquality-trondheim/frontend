@@ -47,22 +47,28 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
         <View style={styles.recentStyle}>
-          {dataSet.AchievementCardData.slice(0, 3).map((data, index) => {
-            return AchievementFormat(data, index);
+          {dataSet.AchievementCardData.slice(
+            0,
+            //only renders appropriate amount of cards if achieved amount is less than 3
+            dataSet.AchievementCardData.length < 3
+              ? dataSet.AchievementCardData.length
+              : 3,
+          ).map((data, index) => {
+            return AchievementFormat(data, index, data.date);
           })}
         </View>
-        {groupArray.map((dato, index) => {
+        {groupArray.map((achievements, index) => {
           return (
             <View key={index} style={styles.centerContent}>
               <View style={styles.seperatorStyle} />
               <View style={styles.centerContent}>
                 <Text style={styles.TextFormat}>
-                  {dato[0].achievementGroup}
+                  {achievements[0].achievementGroup}
                 </Text>
               </View>
               <View style={styles.groupStyle}>
-                {dato.map((data, index2) => {
-                  return AchievementFormat(data, index2);
+                {achievements.map((data, index2) => {
+                  return AchievementFormat(data, index2, data.date);
                 })}
               </View>
             </View>

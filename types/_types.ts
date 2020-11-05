@@ -33,15 +33,31 @@ export type AchievementCardGroup = {
 };
 
 export type AchievementCardElement = {
-  achievementSymbol: number;
+  achievementId: string;
   achievementName: string;
   achievementDescription: string;
   achievementGroup: string;
-  Date: Date;
+  date?: Date;
 };
 
-export type AchievementCardData = {
+export type AchievementData = {
   data: AchievementCardElement[];
+};
+
+export type AchievementReturnType = {
+  achievements: AchievementReturnElement[];
+};
+
+export type AchievementReturnElement = {
+  _id: string;
+  name: string;
+  category: string;
+  iconUrl: string;
+  description: string;
+  qty: number;
+  __v: number;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 //Achievementstamp
@@ -58,10 +74,7 @@ export type UserProfile = {
   level: number;
   achievements: AchievementStamp[];
   avatar: string;
-  birthdate: string;
   homeArea: string;
-  postalcode: string;
-  street: string;
 };
 
 //ProfileResponse
@@ -86,9 +99,21 @@ export type UserElement = {
   _id: string;
   username: string;
   points: number;
+  level: number;
+  achievements: AchievementStamp[];
   __v: 0;
   createdAt: string;
   updatedAt: string;
+};
+
+// Level
+export type Level = {
+  levelNo: number;
+  name: string;
+  iconUrl: string;
+  pointThreshold: number;
+  pointsRequired: number;
+  qty: number;
 };
 
 // Profile
@@ -160,18 +185,22 @@ export type LeaderboardData = {
 };
 
 export type UserRanking = {
-  ranking: number;
+  rank: number | '?';
   user: LeaderboardElement;
 };
 
 export type LeaderboardState = {
   data: LeaderboardElement[];
+  localData: LeaderboardElement[];
   userRanking: UserRanking;
+  localUserRanking: UserRanking;
 };
 
 // Points
 export type PointsState = {
   points: number;
+  name: string;
+  avatar: string;
 };
 
 // Weather

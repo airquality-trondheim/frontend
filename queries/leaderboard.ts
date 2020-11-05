@@ -1,16 +1,30 @@
+import { Auth } from 'aws-amplify';
 import { LeaderboardElement, UserElement, UserRanking } from '../types/_types';
 const endpoint =
-  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/leaderboard/';
+  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/leaderboard/users/';
 
 type Rankings = {
   rankings: UserElement[];
   last: boolean;
 };
 
-export async function fetchLeaderboardData(): Promise<LeaderboardElement[]> {
+export async function fetchLeaderboardData(
+  area?: string,
+): Promise<LeaderboardElement[]> {
   try {
-    const response: Response = await fetch(endpoint + 'top');
+    const dir =
+      area === undefined ? 'top?limit=10' : 'top?limit=10&areaName=' + area;
+
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
     const rankings: Rankings = await response.json();
+
     let data: LeaderboardElement[] = [];
     for (let user of rankings.rankings) {
       data.push({
@@ -21,29 +35,29 @@ export async function fetchLeaderboardData(): Promise<LeaderboardElement[]> {
     }
     return data;
   } catch (error) {
-    return [
-      { id: 'raeseeie2', username: 'Røyskatten', points: 1200 },
-      { id: 'raesfsie2', username: 'Minken', points: 1000 },
-      { id: 'raesfdie2', username: 'Haren', points: 600 },
-      { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-      { id: 'raesfuie2', username: 'Slangen', points: 200 },
-      { id: 'raesfuie4', username: 'Uglen', points: 150 },
-      { id: 'raesfuie5', username: 'Marken', points: 100 },
-      { id: 'raesfuie6', username: 'Katten', points: 80 },
-      { id: 'raesfuie7', username: 'Hunden', points: 60 },
-      { id: 'raesfuie8', username: 'Ulven', points: 50 },
-    ];
+    console.log('failed to get leaderboard data');
+    return [];
   }
 }
 
 type UserRankingResponse = {
-  ranking: number;
+  rank: number;
   user: UserElement;
 };
 
 export async function fetchUserRanking(userID: string): Promise<UserRanking> {
   try {
-    const response: Response = await fetch(endpoint + 'user/' + userID);
+    const dir = userID;
+
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
+
     const userRankingResponse: UserRankingResponse = await response.json();
     const user: LeaderboardElement = {
       id: userRankingResponse.user._id,
@@ -51,14 +65,51 @@ export async function fetchUserRanking(userID: string): Promise<UserRanking> {
       points: userRankingResponse.user.points,
     };
     const userRanking: UserRanking = {
-      ranking: userRankingResponse.ranking,
+      rank: userRankingResponse.rank,
       user: user,
     };
     return userRanking;
   } catch (error) {
+    console.log('error fetching userrank');
     return {
-      ranking: 5,
-      user: { id: 'raesfuie2', username: 'Slangen', points: 200 },
+      rank: '?',
+      user: { id: '?', username: '?', points: 0 },
+    };
+  }
+}
+
+export async function fetchLocalUserRanking(
+  userID: string,
+  area: string,
+): Promise<UserRanking> {
+  try {
+    const dir = userID + '?areaName=' + area;
+
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
+
+    const userRankingResponse: UserRankingResponse = await response.json();
+    const user: LeaderboardElement = {
+      id: userRankingResponse.user._id,
+      username: userRankingResponse.user.username,
+      points: userRankingResponse.user.points,
+    };
+    const userRanking: UserRanking = {
+      rank: userRankingResponse.rank,
+      user: user,
+    };
+    return userRanking;
+  } catch (error) {
+    console.log('error Local fetching userrank');
+    return {
+      rank: '?',
+      user: { id: '?', username: '?', points: 0 },
     };
   }
 }

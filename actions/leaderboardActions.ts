@@ -1,7 +1,17 @@
 import { Dispatch } from 'redux';
-import { fetchLeaderboardData, fetchUserRanking } from '../queries/leaderboard';
+import {
+  fetchLeaderboardData,
+  fetchLocalUserRanking,
+  fetchUserRanking,
+} from '../queries/leaderboard';
 import store from '../store';
-import { GET_LEADERBOARD, GET_USERRANKING, RootAction } from './types';
+import {
+  GET_LEADERBOARD,
+  GET_LOCALLEADERBOARD,
+  GET_LOCALUSERRANKING,
+  GET_USERRANKING,
+  RootAction,
+} from './types';
 
 export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
   const data = [...store.getState().leaderboard.data];
@@ -13,10 +23,10 @@ export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
   const newData = await fetchLeaderboardData();
   var i = 1;
   for (const user of newData) {
-    if (user.id === userRanking.user.id && i !== userRanking.ranking) {
+    if (user.id === userRanking.user.id && i !== userRanking.rank) {
       dispatch({
         type: GET_USERRANKING,
-        userRanking: { ranking: i, user: user },
+        userRanking: { rank: i, user: user },
       });
       break;
     }
@@ -36,5 +46,40 @@ export async function getUserRanking(
   dispatch({
     type: GET_USERRANKING,
     userRanking: newUserRanking,
+  });
+}
+
+export async function getLocalLeaderboardData(
+  area: string,
+  dispatch: Dispatch<RootAction>,
+) {
+  const userRanking = store.getState().leaderboard.userRanking;
+  const newData = await fetchLeaderboardData(area);
+  var i = 1;
+  for (const user of newData) {
+    if (user.id === userRanking.user.id && i !== userRanking.rank) {
+      dispatch({
+        type: GET_LOCALUSERRANKING,
+        localUserRanking: { rank: i, user: user },
+      });
+      break;
+    }
+    i += 1;
+  }
+  dispatch({
+    type: GET_LOCALLEADERBOARD,
+    localData: newData,
+  });
+}
+
+export async function getLocalUserRanking(
+  userID: string,
+  area: string,
+  dispatch: Dispatch<RootAction>,
+) {
+  const newUserRanking = await fetchLocalUserRanking(userID, area);
+  dispatch({
+    type: GET_LOCALUSERRANKING,
+    localUserRanking: newUserRanking,
   });
 }

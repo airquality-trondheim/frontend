@@ -1,13 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { Button, Grid, Row } from 'native-base';
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View, Image, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { getProfileData } from '../actions/profileActions';
 import { RootState } from '../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
-import { LIGHTBLUE, WHITE, DARKRED } from '../constants/Colors';
+import { LIGHTBLUE, WHITE, DARKRED, BLACK } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { ProfileTextContainer } from '../components/ProfileTextContainer';
 import { Ionicons, Foundation } from '@expo/vector-icons';
@@ -31,9 +31,37 @@ function ProfilePage(props: UserProfileProps) {
   const userInformation =
     Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
+  const [keyboardIsOpen, setKeyboardIsOpen] = useState(false);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
   useEffect(() => {
     fetchUserProfile(userInformation?.sub);
   }, [fetchUserProfile, userInformation]);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', () => keyboardDidChange(true));
+    Keyboard.addListener('keyboardDidHide', () => keyboardDidChange(false));
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', () => keyboardDidChange(true));
+      Keyboard.removeListener('keyboardDidHide', () =>
+        keyboardDidChange(false),
+      );
+    };
+  }, []);
+
+  const keyboardDidChange = (bool: boolean) => {
+    if (!unmounted.current) {
+      setKeyboardIsOpen(bool);
+    }
+  };
 
   const formatProfileLevelText =
     userProfile.level === undefined
@@ -58,30 +86,34 @@ function ProfilePage(props: UserProfileProps) {
     <Grid>
       <Row size={4}>
         <View>
-          <View style={styles.profileView}>
-            <View style={styles.upperLeftContainer}>
-              <View style={styles.avatarContainer}>
-                <View style={{ width: width * 0.2 }}>
-                  <Image
-                    source={{ uri: userProfile.avatar }}
-                    style={{ width: 80, height: 80 }}
-                  />
+          {keyboardIsOpen ? (
+            <></>
+          ) : (
+            <View style={styles.profileView}>
+              <View style={styles.upperLeftContainer}>
+                <View style={styles.avatarContainer}>
+                  <View style={{ width: width * 0.2 }}>
+                    <Image
+                      source={{ uri: userProfile.avatar }}
+                      style={{ width: 80, height: 80 }}
+                    />
+                  </View>
+                </View>
+              </View>
+              <View style={styles.upperRightContainer}>
+                <View style={styles.upperTextContainer}>
+                  <Text style={styles.upperTextFormat}>
+                    {formatProfileLevelText}
+                  </Text>
+                </View>
+                <View style={styles.upperTextContainer}>
+                  <Text style={styles.upperTextFormat}>
+                    {formatProfileNameText}
+                  </Text>
                 </View>
               </View>
             </View>
-            <View style={styles.upperRightContainer}>
-              <View style={styles.upperTextContainer}>
-                <Text style={styles.upperTextFormat}>
-                  {formatProfileLevelText}
-                </Text>
-              </View>
-              <View style={styles.upperTextContainer}>
-                <Text style={styles.upperTextFormat}>
-                  {formatProfileNameText}
-                </Text>
-              </View>
-            </View>
-          </View>
+          )}
           <View
             style={{ alignItems: 'center', width: width, height: height * 0.4 }}
           >
@@ -96,20 +128,24 @@ function ProfilePage(props: UserProfileProps) {
         </View>
       </Row>
       <Row size={1}>
-        <View style={styles.centeredView}>
-          <Button
-            style={[styles.button, styles.settingsButton]}
-            onPress={() => navigation.navigate('SettingPage')}
-          >
-            <Text style={styles.buttonText}>Innstillinger</Text>
-          </Button>
-          <Button
-            style={[styles.button, styles.logOutButton]}
-            onPress={signOut}
-          >
-            <Text style={styles.buttonText}>Logg ut</Text>
-          </Button>
-        </View>
+        {keyboardIsOpen ? (
+          <></>
+        ) : (
+          <View style={styles.centeredView}>
+            <Button
+              style={[styles.button, styles.settingsButton]}
+              onPress={() => navigation.navigate('SettingPage')}
+            >
+              <Text style={styles.buttonText}>Innstillinger</Text>
+            </Button>
+            <Button
+              style={[styles.button, styles.logOutButton]}
+              onPress={signOut}
+            >
+              <Text style={styles.buttonText}>Logg ut</Text>
+            </Button>
+          </View>
+        )}
       </Row>
     </Grid>
   );
@@ -138,6 +174,13 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 3,
     width: 120,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
     elevation: 2,
     alignSelf: 'center',
   },
