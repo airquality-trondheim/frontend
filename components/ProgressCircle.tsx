@@ -1,9 +1,10 @@
+import { Auth } from 'aws-amplify';
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getUserPoints } from '../actions/pointsActions';
+import { getProfileData } from '../actions/profileActions';
 import { RootAction } from '../actions/types';
 import { height, width } from '../constants/Layout';
 import { RootState } from '../reducers';
@@ -12,13 +13,13 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProgressCircle(props: ProgressCircleProps) {
-  const { profile, fetchPoints } = props;
-  const level: number = Math.floor(profile.points / 500) + 1;
+  const { userProfile, fetchUserProfile } = props;
+  const userInformation =
+    Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
   useEffect(() => {
-    // TODO: Change to user's ID after log in is done
-    fetchPoints('5f6dde0d71a2bf3507462942');
-  }, [fetchPoints]);
+    fetchUserProfile(userInformation?.sub);
+  }, [fetchUserProfile, userInformation]);
 
   return (
     <View style={styles.card}>
@@ -28,17 +29,17 @@ function ProgressCircle(props: ProgressCircleProps) {
         arcSweepAngle={250}
         rotation={-125}
         lineCap="round"
-        fill={(profile.points / 500) * 100}
+        fill={(userProfile.points / 500) * 100}
         tintColor="#00e0ff"
         backgroundColor="#3d5875"
       >
         {() => (
           <>
-            <Image source={{ uri: profile.avatar }} style={styles.avatarIcon} />
-            <Text style={styles.level}>Level {level}</Text>
-            <Text style={styles.avatarName}>{profile.name}</Text>
+            <Image source={{ uri: userProfile.avatar }} style={styles.avatarIcon} />
+            <Text style={styles.level}>Level {userProfile.level}</Text>
+            <Text style={styles.avatarName}>{userProfile.username}</Text>
             <Text style={styles.progress}>
-              {profile.points}/{500 * level}
+              {userProfile.points}/{500 * userProfile.level}
             </Text>
           </>
         )}
@@ -47,17 +48,17 @@ function ProgressCircle(props: ProgressCircleProps) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
+const mapStateToProps = (state: RootState) => {
   return {
-    fetchPoints: (userID: string) => {
-      getUserPoints(userID, dispatch);
-    },
+    userProfile: state.userprofile,
   };
 };
 
-const mapStateToProps = (state: RootState) => {
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    profile: state.points,
+    fetchUserProfile: (userID: string) => {
+      getProfileData(userID, dispatch);
+    },
   };
 };
 

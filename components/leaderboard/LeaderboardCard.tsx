@@ -26,11 +26,12 @@ function LeaderboardCard(props: LeaderboardProps) {
     fetchUserRanking,
   } = props;
   const navigation = useNavigation();
-  const credential = Auth?.Credentials?.Auth?.user?.sub;
+  const userInformation =
+    Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
   useEffect(() => {
-    fetchUserRanking(credential);
-  }, [fetchUserRanking, credential]);
+    fetchUserRanking(userInformation?.sub);
+  }, [fetchUserRanking, userInformation]);
 
   useEffect(() => {
     fetchLeaderboardData();
@@ -63,7 +64,7 @@ function LeaderboardCard(props: LeaderboardProps) {
         </Text>
         <View style={[styles.compartementStyle, { flex: 1 }]}>
           <Text style={styles.text}>
-            {userRanking.ranking}. {userRanking.user.username}
+            {userRanking.rank}. {userRanking.user.username}
           </Text>
         </View>
       </CarouselItem>

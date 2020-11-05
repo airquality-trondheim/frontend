@@ -22,6 +22,8 @@ import {
 } from '../constants/Colors';
 import { Auth } from 'aws-amplify';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { getProfileData } from '../actions/profileActions';
+
 
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -32,40 +34,49 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     localLeaderboardData,
     userRanking,
     localUserRanking,
+    profile,
     fetchLeaderboardData,
     fetchLocalLeaderboardData,
     fetchUserRanking,
     fetchLocalUserRanking,
+    fetchProfileData,
   } = props;
 
   const [rankingBinary, setRankingBinary] = useState(false);
-  const credential = Auth?.Credentials?.Auth?.user?.sub;
-  const ranking = rankingBinary ? localLeaderboardData : leaderboardData;
-  let rankAmount = 10;
+  const userInformation =
+    Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
+  let ranking = rankingBinary ? localLeaderboardData : leaderboardData;
 
   useEffect(() => {
-    // TODO: Change to user's ID after log in is done
+    fetchProfileData(userInformation?.sub);
     fetchLeaderboardData();
-    fetchLocalLeaderboardData('Sverresborg');
-    fetchUserRanking(credential);
-    fetchLocalUserRanking(credential, 'Sverresborg');
-
-    updateRankingBinary(false);
+    fetchLocalLeaderboardData(profile.homeArea);
+    fetchUserRanking(userInformation?.sub);
+    fetchLocalUserRanking(userInformation?.sub, profile.homeArea);
   }, [
     fetchUserRanking,
     fetchLeaderboardData,
     fetchLocalLeaderboardData,
     fetchLocalUserRanking,
-    credential,
+    fetchProfileData,
+    userInformation,
+  ]);
+
+  useEffect(() => {    
+    fetchProfileData(userInformation?.sub);
+    fetchLocalLeaderboardData(profile?.homeArea);
+    fetchLocalUserRanking(userInformation?.sub, profile?.homeArea);
+  }, [    
+    fetchProfileData,
+    fetchLocalLeaderboardData,
+    fetchLocalUserRanking,
+    userInformation,
+    rankingBinary,
   ]);
 
   const updateRankingBinary = (source: boolean) => {
     setRankingBinary(source);
   };
-
-  const updateRankHeight = (childHeight: number) => {
-    rankAmount = Math.floor(height * 0.3 / childHeight);
-  }
 
   return (
     <>
@@ -151,9 +162,9 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
         </View>
         <View style={styles.rankInnerPortionStyle}>
           <View style={styles.rankElementStyle}>
-            {ranking.slice(3, rankAmount + 2)?.map((element, index) => {
+            {ranking.slice(3, 10)?.map((element, index) => {
               return (
-                <View key={index} style={{ flexDirection: 'row', }} onLayout={event => updateRankHeight(event.nativeEvent.layout.height)}>
+                <View key={index} style={{ flexDirection: 'row', }}>
                   <Text style={[styles.text, { width: width * 0.1 }]}>
                     {index + 4}.
                   </Text>
@@ -167,12 +178,14 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
       <View style={styles.userRankWrapper}>
         <View style={styles.userRankContainerStyle}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={styles.text}>Din plassering</Text>
+            <Text style={styles.text}>Din plassering: {
+              (rankingBinary ? profile.homeArea : 'Trondheim')
+            }</Text>
           </View>
           <View style={styles.seperatorStyle} />
           <View style={[styles.centeredContent, { flex: 2 }]}>
             <Text style={styles.text}>
-              {(rankingBinary ? localUserRanking : userRanking).ranking}.{' '}
+              {(rankingBinary ? localUserRanking : userRanking).rank}.{' '}
               {userRanking.user.username}
             </Text>
           </View>
@@ -196,6 +209,9 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
     fetchLocalUserRanking: (userID: string, area: string) => {
       getLocalUserRanking(userID, area, dispatch);
     },
+    fetchProfileData: (userID: string) => {
+      getProfileData(userID, dispatch);
+    },
   };
 };
 
@@ -205,6 +221,7 @@ const mapStateToProps = (state: RootState) => {
     userRanking: state.leaderboard.userRanking,
     localLeaderboardData: state.leaderboard.localData,
     localUserRanking: state.leaderboard.localUserRanking,
+    profile: state.userprofile,
   };
 };
 
