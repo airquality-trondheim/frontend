@@ -4,8 +4,6 @@ import {
   AchievementStamp,
   ProfileResponse,
 } from '../types/_types';
-import { achievements } from '../constants/Achievements';
-import { achieved } from '../constants/UserAchievement';
 import { Auth } from 'aws-amplify';
 
 const endpoint = 'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/';
@@ -53,6 +51,6 @@ export async function fetchAchievements(): Promise<
     };
   } catch (error) {
     console.log('failed to fetch achievements');
-    return { achievements, achieved };
+    return;
   }
 }
