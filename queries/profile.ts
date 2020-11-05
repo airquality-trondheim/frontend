@@ -20,6 +20,7 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
 
     return {
       ...profile.user,
+      points: Math.round(profile.user.points),
       avatar: avatar.iconUrl,
     };
   } catch (error) {

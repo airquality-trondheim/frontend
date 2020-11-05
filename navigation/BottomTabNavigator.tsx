@@ -50,6 +50,7 @@ export default function BottomTabNavigator() {
         activeTintColor: WHITE,
         style: { minHeight: 55 },
         labelStyle: { marginBottom: 3 },
+        keyboardHidesTabBar: true,
       }}
     >
       <BottomTab.Screen
