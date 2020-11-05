@@ -12,10 +12,7 @@ const initialState: UserProfile = {
   level: 0,
   avatar: '0',
   achievements: [],
-  birthdate: '0',
   homeArea: '0',
-  postalcode: '0',
-  street: '0',
 };
 
 export default function (
@@ -31,10 +28,7 @@ export default function (
         points: action.userProfile.points,
         level: action.userProfile.level,
         avatar: action.userProfile.avatar,
-        birthdate: action.userProfile.birthdate,
         homeArea: action.userProfile.homeArea,
-        postalcode: action.userProfile.postalcode,
-        street: action.userProfile.street,
       };
     case PUT_HOMEAREA:
       return {

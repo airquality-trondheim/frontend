@@ -21,24 +21,18 @@ export async function fetchUserProfile(userID: string): Promise<UserProfile> {
     return {
       ...profile.user,
       avatar: avatar.iconUrl,
-      birthdate: '',
-      postalcode: '',
-      street: '',
     };
   } catch (error) {
     console.log('failed to fetch profile data');
     return {
-      _id: 'raeseeie2',
-      username: 'Røyskatten',
-      points: 1200,
-      level: 3,
+      _id: '?',
+      username: '?',
+      points: 0,
+      level: 0,
       achievements: [],
       avatar:
         'https://frisk-airquality.s3.eu-central-1.amazonaws.com/avatars/oyster.png',
-      birthdate: '12.12.1990',
-      homeArea: 'Trondheim',
-      postalcode: '0789',
-      street: 'Trøndergata 1',
+      homeArea: '?',
     };
   }
 }

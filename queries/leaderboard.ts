@@ -1,6 +1,7 @@
+import { Auth } from 'aws-amplify';
 import { LeaderboardElement, UserElement, UserRanking } from '../types/_types';
 const endpoint =
-  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/leaderboard/';
+  'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/leaderboard/users/';
 
 type Rankings = {
   rankings: UserElement[];
@@ -12,10 +13,18 @@ export async function fetchLeaderboardData(
 ): Promise<LeaderboardElement[]> {
   try {
     const dir =
-      area === undefined ? 'top?limit=13' : 'top?limit=13&area=' + area;
-
-    const response: Response = await fetch(endpoint + dir);
+      area === undefined ? 'top?limit=10' : 'top?limit=10&areaName=' + area;
+    
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
     const rankings: Rankings = await response.json();
+
     let data: LeaderboardElement[] = [];
     for (let user of rankings.rankings) {
       data.push({
@@ -26,49 +35,31 @@ export async function fetchLeaderboardData(
     }
     return data;
   } catch (error) {
-    return area === undefined
-      ? [
-          { id: 'raeseeie2', username: 'Slangen', points: 1200 },
-          { id: 'raesfsie2', username: 'Minken', points: 1000 },
-          { id: 'raesfdie2', username: 'Haren', points: 600 },
-          { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-          { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-          { id: 'raesfuie4', username: 'Uglen', points: 150 },
-          { id: 'raesfuie5', username: 'Marken', points: 100 },
-          { id: 'raesfuie6', username: 'Katten', points: 80 },
-          { id: 'raesfuie7', username: 'Hunden', points: 60 },
-          { id: 'raesfuie8', username: 'Ulven', points: 50 },
-          { id: 'raesfuie8', username: 'Piggsvinet', points: 50 },
-          { id: 'raesfuie8', username: 'Bredøren', points: 50 },
-          { id: 'raesfuie8', username: 'Rådyret', points: 40 },
-          { id: 'raesfuie8', username: 'Nisen', points: 40 },
-          { id: 'raesfuie8', username: 'Rødreven', points: 20 },
-          { id: 'raesfuie8', username: 'Brunbjørnen', points: 0 },
-        ]
-      : [
-          { id: 'raeseeie2', username: 'Slangen', points: 1200 },
-          { id: 'raesxsie2', username: 'Blekkspruten', points: 250 },
-          { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-          { id: 'raesfuie4', username: 'Uglen', points: 150 },
-          { id: 'raesfuie6', username: 'Katten', points: 80 },
-          { id: 'raesfuie7', username: 'Hunden', points: 60 },
-        ];
+    console.log("failed to get leaderboard data");
+    return [];
   }
 }
 
 type UserRankingResponse = {
-  ranking: number;
+  rank: number;
   user: UserElement;
 };
 
 export async function fetchUserRanking(
   userID: string,
-  area?: string,
 ): Promise<UserRanking> {
   try {
-    const dir = area === undefined ? userID : userID + '&area=' + area;
+    const dir = userID;
 
-    const response: Response = await fetch(endpoint + 'user/' + dir);
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
+
     const userRankingResponse: UserRankingResponse = await response.json();
     const user: LeaderboardElement = {
       id: userRankingResponse.user._id,
@@ -76,19 +67,51 @@ export async function fetchUserRanking(
       points: userRankingResponse.user.points,
     };
     const userRanking: UserRanking = {
-      ranking: userRankingResponse.ranking,
+      rank: userRankingResponse.rank,
       user: user,
     };
     return userRanking;
   } catch (error) {
-    return area === undefined
-      ? {
-          ranking: 5,
-          user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-        }
-      : {
-          ranking: 3,
-          user: { id: 'raesfuie2', username: 'Røyskatten', points: 200 },
-        };
+    console.log("error fetching userrank");
+    return {
+      rank: '?',
+      user: { id: '?', username: '?', points: 0 },
+    };
+  }
+}
+
+export async function fetchLocalUserRanking(
+  userID: string,
+  area: string,
+): Promise<UserRanking> {
+  try {
+    const dir = userID + '?areaName=' + area;
+
+    const response: Response = await fetch(endpoint + dir, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        accesstoken:
+          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+      },
+    });
+
+    const userRankingResponse: UserRankingResponse = await response.json();
+    const user: LeaderboardElement = {
+      id: userRankingResponse.user._id,
+      username: userRankingResponse.user.username,
+      points: userRankingResponse.user.points,
+    };
+    const userRanking: UserRanking = {
+      rank: userRankingResponse.rank,
+      user: user,
+    };
+    return userRanking;
+  } catch (error) {
+    console.log("error Local fetching userrank");
+    return {
+      rank: '?',
+      user: { id: '?', username: '?', points: 0 },
+    };
   }
 }

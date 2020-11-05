@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { fetchLeaderboardData, fetchUserRanking } from '../queries/leaderboard';
+import { fetchLeaderboardData, fetchLocalUserRanking, fetchUserRanking } from '../queries/leaderboard';
 import store from '../store';
 import {
   GET_LEADERBOARD,
@@ -19,10 +19,10 @@ export async function getLeaderboardData(dispatch: Dispatch<RootAction>) {
   const newData = await fetchLeaderboardData();
   var i = 1;
   for (const user of newData) {
-    if (user.id === userRanking.user.id && i !== userRanking.ranking) {
+    if (user.id === userRanking.user.id && i !== userRanking.rank) {
       dispatch({
         type: GET_USERRANKING,
-        userRanking: { ranking: i, user: user },
+        userRanking: { rank: i, user: user },
       });
       break;
     }
@@ -49,19 +49,14 @@ export async function getLocalLeaderboardData(
   area: string,
   dispatch: Dispatch<RootAction>,
 ) {
-  const data = [...store.getState().leaderboard.localData];
-  if (data.length > 0) {
-    // data has already been fetched
-    return;
-  }
   const userRanking = store.getState().leaderboard.userRanking;
   const newData = await fetchLeaderboardData(area);
   var i = 1;
   for (const user of newData) {
-    if (user.id === userRanking.user.id && i !== userRanking.ranking) {
+    if (user.id === userRanking.user.id && i !== userRanking.rank) {
       dispatch({
-        type: GET_USERRANKING,
-        userRanking: { ranking: i, user: user },
+        type: GET_LOCALUSERRANKING,
+        localUserRanking: { rank: i, user: user },
       });
       break;
     }
@@ -69,7 +64,7 @@ export async function getLocalLeaderboardData(
   }
   dispatch({
     type: GET_LOCALLEADERBOARD,
-    data: newData,
+    localData: newData,
   });
 }
 
@@ -78,9 +73,9 @@ export async function getLocalUserRanking(
   area: string,
   dispatch: Dispatch<RootAction>,
 ) {
-  const newUserRanking = await fetchUserRanking(userID, area);
+  const newUserRanking = await fetchLocalUserRanking(userID, area);
   dispatch({
     type: GET_LOCALUSERRANKING,
-    userRanking: newUserRanking,
+    localUserRanking: newUserRanking,
   });
 }
