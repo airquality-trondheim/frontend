@@ -57,10 +57,7 @@ export type UserProfile = {
   level: number;
   achievements: AchievementStamp[];
   avatar: string;
-  birthdate: string;
   homeArea: string;
-  postalcode: string;
-  street: string;
 };
 
 //ProfileResponse
@@ -171,7 +168,7 @@ export type LeaderboardData = {
 };
 
 export type UserRanking = {
-  ranking: number;
+  rank: number | '?';
   user: LeaderboardElement;
 };
 
