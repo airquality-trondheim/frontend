@@ -280,3 +280,37 @@ export type MapData = {
   };
   aqData: currentAqData[];
 };
+
+//Session
+export type waypoint = {
+  longitude: number;
+  latitude: number;
+  timestamp: Date;
+  pollutionLevel: string;
+};
+
+export type SessionSchema = {
+  userId: string;
+  sessionType: string;
+  startTime: Date;
+  stopTime: Date;
+  waypoints: waypoint[];
+};
+
+export type SessionResult = {
+  millisecondsElapsed: number;
+  metersTraveled: number;
+  avgKmph: number;
+  distancePoints: number;
+  safeZonePoints: number;
+  sumPoints: number;
+};
+
+export type SessionResponse = {
+  userId: string;
+  sessionType: string;
+  startTime: Date;
+  stopTime: Date;
+  waypoints: waypoint[];
+  sessionResult: SessionResult;
+};
