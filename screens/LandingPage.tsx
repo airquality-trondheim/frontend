@@ -18,7 +18,7 @@ function LandingPage(props: LandingPageProps) {
   useEffect(() => fetchCurrentLocation(), [fetchCurrentLocation]);
 
   return (
-    <View style={styles.screenStyle}>
+    <View accessibilityLabel={'Home screen'} style={styles.screenStyle}>
       <LocationDropdown />
       <AirQualityInfo />
       <LandingPageCarousel />

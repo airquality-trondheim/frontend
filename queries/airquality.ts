@@ -59,16 +59,10 @@ export async function fetchAirqualityDataForLocation(
         });
       }
     }
-    const currentHour = new Date().getHours().toString();
-    let correctClock = '';
+    const currentHour = new Date().getHours();
     const newIndex = AQI.todayData.findIndex(
-      (obj) =>
-        (correctClock = obj.clock.startsWith('0')
-          ? obj.clock.substring(1, 2)
-          : obj.clock),
-      correctClock === currentHour,
+      (obj) => parseInt(obj.clock) == currentHour,
     );
-
     return {
       areacode: areacode,
       AQI: AQI,

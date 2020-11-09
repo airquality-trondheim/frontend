@@ -12,7 +12,7 @@ import InfoButton from '../InfoButton';
 import AQInfoModal from './AQInfoModal';
 import { getAirQualityDataForLocation } from '../../actions/airqualityActions';
 
-enum airQuality {
+export enum airQuality {
   'Utmerket' = 1,
   'Bra',
   'Dårlig',
@@ -61,7 +61,7 @@ function ProgressCircle(props: ProgressCircleProps) {
   ) => {
     return (
       <Col style={colStyle}>
-        <View style={styles.row}>
+        <View accessibilityLabel={aqLetters + aqNumbers} style={styles.row}>
           <Text style={styles.airqualityValue}>{aqValue}</Text>
           <Text style={styles.airqualityComponentLetters}>{aqLetters}</Text>
           <Text style={styles.airqualityComponentNumbers}>{aqNumbers}</Text>
@@ -72,7 +72,10 @@ function ProgressCircle(props: ProgressCircleProps) {
 
   return (
     <View style={styles.center}>
-      <View style={styles.airQualityInfo}>
+      <View
+        accessibilityLabel={'Air quality overview'}
+        style={styles.airQualityInfo}
+      >
         <InfoButton onPress={updateModalVisible} />
         <AQInfoModal
           onCloseButtonPress={updateModalVisible}
@@ -88,7 +91,10 @@ function ProgressCircle(props: ProgressCircleProps) {
             <View style={styles.info}>
               <Grid>
                 <Row size={3} style={styles.mainRow}>
-                  <Text style={styles.overallAirquality}>
+                  <Text
+                    accessibilityLabel={'AQI text'}
+                    style={styles.overallAirquality}
+                  >
                     {airQuality[Math.floor(AQI.todayData[index].value)]}
                   </Text>
                 </Row>

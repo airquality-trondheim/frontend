@@ -1,3 +1,14 @@
+// App state
+export type AppState = {
+  leaderboard: LeaderboardState;
+  weather: WeatherData;
+  map: MapData;
+  airquality: AirqualityData;
+  achievementcard: AchievementData;
+  locations: LocationState;
+  userprofile: UserProfile;
+};
+
 // Navigation
 export type RootStackParamList = {
   Root: undefined;
@@ -19,6 +30,14 @@ export type HomeParamList = {
 
 export type MapParamList = {
   MapPage: undefined;
+};
+
+export type ProfileParamList = {
+  ProfilePage: undefined;
+  SettingPage: undefined;
+  SettingsAbout: undefined;
+  SettingsHelp: undefined;
+  SettingsPrivacy: undefined;
 };
 
 export type CompetitionParamList = {
@@ -60,7 +79,6 @@ export type AchievementReturnElement = {
   updatedAt: Date;
 };
 
-//Achievementstamp
 export type AchievementStamp = {
   timestampEarned: Date;
   achievementId: string;
@@ -77,7 +95,6 @@ export type UserProfile = {
   homeArea: string;
 };
 
-//ProfileResponse
 export type ProfileResponse = {
   user: {
     _id: string;
@@ -106,7 +123,6 @@ export type UserElement = {
   updatedAt: string;
 };
 
-// Level
 export type Level = {
   levelNo: number;
   name: string;
@@ -116,16 +132,6 @@ export type Level = {
   qty: number;
 };
 
-// Profile
-export type ProfileParamList = {
-  ProfilePage: undefined;
-  SettingPage: undefined;
-  SettingsAbout: undefined;
-  SettingsHelp: undefined;
-  SettingsPrivacy: undefined;
-};
-
-// Level
 export type LevelResponse = {
   levelNo: number;
   name: string;
@@ -194,13 +200,6 @@ export type LeaderboardState = {
   localData: LeaderboardElement[];
   userRanking: UserRanking;
   localUserRanking: UserRanking;
-};
-
-// Points
-export type PointsState = {
-  points: number;
-  name: string;
-  avatar: string;
 };
 
 // Weather
