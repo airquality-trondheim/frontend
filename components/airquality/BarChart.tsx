@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { BarChart } from 'react-native-svg-charts';
 import { PathProps } from 'react-native-svg';
@@ -10,6 +10,8 @@ import {
   LIGHTGRAY,
 } from '../../constants/Colors';
 import { carouselHeight } from '../../constants/Layout';
+import { connect } from 'react-redux';
+import { RootState } from '../../reducers';
 
 type AQColorData = {
   value: number;
@@ -37,14 +39,44 @@ export function colorFill(data: Array<number>) {
   return newData;
 }
 
-export default function AQBarChart(props: { data: Array<number> }) {
-  const levels = colorFill(props.data);
+type AQBarChartProps = ReturnType<typeof mapStateToProps> & {
+  now: boolean;
+};
+
+function AQBarChart(props: AQBarChartProps) {
+  const { AQI, NO2_AQI, PM10_AQI, PM25_AQI, index, now } = props;
+  const unmounted = useRef(false);
+  const [data, setData] = useState<number[]>([1, 2, 3, 4]);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!unmounted.current && AQI.todayData.length > 0 && index >= 0) {
+      setData([
+        AQI.todayData[now ? index : index + 1].value,
+        NO2_AQI.todayData[now ? index : index + 1].value,
+        PM10_AQI.todayData[now ? index : index + 1].value,
+        PM25_AQI.todayData[now ? index : index + 1].value,
+      ]);
+    }
+  }, [
+    AQI.todayData,
+    NO2_AQI.todayData,
+    PM10_AQI.todayData,
+    PM25_AQI.todayData,
+    index,
+    now,
+  ]);
 
   return (
     <View>
       <BarChart
         style={{ height: carouselHeight * 0.3 }}
-        data={levels}
+        data={colorFill(data)}
         gridMin={0}
         svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
         yAccessor={({ item }) => item.value}
@@ -63,6 +95,18 @@ export default function AQBarChart(props: { data: Array<number> }) {
     </View>
   );
 }
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    AQI: state.airquality.AQI,
+    NO2_AQI: state.airquality.NO2_AQI,
+    PM10_AQI: state.airquality.PM10_AQI,
+    PM25_AQI: state.airquality.PM25_AQI,
+    index: state.airquality.index,
+  };
+};
+
+export default connect(mapStateToProps)(AQBarChart);
 
 const styles = StyleSheet.create({
   border: {
