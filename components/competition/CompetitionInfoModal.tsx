@@ -1,11 +1,11 @@
 import { Grid, Row, Col } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, StyleSheet, Image } from 'react-native';
-import { WHITE, BLACK } from '../constants/Colors';
-import { width, singleSideMargin, height } from '../constants/Layout';
-import CloseButton from './CloseButton';
+import { WHITE, BLACK } from '../../constants/Colors';
+import { width, singleSideMargin, height } from '../../constants/Layout';
+import CloseButton from '../CloseButton';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { fetchUserProfile } from '../queries/profile';
+import { fetchUserProfile } from '../../queries/profile';
 import { Auth } from 'aws-amplify';
 
 export default function CompetitionInfoModal(props: {

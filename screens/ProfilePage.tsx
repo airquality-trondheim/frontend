@@ -9,10 +9,10 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { LIGHTBLUE, WHITE, DARKRED, BLACK } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
-import { ProfileTextContainer } from '../components/ProfileTextContainer';
+import { ProfileTextContainer } from '../components/profile/ProfileTextContainer';
 import { Ionicons, Foundation } from '@expo/vector-icons';
 import { Auth } from 'aws-amplify';
-import ProfileDropdown from '../components/ProfileDropdown';
+import ProfileDropdown from '../components/profile/ProfileDropdown';
 
 async function signOut() {
   try {

@@ -5,17 +5,17 @@ import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getLocations } from '../actions/locationsActions';
-import { getProfileData, putHomeArea } from '../actions/profileActions';
-import { RootAction } from '../actions/types';
+import { getLocations } from '../../actions/locationsActions';
+import { getProfileData, putHomeArea } from '../../actions/profileActions';
+import { RootAction } from '../../actions/types';
 import {
   BACKGROUNDCOLOR2,
   BLACK,
   CAROUSELITEM,
   DARKGRAY,
-} from '../constants/Colors';
-import { height, width } from '../constants/Layout';
-import { RootState } from '../reducers';
+} from '../../constants/Colors';
+import { height, width } from '../../constants/Layout';
+import { RootState } from '../../reducers';
 
 type DropdownListItem = {
   label: string;

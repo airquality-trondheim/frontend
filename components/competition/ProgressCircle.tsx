@@ -4,10 +4,10 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getProfileData } from '../actions/profileActions';
-import { RootAction } from '../actions/types';
-import { height, width } from '../constants/Layout';
-import { RootState } from '../reducers';
+import { getProfileData } from '../../actions/profileActions';
+import { RootAction } from '../../actions/types';
+import { height, width } from '../../constants/Layout';
+import { RootState } from '../../reducers';
 
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;

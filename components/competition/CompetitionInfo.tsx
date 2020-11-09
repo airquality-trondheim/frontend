@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import InfoButton from './InfoButton';
+import InfoButton from '../InfoButton';
 import { View, StyleSheet } from 'react-native';
-import { singleSideMargin } from '../constants/Layout';
+import { singleSideMargin } from '../../constants/Layout';
 import CompetitionInfoModal from './CompetitionInfoModal';
 
 export default function CompetitionInfo() {

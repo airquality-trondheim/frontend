@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { BACKGROUNDCOLOR2, WHITE } from '../constants/Colors';
-import { height, width } from '../constants/Layout';
+import { BACKGROUNDCOLOR2, WHITE } from '../../constants/Colors';
+import { height, width } from '../../constants/Layout';
 
 type profileTextContainerInterface = {
   text: string;
