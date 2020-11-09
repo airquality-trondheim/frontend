@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Text, Switch, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Auth } from 'aws-amplify';
 import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
+import {
+  postPushNotificationToken,
+  registerForPushNotificationsAsync,
+} from '../../queries/pushNotificationToken';
 
 type SettingElementProps = {
   elementName: string;
@@ -23,41 +26,32 @@ const SettingElement = ({
 }: SettingElementProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const navigation = useNavigation();
-  const unmounted = useRef(false);
-
-  useEffect(() => {
-    return () => {
-      unmounted.current = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (elementTrigger) {
-      getData(elementName).then((value) => {
-        if (!unmounted.current) {
-          setIsEnabled(value === 'true');
-        }
-      });
-      if (Auth.Credentials.Auth.user !== null) {
-        //TODO: Use settings from DB fetched when loading Profile page
+  const toggleSwitch = async () => {
+    const allowPushNotifications = !isEnabled;
+    try {
+      if (allowPushNotifications) {
+        await registerForPushNotificationsAsync();
+      } else {
+        await postPushNotificationToken('', false);
       }
-    }
-  }, [elementName, elementTrigger]);
-
-  const toggleSwitch = () => {
-    if (!unmounted.current) {
-      setIsEnabled((previousState) => !previousState);
+      setIsEnabled(allowPushNotifications);
+      storeData(allowPushNotifications, elementName);
+    } catch (error) {
+      alert('Det oppstod ett problem. Kunne ikke oppdatere innstillingene.');
     }
   };
 
   useEffect(() => {
-    if (elementTrigger) {
-      if (Auth.Credentials.Auth.user !== null) {
-        // TODO: Update settings in DB
+    async function updateValue() {
+      const storedValue = await getStoreData(elementName);
+      if (storedValue) {
+        setIsEnabled(storedValue);
+      } else {
+        storeData(isEnabled, elementName);
       }
-      storeData(isEnabled, elementName);
     }
-  }, [isEnabled, elementTrigger, elementName]);
+    updateValue();
+  }, [elementName, isEnabled]);
 
   return (
     <TouchableOpacity
@@ -109,10 +103,13 @@ const storeData = async (value: boolean, storageKey: string) => {
   }
 };
 
-const getData = async (storageKey: string) => {
-  //Copyright (c) 2015-present, Facebook, Inc.
+const getStoreData = async (storageKey: string) => {
   try {
-    return await AsyncStorage.getItem(storageKey);
+    const jsonValue = await AsyncStorage.getItem(storageKey);
+    if (jsonValue) {
+      return JSON.parse(jsonValue);
+    }
+    return '';
   } catch (e) {
     console.log('Error getting data from settings');
   }
