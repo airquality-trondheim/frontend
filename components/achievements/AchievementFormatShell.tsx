@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { AchievementCardProps } from './AchievementCard';
 import { width } from '../../constants/Layout';
 import { ScrollView } from 'react-native-gesture-handler';
-import { SEPERATOR, BLACK, WHITE } from '../../constants/Colors';
+import { SEPERATOR, BLACK } from '../../constants/Colors';
 import { AchievementFormat } from './AchievementFormat';
 import { AchievementCardElement } from '../../types/_types';
 
