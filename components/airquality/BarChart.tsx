@@ -59,24 +59,24 @@ function AQBarChart(props: AQBarChartProps) {
       if (index + 1 < AQI.todayData.length) {
         setData([
           AQI.todayData[now ? index : index + 1].value,
-          NO2_AQI.todayData[now ? index : index + 1].value,
-          PM10_AQI.todayData[now ? index : index + 1].value,
           PM25_AQI.todayData[now ? index : index + 1].value,
+          PM10_AQI.todayData[now ? index : index + 1].value,
+          NO2_AQI.todayData[now ? index : index + 1].value,
         ]);
       } else {
         if (now) {
           setData([
             AQI.todayData[index].value,
-            NO2_AQI.todayData[index].value,
-            PM10_AQI.todayData[index].value,
             PM25_AQI.todayData[index].value,
+            PM10_AQI.todayData[index].value,
+            NO2_AQI.todayData[index].value,
           ]);
         } else {
           setData([
             AQI.tomorrowData[0].value,
-            NO2_AQI.tomorrowData[0].value,
-            PM10_AQI.tomorrowData[0].value,
             PM25_AQI.tomorrowData[0].value,
+            PM10_AQI.tomorrowData[0].value,
+            NO2_AQI.tomorrowData[0].value,
           ]);
         }
       }
@@ -110,9 +110,9 @@ function AQBarChart(props: AQBarChartProps) {
       <Text style={styles.border} />
       <View style={styles.xAx}>
         <Text style={styles.text}>AQI</Text>
-        <Text style={styles.text}>NO2</Text>
         <Text style={styles.text}>PM2.5</Text>
         <Text style={styles.text}>PM10</Text>
+        <Text style={styles.text}>NO2</Text>
       </View>
     </View>
   );
