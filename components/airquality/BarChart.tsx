@@ -46,7 +46,7 @@ type AQBarChartProps = ReturnType<typeof mapStateToProps> & {
 function AQBarChart(props: AQBarChartProps) {
   const { AQI, NO2_AQI, PM10_AQI, PM25_AQI, index, now } = props;
   const unmounted = useRef(false);
-  const [data, setData] = useState<number[]>([1, 2, 3, 4]);
+  const [data, setData] = useState<number[]>([1, 1, 1, 1]);
 
   useEffect(() => {
     return () => {
@@ -56,18 +56,40 @@ function AQBarChart(props: AQBarChartProps) {
 
   useEffect(() => {
     if (!unmounted.current && AQI.todayData.length > 0 && index >= 0) {
-      setData([
-        AQI.todayData[now ? index : index + 1].value,
-        NO2_AQI.todayData[now ? index : index + 1].value,
-        PM10_AQI.todayData[now ? index : index + 1].value,
-        PM25_AQI.todayData[now ? index : index + 1].value,
-      ]);
+      if (index + 1 < AQI.todayData.length) {
+        setData([
+          AQI.todayData[now ? index : index + 1].value,
+          NO2_AQI.todayData[now ? index : index + 1].value,
+          PM10_AQI.todayData[now ? index : index + 1].value,
+          PM25_AQI.todayData[now ? index : index + 1].value,
+        ]);
+      } else {
+        if (now) {
+          setData([
+            AQI.todayData[index].value,
+            NO2_AQI.todayData[index].value,
+            PM10_AQI.todayData[index].value,
+            PM25_AQI.todayData[index].value,
+          ]);
+        } else {
+          setData([
+            AQI.tomorrowData[0].value,
+            NO2_AQI.tomorrowData[0].value,
+            PM10_AQI.tomorrowData[0].value,
+            PM25_AQI.tomorrowData[0].value,
+          ]);
+        }
+      }
     }
   }, [
     AQI.todayData,
+    AQI.tomorrowData,
     NO2_AQI.todayData,
+    NO2_AQI.tomorrowData,
     PM10_AQI.todayData,
+    PM10_AQI.tomorrowData,
     PM25_AQI.todayData,
+    PM25_AQI.tomorrowData,
     index,
     now,
   ]);
