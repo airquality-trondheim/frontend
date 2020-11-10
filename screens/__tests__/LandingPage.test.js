@@ -11,7 +11,10 @@ import { HomeNavigator } from '../../navigation/BottomTabNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { renderPage } from '../../utils/tests/helpers';
 
-import { airQuality } from '../../components/airquality/AirQualityInfo';
+import {
+  airQuality,
+  AQLevel,
+} from '../../components/airquality/AirQualityInfo';
 
 const mockedNavigate = jest.fn();
 
@@ -188,9 +191,9 @@ describe('Landing page', () => {
     const pm25 = page.getByAccessibilityLabel('PM2.5');
     const no2 = page.getByAccessibilityLabel('NO2');
 
-    expect(pm10.children[0].children[0].children[0]).toEqual('1');
-    expect(pm25.children[0].children[0].children[0]).toEqual('1');
-    expect(no2.children[0].children[0].children[0]).toEqual('1');
+    expect(pm10.children[0]).toEqual(AQLevel[1]);
+    expect(pm25.children[0]).toEqual(AQLevel[1]);
+    expect(no2.children[0]).toEqual(AQLevel[1]);
   });
 
   it('displays airquality 2', async () => {
@@ -340,9 +343,9 @@ describe('Landing page', () => {
     const pm25 = page.getByAccessibilityLabel('PM2.5');
     const no2 = page.getByAccessibilityLabel('NO2');
 
-    expect(pm10.children[0].children[0].children[0]).toEqual('2');
-    expect(pm25.children[0].children[0].children[0]).toEqual('2');
-    expect(no2.children[0].children[0].children[0]).toEqual('2');
+    expect(pm10.children[0]).toEqual(AQLevel[2]);
+    expect(pm25.children[0]).toEqual(AQLevel[2]);
+    expect(no2.children[0]).toEqual(AQLevel[2]);
   });
 
   it('displays airquality 3', async () => {
@@ -492,9 +495,9 @@ describe('Landing page', () => {
     const pm25 = page.getByAccessibilityLabel('PM2.5');
     const no2 = page.getByAccessibilityLabel('NO2');
 
-    expect(pm10.children[0].children[0].children[0]).toEqual('3');
-    expect(pm25.children[0].children[0].children[0]).toEqual('3');
-    expect(no2.children[0].children[0].children[0]).toEqual('3');
+    expect(pm10.children[0]).toEqual(AQLevel[3]);
+    expect(pm25.children[0]).toEqual(AQLevel[3]);
+    expect(no2.children[0]).toEqual(AQLevel[3]);
   });
 
   it('displays airquality 4', async () => {
@@ -644,9 +647,9 @@ describe('Landing page', () => {
     const pm25 = page.getByAccessibilityLabel('PM2.5');
     const no2 = page.getByAccessibilityLabel('NO2');
 
-    expect(pm10.children[0].children[0].children[0]).toEqual('4');
-    expect(pm25.children[0].children[0].children[0]).toEqual('4');
-    expect(no2.children[0].children[0].children[0]).toEqual('4');
+    expect(pm10.children[0]).toEqual(AQLevel[4]);
+    expect(pm25.children[0]).toEqual(AQLevel[4]);
+    expect(no2.children[0]).toEqual(AQLevel[4]);
   });
 
   it('displays different airqualities', async () => {
@@ -796,9 +799,9 @@ describe('Landing page', () => {
     const pm25 = page.getByAccessibilityLabel('PM2.5');
     const no2 = page.getByAccessibilityLabel('NO2');
 
-    expect(pm10.children[0].children[0].children[0]).toEqual('3');
-    expect(pm25.children[0].children[0].children[0]).toEqual('4');
-    expect(no2.children[0].children[0].children[0]).toEqual('1');
+    expect(pm10.children[0]).toEqual(AQLevel[3]);
+    expect(pm25.children[0]).toEqual(AQLevel[4]);
+    expect(no2.children[0]).toEqual(AQLevel[1]);
   });
 
   it('navigates to weather screen', async () => {

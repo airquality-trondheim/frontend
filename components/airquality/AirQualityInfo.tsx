@@ -19,6 +19,13 @@ export enum airQuality {
   'Svært dårlig',
 }
 
+export enum AQLevel {
+  'Lite' = 1,
+  'Moderat',
+  'Høy',
+  'Svært høy',
+}
+
 type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
@@ -60,12 +67,17 @@ function ProgressCircle(props: ProgressCircleProps) {
     colStyle: StyleProp<ViewStyle>,
   ) => {
     return (
-      <Col style={colStyle}>
-        <View accessibilityLabel={aqLetters + aqNumbers} style={styles.row}>
-          <Text style={styles.airqualityValue}>{aqValue}</Text>
+      <Col size={1} style={[styles.center, colStyle]}>
+        <View style={styles.row}>
           <Text style={styles.airqualityComponentLetters}>{aqLetters}</Text>
           <Text style={styles.airqualityComponentNumbers}>{aqNumbers}</Text>
         </View>
+        <Text
+          accessibilityLabel={aqLetters + aqNumbers}
+          style={styles.airqualityLevel}
+        >
+          {AQLevel[Math.floor(aqValue)]}
+        </Text>
       </Col>
     );
   };
@@ -100,23 +112,19 @@ function ProgressCircle(props: ProgressCircleProps) {
                 </Row>
                 <Row size={1}>
                   {createAirqualityComponent(
-                    Math.round(
-                      PM25_AQI.todayData[index].value + Number.EPSILON,
-                    ),
+                    PM25_AQI.todayData[index].value,
                     'PM',
                     '2.5',
                     styles.rightBorder,
                   )}
                   {createAirqualityComponent(
-                    Math.round(
-                      PM10_AQI.todayData[index].value + Number.EPSILON,
-                    ),
+                    PM10_AQI.todayData[index].value,
                     'PM',
                     '10',
                     styles.rightBorder,
                   )}
                   {createAirqualityComponent(
-                    Math.round(NO2_AQI.todayData[index].value + Number.EPSILON),
+                    NO2_AQI.todayData[index].value,
                     'NO',
                     '2',
                     {},
@@ -167,14 +175,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   airQualityInfo: {
-    height: (width * 0.9) / 2 + 20,
+    height: (width * 0.9) / 2,
     marginBottom: 20,
   },
   overallAirquality: {
     fontSize: 40,
   },
-  airqualityValue: {
-    fontSize: 32,
+  airqualityLevel: {
+    fontSize: 16,
   },
   airqualityComponentLetters: {
     fontSize: 14,
@@ -192,7 +200,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mainRow: {
-    width: width * 0.7,
+    width: width * 0.72,
     borderColor: LIGHTGRAY,
     borderBottomWidth: 2,
     justifyContent: 'center',
