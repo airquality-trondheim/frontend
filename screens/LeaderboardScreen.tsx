@@ -12,12 +12,12 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { height, width } from '../constants/Layout';
 import {
-  BACKGROUNDCOLOR2,
   BLACK,
   DARKBLUE,
   DARKERBLUE,
-  GRAY,
+  LIGHTGRAY,
   LIGHTBLUE,
+  SEPERATOR,
   WHITE,
 } from '../constants/Colors';
 import { Auth } from 'aws-amplify';
@@ -93,8 +93,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
                 styles.seperatorStyle,
                 {
                   width: width * 0.25,
-                  backgroundColor:
-                    rankingBinary === false ? BACKGROUNDCOLOR2 : GRAY,
+                  backgroundColor: !rankingBinary ? SEPERATOR : LIGHTGRAY,
                 },
               ]}
             />
@@ -111,8 +110,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
                 styles.seperatorStyle,
                 {
                   width: width * 0.25,
-                  backgroundColor:
-                    rankingBinary === true ? BACKGROUNDCOLOR2 : GRAY,
+                  backgroundColor: rankingBinary ? SEPERATOR : LIGHTGRAY,
                 },
               ]}
             />
@@ -252,7 +250,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.75,
     height: width * 0.01,

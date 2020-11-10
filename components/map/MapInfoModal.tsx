@@ -2,7 +2,7 @@ import { Button, Grid, Row, Col } from 'native-base';
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
 import {
-  GRAY,
+  LIGHTGRAY,
   WHITE,
   CLOSEBUTTON,
   STOPBUTTON,
@@ -213,11 +213,11 @@ const styles = StyleSheet.create({
   rightBorder: {
     flex: 1,
     borderRightWidth: 2,
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
   },
   bottomBorder: {
     flex: 1,
     borderBottomWidth: 2,
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
   },
 });

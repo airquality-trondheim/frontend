@@ -1,7 +1,7 @@
 import { Grid, Row, Col } from 'native-base';
 import React from 'react';
 import { Modal, View, Text, StyleSheet } from 'react-native';
-import { BLACK, GRAY, WHITE } from '../../constants/Colors';
+import { BLACK, LIGHTGRAY, WHITE } from '../../constants/Colors';
 import { width, singleSideMargin, height } from '../../constants/Layout';
 import AQHalfCircle from './AQHalfCircle';
 import CloseButton from '../CloseButton';
@@ -181,11 +181,11 @@ const styles = StyleSheet.create({
   rightBorder: {
     flex: 1,
     borderRightWidth: 2,
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
   },
   bottomBorder: {
     flex: 1,
     borderBottomWidth: 2,
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
   },
 });

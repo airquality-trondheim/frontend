@@ -3,12 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { AchievementCardProps } from './AchievementCard';
 import { width } from '../../constants/Layout';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  BACKGROUNDCOLOR2,
-  BACKGROUNDCOLOR3,
-  BLACK,
-  WHITE,
-} from '../../constants/Colors';
+import { SEPERATOR, BLACK, WHITE } from '../../constants/Colors';
 import { AchievementFormat } from './AchievementFormat';
 import { AchievementCardElement } from '../../types/_types';
 
@@ -43,39 +38,37 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   });
 
   return (
-    <View style={styles.outerView}>
-      <ScrollView contentContainerStyle={styles.scrollStyle}>
-        <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
-        <View style={styles.recentStyle}>
-          {dataSet.AchievementCardData.slice(
-            0,
-            //only renders appropriate amount of cards if achieved amount is less than 3
-            dataSet.AchievementCardData.length < 3
-              ? dataSet.AchievementCardData.length
-              : 3,
-          ).map((data, index) => {
-            return AchievementFormat(data, index, data.date);
-          })}
-        </View>
-        {groupArray.map((achievements, index) => {
-          return (
-            <View key={index} style={styles.centerContent}>
-              <View style={styles.seperatorStyle} />
-              <View style={styles.centerContent}>
-                <Text style={styles.TextFormat}>
-                  {achievements[0].achievementGroup}
-                </Text>
-              </View>
-              <View style={styles.groupStyle}>
-                {achievements.map((data, index2) => {
-                  return AchievementFormat(data, index2, data.date);
-                })}
-              </View>
-            </View>
-          );
+    <ScrollView contentContainerStyle={styles.scrollStyle}>
+      <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
+      <View style={styles.recentStyle}>
+        {dataSet.AchievementCardData.slice(
+          0,
+          //only renders appropriate amount of cards if achieved amount is less than 3
+          dataSet.AchievementCardData.length < 3
+            ? dataSet.AchievementCardData.length
+            : 3,
+        ).map((data, index) => {
+          return AchievementFormat(data, index, data.date);
         })}
-      </ScrollView>
-    </View>
+      </View>
+      {groupArray.map((achievements, index) => {
+        return (
+          <View key={index} style={styles.centerContent}>
+            <View style={styles.seperatorStyle} />
+            <View style={styles.centerContent}>
+              <Text style={styles.TextFormat}>
+                {achievements[0].achievementGroup}
+              </Text>
+            </View>
+            <View style={styles.groupStyle}>
+              {achievements.map((data, index2) => {
+                return AchievementFormat(data, index2, data.date);
+              })}
+            </View>
+          </View>
+        );
+      })}
+    </ScrollView>
   );
 };
 
@@ -90,7 +83,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.9,
     height: width * 0.01,
@@ -108,10 +101,10 @@ const styles = StyleSheet.create({
   },
 
   scrollStyle: {
-    backgroundColor: WHITE,
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    alignContent: 'center',
+    width: width,
   },
 
   TextFormat: {
@@ -119,11 +112,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 50,
     color: BLACK,
-  },
-  outerView: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: width,
-    color: BACKGROUNDCOLOR3,
   },
 });

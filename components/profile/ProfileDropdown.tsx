@@ -8,12 +8,7 @@ import { Dispatch } from 'redux';
 import { getLocations } from '../../actions/locationsActions';
 import { getProfileData, putHomeArea } from '../../actions/profileActions';
 import { RootAction } from '../../actions/types';
-import {
-  BACKGROUNDCOLOR2,
-  BLACK,
-  CAROUSELITEM,
-  DARKGRAY,
-} from '../../constants/Colors';
+import { SECONDARY, BLACK, CAROUSELITEM, GRAY } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { RootState } from '../../reducers';
 
@@ -63,7 +58,7 @@ function ProfileDropdown(props: LocationDropdownProps) {
             <Fontisto
               name="direction-sign"
               size={20}
-              color={BACKGROUNDCOLOR2}
+              color={SECONDARY}
               style={{ marginRight: width * 0.007 }}
             />
           );
@@ -154,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   pickerSelectedItem: {
-    color: DARKGRAY,
+    color: GRAY,
   },
   pickerLabel: {
     color: BLACK,
@@ -170,14 +165,14 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: width * 0.05,
     borderWidth: width * 0.01,
     borderTopWidth: 0,
-    borderColor: BACKGROUNDCOLOR2,
+    borderColor: SECONDARY,
   },
   picker: {
     backgroundColor: CAROUSELITEM,
     borderTopLeftRadius: width * 0.05,
     borderTopRightRadius: width * 0.05,
     borderWidth: width * 0.01,
-    borderColor: BACKGROUNDCOLOR2,
+    borderColor: SECONDARY,
     height: height * 0.05,
   },
   selectedElement: {},

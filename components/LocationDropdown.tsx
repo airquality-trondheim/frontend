@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { postCurrentLocation } from '../actions/locationsActions';
 import { RootAction } from '../actions/types';
-import { BLACK, CAROUSELITEM, DARKGRAY } from '../constants/Colors';
+import { BLACK, CAROUSELITEM, GRAY } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { RootState } from '../reducers';
 import { Location } from '../types/_types';
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   pickerSelectedItem: {
-    color: DARKGRAY,
+    color: GRAY,
   },
   pickerLabel: {
     color: BLACK,

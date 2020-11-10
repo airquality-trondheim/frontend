@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { BACKGROUNDCOLOR2, WHITE } from '../../constants/Colors';
+import { SECONDARY, WHITE } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 
 type profileTextContainerInterface = {
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   colouredBorder: {
     borderWidth: width * 0.01,
     borderRadius: width * 0.05,
-    borderColor: BACKGROUNDCOLOR2,
+    borderColor: SECONDARY,
     backgroundColor: WHITE,
     height: height * 0.06,
     flexDirection: 'row',

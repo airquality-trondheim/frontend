@@ -12,7 +12,7 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../../actions/types';
 import { useNavigation } from '@react-navigation/native';
 import { height, width } from '../../constants/Layout';
-import { BACKGROUNDCOLOR2 } from '../../constants/Colors';
+import { SEPERATOR } from '../../constants/Colors';
 import { Auth } from 'aws-amplify';
 
 type LeaderboardProps = ReturnType<typeof mapStateToProps> &
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.38,
     height: width * 0.01,

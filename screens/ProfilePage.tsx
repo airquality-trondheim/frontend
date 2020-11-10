@@ -7,7 +7,7 @@ import { getProfileData } from '../actions/profileActions';
 import { RootState } from '../reducers';
 import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
-import { LIGHTBLUE, WHITE, DARKRED, BLACK } from '../constants/Colors';
+import { WHITE, DARKRED, BLACK, SECONDARY } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
 import { ProfileTextContainer } from '../components/profile/ProfileTextContainer';
 import { Ionicons, Foundation } from '@expo/vector-icons';
@@ -119,10 +119,10 @@ function ProfilePage(props: UserProfileProps) {
           >
             <ProfileDropdown />
             <ProfileTextContainer text={formatMail}>
-              <Ionicons name="ios-mail" size={20} color={LIGHTBLUE} />
+              <Ionicons name="ios-mail" size={20} color={SECONDARY} />
             </ProfileTextContainer>
             <ProfileTextContainer text={formatTelefon}>
-              <Foundation name="telephone" size={20} color={LIGHTBLUE} />
+              <Foundation name="telephone" size={20} color={SECONDARY} />
             </ProfileTextContainer>
           </View>
         </View>
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
 
   settingsButton: {
-    backgroundColor: LIGHTBLUE,
+    backgroundColor: SECONDARY,
   },
 
   logOutButton: {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
   profileView: {
     width: width,
     height: 0.25 * height,
-    backgroundColor: LIGHTBLUE,
+    backgroundColor: SECONDARY,
     flexDirection: 'row',
   },
 

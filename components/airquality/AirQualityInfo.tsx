@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, StyleProp, ViewStyle } from 'react-native';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootAction } from '../../actions/types';
-import { GRAY } from '../../constants/Colors';
+import { LIGHTGRAY } from '../../constants/Colors';
 import { width } from '../../constants/Layout';
 import { RootState } from '../../reducers';
 import { Col, Grid, Row } from 'native-base';
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   },
   mainRow: {
     width: width * 0.7,
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
     borderBottomWidth: 2,
     justifyContent: 'center',
     alignItems: 'flex-end',
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   rightBorder: {
-    borderColor: GRAY,
+    borderColor: LIGHTGRAY,
     borderRightWidth: 2,
   },
   AQUnavailable: {

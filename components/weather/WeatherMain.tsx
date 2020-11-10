@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { BOTTOMBORDER } from '../../constants/Colors';
+import { LIGHTGRAY } from '../../constants/Colors';
 import WeatherComponentSmall from './WeatherListItem';
 
 export default function WeatherCarousel() {
@@ -19,6 +19,6 @@ export default function WeatherCarousel() {
 const styles = StyleSheet.create({
   weatherElement: {
     borderTopWidth: 3,
-    borderTopColor: BOTTOMBORDER,
+    borderTopColor: LIGHTGRAY,
   },
 });

@@ -3,7 +3,7 @@ import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import { BLACK, EVENROWCOLOR, GRAY } from '../../constants/Colors';
+import { BLACK, EVENROWCOLOR, LIGHTGRAY } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
@@ -18,7 +18,7 @@ const AchievementFormat = (
 
   const [colour, achievedText] =
     date === undefined
-      ? [GRAY, 'Ikke oppnåd ennå']
+      ? [LIGHTGRAY, 'Ikke oppnåd ennå']
       : [BLACK, String(date).substring(0, 10)];
 
   useEffect(() => {
