@@ -3,7 +3,7 @@ import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { postCurrentLocation } from '../actions/locationsActions';
+import { putCurrentLocation } from '../actions/locationsActions';
 import { RootAction } from '../actions/types';
 import { BLACK, CAROUSELITEM, GRAY } from '../constants/Colors';
 import { height, width } from '../constants/Layout';
@@ -91,7 +91,7 @@ function LocationDropdown(props: LocationDropdownProps) {
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     updateCurrentLocation: (station: Location) => {
-      postCurrentLocation(station, dispatch);
+      putCurrentLocation(station, dispatch);
     },
   };
 };

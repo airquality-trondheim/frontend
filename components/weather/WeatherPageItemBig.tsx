@@ -1,25 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, Text, Image, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
-import { RootAction } from '../../actions/types';
-import { getWeatherData } from '../../actions/weatherActions';
 import { RootState } from '../../reducers';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Fontisto, Feather } from '@expo/vector-icons';
 import { width } from '../../constants/Layout';
 import { WEATHERICON } from '../../constants/Colors';
 
-type WeatherProps = ReturnType<typeof mapStateToProps> &
-  ReturnType<typeof mapDispatchToProps>;
+type WeatherProps = ReturnType<typeof mapStateToProps>;
 
 function WeatherComponentBig(props: WeatherProps) {
-  const { currentLocation, weatherData, fetchWeatherData } = props;
-  useEffect(() => {
-    if (currentLocation) {
-      fetchWeatherData(currentLocation.latitude, currentLocation.longitude);
-    }
-  }, [fetchWeatherData, currentLocation]);
+  const { weatherData } = props;
 
   return (
     <>
@@ -52,25 +43,13 @@ function WeatherComponentBig(props: WeatherProps) {
   );
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
-  return {
-    fetchWeatherData: (latitude: number, longitude: number) => {
-      getWeatherData(latitude, longitude, dispatch);
-    },
-  };
-};
-
 const mapStateToProps = (state: RootState) => {
   return {
     weatherData: state.weather.today,
-    currentLocation: state.locations.currentLocation,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(WeatherComponentBig);
+export default connect(mapStateToProps)(WeatherComponentBig);
 
 const styles = StyleSheet.create({
   weatherIconStyle: {

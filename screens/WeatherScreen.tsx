@@ -16,8 +16,8 @@ type WeatherProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function WeatherScreen(props: WeatherProps) {
-  const { today, tomorrow, fetchWeatherData } = props;
-  useEffect(() => fetchWeatherData(63.4099, 10.4359), [fetchWeatherData]);
+  const { today, tomorrow, currentLocation, fetchWeatherData } = props;
+  useEffect(() => fetchWeatherData(), [fetchWeatherData, currentLocation?._id]);
 
   return (
     <View accessibilityLabel={'Weather screen'} style={styles.screenStyle}>
@@ -74,8 +74,8 @@ function WeatherScreen(props: WeatherProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchWeatherData: (latitude: number, longitude: number) => {
-      getWeatherData(latitude, longitude, dispatch);
+    fetchWeatherData: () => {
+      getWeatherData(dispatch);
     },
   };
 };
@@ -84,6 +84,7 @@ const mapStateToProps = (state: RootState) => {
   return {
     today: state.weather.today,
     tomorrow: state.weather.tomorrow,
+    currentLocation: state.locations.currentLocation,
   };
 };
 
