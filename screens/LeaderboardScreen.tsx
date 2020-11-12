@@ -60,6 +60,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     fetchProfileData,
     userInformation,
     profile.homeArea,
+    profile.points,
   ]);
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     userInformation,
     rankingBinary,
     profile.homeArea,
+    profile.points,
   ]);
 
   const updateRankingBinary = (source: boolean) => {

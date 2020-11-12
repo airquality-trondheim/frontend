@@ -103,7 +103,6 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps, mapDistpatchToProps)(AchievementCard);
-export { AchievementCardProps };
 
 const styles = StyleSheet.create({
   centerContent: {

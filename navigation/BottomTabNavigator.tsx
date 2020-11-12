@@ -132,30 +132,6 @@ function MapNavigator() {
   );
 }
 
-const CompetitionStack = createStackNavigator<CompetitionParamList>();
-
-function CompetitionNavigator() {
-  return (
-    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <CompetitionStack.Screen
-        name="CompetitionPage"
-        component={CompetitionPage}
-        options={{ title: 'Konkurranse' }}
-      />
-      <CompetitionStack.Screen
-        name="LeaderboardScreen"
-        component={LeaderboardScreen}
-        options={{ title: 'Toppliste' }}
-      />
-      <CompetitionStack.Screen
-        name="AchievementsScreen"
-        component={AchievementsScreen}
-        options={{ title: 'Bragder' }}
-      />
-    </CompetitionStack.Navigator>
-  );
-}
-
 const ProfileStack = createStackNavigator<ProfileParamList>();
 
 function ProfileNavigator() {
@@ -187,5 +163,29 @@ function ProfileNavigator() {
         options={{ title: 'Personvern' }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const CompetitionStack = createStackNavigator<CompetitionParamList>();
+
+function CompetitionNavigator() {
+  return (
+    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <CompetitionStack.Screen
+        name="CompetitionPage"
+        component={CompetitionPage}
+        options={{ title: 'Konkurranse' }}
+      />
+      <CompetitionStack.Screen
+        name="LeaderboardScreen"
+        component={LeaderboardScreen}
+        options={{ title: 'Toppliste' }}
+      />
+      <CompetitionStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
+        options={{ title: 'Bragder' }}
+      />
+    </CompetitionStack.Navigator>
   );
 }

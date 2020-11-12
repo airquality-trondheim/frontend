@@ -16,6 +16,7 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { getProfileData } from '../actions/profileActions';
 import { connect } from 'react-redux';
+import { getAchievementCardData } from '../actions/achievementCardActions';
 
 const LOCATION_TRACKING = 'location-tracking';
 let waypoints: waypoint[] = [];
@@ -24,7 +25,7 @@ let pollutionLevel = 'ukjent';
 type SessionProps = ReturnType<typeof mapDispatchToProps>;
 
 function Session(props: SessionProps) {
-  const { fetchUserProfile } = props;
+  const { fetchUserProfile, fetchAchievementData } = props;
   const [sessionActive, setSessionActive] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
   const [oldWaypointsLength, setOldWaypointsLength] = useState(0);
@@ -114,6 +115,7 @@ function Session(props: SessionProps) {
     setSessionMilliseconds(0);
     setTotalDistance(0);
     fetchUserProfile();
+    fetchAchievementData();
   };
 
   const updateModalVisible = () => {
@@ -284,6 +286,9 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
     fetchUserProfile: () => {
       getProfileData(dispatch);
+    },
+    fetchAchievementData: () => {
+      getAchievementCardData(dispatch);
     },
   };
 };

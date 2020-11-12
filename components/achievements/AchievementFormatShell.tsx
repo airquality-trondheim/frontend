@@ -1,6 +1,7 @@
 import React from 'react';
+import { RootState } from '../../reducers';
+import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
-import { AchievementCardProps } from './AchievementCard';
 import { width } from '../../constants/Layout';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SEPERATOR, BLACK } from '../../constants/Colors';
@@ -11,14 +12,17 @@ type accumulatorInterface = {
   [key: string]: AchievementCardElement[];
 };
 
-const AchievementFormatShell = (dataSet: AchievementCardProps) => {
+type AchievementProps = ReturnType<typeof mapStateToProps>;
+
+const AchievementFormatShell = (props: AchievementProps) => {
+  const { AchievementCardData } = props;
   let accumulator: accumulatorInterface = {};
 
   // Groups achievement data. Returns an object (dictionary) with group names as keys,
   // and lists with the correct elements as values.
   // a: currentElement
   // r: temporary dictionary
-  let groupDictionary = dataSet.AchievementCardData.reduce((r, a) => {
+  let groupDictionary = AchievementCardData.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
   }, accumulator);
@@ -41,12 +45,10 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
     <ScrollView contentContainerStyle={styles.scrollStyle}>
       <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
       <View style={styles.recentStyle}>
-        {dataSet.AchievementCardData.slice(
+        {AchievementCardData.slice(
           0,
           //only renders appropriate amount of cards if achieved amount is less than 3
-          dataSet.AchievementCardData.length < 3
-            ? dataSet.AchievementCardData.length
-            : 3,
+          AchievementCardData.length < 3 ? AchievementCardData.length : 3,
         ).map((data, index) => {
           return AchievementFormat(data, index, data.date);
         })}
@@ -72,7 +74,13 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   );
 };
 
-export { AchievementFormatShell };
+const mapStateToProps = (state: RootState) => {
+  return {
+    AchievementCardData: state.achievementcard.data,
+  };
+};
+
+export default connect(mapStateToProps)(AchievementFormatShell);
 
 const styles = StyleSheet.create({
   groupStyle: {
