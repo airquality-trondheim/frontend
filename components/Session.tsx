@@ -12,12 +12,19 @@ import { CLOSEBUTTON, WHITE, STOPBUTTON, BLACK } from '../constants/Colors';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
 import Closebutton from './CloseButton';
 import { Auth } from 'aws-amplify';
+import { Dispatch } from 'redux';
+import { RootAction } from '../actions/types';
+import { getProfileData } from '../actions/profileActions';
+import { connect } from 'react-redux';
 
 const LOCATION_TRACKING = 'location-tracking';
 let waypoints: waypoint[] = [];
 let pollutionLevel = 'ukjent';
 
-export default function Session() {
+type SessionProps = ReturnType<typeof mapDispatchToProps>;
+
+function Session(props: SessionProps) {
+  const { fetchUserProfile } = props;
   const [sessionActive, setSessionActive] = useState(false);
   const [totalDistance, setTotalDistance] = useState(0);
   const [oldWaypointsLength, setOldWaypointsLength] = useState(0);
@@ -106,6 +113,7 @@ export default function Session() {
     updateModalVisible();
     setSessionMilliseconds(0);
     setTotalDistance(0);
+    fetchUserProfile();
   };
 
   const updateModalVisible = () => {
@@ -271,6 +279,16 @@ TaskManager.defineTask(LOCATION_TRACKING, async ({ data, error }) => {
     });
   }
 });
+
+const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
+  return {
+    fetchUserProfile: () => {
+      getProfileData(dispatch);
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Session);
 
 const styles = StyleSheet.create({
   centeredView: {
