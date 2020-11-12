@@ -47,7 +47,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   let ranking = rankingBinary ? localLeaderboardData : leaderboardData;
 
   useEffect(() => {
-    fetchProfileData(userInformation?.sub);
+    fetchProfileData();
     fetchLeaderboardData();
     fetchLocalLeaderboardData(profile.homeArea);
     fetchUserRanking(userInformation?.sub);
@@ -63,7 +63,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   ]);
 
   useEffect(() => {
-    fetchProfileData(userInformation?.sub);
+    fetchProfileData();
     fetchLocalLeaderboardData(profile?.homeArea);
     fetchLocalUserRanking(userInformation?.sub, profile?.homeArea);
   }, [
@@ -208,8 +208,8 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
     fetchLocalUserRanking: (userID: string, area: string) => {
       getLocalUserRanking(userID, area, dispatch);
     },
-    fetchProfileData: (userID: string) => {
-      getProfileData(userID, dispatch);
+    fetchProfileData: () => {
+      getProfileData(dispatch);
     },
   };
 };

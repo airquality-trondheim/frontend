@@ -1,12 +1,10 @@
 import { Fontisto } from '@expo/vector-icons';
-import { Auth } from 'aws-amplify';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getLocations } from '../../actions/locationsActions';
-import { getProfileData, putHomeArea } from '../../actions/profileActions';
+import { putHomeArea } from '../../actions/profileActions';
 import { RootAction } from '../../actions/types';
 import { SECONDARY, BLACK, CAROUSELITEM, GRAY } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
@@ -22,13 +20,7 @@ type LocationDropdownProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProfileDropdown(props: LocationDropdownProps) {
-  const {
-    fetchLocations,
-    fetchUserProfile,
-    pushHomeArea,
-    locations,
-    userProfile,
-  } = props;
+  const { pushHomeArea, locations, userProfile } = props;
   const [locationList, setLocationList] = useState<DropdownListItem[]>([]);
   const unmounted = useRef(false);
 
@@ -39,13 +31,6 @@ function ProfileDropdown(props: LocationDropdownProps) {
       unmounted.current = true;
     };
   }, []);
-
-  useEffect(() => {
-    fetchLocations();
-    fetchUserProfile(
-      Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub,
-    );
-  }, [fetchLocations, fetchUserProfile]);
 
   useEffect(() => {
     let locList: DropdownListItem[] = [];
@@ -117,12 +102,6 @@ function ProfileDropdown(props: LocationDropdownProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchLocations: () => {
-      getLocations(dispatch);
-    },
-    fetchUserProfile: (userID: string) => {
-      getProfileData(userID, dispatch);
-    },
     pushHomeArea: (area: string) => {
       putHomeArea(area, dispatch);
     },

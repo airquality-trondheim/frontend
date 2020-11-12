@@ -1,4 +1,3 @@
-import { Auth } from 'aws-amplify';
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -14,12 +13,10 @@ type ProgressCircleProps = ReturnType<typeof mapStateToProps> &
 
 function ProgressCircle(props: ProgressCircleProps) {
   const { userProfile, fetchUserProfile } = props;
-  const userInformation =
-    Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
 
   useEffect(() => {
-    fetchUserProfile(userInformation?.sub);
-  }, [fetchUserProfile, userInformation]);
+    fetchUserProfile();
+  }, [fetchUserProfile]);
 
   return (
     <View style={styles.card}>
@@ -59,8 +56,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchUserProfile: (userID: string) => {
-      getProfileData(userID, dispatch);
+    fetchUserProfile: () => {
+      getProfileData(dispatch);
     },
   };
 };

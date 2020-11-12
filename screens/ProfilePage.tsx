@@ -41,8 +41,8 @@ function ProfilePage(props: UserProfileProps) {
   }, []);
 
   useEffect(() => {
-    fetchUserProfile(userInformation?.sub);
-  }, [fetchUserProfile, userInformation]);
+    fetchUserProfile();
+  }, [fetchUserProfile]);
 
   useEffect(() => {
     Keyboard.addListener('keyboardDidShow', () => keyboardDidChange(true));
@@ -159,8 +159,8 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchUserProfile: (userID: string) => {
-      getProfileData(userID, dispatch);
+    fetchUserProfile: () => {
+      getProfileData(dispatch);
     },
   };
 };
