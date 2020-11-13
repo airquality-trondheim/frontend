@@ -43,16 +43,26 @@ const AchievementFormatShell = (props: AchievementProps) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollStyle}>
-      <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
-      <View style={styles.recentStyle}>
-        {AchievementCardData.slice(
-          0,
-          //only renders appropriate amount of cards if achieved amount is less than 3
-          AchievementCardData.length < 3 ? AchievementCardData.length : 3,
-        ).map((data, index) => {
-          return AchievementFormat(data, index, data.date);
-        })}
-      </View>
+      {AchievementCardData[0]?.date ? (
+        <>
+          <Text style={styles.TextFormat}>Nylig oppnådde bragder</Text>
+          <View style={styles.recentStyle}>
+            <AchievementFormat data={AchievementCardData[0]} index={0} />
+            {AchievementCardData[1]?.date ? (
+              <AchievementFormat data={AchievementCardData[1]} index={1} />
+            ) : (
+              <></>
+            )}
+            {AchievementCardData[2]?.date ? (
+              <AchievementFormat data={AchievementCardData[2]} index={2} />
+            ) : (
+              <></>
+            )}
+          </View>
+        </>
+      ) : (
+        <></>
+      )}
       {groupArray.map((achievements, index) => {
         return (
           <View key={index} style={styles.centerContent}>
@@ -63,8 +73,8 @@ const AchievementFormatShell = (props: AchievementProps) => {
               </Text>
             </View>
             <View style={styles.groupStyle}>
-              {achievements.map((data, index2) => {
-                return AchievementFormat(data, index2, data.date);
+              {achievements.map((data, index2: number) => {
+                return AchievementFormat({ data, index: index2 });
               })}
             </View>
           </View>

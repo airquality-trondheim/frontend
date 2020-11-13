@@ -8,18 +8,18 @@ import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
 
-const AchievementFormat = (
-  data: AchievementCardElement,
-  index: number,
-  date?: Date,
-) => {
+const AchievementFormat = (props: {
+  data: AchievementCardElement;
+  index: number;
+}) => {
+  const { data, index } = props;
   const [modVisible, setModVisible] = useState(false);
   const unmounted = useRef(false);
 
   const [colour, achievedText] =
-    date === undefined
+    data.date === undefined
       ? [LIGHTGRAY, 'Ikke oppnåd ennå']
-      : [BLACK, String(date).substring(0, 10)];
+      : [BLACK, String(data.date).substring(0, 10)];
 
   useEffect(() => {
     return () => {
@@ -58,7 +58,7 @@ const AchievementFormat = (
                   size={240}
                   color={colour}
                 />
-                <Text style={styles.centerText}>Oppnåd: {achievedText}</Text>
+                <Text style={styles.centerText}>Oppnådd: {achievedText}</Text>
                 <Text style={styles.centerText}>
                   {data.achievementDescription}
                 </Text>
