@@ -16,20 +16,6 @@ import {
   AQLevel,
 } from '../../components/airquality/AirQualityInfo';
 
-const mockedNavigate = jest.fn();
-
-jest.mock('@react-navigation/native', () => {
-  return {
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: () => ({
-      navigate: mockedNavigate,
-    }),
-  };
-});
-
-// Silence the warning https://github.com/facebook/react-native/issues/11094#issuecomment-263240420
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
-
 afterEach(cleanup);
 
 describe('Landing page', () => {

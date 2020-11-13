@@ -879,6 +879,13 @@ jest.mock('./queries/weather', () => {
   };
 });
 
+jest.mock('./queries/locations', () => {
+  return {
+    fetchLocations: jest.fn(() => Promise.resolve([])),
+    fetchStations: jest.fn(() => Promise.resolve([])),
+  };
+});
+
 // From: https://stackoverflow.com/questions/40952566/how-to-test-async-storage-with-jest
 jest.mock('@react-native-community/async-storage', () => ({
   AsyncStorage: {
@@ -916,3 +923,6 @@ jest.mock('react-native-gesture-handler', () => {
     Directions: {},
   };
 });
+
+// Silence the warning https://github.com/facebook/react-native/issues/11094#issuecomment-263240420
+jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
