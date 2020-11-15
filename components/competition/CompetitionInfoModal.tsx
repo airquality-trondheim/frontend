@@ -1,30 +1,19 @@
 import { Grid, Row, Col } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Modal, View, Text, StyleSheet, Image } from 'react-native';
 import { WHITE, BLACK } from '../../constants/Colors';
 import { width, singleSideMargin, height } from '../../constants/Layout';
 import CloseButton from '../CloseButton';
 import { FontAwesome, FontAwesome5 } from '@expo/vector-icons';
-import { fetchUserProfile } from '../../queries/profile';
-import { Auth } from 'aws-amplify';
+import { RootState } from '../../reducers';
+import { connect } from 'react-redux';
 
-export default function CompetitionInfoModal(props: {
+function CompetitionInfoModal(props: {
   modalVisible: boolean;
   modalOnRequestClose: () => void;
   onCloseButtonPress: () => void;
+  avatar: string;
 }) {
-  const [avatar, setAvatar] = useState('');
-
-  useEffect(() => {
-    const getAvatar = async () => {
-      const profileData = await fetchUserProfile(
-        Auth.Credentials.Auth.user.signInUserSession.accessToken.payload.sub,
-      );
-      setAvatar(profileData.avatar);
-    };
-    getAvatar();
-  }, []);
-
   return (
     <Modal
       animationType="slide"
@@ -112,7 +101,10 @@ export default function CompetitionInfoModal(props: {
               <Col size={3}>
                 <View style={styles.row}>
                   <View style={styles.centeredView}>
-                    <Image source={{ uri: avatar }} style={styles.avatarIcon} />
+                    <Image
+                      source={{ uri: props.avatar }}
+                      style={styles.avatarIcon}
+                    />
                   </View>
                 </View>
               </Col>
@@ -129,6 +121,14 @@ export default function CompetitionInfoModal(props: {
     </Modal>
   );
 }
+
+const mapStateToProps = (state: RootState) => {
+  return {
+    avatar: state.userprofile.avatar,
+  };
+};
+
+export default connect(mapStateToProps)(CompetitionInfoModal);
 
 const styles = StyleSheet.create({
   centeredView: {
