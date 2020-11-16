@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     width: 0.43 * width,
     height: carouselHeight,
     borderRadius: 20,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     margin: 5,
     elevation: 5,
     shadowColor: BLACK,
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     marginBottom: 10,
+
   },
   centerContent: {
     justifyContent: 'center',

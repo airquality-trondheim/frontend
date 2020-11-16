@@ -179,7 +179,12 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
       <View style={styles.userRankWrapper}>
         <View style={styles.userRankContainerStyle}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={styles.text}>
+            <Text               
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={styles.text}
+            >
               Din plassering: {rankingBinary ? profile.homeArea : 'Trondheim'}
             </Text>
           </View>
