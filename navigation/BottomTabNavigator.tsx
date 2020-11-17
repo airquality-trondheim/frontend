@@ -98,21 +98,21 @@ const HomeStack = createStackNavigator<HomeParamList>();
 
 export function HomeNavigator() {
   return (
-    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
       <HomeStack.Screen
         name="LandingPage"
         component={LandingPage}
-        options={{ title: 'Hjem' }}
+        options={{ title: 'Hjem', headerTintColor: WHITE }}
       />
       <HomeStack.Screen
         name="WeatherScreen"
         component={WeatherScreen}
-        options={{ title: 'Vær' }}
+        options={{ title: 'Vær', headerTintColor: WHITE }}
       />
       <HomeStack.Screen
         name="AirQualityScreen"
         component={AirQualityScreen}
-        options={{ title: 'Luftkvalitet' }}
+        options={{ title: 'Luftkvalitet', headerTintColor: WHITE }}
       />
     </HomeStack.Navigator>
   );
@@ -132,30 +132,6 @@ function MapNavigator() {
   );
 }
 
-const CompetitionStack = createStackNavigator<CompetitionParamList>();
-
-function CompetitionNavigator() {
-  return (
-    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <CompetitionStack.Screen
-        name="CompetitionPage"
-        component={CompetitionPage}
-        options={{ title: 'Konkurranse' }}
-      />
-      <CompetitionStack.Screen
-        name="LeaderboardScreen"
-        component={LeaderboardScreen}
-        options={{ title: 'Toppliste' }}
-      />
-      <CompetitionStack.Screen
-        name="AchievementsScreen"
-        component={AchievementsScreen}
-        options={{ title: 'Bragder' }}
-      />
-    </CompetitionStack.Navigator>
-  );
-}
-
 const ProfileStack = createStackNavigator<ProfileParamList>();
 
 function ProfileNavigator() {
@@ -164,28 +140,52 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="ProfilePage"
         component={ProfilePage}
-        options={{ title: 'Profil' }}
+        options={{ title: 'Profil', headerTintColor: WHITE }}
       />
       <ProfileStack.Screen
         name="SettingPage"
         component={SettingPage}
-        options={{ title: 'Innstillinger' }}
+        options={{ title: 'Innstillinger', headerTintColor: WHITE }}
       />
       <ProfileStack.Screen
         name="SettingsAbout"
         component={SettingsAbout}
-        options={{ title: 'About' }}
+        options={{ title: 'About', headerTintColor: WHITE }}
       />
       <ProfileStack.Screen
         name="SettingsHelp"
         component={SettingsHelp}
-        options={{ title: 'Ofte stilte spørsmål' }}
+        options={{ title: 'Ofte stilte spørsmål', headerTintColor: WHITE }}
       />
       <ProfileStack.Screen
         name="SettingsPrivacy"
         component={SettingsPrivacy}
-        options={{ title: 'Personvern' }}
+        options={{ title: 'Personvern', headerTintColor: WHITE }}
       />
     </ProfileStack.Navigator>
+  );
+}
+
+const CompetitionStack = createStackNavigator<CompetitionParamList>();
+
+function CompetitionNavigator() {
+  return (
+    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <CompetitionStack.Screen
+        name="CompetitionPage"
+        component={CompetitionPage}
+        options={{ title: 'Konkurranse', headerTintColor: WHITE }}
+      />
+      <CompetitionStack.Screen
+        name="LeaderboardScreen"
+        component={LeaderboardScreen}
+        options={{ title: 'Toppliste', headerTintColor: WHITE }}
+      />
+      <CompetitionStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
+        options={{ title: 'Bragder', headerTintColor: WHITE }}
+      />
+    </CompetitionStack.Navigator>
   );
 }

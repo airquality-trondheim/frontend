@@ -2,12 +2,12 @@ import React from 'react';
 import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
-import { CLOSEBUTTON } from '../constants/Colors';
+import { INFOBUTTON } from '../constants/Colors';
 
 function InfoButton(props: TouchableOpacityProps) {
   return (
     <TouchableOpacity style={styles.infoButton} {...props}>
-      <FontAwesome name="info" size={24} color={CLOSEBUTTON} />
+      <FontAwesome name="info" size={24} color={INFOBUTTON} />
     </TouchableOpacity>
   );
 }
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 50,
-    borderColor: CLOSEBUTTON,
+    borderColor: INFOBUTTON,
     position: 'absolute',
     top: 0,
     right: 0,

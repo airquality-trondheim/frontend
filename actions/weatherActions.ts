@@ -1,16 +1,17 @@
 import { Dispatch } from 'redux';
 import { getWeatherDataForLocation } from '../queries/weather';
+import store from '../store';
 import { WeatherData } from '../types/_types';
 import { GET_WEATHER, RootAction } from './types';
 
-export async function getWeatherData(
-  latitude: number,
-  longitude: number,
-  dispatch: Dispatch<RootAction>,
-) {
+export async function getWeatherData(dispatch: Dispatch<RootAction>) {
+  const currentLocation = store.getState().locations.currentLocation;
+  if (currentLocation === null) {
+    return;
+  }
   const weatherData: WeatherData | null = await getWeatherDataForLocation(
-    latitude,
-    longitude,
+    currentLocation.latitude,
+    currentLocation.longitude,
   );
   if (weatherData === null) {
     return;

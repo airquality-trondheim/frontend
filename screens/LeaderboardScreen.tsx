@@ -12,12 +12,12 @@ import { Dispatch } from 'redux';
 import { RootAction } from '../actions/types';
 import { height, width } from '../constants/Layout';
 import {
-  BACKGROUNDCOLOR2,
   BLACK,
   DARKBLUE,
   DARKERBLUE,
-  GRAY,
+  LIGHTGRAY,
   LIGHTBLUE,
+  SEPERATOR,
   WHITE,
 } from '../constants/Colors';
 import { Auth } from 'aws-amplify';
@@ -47,7 +47,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
   let ranking = rankingBinary ? localLeaderboardData : leaderboardData;
 
   useEffect(() => {
-    fetchProfileData(userInformation?.sub);
+    fetchProfileData();
     fetchLeaderboardData();
     fetchLocalLeaderboardData(profile.homeArea);
     fetchUserRanking(userInformation?.sub);
@@ -60,10 +60,11 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     fetchProfileData,
     userInformation,
     profile.homeArea,
+    profile.points,
   ]);
 
   useEffect(() => {
-    fetchProfileData(userInformation?.sub);
+    fetchProfileData();
     fetchLocalLeaderboardData(profile?.homeArea);
     fetchLocalUserRanking(userInformation?.sub, profile?.homeArea);
   }, [
@@ -73,6 +74,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
     userInformation,
     rankingBinary,
     profile.homeArea,
+    profile.points,
   ]);
 
   const updateRankingBinary = (source: boolean) => {
@@ -93,8 +95,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
                 styles.seperatorStyle,
                 {
                   width: width * 0.25,
-                  backgroundColor:
-                    rankingBinary === false ? BACKGROUNDCOLOR2 : GRAY,
+                  backgroundColor: !rankingBinary ? SEPERATOR : LIGHTGRAY,
                 },
               ]}
             />
@@ -111,8 +112,7 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
                 styles.seperatorStyle,
                 {
                   width: width * 0.25,
-                  backgroundColor:
-                    rankingBinary === true ? BACKGROUNDCOLOR2 : GRAY,
+                  backgroundColor: rankingBinary ? SEPERATOR : LIGHTGRAY,
                 },
               ]}
             />
@@ -179,7 +179,12 @@ function LeaderboardCardWithModal(props: LeaderboardProps) {
       <View style={styles.userRankWrapper}>
         <View style={styles.userRankContainerStyle}>
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={styles.text}>
+            <Text               
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.8}
+              style={styles.text}
+            >
               Din plassering: {rankingBinary ? profile.homeArea : 'Trondheim'}
             </Text>
           </View>
@@ -210,8 +215,8 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
     fetchLocalUserRanking: (userID: string, area: string) => {
       getLocalUserRanking(userID, area, dispatch);
     },
-    fetchProfileData: (userID: string) => {
-      getProfileData(userID, dispatch);
+    fetchProfileData: () => {
+      getProfileData(dispatch);
     },
   };
 };
@@ -252,7 +257,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.75,
     height: width * 0.01,

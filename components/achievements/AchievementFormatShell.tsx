@@ -1,14 +1,10 @@
 import React from 'react';
+import { RootState } from '../../reducers';
+import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
-import { AchievementCardProps } from './AchievementCard';
 import { width } from '../../constants/Layout';
 import { ScrollView } from 'react-native-gesture-handler';
-import {
-  BACKGROUNDCOLOR2,
-  BACKGROUNDCOLOR3,
-  BLACK,
-  WHITE,
-} from '../../constants/Colors';
+import { SEPERATOR, BLACK } from '../../constants/Colors';
 import { AchievementFormat } from './AchievementFormat';
 import { AchievementCardElement } from '../../types/_types';
 
@@ -16,14 +12,17 @@ type accumulatorInterface = {
   [key: string]: AchievementCardElement[];
 };
 
-const AchievementFormatShell = (dataSet: AchievementCardProps) => {
+type AchievementProps = ReturnType<typeof mapStateToProps>;
+
+const AchievementFormatShell = (props: AchievementProps) => {
+  const { AchievementCardData } = props;
   let accumulator: accumulatorInterface = {};
 
   // Groups achievement data. Returns an object (dictionary) with group names as keys,
   // and lists with the correct elements as values.
   // a: currentElement
   // r: temporary dictionary
-  let groupDictionary = dataSet.AchievementCardData.reduce((r, a) => {
+  let groupDictionary = AchievementCardData.reduce((r, a) => {
     r[a.achievementGroup] = [...(r[a.achievementGroup] || []), a];
     return r;
   }, accumulator);
@@ -43,43 +42,55 @@ const AchievementFormatShell = (dataSet: AchievementCardProps) => {
   });
 
   return (
-    <View style={styles.outerView}>
-      <ScrollView contentContainerStyle={styles.scrollStyle}>
-        <Text style={styles.TextFormat}>Nylig oppnåde bragder</Text>
-        <View style={styles.recentStyle}>
-          {dataSet.AchievementCardData.slice(
-            0,
-            //only renders appropriate amount of cards if achieved amount is less than 3
-            dataSet.AchievementCardData.length < 3
-              ? dataSet.AchievementCardData.length
-              : 3,
-          ).map((data, index) => {
-            return AchievementFormat(data, index, data.date);
-          })}
-        </View>
-        {groupArray.map((achievements, index) => {
-          return (
-            <View key={index} style={styles.centerContent}>
-              <View style={styles.seperatorStyle} />
-              <View style={styles.centerContent}>
-                <Text style={styles.TextFormat}>
-                  {achievements[0].achievementGroup}
-                </Text>
-              </View>
-              <View style={styles.groupStyle}>
-                {achievements.map((data, index2) => {
-                  return AchievementFormat(data, index2, data.date);
-                })}
-              </View>
+    <ScrollView contentContainerStyle={styles.scrollStyle}>
+      {AchievementCardData[0]?.date ? (
+        <>
+          <Text style={styles.TextFormat}>Nylig oppnådde bragder</Text>
+          <View style={styles.recentStyle}>
+            <AchievementFormat data={AchievementCardData[0]} index={0} />
+            {AchievementCardData[1]?.date ? (
+              <AchievementFormat data={AchievementCardData[1]} index={1} />
+            ) : (
+              <></>
+            )}
+            {AchievementCardData[2]?.date ? (
+              <AchievementFormat data={AchievementCardData[2]} index={2} />
+            ) : (
+              <></>
+            )}
+          </View>
+        </>
+      ) : (
+        <></>
+      )}
+      {groupArray.map((achievements, index) => {
+        return (
+          <View key={index} style={styles.centerContent}>
+            <View style={styles.seperatorStyle} />
+            <View style={styles.centerContent}>
+              <Text style={styles.TextFormat}>
+                {achievements[0].achievementGroup}
+              </Text>
             </View>
-          );
-        })}
-      </ScrollView>
-    </View>
+            <View style={styles.groupStyle}>
+              {achievements.map((data, index2: number) => {
+                return AchievementFormat({ data, index: index2 });
+              })}
+            </View>
+          </View>
+        );
+      })}
+    </ScrollView>
   );
 };
 
-export { AchievementFormatShell };
+const mapStateToProps = (state: RootState) => {
+  return {
+    AchievementCardData: state.achievementcard.data,
+  };
+};
+
+export default connect(mapStateToProps)(AchievementFormatShell);
 
 const styles = StyleSheet.create({
   groupStyle: {
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.9,
     height: width * 0.01,
@@ -108,10 +119,10 @@ const styles = StyleSheet.create({
   },
 
   scrollStyle: {
-    backgroundColor: WHITE,
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    alignContent: 'center',
+    width: width,
   },
 
   TextFormat: {
@@ -119,11 +130,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     lineHeight: 50,
     color: BLACK,
-  },
-  outerView: {
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: width,
-    color: BACKGROUNDCOLOR3,
   },
 });

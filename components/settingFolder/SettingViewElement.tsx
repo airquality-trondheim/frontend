@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Auth } from 'aws-amplify';
-import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
+import { LIGHTGRAY, SECONDARY } from '../../constants/Colors';
 
 type SettingElementProps = {
   elementName: string;
@@ -77,7 +77,7 @@ const SettingElement = ({
         <Col size={3} style={styles.leftColPlacement}>
           {elementTrigger ? (
             <Switch
-              trackColor={{ false: LIGHTGRAY, true: LIGHTBLUE }}
+              trackColor={{ false: LIGHTGRAY, true: SECONDARY }}
               thumbColor="#f4f3f4"
               ios_backgroundColor={LIGHTGRAY}
               value={isEnabled}
@@ -87,7 +87,7 @@ const SettingElement = ({
               <MaterialIcons
                 name="keyboard-arrow-right"
                 size={40}
-                color={LIGHTBLUE}
+                color={SECONDARY}
               />
             </View>
           )}

@@ -25,10 +25,8 @@ function WeatherComponentSmall(props: WeatherProps) {
   }, []);
 
   useEffect(() => {
-    if (currentLocation) {
-      fetchWeatherData(currentLocation.latitude, currentLocation.longitude);
-    }
-  }, [fetchWeatherData, currentLocation]);
+    fetchWeatherData();
+  }, [fetchWeatherData, currentLocation?._id]);
 
   useEffect(() => {
     if (!unmounted.current) {
@@ -65,8 +63,8 @@ function WeatherComponentSmall(props: WeatherProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchWeatherData: (latitude: number, longitude: number) => {
-      getWeatherData(latitude, longitude, dispatch);
+    fetchWeatherData: () => {
+      getWeatherData(dispatch);
     },
   };
 };

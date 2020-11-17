@@ -3,11 +3,8 @@ import { PUT_HOMEAREA, RootAction } from './types';
 import { fetchUserProfile, pushUserArea } from '../queries/profile';
 import { GET_USERPROFILE } from './types';
 
-export async function getProfileData(
-  userID: string,
-  dispatch: Dispatch<RootAction>,
-) {
-  const newProfileData = await fetchUserProfile(userID);
+export async function getProfileData(dispatch: Dispatch<RootAction>) {
+  const newProfileData = await fetchUserProfile();
   dispatch({
     type: GET_USERPROFILE,
     userProfile: newProfileData,

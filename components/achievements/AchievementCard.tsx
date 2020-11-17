@@ -9,7 +9,7 @@ import { height, width } from '../../constants/Layout';
 import { RootState } from '../../reducers';
 import { CarouselItem } from '../CarouselItem';
 import { connect } from 'react-redux';
-import { BACKGROUNDCOLOR2, BLACK, GRAY } from '../../constants/Colors';
+import { SEPERATOR, BLACK, LIGHTGRAY } from '../../constants/Colors';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -44,7 +44,7 @@ const AchievementCard = (props: AchievementCardProps) => {
             <MaterialCommunityIcons
               name="trophy"
               size={50}
-              color={lastElement?.date === undefined ? GRAY : BLACK}
+              color={lastElement?.date === undefined ? LIGHTGRAY : BLACK}
             />
             {/*does the same for the achievement name*/}
             <Text style={[styles.textStyle, { marginVertical: height * 0.01 }]}>
@@ -67,10 +67,10 @@ const AchievementCard = (props: AchievementCardProps) => {
               size={50}
               color={
                 potentialElement === undefined
-                  ? GRAY
+                  ? LIGHTGRAY
                   : potentialElement?.date !== undefined
                   ? '#f33'
-                  : GRAY
+                  : LIGHTGRAY
               }
             />
             {/*does the same for the achievement name*/}
@@ -103,7 +103,6 @@ const mapStateToProps = (state: RootState) => {
 };
 
 export default connect(mapStateToProps, mapDistpatchToProps)(AchievementCard);
-export { AchievementCardProps };
 
 const styles = StyleSheet.create({
   centerContent: {
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
   },
 
   seperatorStyle: {
-    backgroundColor: BACKGROUNDCOLOR2,
+    backgroundColor: SEPERATOR,
     borderRadius: 20,
     width: width * 0.38,
     height: width * 0.01,
