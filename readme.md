@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Description](#Description)
-- ([Visuals](#Visuals))
 - [How to install and run the project](#How-to-install-and-run-the-project)
 - [The application](#The-application)
   - [Home screen](#Home-screen)
@@ -18,16 +17,12 @@
   - [Competition screen](#Competition-screen)
     - [Leaderboard screen](#Leaderboard-screen)
     - [Achievements screen](#Achievements-screen)
-- ([Support](#Support))
 - [Future work](#Future-work)
-- ([License](#License))
-- ([Project status](#Project-status))
+- [License](#License)
 
 ## Description
 
 This repo contains the frontend code of a project conducted in conjunction with the course _TDT4290 - Customer Driven Project_ the fall of 2020. The project was conducted by seven Computer Science students at NTNU in collaboration with Telenor, NTNU, and Trondheim municipality. The goal of the project was to make an engaging mobile application for distributing information about air quality in Trondheim municipality. The resulting app can be viewed with the Expo CLI app by following the instructions under [How to install and run the project](#How-to-install-and-run-the-project).
-
-## Visuals
 
 ## How to install and run the project
 
@@ -38,13 +33,13 @@ This repo contains the frontend code of a project conducted in conjunction with 
 
 ## The application
 
-The application consists of four main screens: _Home_, _Map_, _Profile_, and _Competition_, and eightsubscreens: _Weather_, _Air Quality_, _Settings_, _About_, _FAQ_, _Privacy Policy_, _Leaderboard_, and _Achievements_. The hierarchy of these screens and subscreens are shown in Figure 1, and the content of each of them will be explained in this section.
+The application consists of four main screens: _Home_, _Map_, _Profile_, and _Competition_, and eight subscreens: _Weather_, _Air Quality_, _Settings_, _About_, _FAQ_, _Privacy Policy_, _Leaderboard_, and _Achievements_. The hierarchy of these screens and subscreens are shown in Figure 1, and the content of each of them will be explained in this section.
 
 | ![The screens of the app](./assets/images/Screens.png)                                                                                                                                                                                                                                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | _Figure 1: The hierarchy of the screens and subscreens of the app. The screens closest to the vertical line are the main screens and in order to reach any other screen one has to navigate through one of these. E.g., if a user wants to navigate to the FAQ screen, the user has navigate from the profile screen, to the settings screen, and then to the FAQ screen._ |
 
-**Common for all screens:** All the pages of the app contains a header with the name of the pageand a tabbar for navigation on the bottom.
+**Common for all screens:** All the pages of the app contains a header with the name of the page and a tabbar for navigation on the bottom.
 
 **Common for all subscreens:** All subscreens include a back-button in the upper left corner of theirheader.
 
@@ -108,10 +103,16 @@ The leaderboard screen contains the possibility to toggle between two leaderboar
 
 The achievement screen shows the achievements the user has accomplished and can accomplish. The achievements that have been accomplished have a black trophy icon, while the achievements that can be accomplished have a gray trophy icon. All the achievements can be pressed, and will display a modal with more information about the achievement when pressed.
 
-## Support
-
 ## Future work
 
-## License
+The following is a list of functionalities that could be added to the application to make the application more engaging or more accessible to users:
 
-## Project status
+- **Groups:** The user should be able to create and join groups to compete with friends or colleagues.
+
+- **Geofencing:** The city should be divided into regions based on the air quality measurements from sensors in different locations in the city. The application should be able to detect when a user enters and leaves a region. Using geofencing, the user should get extra points in the competition for walking through regions with better air quality.
+
+- **Smart nudging:** A user gets notifications that are customized to its habits and attempt to change the behavior of the user, for instance, to walk to work instead of driving.
+
+- **Guest users:** Users should be able to use the application without creating an account and log in. Then the user can use the application to get the air quality information, but without the competition functionality present.
+
+## License
