@@ -18,7 +18,6 @@
     - [Leaderboard screen](#Leaderboard-screen)
     - [Achievements screen](#Achievements-screen)
 - [Future work](#Future-work)
-- [License](#License)
 
 ## Description
 
@@ -162,5 +161,3 @@ The following is a list of functionalities that could be added to the applicatio
 - **Smart nudging:** A user gets notifications that are customized to its habits and attempt to change the behavior of the user, for instance, to walk to work instead of driving.
 
 - **Guest users:** Users should be able to use the application without creating an account and log in. Then the user can use the application to get the air quality information, but without the competition functionality present.
-
-## License
