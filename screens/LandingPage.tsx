@@ -43,5 +43,7 @@ const styles = StyleSheet.create({
   screenStyle: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'space-evenly',
+    marginBottom: 90,
   },
 });

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet } from 'react-native';
 import { Grid, Row } from 'native-base';
-import { EXTRADARKGRAY } from '../constants/Colors';
+import { DARKGRAY } from '../constants/Colors';
 import SettingAboutElement from '../components/settingFolder/SettingAboutElement';
 
 function SettingsAbout() {
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     fontSize: 18,
-    color: EXTRADARKGRAY,
+    color: DARKGRAY,
   },
   aboutDesc: {
     marginLeft: 20,

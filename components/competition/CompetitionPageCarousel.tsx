@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { width, carouselHeight } from '../constants/Layout';
-import AchievementCard from './achievements/AchievementCard';
-import LeaderboardCardWithModal from './leaderboard/LeaderboardCard';
+import { width, carouselHeight } from '../../constants/Layout';
+import AchievementCard from '../achievements/AchievementCard';
+import LeaderboardCardWithModal from '../leaderboard/LeaderboardCard';
 
 function CompetitionPageCarousel() {
   return (

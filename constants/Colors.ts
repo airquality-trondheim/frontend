@@ -1,32 +1,30 @@
+export const BLACK = '#000';
+export const WHITE = '#fff';
+export const LIGHTGRAY = '#E1E1E1';
+export const GRAY = '#9D9D9D';
+export const DARKGRAY = '#5F5F5F';
+export const LIGHTBLUE = '#61ABCD';
+export const DARKBLUE = '#0278AC';
+export const DARKERBLUE = '#02689C';
+export const DARKRED = '#B53737';
+export const TRANSPARENT = '#ffffff00';
+
+export const PRIMARY = DARKBLUE;
+export const SECONDARY = LIGHTBLUE;
+
 export const DANGER4 = '#990099';
 export const DANGER3 = '#FF0000';
 export const DANGER2 = '#FFFF99';
 export const DANGER1 = '#6EE86E';
-export const BACKGROUNDCOLOR1 = '#0278ae';
-export const BACKGROUNDCOLOR2 = '#51adcf';
-export const BACKGROUNDCOLOR3 = '#a4ecd7';
-export const BACKGROUNDCOLOR4 = '#e8ffc1';
-export const CAROUSELITEM = '#fff';
-export const INFOCARD = '#e4ecf7';
-export const CLOSEBUTTON = '#61ABCD';
-export const BLACK = '#000';
-export const WHITE = '#fff';
-export const GRAY = '#E1E1E1';
-export const DARKGRAY = '#9D9D9D';
-export const EXTRADARKGRAY = '#5F5F5F';
-export const LIGHTBLUE = '#61ABCD';
-export const DARKBLUE = '#0278AC';
-export const DARKERBLUE = '#02689c';
-export const DARKRED = '#B53737';
-export const LIGHTGRAY = '#e1e1e1';
-export const LINK = '#2e78b7';
-export const ODDROWCOLOR = WHITE;
+export const SEPERATOR = SECONDARY;
+export const CAROUSELITEM = WHITE;
+export const INFOBUTTON = SECONDARY;
+export const STARTBUTTON = SECONDARY;
+export const STOPBUTTON = DARKRED;
+export const CLOSEBUTTON = SECONDARY;
+export const LINK = DARKBLUE;
 export const EVENROWCOLOR = '#f2f5f7';
-export const STOPBUTTON = '#b53737';
-export const STARTBUTTON = '#61abcd';
 export const WEATHERICON = '#8cc9ff';
-export const BOTTOMBORDER = '#E1E1E1';
-export const TRANSPARENT = '#ffffff00';
 
 export const aqiToColor: { [id: number]: string } = {
   1: DANGER1,

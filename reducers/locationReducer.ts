@@ -3,7 +3,7 @@ import {
   GET_LOCATIONS,
   GET_STATIONS,
   LocationsActionTypes,
-  POST_CURRENT_LOCATION,
+  PUT_CURRENT_LOCATION,
 } from '../actions/types';
 import { LocationState } from '../types/_types';
 
@@ -33,7 +33,7 @@ export default function (
         ...state,
         currentLocation: action.currentLocation,
       };
-    case POST_CURRENT_LOCATION:
+    case PUT_CURRENT_LOCATION:
       return {
         ...state,
         currentLocation: action.currentLocation,

@@ -2,16 +2,21 @@ import { Auth } from 'aws-amplify';
 import { LevelResponse, ProfileResponse, UserProfile } from '../types/_types';
 const endpoint = 'http://ec2-18-192-82-31.eu-central-1.compute.amazonaws.com/';
 
-export async function fetchUserProfile(userID: string): Promise<UserProfile> {
+export async function fetchUserProfile(): Promise<UserProfile> {
   try {
-    const response: Response = await fetch(endpoint + 'users/' + userID, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        accesstoken:
-          Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+    const userInformation =
+      Auth?.Credentials?.Auth?.user?.signInUserSession?.idToken?.payload;
+    const response: Response = await fetch(
+      endpoint + 'users/' + userInformation?.sub,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          accesstoken:
+            Auth.Credentials.Auth.user.signInUserSession.accessToken.jwtToken,
+        },
       },
-    });
+    );
     const profile: ProfileResponse = await response.json();
     const avatarResponse: Response = await fetch(
       endpoint + 'levels/' + profile.user.level,

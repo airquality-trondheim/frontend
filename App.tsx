@@ -3,7 +3,6 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 
-import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation';
 import store from './store';
 
@@ -19,20 +18,14 @@ Amplify.configure({
 });
 
 function App() {
-  const isLoadingComplete = useCachedResources();
-
-  if (!isLoadingComplete) {
-    return null;
-  } else {
-    return (
-      <Provider store={store}>
-        <SafeAreaProvider>
-          <Navigation />
-          <StatusBar />
-        </SafeAreaProvider>
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <Navigation />
+        <StatusBar />
+      </SafeAreaProvider>
+    </Provider>
+  );
 }
 
 export default withAuthenticator(App);

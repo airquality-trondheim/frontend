@@ -1,6 +1,6 @@
 import { DefaultTheme } from '@react-navigation/native';
 import { Dimensions } from 'react-native';
-import { DARKBLUE } from './Colors';
+import { PRIMARY } from './Colors';
 
 export const { width, height } = Dimensions.get('window');
 export const isSmallDevice = width < 375;
@@ -14,6 +14,6 @@ export const theme = {
     text: '#fff',
     background: '#FFFFFF',
     tabIconDefault: '#ccc',
-    card: DARKBLUE,
+    card: PRIMARY,
   },
 };

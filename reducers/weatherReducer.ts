@@ -1,4 +1,8 @@
-import { GET_WEATHER, WeatherActionTypes } from '../actions/types';
+import {
+  PUT_LAST_FETCHED,
+  GET_WEATHER,
+  WeatherActionTypes,
+} from '../actions/types';
 import { WeatherData } from '../types/_types';
 
 const initialState: WeatherData = {
@@ -17,6 +21,11 @@ export default function (
         ...state,
         today: action.today,
         tomorrow: action.tomorrow,
+        lastFetched: action.lastFetched,
+      };
+    case PUT_LAST_FETCHED:
+      return {
+        ...state,
         lastFetched: action.lastFetched,
       };
     default:

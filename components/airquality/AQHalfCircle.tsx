@@ -9,7 +9,7 @@ import {
   DANGER1,
   TRANSPARENT,
   WHITE,
-  DARKGRAY,
+  GRAY,
 } from '../../constants/Colors';
 import CircleSection from './CircleSection';
 
@@ -40,7 +40,7 @@ function AQHalfCircle(props: {
               cy={center.y}
               r={6}
               fill={WHITE}
-              stroke={DARKGRAY}
+              stroke={GRAY}
               strokeWidth={1.5}
             />
           )}

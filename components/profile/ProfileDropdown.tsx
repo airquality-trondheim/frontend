@@ -1,21 +1,14 @@
 import { Fontisto } from '@expo/vector-icons';
-import { Auth } from 'aws-amplify';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { getLocations } from '../actions/locationsActions';
-import { getProfileData, putHomeArea } from '../actions/profileActions';
-import { RootAction } from '../actions/types';
-import {
-  BACKGROUNDCOLOR2,
-  BLACK,
-  CAROUSELITEM,
-  DARKGRAY,
-} from '../constants/Colors';
-import { height, width } from '../constants/Layout';
-import { RootState } from '../reducers';
+import { putHomeArea } from '../../actions/profileActions';
+import { RootAction } from '../../actions/types';
+import { SECONDARY, BLACK, CAROUSELITEM, GRAY } from '../../constants/Colors';
+import { height, width } from '../../constants/Layout';
+import { RootState } from '../../reducers';
 
 type DropdownListItem = {
   label: string;
@@ -27,13 +20,7 @@ type LocationDropdownProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 function ProfileDropdown(props: LocationDropdownProps) {
-  const {
-    fetchLocations,
-    fetchUserProfile,
-    pushHomeArea,
-    locations,
-    userProfile,
-  } = props;
+  const { pushHomeArea, locations, userProfile } = props;
   const [locationList, setLocationList] = useState<DropdownListItem[]>([]);
   const unmounted = useRef(false);
 
@@ -46,13 +33,6 @@ function ProfileDropdown(props: LocationDropdownProps) {
   }, []);
 
   useEffect(() => {
-    fetchLocations();
-    fetchUserProfile(
-      Auth.Credentials.Auth.user.signInUserSession.idToken.payload.sub,
-    );
-  }, [fetchLocations, fetchUserProfile]);
-
-  useEffect(() => {
     let locList: DropdownListItem[] = [];
     for (let location of locations) {
       locList.push({
@@ -63,7 +43,7 @@ function ProfileDropdown(props: LocationDropdownProps) {
             <Fontisto
               name="direction-sign"
               size={20}
-              color={BACKGROUNDCOLOR2}
+              color={SECONDARY}
               style={{ marginRight: width * 0.007 }}
             />
           );
@@ -122,12 +102,6 @@ function ProfileDropdown(props: LocationDropdownProps) {
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) => {
   return {
-    fetchLocations: () => {
-      getLocations(dispatch);
-    },
-    fetchUserProfile: (userID: string) => {
-      getProfileData(userID, dispatch);
-    },
     pushHomeArea: (area: string) => {
       putHomeArea(area, dispatch);
     },
@@ -154,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   pickerSelectedItem: {
-    color: DARKGRAY,
+    color: GRAY,
   },
   pickerLabel: {
     color: BLACK,
@@ -170,14 +144,14 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: width * 0.05,
     borderWidth: width * 0.01,
     borderTopWidth: 0,
-    borderColor: BACKGROUNDCOLOR2,
+    borderColor: SECONDARY,
   },
   picker: {
     backgroundColor: CAROUSELITEM,
     borderTopLeftRadius: width * 0.05,
     borderTopRightRadius: width * 0.05,
     borderWidth: width * 0.01,
-    borderColor: BACKGROUNDCOLOR2,
+    borderColor: SECONDARY,
     height: height * 0.05,
   },
   selectedElement: {},

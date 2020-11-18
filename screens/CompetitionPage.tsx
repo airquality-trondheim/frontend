@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import CompetitionPageCarousel from '../components/CompetitionPageCarousel';
-import ProgressCircle from '../components/ProgressCircle';
-import CompetitionInfo from '../components/CompetitionInfo';
+import CompetitionPageCarousel from '../components/competition/CompetitionPageCarousel';
+import ProgressCircle from '../components/competition/ProgressCircle';
+import CompetitionInfo from '../components/competition/CompetitionInfo';
 
 function CompetitionPage() {
   return (
