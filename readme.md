@@ -164,3 +164,11 @@ The following is a list of functionalities that could be added to the applicatio
 - **Guest users:** Users should be able to use the application without creating an account and log in. Then the user can use the application to get the air quality information, but without the competition functionality present.
 
 ## License
+
+This repository has no given license and thus the default copyright laws apply, as stated in [Licensing a repository](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/licensing-a-repository) in the GitHub Docs. As of 19.11.2020 the following is stated there:
+
+> (...) without a license, the default copyright laws apply, meaning that you retain all rights to your source code and no one may reproduce, distribute, or create derivative works from your work.
+
+Furthermore, it also states the following:
+
+> Note: If you publish your source code in a public repository on GitHub, according to the [Terms of Service](https://docs.github.com/en/free-pro-team@latest/github/site-policy/github-terms-of-service), other GitHub users have the right to view and fork your repository within the GitHub site. If you have already created a public repository and no longer want users to have access to it, you can make your repository private. When you convert a public repository to a private repository, existing forks or local copies created by other users will still exist.
