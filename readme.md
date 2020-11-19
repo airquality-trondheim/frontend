@@ -101,7 +101,7 @@ The profile page also contains a button with the text \textit{Instillinger} (i.e
 | ----------------------------------------------------------------------------------- |
 | _Figure 8: The settings screen of the app._                                         |
 
-The settings screen contains the possibility to toggle push notifications and to navigate to the informative screens [About screen](#About-screen), [FAQ screen](#FAQ-screen), and [Privacy policy screen](#Privacy-Policy-screen).
+The settings screen contains the possibility to toggle push notifications and to navigate to the informative screens [About screen](#About-screen), [FAQ screen](#FAQ-screen), and [Privacy policy screen](#Privacy-Policy-screen). The final implementation of push notifications are located in the unmerged branch ```push_notifications```. The merge of this branch was postponed due to uncertainty regarding Expo's push notification system in a production environment, as it might require a verified Expo developer account to work.
 
 ##### **About screen**
 
