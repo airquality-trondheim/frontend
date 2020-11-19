@@ -98,7 +98,7 @@ const HomeStack = createStackNavigator<HomeParamList>();
 
 export function HomeNavigator() {
   return (
-    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
+    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <HomeStack.Screen
         name="LandingPage"
         component={LandingPage}
