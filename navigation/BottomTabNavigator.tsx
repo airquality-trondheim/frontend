@@ -1,70 +1,191 @@
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
-
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import CompetitionPage from '../screens/CompetitionPage';
 import LandingPage from '../screens/LandingPage';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, HomeParamList, TabTwoParamList } from '../types';
+import {
+  BottomTabParamList,
+  CompetitionParamList,
+  ProfileParamList,
+  HomeParamList,
+  MapParamList,
+} from '../types/_types';
+import WeatherScreen from '../screens/WeatherScreen';
+import MapPage from '../screens/MapPage';
+import ProfilePage from '../screens/ProfilePage';
+import SettingPage from '../screens/SettingPage';
+import SettingsAbout from '../screens/SettingsAbout';
+import SettingsHelp from '../screens/SettingsHelp';
+import SettingsPrivacy from '../screens/SettingsPrivacy';
+import { WHITE } from '../constants/Colors';
+import LeaderboardScreen from '../screens/LeaderboardScreen';
+import AchievementsScreen from '../screens/AchievementsScreen';
+import AirQualityScreen from '../screens/AirQualityScreen';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-function createTabBarIcon(name: string, color: string) {
-  return <TabBarIcon name={name} color={color} />;
+// You can explore the built-in icon families and icons on the web at:
+// https://icons.expo.fyi/
+function TabBarIcon(props: { name: string; color: string; size?: number }) {
+  return (
+    <FontAwesome
+      size={props.size ? props.size : 30}
+      style={{ marginBottom: -3 }}
+      name={props.name}
+      color={props.color}
+    />
+  );
+}
+
+function createTabBarIcon(name: string, color: string, size?: number) {
+  return <TabBarIcon name={name} color={color} size={size} />;
 }
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}
+      tabBarOptions={{
+        activeTintColor: WHITE,
+        style: { minHeight: 55 },
+        labelStyle: { marginBottom: 3 },
+        keyboardHidesTabBar: true,
+      }}
     >
       <BottomTab.Screen
         name="Home"
         component={HomeNavigator}
         options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('md-home', color),
+          tabBarIcon: ({ color }) => createTabBarIcon('home', color),
+          tabBarLabel: 'Hjem',
         }}
       />
+
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Map"
+        component={MapNavigator}
         options={{
-          tabBarIcon: ({ color }) => createTabBarIcon('ios-code', color),
+          tabBarIcon: ({ color }) => createTabBarIcon('map', color, 22),
+          tabBarLabel: 'Kart',
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('user', color),
+          tabBarLabel: 'Profil',
+        }}
+      />
+
+      <BottomTab.Screen
+        name="Competition"
+        component={CompetitionNavigator}
+        options={{
+          tabBarIcon: ({ color }) => createTabBarIcon('trophy', color),
+          tabBarLabel: 'Konkurranse',
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props: { name: string; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const HomeStack = createStackNavigator<HomeParamList>();
 
-function HomeNavigator() {
+export function HomeNavigator() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="LandingPage" component={LandingPage} />
+    <HomeStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <HomeStack.Screen
+        name="LandingPage"
+        component={LandingPage}
+        options={{ title: 'Hjem', headerTintColor: WHITE }}
+      />
+      <HomeStack.Screen
+        name="WeatherScreen"
+        component={WeatherScreen}
+        options={{ title: 'Vær', headerTintColor: WHITE }}
+      />
+      <HomeStack.Screen
+        name="AirQualityScreen"
+        component={AirQualityScreen}
+        options={{ title: 'Luftkvalitet', headerTintColor: WHITE }}
+      />
     </HomeStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const MapStack = createStackNavigator<MapParamList>();
 
-function TabTwoNavigator() {
+function MapNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} />
-    </TabTwoStack.Navigator>
+    <MapStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <MapStack.Screen
+        name="MapPage"
+        component={MapPage}
+        options={{ title: 'Kart' }}
+      />
+    </MapStack.Navigator>
+  );
+}
+
+const ProfileStack = createStackNavigator<ProfileParamList>();
+
+function ProfileNavigator() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <ProfileStack.Screen
+        name="ProfilePage"
+        component={ProfilePage}
+        options={{ title: 'Profil', headerTintColor: WHITE }}
+      />
+      <ProfileStack.Screen
+        name="SettingPage"
+        component={SettingPage}
+        options={{ title: 'Innstillinger', headerTintColor: WHITE }}
+      />
+      <ProfileStack.Screen
+        name="SettingsAbout"
+        component={SettingsAbout}
+        options={{ title: 'About', headerTintColor: WHITE }}
+      />
+      <ProfileStack.Screen
+        name="SettingsHelp"
+        component={SettingsHelp}
+        options={{ title: 'Ofte stilte spørsmål', headerTintColor: WHITE }}
+      />
+      <ProfileStack.Screen
+        name="SettingsPrivacy"
+        component={SettingsPrivacy}
+        options={{ title: 'Personvern', headerTintColor: WHITE }}
+      />
+    </ProfileStack.Navigator>
+  );
+}
+
+const CompetitionStack = createStackNavigator<CompetitionParamList>();
+
+function CompetitionNavigator() {
+  return (
+    <CompetitionStack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <CompetitionStack.Screen
+        name="CompetitionPage"
+        component={CompetitionPage}
+        options={{ title: 'Konkurranse', headerTintColor: WHITE }}
+      />
+      <CompetitionStack.Screen
+        name="LeaderboardScreen"
+        component={LeaderboardScreen}
+        options={{ title: 'Toppliste', headerTintColor: WHITE }}
+      />
+      <CompetitionStack.Screen
+        name="AchievementsScreen"
+        component={AchievementsScreen}
+        options={{ title: 'Bragder', headerTintColor: WHITE }}
+      />
+    </CompetitionStack.Navigator>
   );
 }

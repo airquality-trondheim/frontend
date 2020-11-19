@@ -1,27 +1,36 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet, Text } from 'react-native';
-import { width } from '../constants/Layout';
+import AQCard from './airquality/AirQualityCard';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CarouselItem } from './CarouselItem';
+import { height, width } from '../constants/Layout';
+import { useNavigation } from '@react-navigation/native';
+import WeatherCarousel from './weather/WeatherMain';
 
-function LandingPageCarousel() {
+export default function LandingPageCarousel() {
+  const navigation = useNavigation();
   return (
     <View style={styles.carouselContainerStyle}>
-      <ScrollView horizontal>
-        <CarouselItem leftMostItem headerText="Vær">
-          <Text>Dette er været</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('WeatherScreen')}>
+        <CarouselItem headerText="Vær">
+          <WeatherCarousel />
         </CarouselItem>
-        <CarouselItem headerText="Luft"></CarouselItem>
-        <CarouselItem rightMostItem headerText="Pollen"></CarouselItem>
-      </ScrollView>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('AirQualityScreen')}>
+        <CarouselItem headerText="Luft">
+          <AQCard />
+        </CarouselItem>
+      </TouchableOpacity>
     </View>
   );
 }
 
-export default LandingPageCarousel;
-
 const styles = StyleSheet.create({
   carouselContainerStyle: {
-    height: 205,
+    height: height * 0.3,
     width: width,
+    justifyContent: 'space-evenly',
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 0,
   },
 });

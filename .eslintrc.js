@@ -19,19 +19,15 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'react-native'],
   rules: {
-    'no-shadow': 'warn',
+    'no-shadow': 'off',
     'no-fallthrough': 'error',
     'max-len': ['error', { code: 120 }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-shadow': ['error'],
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/consistent-type-definitions': [1, 'type'],
-    'react-native/no-raw-text': [
-      2,
-      {
-        skip: ['MonoText'],
-      },
-    ],
+    'react-native/no-raw-text': 2,
     'react-native/no-single-element-style-arrays': 1,
     'react-native/no-unused-styles': 1,
     'react-native/no-color-literals': 1,

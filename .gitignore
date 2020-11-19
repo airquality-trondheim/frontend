@@ -8,7 +8,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-package-lock.json
+coverage/**/*
 
 # macOS
 .DS_Store
@@ -22,7 +22,6 @@ amplify/backend/awscloudformation
 build/
 dist/
 node_modules/
-aws-exports.js
 awsconfiguration.json
 amplifyconfiguration.json
 amplify-build-config.json

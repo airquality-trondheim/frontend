@@ -1,8 +1,8 @@
 import { Grid, Row } from 'native-base';
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { CAROUSELITEM } from '../constants/Colors';
-import { singleSideMargin, width } from '../constants/Layout';
+import { BLACK, CAROUSELITEM } from '../constants/Colors';
+import { singleSideMargin, width, carouselHeight } from '../constants/Layout';
 
 type CarouselItemType = {
   leftMostItem?: boolean;
@@ -33,7 +33,7 @@ const CarouselItem = ({
             <Text style={styles.headlineText}>{headerText}</Text>
           </View>
         </Row>
-        <Row size={3}>
+        <Row size={6}>
           <View style={styles.centerContent}>{children}</View>
         </Row>
       </Grid>
@@ -46,12 +46,20 @@ export { CarouselItem };
 const styles = StyleSheet.create({
   containerStyle: {
     backgroundColor: CAROUSELITEM,
-    width: 0.5 * width,
-    height: 200,
+    width: 0.43 * width,
+    height: carouselHeight,
     borderRadius: 20,
-    overflow: 'hidden',
-    marginLeft: 5,
-    marginRight: 5,
+    // overflow: 'hidden',
+    margin: 5,
+    elevation: 5,
+    shadowColor: BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    marginBottom: 10,
   },
   centerContent: {
     justifyContent: 'center',
