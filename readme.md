@@ -93,7 +93,7 @@ The map screen also contains an info-button and a start-button. By pressing the 
 
 The profile screen displays information about the user and gives the user the opportunity to chose which neighbourhood the user wants to be part of through a dropdown. Changing the location given in the dropdown will update what neighbourhood the user belongs to and which leaderboard will be shown under _Nabolaget_ (i.e., the neighborhood) on the leaderboard screen (see [Leaderboard screen](#Leaderboard-screen)).
 
-The profile page also contains a button with the text \textit{Instillinger} (i.e., settings) which navigates the user to the settings screen (see [Settings screen](#Settings-screen)), and a button with the text _Logg ut_ (i.e., log out) which will log the user out.
+The profile page also contains a button with the text _Instillinger_ (i.e., settings) which navigates the user to the settings screen (see [Settings screen](#Settings-screen)), and a button with the text _Logg ut_ (i.e., log out) which will log the user out.
 
 #### Settings screen
 
@@ -101,7 +101,7 @@ The profile page also contains a button with the text \textit{Instillinger} (i.e
 | ----------------------------------------------------------------------------------- |
 | _Figure 8: The settings screen of the app._                                         |
 
-The settings screen contains the possibility to toggle push notifications and to navigate to the informative screens [About screen](#About-screen), [FAQ screen](#FAQ-screen), and [Privacy policy screen](#Privacy-Policy-screen). The final implementation of push notifications are located in the unmerged branch ```push_notifications```. The merge of this branch was postponed due to uncertainty regarding Expo's push notification system in a production environment, as it might require a verified Expo developer account to work.
+The settings screen contains the possibility to toggle push notifications and to navigate to the informative screens [About screen](#About-screen), [FAQ screen](#FAQ-screen), and [Privacy policy screen](#Privacy-Policy-screen). The final implementation of push notifications are located in the unmerged branch `push_notifications`. The merge of this branch was postponed due to uncertainty regarding Expo's push notification system in a production environment, as it might require a verified Expo developer account to work.
 
 ##### **About screen**
 
