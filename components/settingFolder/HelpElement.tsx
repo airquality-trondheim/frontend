@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { Text, Grid, Row, Col } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
-import { LIGHTBLUE, LIGHTGRAY } from '../../constants/Colors';
+import { LIGHTGRAY, SECONDARY } from '../../constants/Colors';
 
 type HelpElementType = {
   question: string;
@@ -36,7 +36,7 @@ const HelpElement = ({ question, answer }: HelpElementType) => {
             <MaterialIcons
               name={showAnswer ? 'keyboard-arrow-down' : 'keyboard-arrow-up'}
               size={40}
-              color={LIGHTBLUE}
+              color={SECONDARY}
             />
           </TouchableOpacity>
         </Col>

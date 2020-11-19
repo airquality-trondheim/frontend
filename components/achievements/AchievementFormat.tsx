@@ -3,23 +3,23 @@ import { Row, Text } from 'native-base';
 import React, { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity } from 'react-native';
-import { BLACK, EVENROWCOLOR, GRAY } from '../../constants/Colors';
+import { BLACK, EVENROWCOLOR, LIGHTGRAY } from '../../constants/Colors';
 import { height, width } from '../../constants/Layout';
 import { AchievementCardElement } from '../../types/_types';
 import CloseButton from '../CloseButton';
 
-const AchievementFormat = (
-  data: AchievementCardElement,
-  index: number,
-  date?: Date,
-) => {
+const AchievementFormat = (props: {
+  data: AchievementCardElement;
+  index: number;
+}) => {
+  const { data, index } = props;
   const [modVisible, setModVisible] = useState(false);
   const unmounted = useRef(false);
 
   const [colour, achievedText] =
-    date === undefined
-      ? [GRAY, 'Ikke oppnåd ennå']
-      : [BLACK, String(date).substring(0, 10)];
+    data.date === undefined
+      ? [LIGHTGRAY, 'Ikke oppnåd ennå']
+      : [BLACK, String(data.date).substring(0, 10)];
 
   useEffect(() => {
     return () => {
@@ -58,7 +58,7 @@ const AchievementFormat = (
                   size={240}
                   color={colour}
                 />
-                <Text style={styles.centerText}>Oppnåd: {achievedText}</Text>
+                <Text style={styles.centerText}>Oppnådd: {achievedText}</Text>
                 <Text style={styles.centerText}>
                   {data.achievementDescription}
                 </Text>

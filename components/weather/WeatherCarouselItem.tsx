@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, Image, View } from 'react-native';
-import { BOTTOMBORDER } from '../../constants/Colors';
+import { LIGHTGRAY } from '../../constants/Colors';
 import { WeatherElement } from '../../types/_types';
 
 function WeatherCarouselItem({ weather }: { weather: WeatherElement }) {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   clockHeader: {
     borderBottomWidth: 2,
-    borderBottomColor: BOTTOMBORDER,
+    borderBottomColor: LIGHTGRAY,
     alignItems: 'center',
     width: '100%',
   },

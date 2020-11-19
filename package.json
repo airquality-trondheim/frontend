@@ -26,7 +26,19 @@
     "transform": {
       "\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js",
       "^.+\\.(js|ts|tsx)$": "babel-jest"
-    }
+    },
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/types/**",
+      "!**/assets/**",
+      "!**/hooks/**",
+      "!**/constants/**",
+      "!**/utils/**",
+      "!**/aws-exports.d.ts"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",

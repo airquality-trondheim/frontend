@@ -3,10 +3,11 @@ import { Dispatch } from 'redux';
 import { fetchLocations, fetchStations } from '../queries/locations';
 import store from '../store';
 import {
+  PUT_LAST_FETCHED,
   GET_CURRENT_LOCATION,
   GET_LOCATIONS,
   GET_STATIONS,
-  POST_CURRENT_LOCATION,
+  PUT_CURRENT_LOCATION,
   RootAction,
 } from './types';
 import { Location } from '../types/_types';
@@ -54,14 +55,18 @@ export async function getCurrentLocation(dispatch: Dispatch<RootAction>) {
   });
 }
 
-export async function postCurrentLocation(
+export async function putCurrentLocation(
   location: Location,
   dispatch: Dispatch<RootAction>,
 ) {
   storeData(location, 'currentStation');
   dispatch({
-    type: POST_CURRENT_LOCATION,
+    type: PUT_CURRENT_LOCATION,
     currentLocation: location,
+  });
+  dispatch({
+    type: PUT_LAST_FETCHED,
+    lastFetched: new Date(0),
   });
 }
 

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     width: 0.43 * width,
     height: carouselHeight,
     borderRadius: 20,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     margin: 5,
     elevation: 5,
     shadowColor: BLACK,

@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AQLineChart from './AQLineChart';
 import { height, width } from '../../constants/Layout';
-import { LIGHTBLUE } from '../../constants/Colors';
-import { AQIData } from '../../types/_types';
+import { SECONDARY } from '../../constants/Colors';
 
 export const YAxis = () => {
   return (
@@ -21,16 +20,20 @@ export const YAxis = () => {
 export default function AirQChart(props: {
   name: string;
   nameNumber: string;
-  AQ: AQIData;
+  AQ: 'AQI' | 'PM10_AQI' | 'PM25_AQI' | 'NO2_AQI';
 }) {
   const [today, setToday] = useState(true);
-  const [data, setData] = useState(props.AQ.todayData);
+  const unmounted = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      unmounted.current = true;
+    };
+  }, []);
+
   function switchDay() {
-    setToday(!today);
-    if (!today) {
-      setData(props.AQ.todayData);
-    } else {
-      setData(props.AQ.tomorrowData);
+    if (!unmounted.current) {
+      setToday(!today);
     }
   }
 
@@ -57,7 +60,7 @@ export default function AirQChart(props: {
       <View style={styles.chartContainer}>
         <YAxis />
         <ScrollView style={styles.chart} horizontal>
-          <AQLineChart {...{ data }} />
+          <AQLineChart AQ={props.AQ} today={today} />
         </ScrollView>
       </View>
     </View>
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
     width: width,
   },
   barYAxis: {
-    backgroundColor: LIGHTBLUE,
+    backgroundColor: SECONDARY,
     width: 30,
     height: height * 0.3,
     justifyContent: 'space-evenly',
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     width: width * 0.25,
-    color: LIGHTBLUE,
+    color: SECONDARY,
     borderBottomWidth: 2,
   },
   buttonContainer: {

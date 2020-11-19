@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { Row, View } from 'native-base';
-import { DARKGRAY } from '../../constants/Colors';
 
 type settingAboutType = {
   aboutHeader: string;

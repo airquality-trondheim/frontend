@@ -65,6 +65,7 @@ export type UserProfileActionTypes = GetUserProfileAction | PutHomeAreaAction;
 
 // Weather
 export const GET_WEATHER = 'GET_WEATHER';
+export const PUT_LAST_FETCHED = 'PUT_LAST_FETCHED';
 
 type GetWeatherAction = {
   type: typeof GET_WEATHER;
@@ -73,7 +74,12 @@ type GetWeatherAction = {
   lastFetched: Date;
 };
 
-export type WeatherActionTypes = GetWeatherAction;
+type PutLastFetched = {
+  type: typeof PUT_LAST_FETCHED;
+  lastFetched: Date;
+};
+
+export type WeatherActionTypes = GetWeatherAction | PutLastFetched;
 
 // Leaderboard
 export const GET_LEADERBOARD = 'GET_LEADERBOARD';
@@ -121,7 +127,7 @@ export type MapActionTypes = GetAirQualityDataAction;
 export const GET_STATIONS = 'GET_STATIONS';
 export const GET_LOCATIONS = 'GET_LOCATIONS';
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION';
-export const POST_CURRENT_LOCATION = 'POST_CURRENT_LOCATION';
+export const PUT_CURRENT_LOCATION = 'PUT_CURRENT_LOCATION';
 
 type GetStationsAction = {
   type: typeof GET_STATIONS;
@@ -138,8 +144,8 @@ type GetCurrentLocation = {
   currentLocation: Location;
 };
 
-type PostCurrentLocation = {
-  type: typeof POST_CURRENT_LOCATION;
+type PutCurrentLocation = {
+  type: typeof PUT_CURRENT_LOCATION;
   currentLocation: Location;
 };
 
@@ -147,4 +153,4 @@ export type LocationsActionTypes =
   | GetStationsAction
   | GetLocationsAction
   | GetCurrentLocation
-  | PostCurrentLocation;
+  | PutCurrentLocation;

@@ -39,7 +39,6 @@ export async function getWeatherDataForLocation(
     const forecastToday: WeatherElement[] = [];
     const forecastTomorrow: WeatherElement[] = [];
     let res = await axios.get(getUrl(latitude, longitude), { headers });
-    console.log(res.headers['last-modified']);
     const updatedLastFetched = new Date(res.headers['last-modified']);
     const currentDate = new Date().getUTCDate();
     const tomorrow = new Date();
@@ -69,7 +68,6 @@ export async function getWeatherDataForLocation(
       lastFetched: updatedLastFetched,
     };
   } catch (error) {
-    console.log(error.response['status']);
     return null;
   }
 }
